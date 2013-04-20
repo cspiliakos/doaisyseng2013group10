@@ -3,6 +3,7 @@ import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -13,8 +14,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
 import java.awt.FlowLayout;
@@ -31,7 +34,7 @@ public class Start_Frame extends JFrame{
 	private BackgroundPanel back;
 	private JPanel quitPanel, helpPanel;
 	private JButton quit, cont;
-	private JLabel title;
+	private JLabel title, backlbl;
 	@SuppressWarnings("rawtypes")
 	private JComboBox comboBox;
 	private Clip clip;
@@ -52,18 +55,32 @@ public class Start_Frame extends JFrame{
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Start_Frame(){  
+		
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		double fwidth = screenSize.getWidth();
+		double fheight = screenSize.getHeight();
+		int iwidth = (int)fwidth;
+		int iheight = (int)fheight;
+		
+		
+		
 		try {
 			background = ImageIO.read(new File("start.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		
+		
+		
 		setUndecorated(true);
 		
 		back = new BackgroundPanel(background);
 		back.setTransparentAdd(true);
 		setContentPane(back);
 		back.setLayout(new BorderLayout(5, 5));
+		
+		
 		
 		try{
 			audio = AudioSystem.getAudioInputStream(new File("battle_theme.wav").getAbsoluteFile());
@@ -129,5 +146,10 @@ public class Start_Frame extends JFrame{
 		});
 		quitPanel.add(quit);
 		back.add(quitPanel, BorderLayout.SOUTH);
+		
+		
+		
+	
+		
 	}
 }

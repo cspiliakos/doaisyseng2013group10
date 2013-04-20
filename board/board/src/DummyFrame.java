@@ -9,10 +9,12 @@ public class DummyFrame extends JFrame{
 	
 
 	private JButton selectBt;
+	private JButton duelBt;
 	private JPanel panel;
 	private PuzzleList puzzles;
 	private Random r;
 	private myButtonListener btl;
+	private duelListener dl;
 	
 	public DummyFrame(){
 		
@@ -22,8 +24,15 @@ public class DummyFrame extends JFrame{
 		selectBt=new JButton("Next Puzzle");
 		panel.add(selectBt);
 		
+		
+		duelBt=new JButton("Duel");
+		panel.add(duelBt);
+		
 		btl =new myButtonListener();
 		selectBt.addActionListener(btl);
+		
+		dl=new duelListener();
+		duelBt.addActionListener(dl);
 		
 		r=new Random(System.currentTimeMillis());
 		
@@ -63,5 +72,13 @@ public class DummyFrame extends JFrame{
 		getPuzzle();
 		
 		}
+	}
+	
+	class duelListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			new DuelBoardFrame(new User("unknown"));
+			
+		}
+		
 	}
 }

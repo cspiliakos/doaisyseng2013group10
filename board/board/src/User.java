@@ -1,4 +1,5 @@
 import java.awt.Image;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
@@ -11,6 +12,10 @@ public class User {
 	//points to upgrade skills
 	private ImageIcon charImage;
 	
+	private int coins;
+	private ArrayList<Weapons> weapons;
+	private Weapons currWeapon;
+	
 	public User(String name) 
 	{
 		super();
@@ -20,8 +25,40 @@ public class User {
 		this.health = 100;
 		this.skillpoints=10;
 		this.charImage=null;
+		
+		//from user class of duel board
+		coins = 100000;
+		//just for checking 
+		weapons =new ArrayList<Weapons>();
+		weapons.add(new Sword());
 	}
 
+	
+	
+	
+	
+
+
+	public int getCoins() {
+		return coins;
+	}
+
+	public void setCoins(int coins) {
+		this.coins = coins;
+	}
+
+	public ArrayList<Weapons> getWeapons() {
+		return weapons;
+	}
+
+	public void setWeapons(ArrayList<Weapons> weapons) {
+		this.weapons = weapons;
+	}
+
+	public void addWeapons(Weapons currWeapon){
+		weapons.add(currWeapon);
+	}
+	
 	public ImageIcon getCharImage() {
 		return charImage;
 	}

@@ -356,7 +356,7 @@ public class MemoryGameFrame extends JFrame {
 
 						CloseOpenedLabel(cd);
 						CloseOpenedLabel(conn_label);
-						JOptionPane.showMessageDialog(null, "Wrong");
+					//	JOptionPane.showMessageDialog(null, "Wrong");
 					}
 				},  delay_secs* 1000, period*1000);
 
@@ -377,7 +377,6 @@ public class MemoryGameFrame extends JFrame {
 			//User Picked Exit Button
 			if(e.getSource()==exit_btn){
 				System.exit(EXIT_ON_CLOSE);
-				System.out.println("dsad");
 			}
 
 			//User Picked Label 1
@@ -480,7 +479,7 @@ public class MemoryGameFrame extends JFrame {
 			}
 			if(correct==8){
 				JOptionPane.showMessageDialog(null, "Congatulations");
-				System.exit(EXIT_ON_CLOSE);
+				//RETURN XP & COINS
 			}
 		}
 

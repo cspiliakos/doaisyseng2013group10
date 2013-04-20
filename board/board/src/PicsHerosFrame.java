@@ -1,6 +1,8 @@
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -30,11 +32,17 @@ public class PicsHerosFrame extends JFrame{
 	public PicsHerosFrame(PicsHerosHeroManager heroManager){
 		super("3 photos 1 Hero");
 		
+		//Getting Dimensions
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		double width = screenSize.getWidth();
+		double height = screenSize.getHeight();
+		System.out.println("Width is: "+width +" and height is: "+height);
+		
 		this.heroManager=heroManager;
 		heroManager.createHeroList();
 		//dhmiourgoume prwta thn lista hrwwn
 		
-		this.setSize(900, 680);
+		//this.setSize(900, 680);
 		//mpainei prin ta setBounds gia na doulepsei to this
 		
 		setBounds(100, 100,this.getWidth(), this.getHeight());
@@ -44,29 +52,33 @@ public class PicsHerosFrame extends JFrame{
 		mainPanel.setLayout(null);
 			
 		anyHero = this.heroManager.getHero();
-				
-		photo1=new JLabel();
-		photo1.setBounds(50,200,250,250);
+		
+		//Keno metaksi JLabels
+		int z=10;   //ystera apo prakseis to z=10 synarthsei tou WIDTH!!!
+		int w=90 ;    // ystera apo prakseis to k=10 synartisei toy ÇEIGHT!!!
+		
+		photo1=new JLabel(); //x=100, y=1/5 height ,Width=1/3 width -73 ,Height=2/5 toy height (keno 100 apo Deksia & Aristera)
+		photo1.setBounds(100,(int) (height/5) ,(int) (width/3-73),(int) (2*(height/5)) );
 		mainPanel.add(photo1);
 				
 		photo2=new JLabel();
-		photo2.setBounds(310,200,250,250);
+		photo2.setBounds(photo1.getX()+photo1.getWidth()+z,photo1.getY() ,photo1.getWidth(),photo1.getHeight() );
 		mainPanel.add(photo2);
 		
 		photo3=new JLabel();
-		photo3.setBounds(570,200,250,250);
+		photo3.setBounds(photo2.getX()+photo2.getWidth()+z, photo2.getY() ,photo2.getWidth(),photo2.getHeight() );
 		mainPanel.add(photo3);
 				
-		commitBt=new JButton("The pics are about...");
-		commitBt.setBounds(200,500,150,30);
+		commitBt=new JButton("The pics are about...");   //150 einai sto standar width
+		commitBt.setBounds(photo1.getX()+photo1.getWidth()-150, photo1.getY()+photo1.getHeight()+w,150,30);
 		
 		buttonListener=new myButtonListener();
 		commitBt.addActionListener(buttonListener);
 		
 		mainPanel.add(commitBt);
 			
-		nameArea=new JTextArea();
-		nameArea.setBounds(350,500,300,30);
+		nameArea=new JTextArea(); // dipla sto commitBt                  width: synarthsei toy  commitBt.getWidth()
+		nameArea.setBounds(commitBt.getX()+commitBt.getWidth(), commitBt.getY(), photo2.getWidth()+ 2*z +commitBt.getWidth()  ,30);
 		nameArea.setBackground(Color.ORANGE);
 		nameArea.setEditable(true);
 		mainPanel.add(nameArea);
@@ -75,7 +87,7 @@ public class PicsHerosFrame extends JFrame{
 		ImageIcon  background=new  ImageIcon("olympus.jpg");
 		Image image=background.getImage();
 		backlbl=new JLabel();
-		backlbl.setBounds(0,0,this.getWidth(), this.getHeight());
+		backlbl.setBounds(0,0,(int) width,(int) height);
 		Image resizedImage = image.getScaledInstance(backlbl.getWidth(), backlbl.getHeight(), 0);
 		backlbl.setIcon(new ImageIcon(resizedImage));
 		//prosarmogh eikonas fontou
@@ -83,11 +95,13 @@ public class PicsHerosFrame extends JFrame{
 		
 		getNextHero();
 		//yparxei gia na exoume enan arxiko hrwa alliws bgazei keno
-				
-		this.setResizable(false);
-		//den epitrepei allagh megethous sto parathyro
+		
+		//*** FullScreen Mode ***
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setSize((int) width,(int) height);
+		this.setLocation(0, 0);
+		this.setUndecorated(true);
 		this.setVisible(true);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 	

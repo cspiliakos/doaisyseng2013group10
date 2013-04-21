@@ -356,6 +356,7 @@ public class MemoryGameFrame extends JFrame {
 		{
 			//User is correct!                                //clik twice tha same picture
 			if(  conn_label.getCode().equals(cd.getCode()) &&cd != conn_label ){
+				correct++;
 				cd.removeMouseListener(listener);      // if a PAIR is correct LOCK IT,so it doesnt get clicked AGAIN !!!
 				conn_label.removeMouseListener(listener);
 				JOptionPane.showMessageDialog(null, "Correct");

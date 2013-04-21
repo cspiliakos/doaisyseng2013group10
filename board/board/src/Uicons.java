@@ -83,49 +83,51 @@ public class Uicons extends ImageIcon {
 	
 	//Memory Game Stuff
 	mmg_icons=new ArrayList<CardLabel>();
-
-	ImageIcon dedault_back_mmg=new ImageIcon("mmg_pattern.jpg"); // 0 closed cards
-	ImageIcon hermes_mmg=new ImageIcon("mmg_hermes.jpg");   //  1
-	ImageIcon pegasus_mmg=new ImageIcon("mmg_pegasus.jpg");  // 2
-	ImageIcon medusa_mmg=new ImageIcon("mmg_medusa.jpg");   //  3
-	ImageIcon hades_mmg=new ImageIcon("mmg_hades.jpg");   //    4
-	ImageIcon warrior_mmg=new ImageIcon("mmg_warrior.jpg");//   5
-	ImageIcon kouros_mmg=new ImageIcon("mmg_kouros.jpg");   //  6
-	ImageIcon yphestos_mmg=new ImageIcon("mmg_yphestos.jpg");// 7
-	ImageIcon minotaur_mmg=new ImageIcon("mmg_minotaur.jpg");// 7
 	
-	mmg_icons.add(new CardLabel(dedault_back_mmg,  "default") );
+	ImageIcon default_back_mmg=new ImageIcon("mmg_background.jpg"); // 0 backgound
+	ImageIcon default_pattern_mmg=new ImageIcon("mmg_pattern.jpg"); // 1 closed cards (pattern)
+	ImageIcon aphrodite_mmg=new ImageIcon("mmg_aphrodite.jpg");    //  2
+	ImageIcon apollo_mmg=new ImageIcon("mmg_apollo.jpg");           // 3
+	ImageIcon artemis_mmg=new ImageIcon("mmg_artemis.jpg");        //  4
+	ImageIcon athena_mmg=new ImageIcon("mmg_athena.jpg");        //    5
+	ImageIcon hera_mmg=new ImageIcon("mmg_hera.jpg");             //   6
+	ImageIcon pegasus_mmg=new ImageIcon("mmg_pegasus.jpg");       //   7
+	ImageIcon poseidon_mmg=new ImageIcon("mmg_poseidon.jpg");       // 8
+	ImageIcon zeus_mmg=new ImageIcon("mmg_zeus.jpg");               // 9
 	
-	mmg_icons.add(new CardLabel(hermes_mmg,         "hermes") );  //We need twice each icon
-	mmg_icons.add(new CardLabel(hermes_mmg,         "hermes") );
+	mmg_icons.add(new CardLabel(default_back_mmg,      "default") );
+	mmg_icons.add(new CardLabel(default_pattern_mmg,  "default2") );
 	
-	mmg_icons.add(new CardLabel(pegasus_mmg,       "pegasus") );
-	mmg_icons.add(new CardLabel(pegasus_mmg,       "pegasus") );
+	mmg_icons.add(new CardLabel(aphrodite_mmg,        "aphrodite") );  //We need twice each icon
+	mmg_icons.add(new CardLabel(aphrodite_mmg,        "aphrodite") );
 	
-	mmg_icons.add(new CardLabel(medusa_mmg,         "medusa") );	
-	mmg_icons.add(new CardLabel(medusa_mmg,         "medusa") );
+	mmg_icons.add(new CardLabel(apollo_mmg,              "apollo") );
+	mmg_icons.add(new CardLabel(apollo_mmg,              "apollo") );
 	
-	mmg_icons.add(new CardLabel(hades_mmg,           "hades") );
-	mmg_icons.add(new CardLabel(hades_mmg,           "hades") );
+	mmg_icons.add(new CardLabel(artemis_mmg,            "artemis") );	
+	mmg_icons.add(new CardLabel(artemis_mmg,            "artemis") );
+	 
+	mmg_icons.add(new CardLabel(athena_mmg,              "athena") );
+	mmg_icons.add(new CardLabel(athena_mmg,              "athena") );
 	
-	mmg_icons.add(new CardLabel(warrior_mmg,       "warrior") );
-	mmg_icons.add(new CardLabel(warrior_mmg,       "warrior") );
+	mmg_icons.add(new CardLabel(hera_mmg,                  "hera") );
+	mmg_icons.add(new CardLabel(hera_mmg,                  "hera") );
 	
-	mmg_icons.add(new CardLabel(kouros_mmg,         "kouros") );
-	mmg_icons.add(new CardLabel(kouros_mmg,         "kouros") );
+	mmg_icons.add(new CardLabel(pegasus_mmg,            "pegasus") );
+	mmg_icons.add(new CardLabel(pegasus_mmg,            "pegasus") );
+	 
+	mmg_icons.add(new CardLabel(poseidon_mmg,          "poseidon") );
+	mmg_icons.add(new CardLabel(poseidon_mmg,          "poseidon") );
 	
-	mmg_icons.add(new CardLabel(yphestos_mmg,     "yphestos") );
-	mmg_icons.add(new CardLabel(yphestos_mmg,     "yphestos") );
-	
-	mmg_icons.add(new CardLabel(minotaur_mmg,     "minotaur") );
-	mmg_icons.add(new CardLabel(minotaur_mmg,     "minotaur") );
+	mmg_icons.add(new CardLabel(zeus_mmg,                  "zeus") );
+	mmg_icons.add(new CardLabel(zeus_mmg,                  "zeus") );
 
 	
 	
 	//Ancient Arcade Stuff
 		ArcadeIcons=new ArrayList<ImageIcon>();
 		
-		ImageIcon  back_anime=new  ImageIcon("arcade_backround.gif"); //0 background image
+		ImageIcon  back_anime=new  ImageIcon("arcade_background.jpg"); //0 background image
 		
 		ImageIcon  arcade_hero_1=new  ImageIcon("arcade_zeus.jpg"); //1
 		ImageIcon  arcade_hero_2=new  ImageIcon("arcade_poseidon.jpg"); //2 

@@ -39,6 +39,7 @@ public class MemoryGameFrame extends JFrame {
     private int correct=0;    //correct guesses
     
     private Image img;  //The image of the closed icons(something black)
+    private Image backimg;  //The image of the backgound
     private CardLabel label_1;
 	private CardLabel label_2;
 	private CardLabel label_3;
@@ -57,6 +58,7 @@ public class MemoryGameFrame extends JFrame {
 	private CardLabel label_16;
 	private JTextArea info;
 	private JButton exit_btn;
+	private JLabel backlbl;
 	
 	private LblListener listener;
 
@@ -69,8 +71,9 @@ public class MemoryGameFrame extends JFrame {
 		
 		iconlist= new Uicons();
 		currlist=new ArrayList<CardLabel>(iconlist.getMMGIcons());
-		Collections.shuffle(currlist.subList(1, currlist.size()));//randomize ALL the pictures and codes except form no 1(backgorund) 
-		
+		Collections.shuffle(currlist.subList(2, currlist.size()));//randomize ALL the pictures and codes except form 
+		                                                              //no 1(backgorund) and no2(pattern) 
+		                                                                    
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -84,101 +87,102 @@ public class MemoryGameFrame extends JFrame {
 		int k=20 ;    // ystera apo prakseis to k=20 synartisei toy ÇEIGHT!!!
 		
 		label_1 = new CardLabel();
-		label_1=currlist.get(1); 	 //label gets icon and code
+		label_1=currlist.get(2); 	 //label gets icon and code
 		label_1.setBounds(20, 20,(int) (width/4-40) , (int) (height/4-30));
 		label_1.setCursor(new Cursor(Cursor.HAND_CURSOR)) ;
 		contentPane.add(label_1);
 		
 		
 		label_2 = new CardLabel();
-		label_2=currlist.get(2);   //label gets icon and code
+		label_2=currlist.get(3);   //label gets icon and code
 		label_2.setBounds(label_1.getX()+label_1.getWidth()+ z , 20,(int) (width/4-40) , (int) (height/4-30));
 		label_2.setCursor(new Cursor(Cursor.HAND_CURSOR)) ;
 		contentPane.add(label_2);
 		
 		label_3 = new CardLabel(); 
-		label_3=currlist.get(3);     //label gets icon and code
+		label_3=currlist.get(4);     //label gets icon and code
 		label_3.setBounds(label_2.getX()+label_2.getWidth()+ z  , 20,(int) (width/4-40) , (int) (height/4-30));
 		label_3.setCursor(new Cursor(Cursor.HAND_CURSOR)) ;
 		contentPane.add(label_3);
 		
 		label_4 = new CardLabel();
-		label_4=currlist.get(4);     //label gets icon and code
+		label_4=currlist.get(5);     //label gets icon and code
 		label_4.setBounds(label_3.getX()+label_3.getWidth()+ z , 20,(int) (width/4-40) , (int) (height/4-30));
 		label_4.setCursor(new Cursor(Cursor.HAND_CURSOR)) ;
 		contentPane.add(label_4);
 		
 		label_5 = new CardLabel();	
-		label_5=currlist.get(5);      //label gets icon and code
+		label_5=currlist.get(6);      //label gets icon and code
 		label_5.setBounds(20,label_1.getY()+label_1.getHeight()+k, (int) (width/4-40),   (int) (height/4-30));
 		label_5.setCursor(new Cursor(Cursor.HAND_CURSOR)) ;
 		contentPane.add(label_5);
 		
 		label_6 = new CardLabel();
-		label_6=currlist.get(6);
+		label_6=currlist.get(7);
 		label_6.setBounds(label_5.getX()+label_5.getWidth()+z, label_2.getY()+label_2.getHeight()+k , (int) (width/4-40),   (int) (height/4-30)   );
 		label_6.setCursor(new Cursor(Cursor.HAND_CURSOR)) ;
 		contentPane.add(label_6);
 		
 		label_7 = new CardLabel();
-		label_7=currlist.get(7);      //label gets icon and code
+		label_7=currlist.get(8);      //label gets icon and code
 		label_7.setBounds(label_6.getX()+label_6.getWidth()+z, label_3.getY()+label_3.getHeight()+k , (int) (width/4-40),   (int) (height/4-30)   );
 		label_7.setCursor(new Cursor(Cursor.HAND_CURSOR)) ;
 		contentPane.add(label_7);
 		
 		label_8 = new CardLabel();
-		label_8=currlist.get(8);      //label gets icon and code
+		label_8=currlist.get(9);      //label gets icon and code
 		label_8.setBounds(label_7.getX()+label_7.getWidth()+z, label_4.getY()+label_4.getHeight()+k , (int) (width/4-40),   (int) (height/4-30)   );
 		label_8.setCursor(new Cursor(Cursor.HAND_CURSOR)) ;
 		contentPane.add(label_8);
 		
 		label_9 = new CardLabel();
-		label_9=currlist.get(9);      //label gets icon and code
+		label_9=currlist.get(10);      //label gets icon and code
 		label_9.setBounds(20, label_5.getY()+label_5.getHeight()+k , (int) (width/4-40),   (int) (height/4-30)   );
 		label_9.setCursor(new Cursor(Cursor.HAND_CURSOR)) ;
 		contentPane.add(label_9);
 		
 		label_10 = new CardLabel();
-		label_10=currlist.get(10);      //label gets icon and code
+		label_10=currlist.get(11);      //label gets icon and code
 		label_10.setBounds(label_9.getX()+label_9.getWidth()+z, label_6.getY()+label_6.getHeight()+k , (int) (width/4-40),   (int) (height/4-30)   );
 		label_10.setCursor(new Cursor(Cursor.HAND_CURSOR)) ;
 		contentPane.add(label_10);
 		
 		label_11 = new CardLabel();
-		label_11=currlist.get(11);      //label gets icon and code
+		label_11=currlist.get(12);      //label gets icon and code
 		label_11.setBounds(label_10.getX()+label_10.getWidth()+z, label_7.getY()+label_7.getHeight()+k , (int) (width/4-40),   (int) (height/4-30)   );
 		label_11.setCursor(new Cursor(Cursor.HAND_CURSOR)) ;
 		contentPane.add(label_11);
 		
 		label_12 = new CardLabel();
-		label_12=currlist.get(12);      //label gets icon and code
+		label_12=currlist.get(13);      //label gets icon and code
 		label_12.setBounds(label_11.getX()+label_11.getWidth()+z, label_8.getY()+label_8.getHeight()+k , (int) (width/4-40),   (int) (height/4-30)   );
 		label_12.setCursor(new Cursor(Cursor.HAND_CURSOR)) ;
 		contentPane.add(label_12);
 		
 		label_13 = new CardLabel();
-		label_13=currlist.get(13);      //label gets icon and code
+		label_13=currlist.get(14);      //label gets icon and code
 		label_13.setBounds(20 , label_9.getY()+label_9.getHeight()+k , (int) (width/4-40),   (int) (height/4-30)   );
 		label_13.setCursor(new Cursor(Cursor.HAND_CURSOR)) ;
 		contentPane.add(label_13);
 		
 		label_14 = new CardLabel();
-		label_14=currlist.get(14);      //label gets icon and code
+		label_14=currlist.get(15);      //label gets icon and code
 		label_14.setBounds(label_13.getX()+label_13.getWidth()+z, label_10.getY()+label_10.getHeight()+k , (int) (width/4-40),   (int) (height/4-30)   );
 		label_14.setCursor(new Cursor(Cursor.HAND_CURSOR)) ;
 		contentPane.add(label_14);
 		
 		label_15 = new CardLabel();
-		label_15=currlist.get(15);      //label gets icon and code
+		label_15=currlist.get(16);      //label gets icon and code
 		label_15.setBounds(label_14.getX()+label_14.getWidth()+z, label_11.getY()+label_11.getHeight()+k , (int) (width/4-40),   (int) (height/4-30)   );
 		label_15.setCursor(new Cursor(Cursor.HAND_CURSOR)) ;
 		contentPane.add(label_15);
 		
 		label_16 = new CardLabel();
-		label_16=currlist.get(16);      //label gets icon and code
+		label_16=currlist.get(17);      //label gets icon and code
 		label_16.setBounds(label_15.getX()+label_15.getWidth()+z, label_12.getY()+label_12.getHeight()+k , (int) (width/4-40),   (int) (height/4-30)   );
 		label_16.setCursor(new Cursor(Cursor.HAND_CURSOR)) ;
 		contentPane.add(label_16);
+		
 		
 		//Informational JPanel 
 		info = new JTextArea();   //x            //y               //width                                       //height
@@ -198,12 +202,22 @@ public class MemoryGameFrame extends JFrame {
 		exit_btn.setToolTipText("Exit");
 		contentPane.add(exit_btn);
 		
+		
+		backlbl=new JLabel();
+		backlbl.setBounds(0,0,(int) width,(int) height);
+		backimg = currlist.get(0).getImage();   //eikona backgorund
+		backlbl.setIcon(new ImageIcon(backimg.getScaledInstance(backlbl.getWidth(), backlbl.getHeight(), 0)));
+		//prosarmogh eikonas fontou
+		contentPane.add(backlbl);
+		
 		//appear all images normally
 		appear_all_cards_mormally();
 		
     	
     	//images turn around after we wait n seconds
-    	turn_around_images_in_seconds(5);
+		int l= 100; //every 100 the cards close again
+		int n=8 ;//after 5 secs tha cards turn around
+    	turn_around_images_in_seconds(n,l);
 		
 		
 		
@@ -241,29 +255,29 @@ public class MemoryGameFrame extends JFrame {
 
 	public void appear_all_cards_mormally(){
 		//appear all images normally
-		label_1.setIcon(new ImageIcon(currlist.get(1).getImage().getScaledInstance(label_1.getWidth(), label_1.getHeight(), 0)));
-		label_2.setIcon(new ImageIcon(currlist.get(2).getImage().getScaledInstance(label_2.getWidth(), label_2.getHeight(), 0)));
-		label_3.setIcon(new ImageIcon(currlist.get(3).getImage().getScaledInstance(label_3.getWidth(), label_3.getHeight(), 0)));
-		label_4.setIcon(new ImageIcon(currlist.get(4).getImage().getScaledInstance(label_4.getWidth(), label_4.getHeight(), 0)));
-		label_5.setIcon(new ImageIcon(currlist.get(5).getImage().getScaledInstance(label_5.getWidth(), label_5.getHeight(), 0)));
-		label_6.setIcon(new ImageIcon(currlist.get(6).getImage().getScaledInstance(label_6.getWidth(), label_6.getHeight(), 0)));
-		label_7.setIcon(new ImageIcon(currlist.get(7).getImage().getScaledInstance(label_7.getWidth(), label_7.getHeight(), 0)));
-		label_8.setIcon(new ImageIcon(currlist.get(8).getImage().getScaledInstance(label_8.getWidth(), label_8.getHeight(), 0)));
-		label_9.setIcon(new ImageIcon(currlist.get(9).getImage().getScaledInstance(label_9.getWidth(), label_9.getHeight(), 0)));
-		label_10.setIcon(new ImageIcon(currlist.get(10).getImage().getScaledInstance(label_10.getWidth(), label_10.getHeight(), 0)));
-		label_11.setIcon(new ImageIcon(currlist.get(11).getImage().getScaledInstance(label_11.getWidth(), label_11.getHeight(), 0)));
-		label_12.setIcon(new ImageIcon(currlist.get(12).getImage().getScaledInstance(label_12.getWidth(), label_12.getHeight(), 0)));
-		label_13.setIcon(new ImageIcon(currlist.get(13).getImage().getScaledInstance(label_13.getWidth(), label_13.getHeight(), 0)));
-		label_14.setIcon(new ImageIcon(currlist.get(14).getImage().getScaledInstance(label_14.getWidth(), label_14.getHeight(), 0)));
-		label_15.setIcon(new ImageIcon(currlist.get(15).getImage().getScaledInstance(label_15.getWidth(), label_15.getHeight(), 0)));
-		label_16.setIcon(new ImageIcon(currlist.get(16).getImage().getScaledInstance(label_16.getWidth(), label_16.getHeight(), 0)));
+		label_1.setIcon(new ImageIcon(currlist.get(2).getImage().getScaledInstance(label_1.getWidth(), label_1.getHeight(), 0)));
+		label_2.setIcon(new ImageIcon(currlist.get(3).getImage().getScaledInstance(label_2.getWidth(), label_2.getHeight(), 0)));
+		label_3.setIcon(new ImageIcon(currlist.get(4).getImage().getScaledInstance(label_3.getWidth(), label_3.getHeight(), 0)));
+		label_4.setIcon(new ImageIcon(currlist.get(5).getImage().getScaledInstance(label_4.getWidth(), label_4.getHeight(), 0)));
+		label_5.setIcon(new ImageIcon(currlist.get(6).getImage().getScaledInstance(label_5.getWidth(), label_5.getHeight(), 0)));
+		label_6.setIcon(new ImageIcon(currlist.get(7).getImage().getScaledInstance(label_6.getWidth(), label_6.getHeight(), 0)));
+		label_7.setIcon(new ImageIcon(currlist.get(8).getImage().getScaledInstance(label_7.getWidth(), label_7.getHeight(), 0)));
+		label_8.setIcon(new ImageIcon(currlist.get(9).getImage().getScaledInstance(label_8.getWidth(), label_8.getHeight(), 0)));
+		label_9.setIcon(new ImageIcon(currlist.get(10).getImage().getScaledInstance(label_9.getWidth(), label_9.getHeight(), 0)));
+		label_10.setIcon(new ImageIcon(currlist.get(11).getImage().getScaledInstance(label_10.getWidth(), label_10.getHeight(), 0)));
+		label_11.setIcon(new ImageIcon(currlist.get(12).getImage().getScaledInstance(label_11.getWidth(), label_11.getHeight(), 0)));
+		label_12.setIcon(new ImageIcon(currlist.get(13).getImage().getScaledInstance(label_12.getWidth(), label_12.getHeight(), 0)));
+		label_13.setIcon(new ImageIcon(currlist.get(14).getImage().getScaledInstance(label_13.getWidth(), label_13.getHeight(), 0)));
+		label_14.setIcon(new ImageIcon(currlist.get(15).getImage().getScaledInstance(label_14.getWidth(), label_14.getHeight(), 0)));
+		label_15.setIcon(new ImageIcon(currlist.get(16).getImage().getScaledInstance(label_15.getWidth(), label_15.getHeight(), 0)));
+		label_16.setIcon(new ImageIcon(currlist.get(17).getImage().getScaledInstance(label_16.getWidth(), label_16.getHeight(), 0)));
 	}
 
-	public void turn_around_images_in_seconds(int n){
+	public void turn_around_images_in_seconds(int n, int l){
 		Timer timer = new Timer();
 		timer.schedule( new TimerTask() {
 			public void run() {
-				img = currlist.get(0).getImage();   //h basikh eikona backgorund ennalasete se pola labels
+				img = currlist.get(1).getImage();   //h basikh eikona backgorund ennalasete se pola labels
 				label_1.setIcon(new ImageIcon(img.getScaledInstance(label_1.getWidth(), label_1.getHeight(), 0)));
 				label_2.setIcon(new ImageIcon(img.getScaledInstance(label_2.getWidth(), label_2.getHeight(), 0)));
 				label_3.setIcon(new ImageIcon(img.getScaledInstance(label_3.getWidth(), label_3.getHeight(), 0)));
@@ -283,7 +297,7 @@ public class MemoryGameFrame extends JFrame {
 
 
 			}
-		}, n*1000, 60*1000);
+		}, n*1000, l*1000);
 	}
 
 
@@ -296,7 +310,7 @@ public class MemoryGameFrame extends JFrame {
 	}
 	
 	public void AppearLabel(CardLabel lbl_to_appear, int i){
-		lbl_to_appear.setIcon(new ImageIcon(currlist.get(i).getImage().getScaledInstance(lbl_to_appear.getWidth(), lbl_to_appear.getHeight(), 0)));
+		lbl_to_appear.setIcon(new ImageIcon(currlist.get(i+1).getImage().getScaledInstance(lbl_to_appear.getWidth(), lbl_to_appear.getHeight(), 0)));
 	}
 
 	

@@ -524,9 +524,5 @@ public class MemoryGameFrame extends JFrame {
 		}
 		
 	}
-	
-	
-public static void main(String[] args) {
-		 new MemoryGameFrame();
-	}
+
 }

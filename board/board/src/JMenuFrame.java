@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButtonMenuItem;
 
 public class JMenuFrame{
@@ -23,50 +24,55 @@ public class JMenuFrame{
         
         // Define and add two drop down menu to the menubar
         JMenu fileMenu = new JMenu("File");
-        JMenu editMenu = new JMenu("Edit");
+        JMenu infoMenu = new JMenu("About");
         menuBar.add(fileMenu);
-        menuBar.add(editMenu);
+        menuBar.add(infoMenu);
         
         // Create and add simple menu item to one of the drop down menu
-        JMenuItem newAction = new JMenuItem("New");
-        JMenuItem openAction = new JMenuItem("Open");
+
         JMenuItem exitAction = new JMenuItem("Exit");
-        JMenuItem cutAction = new JMenuItem("Cut");
-        JMenuItem copyAction = new JMenuItem("Copy");
-        JMenuItem pasteAction = new JMenuItem("Paste");
-        
-        // Create and add CheckButton as a menu item to one of the drop down
-        // menu
-        JCheckBoxMenuItem checkAction = new JCheckBoxMenuItem("Check Action");
-        // Create and add Radio Buttons as simple menu items to one of the drop
-        // down menu
-        JRadioButtonMenuItem radioAction1 = new JRadioButtonMenuItem(
-                "Radio Button1");
-        JRadioButtonMenuItem radioAction2 = new JRadioButtonMenuItem(
-                "Radio Button2");
-        // Create a ButtonGroup and add both radio Button to it. Only one radio
-        // button in a ButtonGroup can be selected at a time.
-        ButtonGroup bg = new ButtonGroup();
-        bg.add(radioAction1);
-        bg.add(radioAction2);
-        fileMenu.add(newAction);
-        fileMenu.add(openAction);
-        fileMenu.add(checkAction);
-        fileMenu.addSeparator();
+        JMenuItem info_about_puzzles_Action = new JMenuItem("About Puzzles");
+        JMenuItem info_about_game_Action = new JMenuItem("About The Game");
+
+
+
+
         fileMenu.add(exitAction);
-        editMenu.add(cutAction);
-        editMenu.add(copyAction);
-        editMenu.add(pasteAction);
-        editMenu.addSeparator();
-        editMenu.add(radioAction1);
-        editMenu.add(radioAction2);
+        infoMenu.add(info_about_puzzles_Action);
+        infoMenu.addSeparator();
+        infoMenu.add(info_about_game_Action);
+        
+      
         // Add a listener to the New menu item. actionPerformed() method will
         // invoked, if user triggred this menu item
-        newAction.addActionListener(new ActionListener() {
+        //EXIT
+        exitAction.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                System.out.println("You have clicked on the new action");
+                System.exit(0);
             }
         });
+        //INFO ABOUT PUZZLES
+        info_about_puzzles_Action.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+             JOptionPane.showMessageDialog(null	, "Info About Puzzles:\n1)Επίλυση Quiz ερωτήσεων :2. Μέσα από 4 πιθανές απαντήσεις,,ο παίκτης επιλέγει την αντίστοιχη απάντηση." +
+             	 "\n2)Επίλυση Click-me: Στην οθόνη του γρίφου εμφανίζεται μια εικόνα. Ο παίκτης θα πρέπει στο συγκεκριμένο χρόνο, να κάνει όσα περισσότερα κλικ πάνω στην εικόνα μπορεί."+
+            	 "\n3)Επίλυση Ancient arcade: Ο παίκτης αντιστοιχεί 6 ήρωες της μυθολογίας με 6 χαρακτηριστικά τους, ένα για τον καθένα."+
+             	 "\n4)Επίλυση Τηλεκύβου: Εμφανίζεται στην οθόνη μία αναγραμματισμένη λέξη. Ο παίκτης πρέπει να πληκτολογήσει την λέξη στην σωστή της μορφή"+
+            	 "\n5)Επίλυση Memory game: Ο παίκτης μέσα από ανακατεμένα 8 ζεύγη καρτών επιλέγει πανομοιότυπες εικόνες"+
+             	 "\n6)Επίλυση 3-Pics-1-hero: Στην οθόνη εμφανίζονται 3 εικόνες. Ο παίκτης συμπηρώνει το όνομα του ήρωα που περιγράφουν οι εικόνες" +
+            	 "\n7)Επίλυση Tρίλιζα: Εμφανίζεται στην οθόνη ένας κύκλος O και ένα X. Ο παίκτης επιλέγει το σχήμα που θέλει να έχει ξεκινάει το παιχνίδι."+
+             	 "\n8)Επίλυση 8-block-puzzle: Εμφανίζεται στην οθόνη ένα puzzle χωρισμένο σε 9 εσωτερικά τετράγωνα,με ένα κενό.Ο παίκτης προσπαθεί να σχηματίσει την σωστή εικόνα."+
+            	 "\n9) Επίλυση Κρεμάλας: Εμφανίζεται στην οθόνη μία κενή κρεμάλα και το αρχικό γράμμα της σωστής λέξης. Ο παίκτης προσπαθεί να σχηματίσει τη σωστή λέξη."
+                 , "Title", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+        //INFO ABOUT GAME
+        info_about_game_Action.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		JOptionPane.showMessageDialog(null	, "Info About Game", "Title", JOptionPane.INFORMATION_MESSAGE);
+        	}
+        });
+        
     }
 
     public JMenuBar getMenu() {

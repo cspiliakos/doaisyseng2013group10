@@ -23,6 +23,7 @@ import javax.swing.ImageIcon;
 import java.awt.Cursor;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
+import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.Color;
 import java.awt.Toolkit;
@@ -48,12 +49,21 @@ public class Pick_A_Hero extends JFrame {
 	private int helpWidth, helpHeight, widthSize, heightSize;
 	private double frameWidth, frameHeight;
 	private ArrayList<User> players;
+	private CharsOpponents char1, char2, char3, char4, char5, char6;
+	private JPanel player1Panel, player2Panel;
+	
+	private JLabel name1lbl, health1lbl, damage1lbl, defence1lbl;
+	private JLabel p1, p2, p3, p4;
+	//label gia emfanisi timwn twn stat tou 1 player
+	private JLabel name2lbl, health2lbl, damage2lbl, defence2lbl;
+	private JLabel p5, p6, p7, p8;
+	//label gia emfanisi timwn twn stat tou 2 player
 	
 	public Pick_A_Hero(ArrayList<User> p) {
 		//*** MenuBar ***//
 				setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
 		
-		
+			
 		players=new ArrayList<User>();
 		players=p;
 		//metafora listas paixtwn
@@ -98,7 +108,101 @@ public class Pick_A_Hero extends JFrame {
 		title.setHorizontalAlignment(SwingConstants.CENTER);
 		back.add(title, BorderLayout.NORTH);
 		
-		//
+		//panel gia emfanisi stat tou paixth 1
+		player1Panel=new JPanel(new GridLayout(4,2));
+		player1Panel.setBorder(new EmptyBorder(100,0,100,0));
+		back.add(player1Panel,BorderLayout.WEST);
+		
+		
+		
+		name1lbl=new JLabel("Name");
+		p1=new JLabel();
+		health1lbl=new JLabel("Health");
+		p2=new JLabel();
+		damage1lbl=new JLabel("Damage");
+		p3=new JLabel();
+		defence1lbl=new JLabel("Defence");
+		p4=new JLabel();
+		
+		name1lbl.setFont(new Font ("Arial", Font.BOLD,20));
+		name1lbl.setForeground(Color.RED);
+		health1lbl.setFont(new Font ("Arial", Font.BOLD,20));
+		health1lbl.setForeground(Color.RED);
+		damage1lbl.setFont(new Font ("Arial", Font.BOLD,20));
+		damage1lbl.setForeground(Color.RED);
+		defence1lbl.setFont(new Font ("Arial", Font.BOLD,20));
+		defence1lbl.setForeground(Color.RED);
+		p1.setFont(new Font ("Arial", Font.BOLD,20));
+		p1.setForeground(Color.YELLOW);
+		p2.setFont(new Font ("Arial", Font.BOLD,20));
+		p2.setForeground(Color.YELLOW);
+		p3.setFont(new Font ("Arial", Font.BOLD,20));
+		p3.setForeground(Color.YELLOW);
+		p4.setFont(new Font ("Arial", Font.BOLD,20));
+		p4.setForeground(Color.YELLOW);
+		
+		
+		player1Panel.add(name1lbl);
+		player1Panel.add(p1);
+		player1Panel.add(health1lbl);
+		player1Panel.add(p2);
+		player1Panel.add(damage1lbl);
+		player1Panel.add(p3);
+		player1Panel.add(defence1lbl);
+		player1Panel.add(p4);
+		
+		player1Panel.setVisible(false);
+		
+		//panel gia emfanisi stat tou paixth 2
+		player2Panel=new JPanel(new GridLayout(4,2));
+		player2Panel.setBorder(new EmptyBorder(100,0,100,0));
+		back.add(player2Panel,BorderLayout.EAST);
+		
+		
+		
+		name2lbl=new JLabel("Name");
+		p5=new JLabel();
+		health2lbl=new JLabel("Health");
+		p6=new JLabel();
+		damage2lbl=new JLabel("Damage");
+		p7=new JLabel();
+		defence2lbl=new JLabel("Defence");
+		p8=new JLabel();
+		
+		name2lbl.setFont(new Font ("Arial", Font.BOLD,20));
+		name2lbl.setForeground(Color.RED);
+		health2lbl.setFont(new Font ("Arial", Font.BOLD,20));
+		health2lbl.setForeground(Color.RED);
+		damage2lbl.setFont(new Font ("Arial", Font.BOLD,20));
+		damage2lbl.setForeground(Color.RED);
+		defence2lbl.setFont(new Font ("Arial", Font.BOLD,20));
+		defence2lbl.setForeground(Color.RED);
+		p5.setFont(new Font ("Arial", Font.BOLD,20));
+		p5.setForeground(Color.YELLOW);
+		p6.setFont(new Font ("Arial", Font.BOLD,20));
+		p6.setForeground(Color.YELLOW);
+		p7.setFont(new Font ("Arial", Font.BOLD,20));
+		p7.setForeground(Color.YELLOW);
+		p8.setFont(new Font ("Arial", Font.BOLD,20));
+		p8.setForeground(Color.YELLOW);
+		
+		
+		player2Panel.add(name2lbl);
+		player2Panel.add(p5);
+		player2Panel.add(health2lbl);
+		player2Panel.add(p6);
+		player2Panel.add(damage2lbl);
+		player2Panel.add(p7);
+		player2Panel.add(defence2lbl);
+		player2Panel.add(p8);
+		
+		player2Panel.setVisible(false);
+		
+		
+		
+		
+		
+		
 		helpPanel = new JPanel();
 		helpPanel.setBorder(new EmptyBorder(100, 0, 100, 0));
 		back.add(helpPanel, BorderLayout.CENTER);
@@ -153,6 +257,8 @@ public class Pick_A_Hero extends JFrame {
 		helpPanel.add(pl1, gbc_pl1);
 		pl1.addMouseListener(PHL);
 		
+			char1=new CharsOpponents("Ares",10,20,30,hero);
+		
 		pl2 = new JLabel("");
 		hero = new  ImageIcon("Cronus.jpg");
 		help = hero.getImage();
@@ -167,6 +273,8 @@ public class Pick_A_Hero extends JFrame {
 		helpPanel.add(pl2, gbc_pl2);
 		pl2.addMouseListener(PHL);
 		
+			char2=new CharsOpponents("Cronus",20,10,30,hero);
+		
 		pl3 = new JLabel("");
 		hero = new  ImageIcon("Hades.jpg");
 		help = hero.getImage();
@@ -180,6 +288,8 @@ public class Pick_A_Hero extends JFrame {
 		helpPanel.add(pl3, gbc_pl3);
 		pl3.addMouseListener(PHL);
 		
+			char3=new CharsOpponents("Hades",20,30,10,hero);
+		
 		lab4 = new JLabel("Poseidon");
 		lab4.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		lab4.setHorizontalAlignment(SwingConstants.CENTER);
@@ -189,6 +299,8 @@ public class Pick_A_Hero extends JFrame {
 		gbc_lab4.gridx = 1;
 		gbc_lab4.gridy = 3;
 		helpPanel.add(lab4, gbc_lab4);
+		
+			
 		
 		lab5 = new JLabel("Uranus");
 		lab5.setFont(new Font("Sylfaen", Font.PLAIN, 20));
@@ -224,6 +336,8 @@ public class Pick_A_Hero extends JFrame {
 		helpPanel.add(pl4, gbc_pl4);
 		pl4.addMouseListener(PHL);
 		
+			char4=new CharsOpponents("Poseidon",10,30,20,hero);
+		
 		pl5 = new JLabel("");
 		hero = new  ImageIcon("Uranus.jpg");
 		help = hero.getImage();
@@ -238,6 +352,8 @@ public class Pick_A_Hero extends JFrame {
 		helpPanel.add(pl5, gbc_pl5);
 		pl5.addMouseListener(PHL);
 		
+			char5=new CharsOpponents("Uranus",30,20,10,hero);
+		
 		pl6 = new JLabel("");
 		hero = new  ImageIcon("Zeus.jpg");
 		help = hero.getImage();
@@ -251,6 +367,8 @@ public class Pick_A_Hero extends JFrame {
 		gbc_pl6.gridy = 4;
 		helpPanel.add(pl6, gbc_pl6);
 		pl6.addMouseListener(PHL);
+		
+			char6=new CharsOpponents("Zeus",30,10,20,hero);
 		
 		play = new JButton("\u03A0\u03B1\u03AF\u03BE\u03B5");
 		play.addActionListener(new ActionListener() {
@@ -336,6 +454,7 @@ public class Pick_A_Hero extends JFrame {
 	}
 	
 	class Pick_A_Hero_Listener implements MouseListener{
+		
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -347,32 +466,63 @@ public class Pick_A_Hero extends JFrame {
 			pl5.setBorder(null);
 			pl6.setBorder(null);
 			
+			player1Panel.setVisible(true);
+			
+			if (players.size()>1){
+				if(players.get(0).getCharImage()!=null){
+					player2Panel.setVisible(true);
+				}
+			}
+			
 			if(e.getSource() == pl1){
 				pl1.setBorder(new LineBorder(Color.RED, 5));
 				image = new ImageIcon("Ares.jpg");
+				setStatValues(char1);
 			}
 			else if(e.getSource() == pl2){
 				pl2.setBorder(new LineBorder(Color.RED, 5));
 				image = new ImageIcon("Cronus.jpg");
+				setStatValues(char2);
 			}
 			else if(e.getSource() == pl3){
 				pl3.setBorder(new LineBorder(Color.RED, 5));
 				image = new ImageIcon("Hades.jpg");
+				setStatValues(char3);
 			}
 			else if(e.getSource() == pl4){
 				pl4.setBorder(new LineBorder(Color.RED, 5));
 				image = new ImageIcon("Poseidon.jpg");
+				setStatValues(char4);
 			}
 			else if(e.getSource() == pl5){
 				pl5.setBorder(new LineBorder(Color.RED, 5));
 				image = new ImageIcon("Uranus.jpg");
+				setStatValues(char5);
 			}
 			else if(e.getSource() == pl6){
 				pl6.setBorder(new LineBorder(Color.RED, 5));
 				image = new ImageIcon("Zeus.jpg");
+				setStatValues(char6);
 			}
 		}
 		
+		public void setStatValues(CharsOpponents c){
+			CharsOpponents currChar;
+			currChar=c;
+			if(!player2Panel.isVisible()){
+				p1.setText(currChar.getName());
+				p2.setText(String.valueOf(currChar.getHealth()));
+				p3.setText(String.valueOf(currChar.getDamage()));
+				p4.setText(String.valueOf(currChar.getDefence()));
+			}
+			else{
+				p5.setText(currChar.getName());
+				p6.setText(String.valueOf(currChar.getHealth()));
+				p7.setText(String.valueOf(currChar.getDamage()));
+				p8.setText(String.valueOf(currChar.getDefence()));
+			}
+		
+		}
 		
 
 		@Override

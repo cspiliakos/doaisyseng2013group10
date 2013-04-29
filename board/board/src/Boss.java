@@ -11,8 +11,8 @@ public class Boss extends Monsters{
 	private int amount;
 
 	public Boss(String name, double damage, double defence, double  health,
-			ImageIcon image, String category) {
-		super(name, damage, defence, health, image, category);
+			ImageIcon image) {
+		super(name, damage, defence, health, image);
 		// TODO Auto-generated constructor stub
 		r1=new Random(System.currentTimeMillis());
 		//apofash gia to an tha prostethei h tha afairethei to poso

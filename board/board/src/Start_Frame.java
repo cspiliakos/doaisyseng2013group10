@@ -113,7 +113,8 @@ public class Start_Frame extends JFrame{
 			public void actionPerformed(ActionEvent arg0) {
 				clip.stop();
 				if (comboBox.getSelectedItem().toString().equals("\u0394\u03B9\u03B1\u03C7\u03B5\u03B9\u03C1\u03B9\u03C3\u03C4\u03AE\u03C2")){
-					System.exit(0);
+					Start_Frame.this.setVisible(false);
+					new AdminFrame();
 				}
 				else
 				{

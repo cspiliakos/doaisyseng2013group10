@@ -57,7 +57,6 @@ public class MemoryGameFrame extends JFrame {
 	private CardLabel label_15;
 	private CardLabel label_16;
 	private JTextArea info;
-	private JButton exit_btn;
 	private JLabel backlbl;
 	
 	private LblListener listener;
@@ -194,17 +193,6 @@ public class MemoryGameFrame extends JFrame {
 		info.setEditable(false);
 		contentPane.add(info);
 		
-		exit_btn = new JButton();
-		exit_btn.setBackground(new Color(255, 255, 255));
-		exit_btn.setForeground(Color.RED);
-		exit_btn.setFont(new Font("Comic Sans MS", Font.BOLD, 17));
-		exit_btn.setText("X");
-		exit_btn.setBounds(1306, 0, 50, 25 );
-		exit_btn.setCursor(new Cursor(Cursor.HAND_CURSOR)) ;
-		exit_btn.setToolTipText("Exit");
-		contentPane.add(exit_btn);
-		
-		
 		backlbl=new JLabel();
 		backlbl.setBounds(0,0,(int) width,(int) height);
 		backimg = currlist.get(0).getImage();   //eikona backgorund
@@ -242,7 +230,6 @@ public class MemoryGameFrame extends JFrame {
 		label_14.addMouseListener(listener);
 		label_15.addMouseListener(listener);
 		label_16.addMouseListener(listener);
-		exit_btn.addMouseListener(listener);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		
@@ -391,13 +378,9 @@ public class MemoryGameFrame extends JFrame {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			//User Picked Exit Button
-			if(e.getSource()==exit_btn){
-				System.exit(EXIT_ON_CLOSE);
-			}
-
+	
 			//User Picked Label 1
-			else if(e.getSource()==label_1){
+			if(e.getSource()==label_1){
 				AppearLabel(label_1, 1);
 				Verify_CardLabel(label_1, 1);
 

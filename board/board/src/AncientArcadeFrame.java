@@ -74,6 +74,9 @@ public class AncientArcadeFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public AncientArcadeFrame() {
+		//* MenuBar *
+		setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
+		
 		//Getting Dimensions
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		double width = screenSize.getWidth();
@@ -141,7 +144,10 @@ public class AncientArcadeFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
+		
+		
+		
+		
 		// labels(images) about heroes
 		Hero_lbl_1 = new JLabel();  //zeus   --> 1
 		Hero_lbl_1.setBounds(20, 20, (int)( ((width-40)/4)*0.8 -z ), (int) (height-50)/7 - w );

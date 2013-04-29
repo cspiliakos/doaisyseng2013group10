@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.sound.sampled.AudioInputStream;
@@ -10,24 +11,26 @@ public class Audios {
 	//dice_roll.wav
 	//swordedited.wav
 	//toxo(2).wav
-	private HashMap<String, Boolean>  audios ;
+	private ArrayList<AudiosPair> audiosList;
 
 	public Audios(){
 		
-		audios.put("battle_theme.wav", true);
-		audios.put("click_meny_buttons.wav", false);
-		audios.put("corona_h_grammata.wav", true);
-		audios.put("dice_roll.wav", false);
-		audios.put("swordedited.wav", false);
-		audios.put("toxo(2).wav", false);
+		audiosList.add(new AudiosPair("battle_theme.wav", true));
+		audiosList.add(new AudiosPair("click_meny_buttons.wav", false));
+		audiosList.add(new AudiosPair("corona_h_grammata.wav", true));
+		audiosList.add(new AudiosPair("dice_roll.wav", false));
+		audiosList.add(new AudiosPair("swordedited.wav", false));
+		audiosList.add(new AudiosPair("toxo(2).wav", false));
 		
 	}
 
-	public HashMap<String, Boolean> getAudios() {
-		return audios;
+	public ArrayList<AudiosPair> getAudios() {
+		return audiosList;
 	}
 
-	public void setAudios(HashMap<String, Boolean> audios) {
-		this.audios = audios;
+	public void setAudios(ArrayList<AudiosPair> audios) {
+		this.audiosList = audios;
 	}
+
+
 }

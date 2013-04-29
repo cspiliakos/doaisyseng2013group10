@@ -29,7 +29,8 @@ public class TelecubeFrame extends JFrame {
 	private String q;
 
 	public TelecubeFrame(String str,String str2) {
-
+		//*** MenuBar ***//
+				setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
 		
 		s=str;
 		q=str2;

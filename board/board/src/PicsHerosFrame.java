@@ -32,6 +32,9 @@ public class PicsHerosFrame extends JFrame{
 	public PicsHerosFrame(PicsHerosHeroManager heroManager){
 		super("3 photos 1 Hero");
 		
+		//*** MenuBar ***//
+				setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
+		
 		//Getting Dimensions
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		double width = screenSize.getWidth();

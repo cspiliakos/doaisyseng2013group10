@@ -34,6 +34,8 @@ public class ClickMeFrame extends JFrame{
 	private MyGlassPane myGlassPane;
 	
 	public ClickMeFrame() {
+		
+		
 		iconSize=150;
 		timerDelay=3000;
 		timer=new TimerBeep(timerDelay);

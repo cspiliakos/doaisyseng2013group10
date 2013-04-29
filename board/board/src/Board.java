@@ -49,6 +49,8 @@ public class Board extends JFrame{
 	private ArrayList<User> players;
 	
 	public Board(ArrayList<User> p, ImageIcon heroimage){
+		//*** MenuBar ***//
+				setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
 		
 		players=new ArrayList<User>();
 		players=p;

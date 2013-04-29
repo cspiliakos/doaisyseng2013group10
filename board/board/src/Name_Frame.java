@@ -48,6 +48,9 @@ public class Name_Frame extends JFrame {
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Name_Frame() {
+		//*** MenuBar ***//
+				setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
+		
 		try {
 			background = ImageIO.read(new File("start.jpg"));
 		} catch (IOException e) {

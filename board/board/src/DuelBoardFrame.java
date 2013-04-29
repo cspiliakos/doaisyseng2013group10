@@ -63,6 +63,8 @@ public class DuelBoardFrame extends JFrame {
 	
 	
 	public DuelBoardFrame(User user){
+		//*** MenuBar ***//
+				setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
 		
 		//make the frame full screen
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

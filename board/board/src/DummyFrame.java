@@ -17,6 +17,8 @@ public class DummyFrame extends JFrame{
 	private duelListener dl;
 	
 	public DummyFrame(){
+		//*** MenuBar ***//
+				setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
 		
 		puzzles=new PuzzleList();
 		

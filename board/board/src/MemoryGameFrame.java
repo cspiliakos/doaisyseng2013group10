@@ -63,6 +63,8 @@ public class MemoryGameFrame extends JFrame {
 	private LblListener listener;
 
 	public MemoryGameFrame() {
+		//*** MenuBar ***//
+				setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		double width = screenSize.getWidth();

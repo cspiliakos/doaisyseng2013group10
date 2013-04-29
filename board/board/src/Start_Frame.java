@@ -41,6 +41,8 @@ public class Start_Frame extends JFrame{
 	private AudioInputStream audio;
 	
 	public static void main(String[] args) {
+		
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -55,6 +57,9 @@ public class Start_Frame extends JFrame{
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Start_Frame(){  
+		//*** MenuBar ***//
+				setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
+		
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		double fwidth = screenSize.getWidth();

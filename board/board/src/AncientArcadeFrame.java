@@ -74,7 +74,7 @@ public class AncientArcadeFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public AncientArcadeFrame() {
-		//* MenuBar *
+		//*** MenuBar ***//
 		setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
 		
 		//Getting Dimensions

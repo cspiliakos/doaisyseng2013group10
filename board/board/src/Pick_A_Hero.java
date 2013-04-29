@@ -50,6 +50,10 @@ public class Pick_A_Hero extends JFrame {
 	private ArrayList<User> players;
 	
 	public Pick_A_Hero(ArrayList<User> p) {
+		//*** MenuBar ***//
+				setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
+		
+		
 		players=new ArrayList<User>();
 		players=p;
 		//metafora listas paixtwn

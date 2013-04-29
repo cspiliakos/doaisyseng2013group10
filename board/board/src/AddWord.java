@@ -18,7 +18,8 @@ public class AddWord extends JFrame {
 
 	String categories[]={"Choose ","C1","C2"};
 	public AddWord() {
-		
+		//*** MenuBar ***//
+				setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
 		
 		
 		contentPane = new JPanel();

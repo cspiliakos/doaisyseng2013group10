@@ -164,7 +164,7 @@ public class Board extends JFrame{
 		gbc_hero2lbl.anchor=GridBagConstraints.FIRST_LINE_END;
 		imagePanel.add(hero2lbl, gbc_hero2lbl);
 		
-		attacklbl = new JLabel("\u0388\u03C0\u03AF\u03B8\u03B5\u03C3\u03B7: "+xristis1.getAttack());
+		attacklbl = new JLabel("\u0388\u03C0\u03AF\u03B8\u03B5\u03C3\u03B7: "+xristis1.getDamage());
 		attacklbl.setForeground(Color.ORANGE);
 		attacklbl.setFont(new Font("Sylfaen", Font.BOLD, 20));
 		GridBagConstraints gbc_attack = new GridBagConstraints();
@@ -435,7 +435,7 @@ public class UpgradeSkillListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		double health=xristis1.getHealth();
-		double attack=xristis1.getAttack();
+		double attack=xristis1.getDamage();
 		double defence=xristis1.getDefence();
 		int skillpoints=xristis1.getSkillpoints();
 		if(skillpoints>0){
@@ -449,11 +449,11 @@ public class UpgradeSkillListener implements ActionListener{
 			}
 			else if(e.getSource()==plusAttack){
 				attack++;
-				xristis1.setAttack(attack);
+				xristis1.setDamage(attack);
 				skillpoints--;
 				xristis1.setSkillpoints(skillpoints);
 				skillpointlbl.setText("Skill Points" +xristis1.getSkillpoints());
-				attacklbl.setText("\u0388\u03C0\u03AF\u03B8\u03B5\u03C3\u03B7: "+xristis1.getAttack());
+				attacklbl.setText("\u0388\u03C0\u03AF\u03B8\u03B5\u03C3\u03B7: "+xristis1.getDamage());
 			}
 			else if(e.getSource()==plusDefence){
 				defence++;

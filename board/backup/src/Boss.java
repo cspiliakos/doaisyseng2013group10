@@ -29,7 +29,7 @@ public class Boss extends Monsters{
 
 	public double calculateDamage(){
 		double currDamage;
-		currDamage=currUser.getAttack();
+		currDamage=currUser.getDamage();
 		plusminus=r1.nextInt(1);
 		amount=r2.nextInt(10+(currUser.getSkillpoints()));
 		if(plusminus==0){

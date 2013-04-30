@@ -379,7 +379,7 @@ public class Pick_A_Hero extends JFrame {
 					System.out.println("All players must choose a hero");
 					if(players.size()==1){
 						//single player
-						players.get(0).setCharImage(image);
+						players.get(0).setImage(image);
 						
 						Pick_A_Hero.this.setVisible(false);
 						pista = new Board(players,image);
@@ -389,11 +389,11 @@ public class Pick_A_Hero extends JFrame {
 					}
 					else{
 						//multiplayer
-						if(players.get(0).getCharImage()==null){
-						players.get(0).setCharImage(image);
+						if(players.get(0).getImage()==null){
+						players.get(0).setImage(image);
 						}
 						else{
-							players.get(1).setCharImage(image);
+							players.get(1).setImage(image);
 							
 							Pick_A_Hero.this.setVisible(false);
 							pista = new Board(players,image);
@@ -410,7 +410,7 @@ public class Pick_A_Hero extends JFrame {
 			public boolean checkIfDone(){
 				//an exoume teleiwsei me tis eikones
 				for(User u:players){
-					if(u.getCharImage()==null)
+					if(u.getImage()==null)
 						return false;
 				}
 				return true;
@@ -469,7 +469,7 @@ public class Pick_A_Hero extends JFrame {
 			player1Panel.setVisible(true);
 			
 			if (players.size()>1){
-				if(players.get(0).getCharImage()!=null){
+				if(players.get(0).getImage()!=null){
 					player2Panel.setVisible(true);
 				}
 			}

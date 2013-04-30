@@ -3,40 +3,32 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
-public class User {
-	private String name;
-	private double attack;
-	private double defence;
-	private double health;
+public class User extends Monsters { //extends Mosnter --> User is a character
+	private String Username; //The name of the Current Player
+
 	private int skillpoints;
 	//points to upgrade skills
-	private ImageIcon charImage;
-	
+
+
 	private int coins;
 	private ArrayList<Weapons> weapons;
 	private Weapons currWeapon;
-	
-	public User(String name) 
+
+	public User(String name)
 	{
 		super();
-		this.name = name;
-		this.attack = 20;
-		this.defence = 20;
-		this.health = 100;
+		Username = name;
 		this.skillpoints=10;
-		this.charImage=null;
-		
+
 		//from user class of duel board
 		coins = 100000;
-		//just for checking 
+		//just for checking
 		weapons =new ArrayList<Weapons>();
 		weapons.add(new Sword());
 	}
 
-	
-	
-	
-	
+
+
 
 
 	public int getCoins() {
@@ -58,45 +50,22 @@ public class User {
 	public void addWeapons(Weapons currWeapon){
 		weapons.add(currWeapon);
 	}
-	
-	public ImageIcon getCharImage() {
-		return charImage;
+
+	public String getUsername() {
+		return Username;
 	}
 
-	public void setCharImage(ImageIcon charImage) {
-		this.charImage = charImage;
+
+	public void setUsername(String username) {
+		Username = username;
 	}
 
-	public String getName() {
-		return name;
+	public Weapons getCurrWeapon() {
+		return currWeapon;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public double getAttack() {
-		return attack;
-	}
-
-	public void setAttack(double attack) {
-		this.attack = attack;
-	}
-
-	public double getDefence() {
-		return defence;
-	}
-
-	public void setDefence(double defence) {
-		this.defence = defence;
-	}
-
-	public double getHealth() {
-		return health;
-	}
-
-	public void setHealth(double health) {
-		this.health = health;
+	public void setCurrWeapon(Weapons currWeapon) {
+		this.currWeapon = currWeapon;
 	}
 
 	public int getSkillpoints() {
@@ -106,5 +75,5 @@ public class User {
 	public void setSkillpoints(int skillpoints) {
 		this.skillpoints = skillpoints;
 	}
-	
+
 }

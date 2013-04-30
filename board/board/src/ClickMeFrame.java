@@ -21,7 +21,7 @@ public class ClickMeFrame extends JFrame{
 	private Timer timer, iconTimer;
 	private TimerClass count;
 	private IconClass help;
-	
+	//gdfghf
 	public ClickMeFrame() {
 		minutes =  2;
 		seconds = 0;

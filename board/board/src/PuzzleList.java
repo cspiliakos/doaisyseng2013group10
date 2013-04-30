@@ -4,12 +4,14 @@ public class PuzzleList {
 	private ArrayList<Puzzle> puzzles;
 		
 	public PuzzleList(){
-		puzzles = new ArrayList<Puzzle>();
+		//dhmiourgia listas puzzle prosthiki 1-1 tous grifous
+		puzzles=new ArrayList<Puzzle>();
 		puzzles.add(new ClickMe());
 		puzzles.add(new AncientArcade());
 		puzzles.add(new TeleCube());
 		puzzles.add(new PicsHeros());
 		puzzles.add(new MemoryGame());
+			
 	}
 
 	public ArrayList<Puzzle> getPuzzles() {
@@ -19,4 +21,7 @@ public class PuzzleList {
 	public void setPuzzles(ArrayList<Puzzle> puzzles) {
 		this.puzzles = puzzles;
 	}
+
+	
+	
 }

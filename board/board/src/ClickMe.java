@@ -1,11 +1,9 @@
-
 public class ClickMe extends Puzzle{
 	private int code;
 	
 	public ClickMe() {
 		super();
-		code=2;
-		
+		code = 2;
 	}
 
 	public void addXP() {
@@ -22,8 +20,6 @@ public class ClickMe extends Puzzle{
 	}
 
 	public void startPuzzle(){
-		//gia na ksekinisei to paixnidi kaloume ton kataskeyasth tou
 		new ClickMeFrame();
-		System.out.println("clickme");
 	}
 }

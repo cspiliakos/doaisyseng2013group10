@@ -38,6 +38,9 @@ public class MemoryGameFrame extends JFrame {
     private int period = 199;
     private int correct=0;    //correct guesses
     
+    private int Clicks=0; //the ammount of clicks done by Player
+    private JLabel Clickslbl;
+    
     private Image img;  //The image of the closed icons(something black)
     private Image backimg;  //The image of the backgound
     private CardLabel label_1;
@@ -192,6 +195,13 @@ public class MemoryGameFrame extends JFrame {
 		info.setText("Find the hidden pairs. GOOD LUCK!!!");
 		info.setEditable(false);
 		contentPane.add(info);
+		
+		//Label that shows how many clicks are done by the player
+		Clickslbl = new JLabel(); //x //y //width //height
+		Clickslbl.setBounds(label_4.getX()+ label_4.getWidth(),label_4.getY(),80,50);
+		Clickslbl.setForeground(Color.WHITE);
+		Clickslbl.setText("Clicks: "+Clicks);
+		contentPane.add(Clickslbl);
 		
 		backlbl=new JLabel();
 		backlbl.setBounds(0,0,(int) width,(int) height);
@@ -360,10 +370,10 @@ public class MemoryGameFrame extends JFrame {
 
 						CloseOpenedLabel(cd);
 						CloseOpenedLabel(conn_label);
-					//	JOptionPane.showMessageDialog(null, "Wrong");
+						
 					}
-				},  delay_secs* 1000, period*1000);
-
+				},  delay_secs* 1000);
+				JOptionPane.showMessageDialog(null, "Wrong");
 					
 			}
 			System.out.println("CD Code: "+ cd.getCode());
@@ -378,7 +388,9 @@ public class MemoryGameFrame extends JFrame {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-	
+			Clicks++;
+			Clickslbl.setText("Clicks: "+Clicks);
+			
 			//User Picked Label 1
 			if(e.getSource()==label_1){
 				AppearLabel(label_1, 1);

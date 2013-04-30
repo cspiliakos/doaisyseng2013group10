@@ -397,7 +397,7 @@ class CoinListener implements MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		new DummyFrame();
+		new DummyFrame(xristis1);//endeikthka enas xristis(prepi na exei ton 1 h ton 2)
 		new PuzzleList();
 		//na mpei ekei pou ftiaxnetai o paixths sthn pic a hero
 		

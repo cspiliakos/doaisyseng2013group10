@@ -12,11 +12,15 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+
+import java.util.*;
 
 
 
@@ -25,6 +29,7 @@ import javax.swing.JLabel;
 
 public class DuelBoardFrame extends JFrame {
 	private User currUser;
+	private CharsOpponents currOpponent;
 	private ArrayList<Weapons> usersWeapons;
 	
 	private JLabel ourHerolbl;
@@ -55,14 +60,21 @@ public class DuelBoardFrame extends JFrame {
 	private int widthSize;
 	private int heightSize;
 	
-	
-	
-	private JPanel mainPanel;
-	
+	private boolean hit=false;
+		
+	private JPanel mainPanel;	
 	private MyGlassPane myGlassPane;
 	
 	
+	
+	
 	public DuelBoardFrame(User user){
+		
+		
+		
+		currOpponent= new CharsOpponents ("Lernaia Ydra",80,15,30,new ImageIcon("battle_hydra_1.jpg"));
+		//trial opponent
+		
 		//*** MenuBar ***//
 				setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
 		
@@ -248,6 +260,27 @@ public class DuelBoardFrame extends JFrame {
 		
 	}
 	
+	public boolean checkIfDead(CharsOpponents c){
+		double remainHealth;
+		remainHealth=c.getHealth();
+		if(remainHealth<=0){
+			JOptionPane.showMessageDialog(null, "YOU WIN!");
+			return true;
+		}			
+		else
+			return false;
+		
+	}
+	
+	public void opponentsAttack(User u, CharsOpponents c){
+		if (hit=true){
+			double attack=c.getDamage();
+			u.setHealth((u.getHealth())-attack);
+			hit=false;
+		}
+		
+	}
+	
 	class QuitListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
@@ -277,7 +310,8 @@ public class DuelBoardFrame extends JFrame {
 			
 			int xoLifeRec=opplblPanel.getX() + widthSize;
 			int yoLifeRec=opplblPanel.getY()+(heightSize/2);
-			g.fillRect(xoLifeRec, yoLifeRec, 110 , 10);
+			int recWidthOpL=(int)currOpponent.getHealth();
+			g.fillRect(xoLifeRec, yoLifeRec, recWidthOpL , 10);
 			
 			int xhDamRec=herolblPanel.getX() + widthSize;
 			int yhDamRec=herolblPanel.getY()+(heightSize+(heightSize/2));
@@ -286,7 +320,8 @@ public class DuelBoardFrame extends JFrame {
 			
 			int xoDamRec=opplblPanel.getX() + widthSize;
 			int yoDamRec=opplblPanel.getY()+(heightSize+(heightSize/2));
-			g.fillRect(xoDamRec, yoDamRec, 150, 10);
+			int recWidthOpA=(int)currOpponent.getDamage();
+			g.fillRect(xoDamRec, yoDamRec, recWidthOpA, 10);
 			
 			int xhDefRec=herolblPanel.getX() + widthSize;
 			int yhDefRec=herolblPanel.getY()+((2*heightSize)+(heightSize/2));
@@ -295,7 +330,8 @@ public class DuelBoardFrame extends JFrame {
 			
 			int xoDefRec=opplblPanel.getX() + widthSize;
 			int yoDefRec=opplblPanel.getY()+((2*heightSize)+(heightSize/2));
-			g.fillRect(xoDefRec, yoDefRec, 80, 10);
+			int recWidthOpD=(int)currOpponent.getDefence();
+			g.fillRect(xoDefRec, yoDefRec, recWidthOpD, 10);
 			
 		}
 		
@@ -371,22 +407,57 @@ public class DuelBoardFrame extends JFrame {
 	
 	class attackButtonListener implements ActionListener{
 
-		
+		TimerBeep timer;
 		public void actionPerformed(ActionEvent e) {
+		hit=true;
 		if(e.getSource()==swordBt){
 			JOptionPane.showMessageDialog(null, "Attack with sword");
-		}
+			currOpponent.setHealth((currOpponent.getHealth())-10);
+			myGlassPane.repaint();
+			checkIfDead(currOpponent);
+			}
 		else if (e.getSource()==crossBowBt){
 			JOptionPane.showMessageDialog(null,"Attack with bow");
-		}
+			currOpponent.setHealth((currOpponent.getHealth())-10);
+			myGlassPane.repaint();
+			checkIfDead(currOpponent);
+			}
 		else if(e.getSource()==spearBt){
 			JOptionPane.showMessageDialog(null, "Attack with spear");
-		}
-			
+			currOpponent.setHealth((currOpponent.getHealth())-10);
+			myGlassPane.repaint();
+			checkIfDead(currOpponent);
+			}
+		
+		timer=new TimerBeep(3000);
+		
+		
 		}
 		
 	}
+	
+class TimerBeep extends Timer{
 
+		
+		//private static final long serialVersionUID = 1L;
+		
+		Timer timer;
+		RemindTask task;
+
+		public TimerBeep(int secocnds) {
+		   timer = new Timer();
+		   timer.schedule(new RemindTask(),3000);
+		    
+		    //1 second=1000 miliseconds
+		  }
+
+ class RemindTask extends TimerTask {
+	    public void run() {
+		    	opponentsAttack(currUser,currOpponent);
+	    }
+ }
+		
+}
 
 	
 }

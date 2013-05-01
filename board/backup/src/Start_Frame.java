@@ -63,7 +63,6 @@ public class Start_Frame extends JFrame{
 		setUndecorated(true);
 		setVisible(true);
 		back = new BackgroundPanel(background);
-		back.setTransparentAdd(true);
 		setContentPane(back);
 		back.setLayout(new BorderLayout(5, 5));
 		

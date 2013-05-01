@@ -35,14 +35,13 @@ public class Pick_A_Hero extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel helpPanel, quitPanel;
-	private Name_Frame name;
 	private Board pista;
 	private User xristis1, xristis2;
 	private Image background, resize, help;
 	private ImageIcon hero, image;
 	private BackgroundPanel back;
 	private JLabel title, pl1, pl2, pl3, pl4, pl5, pl6, lab1, lab2, lab3, lab4, lab5, lab6;
-	private JButton quit, piso, play;
+	private JButton piso, play;
 	private Clip clip;
 	private AudioInputStream audio;
 	private Pick_A_Hero_Listener PHL;
@@ -62,8 +61,9 @@ public class Pick_A_Hero extends JFrame {
 	public Pick_A_Hero(ArrayList<User> p) {
 		//*** MenuBar ***//
 		setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
-
-
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setUndecorated(true);
+		setVisible(true);
 		players=new ArrayList<User>();
 		players=p;
 		//metafora listas paixtwn
@@ -81,19 +81,18 @@ public class Pick_A_Hero extends JFrame {
 		heightSize = helpHeight / 3;
 
 		try {
-			background = ImageIO.read(new File("start.jpg"));
+			background = ImageIO.read(new File("Start\\start.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		setUndecorated(true);
+		
 		back = new BackgroundPanel(background);
 		back.setTransparentAdd(true);
 		setContentPane(back);
 		back.setLayout(new BorderLayout(5, 5));
 
 		try{
-			audio = AudioSystem.getAudioInputStream(new File("battle_theme.wav").getAbsoluteFile());
+			audio = AudioSystem.getAudioInputStream(new File("Sounds\\battle_theme.wav").getAbsoluteFile());
 			clip = AudioSystem.getClip();
 			clip.open(audio);
 			clip.loop(Clip.LOOP_CONTINUOUSLY);
@@ -438,13 +437,6 @@ public class Pick_A_Hero extends JFrame {
 
 		//
 		quitPanel = new JPanel();
-		quit = new JButton("\u0388\u03BE\u03BF\u03B4\u03BF\u03C2");
-		quit.setFont(new Font("Sylfaen", Font.PLAIN, 20));
-		quit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				System.exit(0);
-			}
-		});
 		quitPanel.setLayout(new BorderLayout(0, 0));
 
 		piso = new JButton("\u03A0\u03AF\u03C3\u03C9");
@@ -452,15 +444,13 @@ public class Pick_A_Hero extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				clip.stop();
 				Pick_A_Hero.this.setVisible(false);
-				name = new Name_Frame();
-				name.setVisible(true);
+				new Name_Frame();
 			}
 
 
 		});
 		piso.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		quitPanel.add(piso, BorderLayout.WEST);
-		quitPanel.add(quit, BorderLayout.EAST);
 		back.add(quitPanel, BorderLayout.SOUTH);
 	}
 

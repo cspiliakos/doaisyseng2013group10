@@ -31,7 +31,7 @@ public class Board extends JFrame{
 	private JLabel title, imageLabel, attacklbl, defencelbl, life, coinlbl, dicelbl, hero2lbl, skillpointlbl;
 	private Random r;
 	private JPanel buttonPanel, imagePanel, quitPanel;
-	private User xristis1, xristis2;
+	private User xristis1, xristis2, currUser;
 	private MyGlassPane myGlassPane;
 	private int row, size, playerX, playerY, widthSize, heightSize;
 	private BackgroundPanel back;
@@ -41,26 +41,32 @@ public class Board extends JFrame{
 	private Pick_A_Hero pick;
 	private DiceListener dlistener;
 	private CoinListener clistener;
-	private ImageIcon image;
+	private ImageIcon image, smallImage;
 	private UpgradeSkillListener skillListener;
+	private int userTurn=2;
+	//indicates the players turn in case of two players
 	
 	
 	
 	private ArrayList<User> players;
 	
-	public Board(ArrayList<User> p, ImageIcon heroimage){
+	public Board(ArrayList<User> p){
 		//*** MenuBar ***//
 				setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
 		
 		players=new ArrayList<User>();
 		players=p;
 		xristis1 = players.get(0);
+		image=xristis1.getImage();
 		if ((players.size())>1){
 			xristis2=players.get(1);
+			smallImage=xristis2.getImage();
+			
 		}
 		
-		//ImageIcon heroimage
-		image =heroimage;
+		currUser=xristis1;
+		
+		
 		row = 1;
 		playerX = 0;
 		playerY = 0;
@@ -151,10 +157,7 @@ public class Board extends JFrame{
 		imagePanel.add(imageLabel, gbc_imageLabel);
 		
 		hero2lbl=new JLabel();
-		//tha emfanizetai efoson exoun epilegei 2 paixtes
-		ImageIcon hero2Icon=new ImageIcon("Zeus.jpg");
-		//tha pairnei timh analogh me to ti exei dialeksei o deyteros paixths
-		Image hero2Image=hero2Icon.getImage();
+		Image hero2Image=smallImage.getImage();
 		Image hero2ResizedImage= hero2Image.getScaledInstance((widthSize),(heightSize),0);
 		hero2lbl.setIcon(new ImageIcon(hero2ResizedImage));
 		GridBagConstraints gbc_hero2lbl=new GridBagConstraints();
@@ -164,7 +167,13 @@ public class Board extends JFrame{
 		gbc_hero2lbl.anchor=GridBagConstraints.FIRST_LINE_END;
 		imagePanel.add(hero2lbl, gbc_hero2lbl);
 		
-		attacklbl = new JLabel("\u0388\u03C0\u03AF\u03B8\u03B5\u03C3\u03B7: "+xristis1.getDamage());
+		if((players.size())>1)
+			hero2lbl.setVisible(true);
+		else
+			hero2lbl.setVisible(false);
+		//only visible in multiplayer mode
+		
+		attacklbl = new JLabel("\u0388\u03C0\u03AF\u03B8\u03B5\u03C3\u03B7: "+currUser.getDamage());
 		attacklbl.setForeground(Color.ORANGE);
 		attacklbl.setFont(new Font("Sylfaen", Font.BOLD, 20));
 		GridBagConstraints gbc_attack = new GridBagConstraints();
@@ -173,7 +182,7 @@ public class Board extends JFrame{
 		gbc_attack.gridy = 1;
 		imagePanel.add(attacklbl, gbc_attack);
 		
-		defencelbl = new JLabel("\u0386\u03BC\u03C5\u03BD\u03B1: "+xristis1.getDefence());
+		defencelbl = new JLabel("\u0386\u03BC\u03C5\u03BD\u03B1: "+currUser.getDefence());
 		defencelbl.setForeground(Color.ORANGE);
 		defencelbl.setFont(new Font("Sylfaen", Font.BOLD, 20));
 		GridBagConstraints gbc_defence = new GridBagConstraints();
@@ -182,7 +191,7 @@ public class Board extends JFrame{
 		gbc_defence.gridy = 2;
 		imagePanel.add(defencelbl, gbc_defence);
 		
-		life = new JLabel("\u0396\u03C9\u03AE: "+xristis1.getHealth());
+		life = new JLabel("\u0396\u03C9\u03AE: "+currUser.getHealth());
 		life.setForeground(Color.ORANGE);
 		life.setFont(new Font("Sylfaen", Font.BOLD, 20));
 		GridBagConstraints gbc_life = new GridBagConstraints();
@@ -213,7 +222,7 @@ public class Board extends JFrame{
 		c.gridy=1;
 		imagePanel.add(plusAttack,c);
 		
-		skillpointlbl=new JLabel("Skill Points \n"+xristis1.getSkillpoints());
+		skillpointlbl=new JLabel("Skill Points \n"+currUser.getSkillpoints());
 		skillpointlbl.setFont(new Font("Sylfaen",Font.BOLD,20));
 		skillpointlbl.setForeground(Color.WHITE);
 		c.gridx=1;
@@ -259,6 +268,28 @@ public class Board extends JFrame{
 		this.setContentPane(back);
 	}
 	
+	public void switchTurn(){
+		//method to switch turns in multi player		
+		if(userTurn==1){
+			userTurn=2;
+			currUser=xristis1;
+		}
+		else if (userTurn==2){
+			userTurn=1;
+			currUser=xristis2;
+		}
+		JOptionPane.showMessageDialog(null, currUser.getDamage());
+		updateStatLabels();
+	}
+	
+	public void updateStatLabels(){
+		//for the values of the labels to be in accordance with the player 
+		skillpointlbl.setText("Skill Points \n"+String.valueOf(currUser.getSkillpoints()));
+		attacklbl.setText("\u0388\u03C0\u03AF\u03B8\u03B5\u03C3\u03B7: "+String.valueOf(currUser.getDamage()));
+		defencelbl.setText("\u0386\u03BC\u03C5\u03BD\u03B1: "+String.valueOf(currUser.getDefence()));
+		life.setText("\u0396\u03C9\u03AE: "+String.valueOf(currUser.getHealth()));
+		}
+
 	@SuppressWarnings("serial")
 	class MyGlassPane extends JComponent{
 		private static final int ROWS = 6;
@@ -305,6 +336,9 @@ class DiceListener implements MouseListener {
 			}
 		
 		public void switchChars(){
+			
+			
+			
 			//tha kaleitai mono an paizoun 2 paixtes
 			ImageIcon tempIcon=new ImageIcon();
 			Icon i=imageLabel.getIcon();
@@ -313,8 +347,9 @@ class DiceListener implements MouseListener {
 			Image tempImage=tempIcon.getImage();
 			Image tempResizedImage = tempImage.getScaledInstance(hero2lbl.getWidth(), hero2lbl.getHeight(), 0);
 			//thn metasxhmatizw stis diastaseis tou mikrou label
-			i=hero2lbl.getIcon();
-			tempIcon=(ImageIcon)i;
+			//i=hero2lbl.getIcon();
+			switchTurn();
+			tempIcon=currUser.getImage();
 			tempImage=tempIcon.getImage();
 			hero2lbl.setIcon(new ImageIcon(tempResizedImage));
 			tempResizedImage=tempImage.getScaledInstance(imageLabel.getWidth(), imageLabel.getHeight(),0);
@@ -394,9 +429,11 @@ class DiceListener implements MouseListener {
 }
 
 class CoinListener implements MouseListener{
-
+	
+	
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
+		
 		new DummyFrame(xristis1);//endeikthka enas xristis(prepi na exei ton 1 h ton 2)
 		new PuzzleList();
 		//na mpei ekei pou ftiaxnetai o paixths sthn pic a hero
@@ -434,34 +471,34 @@ public class UpgradeSkillListener implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		double health=xristis1.getHealth();
-		double attack=xristis1.getDamage();
-		double defence=xristis1.getDefence();
-		int skillpoints=xristis1.getSkillpoints();
+		double health=currUser.getHealth();
+		double attack=currUser.getDamage();
+		double defence=currUser.getDefence();
+		int skillpoints=currUser.getSkillpoints();
 		if(skillpoints>0){
 			if(e.getSource()==plusLife){
 				health++;
-				xristis1.setHealth(health);
+				currUser.setHealth(health);
 				skillpoints--;
-				xristis1.setSkillpoints(skillpoints);
-				skillpointlbl.setText("Skill Points" +xristis1.getSkillpoints());
-				life.setText("\u0396\u03C9\u03AE: "+xristis1.getHealth());
+				currUser.setSkillpoints(skillpoints);
+				skillpointlbl.setText("Skill Points" +currUser.getSkillpoints());
+				life.setText("\u0396\u03C9\u03AE: "+currUser.getHealth());
 			}
 			else if(e.getSource()==plusAttack){
 				attack++;
-				xristis1.setDamage(attack);
+				currUser.setDamage(attack);
 				skillpoints--;
-				xristis1.setSkillpoints(skillpoints);
-				skillpointlbl.setText("Skill Points" +xristis1.getSkillpoints());
-				attacklbl.setText("\u0388\u03C0\u03AF\u03B8\u03B5\u03C3\u03B7: "+xristis1.getDamage());
+				currUser.setSkillpoints(skillpoints);
+				skillpointlbl.setText("Skill Points" +currUser.getSkillpoints());
+				attacklbl.setText("\u0388\u03C0\u03AF\u03B8\u03B5\u03C3\u03B7: "+currUser.getDamage());
 			}
 			else if(e.getSource()==plusDefence){
 				defence++;
-				xristis1.setDefence(defence);
+				currUser.setDefence(defence);
 				skillpoints--;
-				xristis1.setSkillpoints(skillpoints);
-				skillpointlbl.setText("Skill Points" +xristis1.getSkillpoints());
-				defencelbl.setText("\u0386\u03BC\u03C5\u03BD\u03B1: "+xristis1.getDefence());
+				currUser.setSkillpoints(skillpoints);
+				skillpointlbl.setText("Skill Points" +currUser.getSkillpoints());
+				defencelbl.setText("\u0386\u03BC\u03C5\u03BD\u03B1: "+currUser.getDefence());
 			}
 		}
 		else

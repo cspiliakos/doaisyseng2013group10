@@ -452,7 +452,7 @@ public class Pick_A_Hero extends JFrame {
 						players.get(0).setDefence(Double.parseDouble(p4.getText()));
 
 						Pick_A_Hero.this.setVisible(false);
-						new Board(players, image);
+						new Board(players);
 						clip.stop();
 					}
 					else
@@ -473,7 +473,7 @@ public class Pick_A_Hero extends JFrame {
 							players.get(1).setDefence(Double.parseDouble(p8.getText()));
 							
 							Pick_A_Hero.this.setVisible(false);
-							new Board(players,image);
+							new Board(players);
 							clip.stop();
 						}
 					}

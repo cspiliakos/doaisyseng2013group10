@@ -17,11 +17,11 @@ public class Sound_Thread extends Thread{
 	public Sound_Thread(String sp, boolean rp){
 		SongPath = sp;
 		repeat = rp;
-		music(SongPath, repeat);
+		music(SongPath, repeat);  //Different audios are being played many times
 
 	}
 	
-	public void StopMusic(){
+	public void StopMusic(){   //Stops the clip, USED FOR BACKGROUND SOUNDS
 		clip.stop();
 	}
 
@@ -33,7 +33,7 @@ public class Sound_Thread extends Thread{
 			clip.open(ais);
 			clip.start();
 			if(repeat)
-				clip.loop(Clip.LOOP_CONTINUOUSLY);
+				clip.loop(Clip.LOOP_CONTINUOUSLY);   //	for background sounds that are being played CONTINUOUSLY
 
 		}
 

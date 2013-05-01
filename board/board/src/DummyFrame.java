@@ -16,10 +16,14 @@ public class DummyFrame extends JFrame{
 	private myButtonListener btl;
 	private duelListener dl;
 	
-	public DummyFrame(){
+	private User UserToPlay;//The Current User who is about to play a PUZZLE of FIGHT
+	
+	public DummyFrame(User user){
 		//*** MenuBar ***//
-				setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
+		setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
 		
+		UserToPlay = user;		
+				
 		puzzles=new PuzzleList();
 		
 		panel=new JPanel();
@@ -78,7 +82,7 @@ public class DummyFrame extends JFrame{
 	
 	class duelListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			new DuelBoardFrame(new User("unknown"));
+			new DuelBoardFrame(UserToPlay);
 			
 		}
 		

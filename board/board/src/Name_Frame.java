@@ -170,7 +170,7 @@ public class Name_Frame extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				clip.stop();
 				if ((comboBox.getSelectedItem()).equals("1")){
-					user = new User(name1.getText());
+					user = new User(name1.getText());   //User has username, NOT HERONAME
 					players.add(user);
 				
 					

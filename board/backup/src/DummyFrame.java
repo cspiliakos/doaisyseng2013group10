@@ -3,11 +3,10 @@ import java.awt.event.ActionListener;
 import java.util.*;
 
 import javax.swing.*;
+
 public class DummyFrame extends JFrame{
 	//to prathyro einai endeiktiko o anagkaios kwdikas tha kaleitai an to nomisma erthei 
 	//apo thn meria tou grifou
-	
-
 	private JButton selectBt;
 	private JButton duelBt;
 	private JPanel panel;
@@ -15,7 +14,6 @@ public class DummyFrame extends JFrame{
 	private Random r;
 	private myButtonListener btl;
 	private duelListener dl;
-	
 	private User userToFight;
 	
 	public DummyFrame(User user){
@@ -48,9 +46,7 @@ public class DummyFrame extends JFrame{
 		
 	}
 
-	public void getPuzzle(){
-		//methodos gia na pairnoume tyxaia ton epomeno grifo
-		
+	public void getPuzzle() {
 		int currCode=r.nextInt(5);
 		System.out.println(currCode);
 		//na allaksei analoga me to plhthos twn grifwn pou tha baloume
@@ -62,28 +58,19 @@ public class DummyFrame extends JFrame{
 				//prosthetoume +1 giati to random ksekinaei apo to 0
 				p.startPuzzle();
 				//kaleitai o kataskeyasths tou sygkekrimenou puzzle
-				
-			}
-				
+			}	
 		}
-		
 	}
 	
-	
 	public class myButtonListener implements ActionListener{
-
 		public void actionPerformed(ActionEvent e) {
-	
-		getPuzzle();
-		
+			getPuzzle();
 		}
 	}
 	
 	class duelListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			new DuelBoardFrame(userToFight);
-			
 		}
-		
 	}
 }

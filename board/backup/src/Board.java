@@ -157,9 +157,9 @@ public class Board extends JFrame{
 		imagePanel.add(imageLabel, gbc_imageLabel);
 		
 		hero2lbl=new JLabel();
-		Image hero2Image=smallImage.getImage();
-		Image hero2ResizedImage= hero2Image.getScaledInstance((widthSize),(heightSize),0);
-		hero2lbl.setIcon(new ImageIcon(hero2ResizedImage));
+		//Image hero2Image=smallImage.getImage();
+		//Image hero2ResizedImage= hero2Image.getScaledInstance((widthSize),(heightSize),0);
+		//hero2lbl.setIcon(new ImageIcon(hero2ResizedImage));
 		GridBagConstraints gbc_hero2lbl=new GridBagConstraints();
 		gbc_hero2lbl.insets=new Insets(0,(2*widthSize),0,0);
 		gbc_hero2lbl.gridx=1;
@@ -435,17 +435,12 @@ class DiceListener implements MouseListener {
 	
 }
 
-class CoinListener implements MouseListener{
-	
-	
+class CoinListener implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		
 		new DummyFrame(xristis1);//endeikthka enas xristis(prepi na exei ton 1 h ton 2)
 		new PuzzleList();
 		//na mpei ekei pou ftiaxnetai o paixths sthn pic a hero
-		
-		
 	}
 
 	@Override

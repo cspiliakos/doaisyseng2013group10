@@ -35,7 +35,7 @@ public class ClickMeFrame extends JFrame{
 		score = 0;
 		lives = 3;
 		try {
-			background = ImageIO.read(new File("land.png"));
+			background = ImageIO.read(new File("ClickMe\\land.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -95,7 +95,7 @@ public class ClickMeFrame extends JFrame{
 		iconSize = 150;
 		iconLabel = new JLabel();
 		help.add(iconLabel);
-		ImageIcon icon = new ImageIcon("medusa.png");
+		ImageIcon icon = new ImageIcon("ClickMe\\medusa.png");
 		Image image = icon.getImage();
 		iconLabel.setSize(iconSize, iconSize);		
 		Image resizedImage = image.getScaledInstance(iconLabel.getWidth(), iconLabel.getHeight(), 0);

@@ -35,7 +35,6 @@ public class MemoryGameFrame extends JFrame {
                                     // TRUE:The user has picked something    FALSE:The user has picked nothing
     
     private int delay_secs= 1; // If user is wrong images stay open for 'delay_secs' seconds
-    private int period = 199;
     private int correct=0;    //correct guesses
     
     private int Clicks=0; //the ammount of clicks done by Player
@@ -64,6 +63,15 @@ public class MemoryGameFrame extends JFrame {
 	
 	private LblListener listener;
 
+	/**Sounds
+	 * list.get(0) select
+	 * list.get(1) right
+	 * list.get(2) congratulations
+	 * list.get(3) wrong
+	 */
+	ArrayList<AudiosPair> list = new ArrayList<AudiosPair>(new Audios().getMemoryGameList());
+	Sound_Thread soundthread1 = new Sound_Thread();
+	
 	public MemoryGameFrame() {
 		//*** MenuBar ***//
 				setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
@@ -216,7 +224,7 @@ public class MemoryGameFrame extends JFrame {
     	
     	//images turn around after we wait n seconds
 		int l= 100; //every 100 the cards close again
-		int n=8 ;//after 5 secs tha cards turn around
+		int n=8 ;//after 8 secs tha cards turn around
     	turn_around_images_in_seconds(n,l);
 		
 		
@@ -353,15 +361,21 @@ public class MemoryGameFrame extends JFrame {
 			//User has picked something before
 			//We must check if he is correct
 		{
-			//User is correct!                                //clik twice tha same picture
-			if(  conn_label.getCode().equals(cd.getCode()) &&cd != conn_label ){
+			//clik twice tha same picture                             
+			if(cd == conn_label){
+				soundthread1.PlayMusic(list.get(3).getSongName(), list.get(3).getRepeat());   //Sound Wrong
+			}
+			//User is correct!  
+			else if(  conn_label.getCode().equals(cd.getCode()) ){
+
+				soundthread1.PlayMusic(list.get(1).getSongName(), list.get(1).getRepeat());   //Sound when Correct
+
 				correct++;
 				cd.removeMouseListener(listener);      // if a PAIR is correct LOCK IT,so it doesnt get clicked AGAIN !!!
 				conn_label.removeMouseListener(listener);
-				JOptionPane.showMessageDialog(null, "Correct");
 			}
 			else{//User is wrong
-				
+
 				//Give the normal image for 2 SECS  and then turn is around
 				Timer timer = new Timer();
 
@@ -370,11 +384,11 @@ public class MemoryGameFrame extends JFrame {
 
 						CloseOpenedLabel(cd);
 						CloseOpenedLabel(conn_label);
-						
+
 					}
 				},  delay_secs* 1000);
 				JOptionPane.showMessageDialog(null, "Wrong");
-					
+
 			}
 			System.out.println("CD Code: "+ cd.getCode());
 			System.out.println("conn_label Code: "+ conn_label.getCode());
@@ -388,9 +402,11 @@ public class MemoryGameFrame extends JFrame {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			Clicks++;
+			Clicks++;                      //Clicks Counter
 			Clickslbl.setText("Clicks: "+Clicks);
-			
+
+			soundthread1.PlayMusic(list.get(0).getSongName(), list.get(0).getRepeat());   //Sound when Click
+
 			//User Picked Label 1
 			if(e.getSource()==label_1){
 				AppearLabel(label_1, 1);
@@ -490,6 +506,8 @@ public class MemoryGameFrame extends JFrame {
 
 			}
 			if(correct==8){
+				soundthread1.PlayMusic(list.get(2).getSongName(), list.get(2).getRepeat());   //Sound when Finish
+				
 				JOptionPane.showMessageDialog(null, "Congatulations");
 				//RETURN XP & COINS
 			}

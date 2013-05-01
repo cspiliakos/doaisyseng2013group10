@@ -72,9 +72,9 @@ public class AncientArcadeFrame extends JFrame {
 	
 	/**Sounds
 	 * list.get(0) correct
-	 * list.get(0) dias
-	 * list.get(0) minotaur
-	 * list.get(0) olympus
+	 * list.get(1) dias
+	 * list.get(2) minotaur
+	 * list.get(3) olympus
 	 */
 	ArrayList<AudiosPair> list = new ArrayList<AudiosPair>(new Audios().getArcadeList());
 	Sound_Thread soundthread1 = new Sound_Thread();

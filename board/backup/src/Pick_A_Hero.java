@@ -439,6 +439,7 @@ public class Pick_A_Hero extends JFrame {
 
 		play = new JButton("\u03A0\u03B1\u03AF\u03BE\u03B5");
 		play.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent arg0) {
 				if(!checkIfDone())
 				{
@@ -461,7 +462,7 @@ public class Pick_A_Hero extends JFrame {
 							players.get(0).setHealth(Double.parseDouble(p2.getText()));
 							players.get(0).setDamage(Double.parseDouble(p3.getText()));
 							players.get(0).setDefence(Double.parseDouble(p4.getText()));
-							helpLabel.setEnabled(false);
+							helpLabel.disable();
 						}
 						else
 						{
@@ -526,55 +527,134 @@ public class Pick_A_Hero extends JFrame {
 			pl6.setBorder(null);
 
 			player1Panel.setVisible(true);
-
-			if (players.size() > 1)
+			
+			if (players.size() == 1)
 			{
-				if(players.get(0).getImage() != null && e.getSource() != helpLabel){
-					player2Panel.setVisible(true);
+				if(e.getSource() == pl1)
+				{
+					pl1.setBorder(new LineBorder(Color.RED, 5));
+					image = new ImageIcon("Pick_Hero\\Ares.jpg");
+					setStatValues(char1);
+				}
+				else if(e.getSource() == pl2)
+				{
+					pl2.setBorder(new LineBorder(Color.RED, 5));
+					image = new ImageIcon("Pick_Hero\\Cronus.jpg");
+					setStatValues(char2);
+				}
+				else if(e.getSource() == pl3)
+				{
+					pl3.setBorder(new LineBorder(Color.RED, 5));
+					image = new ImageIcon("Pick_Hero\\Hades.jpg");
+					setStatValues(char3);
+				}
+				else if(e.getSource() == pl4)
+				{
+					pl4.setBorder(new LineBorder(Color.RED, 5));
+					image = new ImageIcon("Pick_Hero\\Poseidon.jpg");
+					setStatValues(char4);
+				}
+				else if(e.getSource() == pl5)
+				{
+					pl5.setBorder(new LineBorder(Color.RED, 5));
+					image = new ImageIcon("Pick_Hero\\Uranus.jpg");
+					setStatValues(char5);
+				}
+				else if(e.getSource() == pl6)
+				{
+					pl6.setBorder(new LineBorder(Color.RED, 5));
+					image = new ImageIcon("Pick_Hero\\Zeus.jpg");
+					setStatValues(char6);
 				}
 			}
-
-			if(e.getSource() == pl1)
+			else
 			{
-				pl1.setBorder(new LineBorder(Color.RED, 5));
-				image = new ImageIcon("Pick_Hero\\Ares.jpg");
-				setStatValues(char1);
-				helpLabel = pl1;
-			}
-			else if(e.getSource() == pl2)
-			{
-				pl2.setBorder(new LineBorder(Color.RED, 5));
-				image = new ImageIcon("Pick_Hero\\Cronus.jpg");
-				setStatValues(char2);
-				helpLabel = pl2;
-			}
-			else if(e.getSource() == pl3)
-			{
-				pl3.setBorder(new LineBorder(Color.RED, 5));
-				image = new ImageIcon("Pick_Hero\\Hades.jpg");
-				setStatValues(char3);
-				helpLabel = pl3;
-			}
-			else if(e.getSource() == pl4)
-			{
-				pl4.setBorder(new LineBorder(Color.RED, 5));
-				image = new ImageIcon("Pick_Hero\\Poseidon.jpg");
-				setStatValues(char4);
-				helpLabel = pl4;
-			}
-			else if(e.getSource() == pl5)
-			{
-				pl5.setBorder(new LineBorder(Color.RED, 5));
-				image = new ImageIcon("Pick_Hero\\Uranus.jpg");
-				setStatValues(char5);
-				helpLabel = pl5;
-			}
-			else if(e.getSource() == pl6)
-			{
-				pl6.setBorder(new LineBorder(Color.RED, 5));
-				image = new ImageIcon("Pick_Hero\\Zeus.jpg");
-				setStatValues(char6);
-				helpLabel = pl6;
+				if(players.get(0).getImage() != null)
+				{
+					player2Panel.setVisible(true);
+					
+					if(e.getSource() == pl1 && e.getSource() != helpLabel)
+					{
+						pl1.setBorder(new LineBorder(Color.RED, 5));
+						image = new ImageIcon("Pick_Hero\\Ares.jpg");
+						setStatValues(char1);
+					}
+					else if(e.getSource() == pl2 && e.getSource() != helpLabel)
+					{
+						pl2.setBorder(new LineBorder(Color.RED, 5));
+						image = new ImageIcon("Pick_Hero\\Cronus.jpg");
+						setStatValues(char2);
+					}
+					else if(e.getSource() == pl3 && e.getSource() != helpLabel)
+					{
+						pl3.setBorder(new LineBorder(Color.RED, 5));
+						image = new ImageIcon("Pick_Hero\\Hades.jpg");
+						setStatValues(char3);
+					}
+					else if(e.getSource() == pl4 && e.getSource() != helpLabel)
+					{
+						pl4.setBorder(new LineBorder(Color.RED, 5));
+						image = new ImageIcon("Pick_Hero\\Poseidon.jpg");
+						setStatValues(char4);
+					}
+					else if(e.getSource() == pl5 && e.getSource() != helpLabel)
+					{
+						pl5.setBorder(new LineBorder(Color.RED, 5));
+						image = new ImageIcon("Pick_Hero\\Uranus.jpg");
+						setStatValues(char5);
+					}
+					else if(e.getSource() == pl6 && e.getSource() != helpLabel)
+					{
+						pl6.setBorder(new LineBorder(Color.RED, 5));
+						image = new ImageIcon("Pick_Hero\\Zeus.jpg");
+						setStatValues(char6);
+					}
+				}
+				else
+				{
+					if(e.getSource() == pl1)
+					{
+						pl1.setBorder(new LineBorder(Color.RED, 5));
+						image = new ImageIcon("Pick_Hero\\Ares.jpg");
+						setStatValues(char1);
+						helpLabel = pl1;
+					}
+					else if(e.getSource() == pl2)
+					{
+						pl2.setBorder(new LineBorder(Color.RED, 5));
+						image = new ImageIcon("Pick_Hero\\Cronus.jpg");
+						setStatValues(char2);
+						helpLabel = pl2;
+					}
+					else if(e.getSource() == pl3)
+					{
+						pl3.setBorder(new LineBorder(Color.RED, 5));
+						image = new ImageIcon("Pick_Hero\\Hades.jpg");
+						setStatValues(char3);
+						helpLabel = pl3;
+					}
+					else if(e.getSource() == pl4)
+					{
+						pl4.setBorder(new LineBorder(Color.RED, 5));
+						image = new ImageIcon("Pick_Hero\\Poseidon.jpg");
+						setStatValues(char4);
+						helpLabel = pl4;
+					}
+					else if(e.getSource() == pl5)
+					{
+						pl5.setBorder(new LineBorder(Color.RED, 5));
+						image = new ImageIcon("Pick_Hero\\Uranus.jpg");
+						setStatValues(char5);
+						helpLabel = pl5;
+					}
+					else if(e.getSource() == pl6)
+					{
+						pl6.setBorder(new LineBorder(Color.RED, 5));
+						image = new ImageIcon("Pick_Hero\\Zeus.jpg");
+						setStatValues(char6);
+						helpLabel = pl6;
+					}
+				}
 			}
 		}
 

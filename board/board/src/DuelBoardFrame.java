@@ -159,9 +159,6 @@ public class DuelBoardFrame extends JFrame {
 		upgradeSword.setBounds((swordBt.getX()+(swordBt.getWidth()/2)),(swordBt.getY()+swordBt.getHeight()),(swordBt.getWidth()/2),(heightSize/2));
 		mainPanel.add(upgradeSword);
 		
-		
-		
-		
 		ImageIcon  heroIcon=new  ImageIcon("Myrmidon.jpg");
 		Image heroImage=heroIcon.getImage();
 		ourHerolbl=new JLabel();
@@ -203,29 +200,29 @@ public class DuelBoardFrame extends JFrame {
 		Image opponentResizedImage = opponentImage.getScaledInstance(oppHerolbl.getWidth(), oppHerolbl.getHeight(), 0);
 		oppHerolbl.setIcon(new ImageIcon(opponentResizedImage));
 		mainPanel.add(oppHerolbl);
-		//eikona antipalou
+		//Image label opponent
 		
 		opplblPanel=new JPanel(new GridLayout(3,1));
 		opplblPanel.setBounds((16*widthSize),(6*heightSize),(widthSize),(3*heightSize));
 		oppLifelbl=new JLabel("Life: ");
 		oppLifelbl.setForeground(Color.RED);
 		opplblPanel.add(oppLifelbl);
-		//label gia to Life tou antipalou
+		//Life label opponent
 		
 		oppDamagelbl=new JLabel("Damage: ");
 		oppDamagelbl.setForeground(Color.RED);
 		opplblPanel.add(oppDamagelbl);
-		//label gia to Damage tou antipalou einai eniaio den exei opla
+		//Damage label opponent
 		
 		oppDeflbl=new JLabel("Defence: ");
 		oppDeflbl.setForeground(Color.RED);
-		opplblPanel.add(oppDeflbl);
+		//Defence label opponent
 		
+		opplblPanel.add(oppDeflbl);
 		opplblPanel.setOpaque(false);
 		
 		mainPanel.add(opplblPanel);
-		//label gia to Defence tou antipalou
-		
+				
 		
 		ImageIcon  background=new  ImageIcon("background2.jpg");
 		Image image=background.getImage();
@@ -233,7 +230,7 @@ public class DuelBoardFrame extends JFrame {
 		backlbl.setBounds(0,0,this.getWidth(), this.getHeight());
 		Image resizedImage = image.getScaledInstance(backlbl.getWidth(), backlbl.getHeight(), 0);
 		backlbl.setIcon(new ImageIcon(resizedImage));
-		//prosarmogh eikonas fontou
+		//background image
 		mainPanel.add(backlbl);
 		
 		UpgradeButtonListener upgradeListener = new UpgradeButtonListener();
@@ -254,15 +251,23 @@ public class DuelBoardFrame extends JFrame {
 		this.setLocation(0,0);
 		this.setSize(iwidth,iheight);
 		this.setVisible(true);
-		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		
-		
+			
+	}
+	
+	public boolean checkIfWeaponExists(Weapons w){
+		//checks if the weapon has been bought
+		String type=w.getWeaponType();
+		for(Weapons we: usersWeapons){
+			if (type.equals(we.getWeaponType()));
+				return true;
+		}
+		return false;
 	}
 	
 	public boolean checkIfDead(CharsOpponents c){
+		//method to check if the opponent's life is zero
 		double remainHealth;
-		remainHealth=c.getHealth();
+			remainHealth=c.getHealth();
 		if(remainHealth<=0){
 			JOptionPane.showMessageDialog(null, "YOU WIN!");
 			return true;
@@ -273,12 +278,28 @@ public class DuelBoardFrame extends JFrame {
 	}
 	
 	public void opponentsAttack(User u, CharsOpponents c){
-		if (hit=true){
+		//method for opponent to attack
+		//the opponent attacks only if the user has attacked first
+		if (hit){
 			double attack=c.getDamage();
 			u.setHealth((u.getHealth())-attack);
 			hit=false;
+			myGlassPane.repaint();
+			if (u.getHealth()<=0){
+				JOptionPane.showMessageDialog(null, "YOU LOSE!");
+			}
 		}
 		
+	}
+	
+	public void addCoins(User u){
+		int userCoins=u.getCoins();
+		int coinsToAdd=20;
+		u.setCoins(userCoins+coinsToAdd);
+	}
+	
+	public void addXp(User u){
+		//otan teleiwsoume me thn user
 	}
 	
 	class QuitListener implements ActionListener{
@@ -295,14 +316,13 @@ public class DuelBoardFrame extends JFrame {
 		
 		
 		public void paintComponent(Graphics g) {
-			//επικάλυψη της paintcomponent
+			//overwrite paintcomponent
 			super.paintComponent(g);
 			
 			g.setColor(Color.YELLOW);
 			
-			//sxediasmos ths mparas dipla apo kathe label
-			//to mhkos ths proxeira orizetai san arithmos kanonika tha pairnei san parametro to skill tou
-			//xarakthra - isws xreiastei klimakwsh an ksefeygei poly se mhkos
+			//draw a bar by every stat according to its value
+			//repaint every time a values is being changed
 			int xhLifeRec=herolblPanel.getX() + widthSize;
 			int yhLifeRec=herolblPanel.getY()+(heightSize/2);
 			int recWidthL=(int)currUser.getHealth();
@@ -338,7 +358,7 @@ public class DuelBoardFrame extends JFrame {
 	}
 	
 	class UpgradeButtonListener implements ActionListener {
-
+		//method to upgrade weapons
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource()==upgradeSword){
@@ -351,10 +371,7 @@ public class DuelBoardFrame extends JFrame {
 				}
 			}
 			
-			
-
 			if(e.getSource()==upgradeBow){
-				//System.out.println("You dont have a bow");
 				usersWeapons=currUser.getWeapons();
 				for(Weapons w: usersWeapons){
 					if(w.getWeaponType()=="CrossBow"){
@@ -364,10 +381,7 @@ public class DuelBoardFrame extends JFrame {
 				}
 			}
 			
-			
-
 			if(e.getSource()==upgradeSpear){
-				//System.out.println("You dont have a spear");
 				usersWeapons=currUser.getWeapons();
 				for(Weapons w: usersWeapons){
 					if(w.getWeaponType()=="Spear"){
@@ -385,6 +399,7 @@ public class DuelBoardFrame extends JFrame {
 	}
 	
 	class buyButtonListener implements ActionListener{
+		//method for the player to buy weapons
 		
 
 	@Override
@@ -406,31 +421,51 @@ public class DuelBoardFrame extends JFrame {
 	
 	
 	class attackButtonListener implements ActionListener{
+		//method for the player to attack
 
 		TimerBeep timer;
 		public void actionPerformed(ActionEvent e) {
-		hit=true;
+			
+		
+		if(!hit){
+			//the player can't hit twice unless the opponent attacks back
+			
 		if(e.getSource()==swordBt){
 			JOptionPane.showMessageDialog(null, "Attack with sword");
 			currOpponent.setHealth((currOpponent.getHealth())-10);
 			myGlassPane.repaint();
 			checkIfDead(currOpponent);
+			hit=true;			
 			}
 		else if (e.getSource()==crossBowBt){
-			JOptionPane.showMessageDialog(null,"Attack with bow");
-			currOpponent.setHealth((currOpponent.getHealth())-10);
-			myGlassPane.repaint();
-			checkIfDead(currOpponent);
+			if(checkIfWeaponExists(new CrossBow())){				
+				JOptionPane.showMessageDialog(null,"Attack with bow");
+				currOpponent.setHealth((currOpponent.getHealth())-10);
+				myGlassPane.repaint();
+				checkIfDead(currOpponent);
+				hit=true;
+				}
+			else
+				JOptionPane.showMessageDialog(null,"Pick another weapon");
 			}
 		else if(e.getSource()==spearBt){
-			JOptionPane.showMessageDialog(null, "Attack with spear");
-			currOpponent.setHealth((currOpponent.getHealth())-10);
-			myGlassPane.repaint();
-			checkIfDead(currOpponent);
+			if(checkIfWeaponExists(new Spear())){
+				JOptionPane.showMessageDialog(null, "Attack with spear");
+				currOpponent.setHealth((currOpponent.getHealth())-10);
+				myGlassPane.repaint();
+				checkIfDead(currOpponent);
+				hit=true;			
 			}
-		
-		timer=new TimerBeep(3000);
-		
+			else
+				JOptionPane.showMessageDialog(null,"Pick another weapon");
+		}
+		if (hit)
+			timer=new TimerBeep();
+		//the hit variable is true if the player has already attacked the opponent and it becomes false if the opponent hit the player
+		//the opponent attacks only if the player has attacked before
+		}
+		else
+			JOptionPane.showMessageDialog(null, "It 's not your turn");
 		
 		}
 		
@@ -438,24 +473,22 @@ public class DuelBoardFrame extends JFrame {
 	
 class TimerBeep extends Timer{
 
-		
-		//private static final long serialVersionUID = 1L;
-		
 		Timer timer;
-		RemindTask task;
+		TimerTask task;
 
-		public TimerBeep(int secocnds) {
+		public TimerBeep() {
+			
 		   timer = new Timer();
-		   timer.schedule(new RemindTask(),3000);
-		    
-		    //1 second=1000 miliseconds
+		   timer.schedule(new TimerTask(){
+			   public void run() {
+			   opponentsAttack(currUser,currOpponent);
+			   }
+		   },3000);
+		   //scedule the attack of the opponent after 3 seconds the user has attacked
+		   //1 second=1000 miliseconds
 		  }
 
- class RemindTask extends TimerTask {
-	    public void run() {
-		    	opponentsAttack(currUser,currOpponent);
-	    }
- }
+ 
 		
 }
 

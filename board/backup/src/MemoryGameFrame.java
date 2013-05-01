@@ -64,6 +64,14 @@ public class MemoryGameFrame extends JFrame {
 	
 	private LblListener listener;
 
+	/**Sounds
+	 * list.get(0) select
+	 * list.get(1) right
+	 * list.get(2) congratulations
+	 */
+	ArrayList<AudiosPair> list = new ArrayList<AudiosPair>(new Audios().getMemoryGameList());
+	Sound_Thread soundthread1 = new Sound_Thread();
+	
 	public MemoryGameFrame() {
 		//*** MenuBar ***//
 				setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
@@ -355,10 +363,12 @@ public class MemoryGameFrame extends JFrame {
 		{
 			//User is correct!                                //clik twice tha same picture
 			if(  conn_label.getCode().equals(cd.getCode()) &&cd != conn_label ){
+				
+				soundthread1.PlayMusic(list.get(1).getSongName(), list.get(1).getRepeat());   //Sound when Correct
+				
 				correct++;
 				cd.removeMouseListener(listener);      // if a PAIR is correct LOCK IT,so it doesnt get clicked AGAIN !!!
 				conn_label.removeMouseListener(listener);
-				JOptionPane.showMessageDialog(null, "Correct");
 			}
 			else{//User is wrong
 				
@@ -388,8 +398,10 @@ public class MemoryGameFrame extends JFrame {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			Clicks++;
+			Clicks++;                      //Clicks Counter
 			Clickslbl.setText("Clicks: "+Clicks);
+			     
+			soundthread1.PlayMusic(list.get(0).getSongName(), list.get(0).getRepeat());   //Sound when Click
 			
 			//User Picked Label 1
 			if(e.getSource()==label_1){
@@ -490,6 +502,8 @@ public class MemoryGameFrame extends JFrame {
 
 			}
 			if(correct==8){
+				soundthread1.PlayMusic(list.get(2).getSongName(), list.get(2).getRepeat());   //Sound when Finish
+				
 				JOptionPane.showMessageDialog(null, "Congatulations");
 				//RETURN XP & COINS
 			}

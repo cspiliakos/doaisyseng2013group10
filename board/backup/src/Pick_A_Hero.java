@@ -35,7 +35,7 @@ public class Pick_A_Hero extends JFrame {
 	private Image background, resize, help;
 	private ImageIcon hero, image;
 	private BackgroundPanel back;
-	private JLabel title, pl1, pl2, pl3, pl4, pl5, pl6, lab1, lab2, lab3, lab4, lab5, lab6, 
+	private JLabel title, pl1, pl2, pl3, pl4, pl5, pl6, lab1, lab2, lab3, lab4, lab5, lab6, helpLabel,
 	p1, p2, p3, p4, name1lbl, health1lbl, damage1lbl, defence1lbl, name2lbl, health2lbl, damage2lbl, defence2lbl, p5, p6, p7, p8;
 	private JButton piso, play;
 	private Clip clip;
@@ -54,6 +54,8 @@ public class Pick_A_Hero extends JFrame {
 		
 		players = new ArrayList<User>();
 		players = p;
+		
+		//helpLabel = new JLabel();
 		
 		PHL = new Pick_A_Hero_Listener();
 		
@@ -461,6 +463,7 @@ public class Pick_A_Hero extends JFrame {
 							players.get(0).setHealth(Double.parseDouble(p2.getText()));
 							players.get(0).setDamage(Double.parseDouble(p3.getText()));
 							players.get(0).setDefence(Double.parseDouble(p4.getText()));
+							helpLabel.setEnabled(false);
 						}
 						else
 						{
@@ -528,7 +531,7 @@ public class Pick_A_Hero extends JFrame {
 
 			if (players.size() > 1)
 			{
-				if(players.get(0).getImage() != null){
+				if(players.get(0).getImage() != null && e.getSource() != helpLabel){
 					player2Panel.setVisible(true);
 				}
 			}
@@ -538,36 +541,42 @@ public class Pick_A_Hero extends JFrame {
 				pl1.setBorder(new LineBorder(Color.RED, 5));
 				image = new ImageIcon("Pick_Hero\\Ares.jpg");
 				setStatValues(char1);
+				helpLabel = pl1;
 			}
 			else if(e.getSource() == pl2)
 			{
 				pl2.setBorder(new LineBorder(Color.RED, 5));
 				image = new ImageIcon("Pick_Hero\\Cronus.jpg");
 				setStatValues(char2);
+				helpLabel = pl2;
 			}
 			else if(e.getSource() == pl3)
 			{
 				pl3.setBorder(new LineBorder(Color.RED, 5));
 				image = new ImageIcon("Pick_Hero\\Hades.jpg");
 				setStatValues(char3);
+				helpLabel = pl3;
 			}
 			else if(e.getSource() == pl4)
 			{
 				pl4.setBorder(new LineBorder(Color.RED, 5));
 				image = new ImageIcon("Pick_Hero\\Poseidon.jpg");
 				setStatValues(char4);
+				helpLabel = pl4;
 			}
 			else if(e.getSource() == pl5)
 			{
 				pl5.setBorder(new LineBorder(Color.RED, 5));
 				image = new ImageIcon("Pick_Hero\\Uranus.jpg");
 				setStatValues(char5);
+				helpLabel = pl5;
 			}
 			else if(e.getSource() == pl6)
 			{
 				pl6.setBorder(new LineBorder(Color.RED, 5));
 				image = new ImageIcon("Pick_Hero\\Zeus.jpg");
 				setStatValues(char6);
+				helpLabel = pl6;
 			}
 		}
 

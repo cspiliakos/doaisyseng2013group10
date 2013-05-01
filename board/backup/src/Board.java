@@ -47,7 +47,8 @@ public class Board extends JFrame{
 	private int sqSize, userTurn = 2;
 	private ArrayList<User> players;
 	
-	private boolean done=false, adjust=false;
+	private boolean adjust=false;
+	//shows if the two players have been on the same square
 	
 	public Board(ArrayList<User> p){
 		//*** MenuBar ***//

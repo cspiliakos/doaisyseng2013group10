@@ -3,7 +3,6 @@ import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -14,13 +13,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
-import java.awt.FlowLayout;
 import javax.swing.SwingConstants;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -29,12 +25,11 @@ import java.awt.Insets;
 public class Start_Frame extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
-	private Name_Frame name;
 	private Image background;
 	private BackgroundPanel back;
-	private JPanel quitPanel, helpPanel;
-	private JButton quit, cont;
-	private JLabel title, backlbl;
+	private JPanel helpPanel;
+	private JButton cont;
+	private JLabel title;
 	@SuppressWarnings("rawtypes")
 	private JComboBox comboBox;
 	private Clip clip;
@@ -57,38 +52,23 @@ public class Start_Frame extends JFrame{
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Start_Frame(){  
-		//*** MenuBar ***//
-				setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
-		
-		
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		double fwidth = screenSize.getWidth();
-		double fheight = screenSize.getHeight();
-		int iwidth = (int)fwidth;
-		int iheight = (int)fheight;
-		
-		
+		setJMenuBar(new JMenuFrame().getMenu());
 		
 		try {
-			background = ImageIO.read(new File("start.jpg"));
+			background = ImageIO.read(new File("Start\\start.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		
-		
-		
 		setUndecorated(true);
-		
+		setVisible(true);
 		back = new BackgroundPanel(background);
 		back.setTransparentAdd(true);
 		setContentPane(back);
 		back.setLayout(new BorderLayout(5, 5));
 		
-		
-		
 		try{
-			audio = AudioSystem.getAudioInputStream(new File("battle_theme.wav").getAbsoluteFile());
+			audio = AudioSystem.getAudioInputStream(new File("Sounds\\battle_theme.wav").getAbsoluteFile());
 			clip = AudioSystem.getClip();
 			clip.open(audio);
 			clip.loop(Clip.LOOP_CONTINUOUSLY);
@@ -112,15 +92,13 @@ public class Start_Frame extends JFrame{
 		cont.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				clip.stop();
+				Start_Frame.this.setVisible(false);
 				if (comboBox.getSelectedItem().toString().equals("\u0394\u03B9\u03B1\u03C7\u03B5\u03B9\u03C1\u03B9\u03C3\u03C4\u03AE\u03C2")){
-					Start_Frame.this.setVisible(false);
 					new AdminFrame();
 				}
 				else
 				{
-					Start_Frame.this.setVisible(false);
-					name = new Name_Frame();
-					name.setVisible(true);
+					new Name_Frame();
 				}
 			}
 		});
@@ -138,20 +116,6 @@ public class Start_Frame extends JFrame{
 		gbc_cont.gridy = 2;
 		helpPanel.add(cont, gbc_cont);
 		back.add(helpPanel, BorderLayout.CENTER);
-		
-		//
-		quitPanel = new JPanel();
-		FlowLayout flowLayout = (FlowLayout) quitPanel.getLayout();
-		flowLayout.setAlignment(FlowLayout.RIGHT);
-		quit = new JButton("\u0388\u03BE\u03BF\u03B4\u03BF\u03C2");
-		quit.setFont(new Font("Sylfaen", Font.PLAIN, 20));
-		quit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				System.exit(0);
-			}
-		});
-		quitPanel.add(quit);
-		back.add(quitPanel, BorderLayout.SOUTH);
 		
 		
 		

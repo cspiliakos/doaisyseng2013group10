@@ -52,20 +52,20 @@ public class Name_Frame extends JFrame {
 				setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
 		
 		try {
-			background = ImageIO.read(new File("start.jpg"));
+			background = ImageIO.read(new File("Start\\start.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		setUndecorated(true);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		
+		setVisible(true);
 		back = new BackgroundPanel(background);
 		back.setTransparentAdd(true);
 		setContentPane(back);
 		back.setLayout(new BorderLayout(5, 5));
 		
 		try{
-			audio = AudioSystem.getAudioInputStream(new File("battle_theme.wav").getAbsoluteFile());
+			audio = AudioSystem.getAudioInputStream(new File("Sounds\\battle_theme.wav").getAbsoluteFile());
 			clip = AudioSystem.getClip();
 			clip.open(audio);
 			clip.loop(Clip.LOOP_CONTINUOUSLY);

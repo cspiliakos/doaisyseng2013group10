@@ -1,6 +1,3 @@
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -11,50 +8,34 @@ import javax.swing.JTextField;
 
 
 public class AddWord extends JFrame {
-	//tha xrhsimopoihthei to idio panel kai gia to addword sthn kremmala
-
-	private JPanel contentPane;
+	private JPanel back;
 	private JTextField textField;
-
 	String categories[]={"Choose ","C1","C2"};
+	
 	public AddWord() {
-		//*** MenuBar ***//
-				setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
+		setJMenuBar(new JMenuFrame().getMenu());
 		
+		back = new JPanel();
+		back.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(back);
+		back.setLayout(null);
 		
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		JComboBox comboBox = new JComboBox(categories);
-		comboBox.setBounds(12, 157, 144, 22);
-		contentPane.add(comboBox);
-		
-		JButton btnNewButton = new JButton("Add Word");
-		btnNewButton.setBounds(272, 85, 134, 56);
-		contentPane.add(btnNewButton);
-		
-		JLabel lblNewLabel = new JLabel("Welcome, Admin");
-		lblNewLabel.setBounds(291, 13, 119, 22);
-		contentPane.add(lblNewLabel);
+		JButton commit = new JButton("\u039A\u03B1\u03C4\u03B1\u03C7\u03CE\u03C1\u03B7\u03C3\u03B7");
+		commit.setBounds(272, 85, 134, 36);
+		back.add(commit);
 		
 		textField = new JTextField();
 		textField.setBounds(12, 73, 144, 22);
-		contentPane.add(textField);
+		back.add(textField);
 		textField.setColumns(10);
 		
-		JLabel lblNewLabel_1 = new JLabel("Type The word");
-		lblNewLabel_1.setBounds(12, 16, 109, 36);
-		contentPane.add(lblNewLabel_1);
+		JLabel prompt = new JLabel("Type The word");
+		prompt.setBounds(12, 16, 109, 36);
+		back.add(prompt);
 		
-		JLabel lblNewLabel_2 = new JLabel("Category");
-		lblNewLabel_2.setBounds(12, 119, 96, 22);
-		contentPane.add(lblNewLabel_2);
-		
-		JButton btnNewButton_1 = new JButton("CANCEL");
-		btnNewButton_1.setBounds(272, 156, 134, 25);
-		contentPane.add(btnNewButton_1);
+		JButton back2 = new JButton("\u03A0\u03AF\u03C3\u03C9");
+		back2.setBounds(272, 156, 134, 25);
+		back.add(back2);
 		
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

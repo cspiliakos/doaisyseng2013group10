@@ -114,7 +114,7 @@ public class DuelBoardFrame extends JFrame {
 		mainPanel.setLayout(null);
 		//dhmiourgia kentrikou panel
 
-		ImageIcon spearIcon=new ImageIcon("spear.jpg");
+		ImageIcon spearIcon=new ImageIcon("Duel\\spear.jpg");
 		Image spearImage=spearIcon.getImage();
 		spearBt=new JButton();
 		spearBt.setBounds((5*widthSize),(7*heightSize), (2*widthSize), heightSize);
@@ -131,7 +131,7 @@ public class DuelBoardFrame extends JFrame {
 		upgradeSpear.setBounds((spearBt.getX()+buySpear.getWidth()),(spearBt.getY()+spearBt.getHeight()),(spearBt.getWidth()/2),(heightSize/2));
 		mainPanel.add(upgradeSpear);
 
-		ImageIcon bowIcon=new ImageIcon("Bow.jpg");
+		ImageIcon bowIcon=new ImageIcon("Duel\\Bow.jpg");
 		Image bowImage=bowIcon.getImage();
 		crossBowBt=new JButton();
 		crossBowBt.setBounds((5*widthSize),(4*heightSize),(2*widthSize), heightSize);
@@ -148,7 +148,7 @@ public class DuelBoardFrame extends JFrame {
 		upgradeBow.setBounds((crossBowBt.getX()+buyBow.getWidth()),(crossBowBt.getY()+crossBowBt.getHeight()),(crossBowBt.getWidth()/2),(heightSize/2));
 		mainPanel.add(upgradeBow);
 
-		ImageIcon swordIcon=new ImageIcon("sword.jpeg");
+		ImageIcon swordIcon=new ImageIcon("Duel\\sword.jpeg");
 		Image swordImage=swordIcon.getImage();
 		swordBt=new JButton();
 		swordBt.setBounds((5*widthSize),(heightSize),(2*widthSize),heightSize);
@@ -193,7 +193,7 @@ public class DuelBoardFrame extends JFrame {
 		mainPanel.add(spearPrice);
 
 
-		ImageIcon  heroIcon=new  ImageIcon("Myrmidon.jpg");
+		ImageIcon  heroIcon=new  ImageIcon("Duel\\Myrmidon.jpg");
 		Image heroImage=heroIcon.getImage();
 		ourHerolbl=new JLabel();
 		ourHerolbl.setBounds(widthSize,(2*heightSize),(3*widthSize),(3*heightSize));
@@ -227,7 +227,7 @@ public class DuelBoardFrame extends JFrame {
 
 		mainPanel.add(herolblPanel);
 
-		ImageIcon  opponentIcon=new  ImageIcon("opponent.jpg");
+		ImageIcon  opponentIcon=new  ImageIcon("Duel\\opponent.jpg");
 		Image opponentImage=opponentIcon.getImage();
 		oppHerolbl=new JLabel();
 		oppHerolbl.setBounds((16*widthSize),(2*heightSize),(3*widthSize),(3*heightSize));
@@ -258,7 +258,7 @@ public class DuelBoardFrame extends JFrame {
 		mainPanel.add(opplblPanel);
 
 
-		ImageIcon  background=new  ImageIcon("background2.jpg");
+		ImageIcon  background=new  ImageIcon("Duel\\background2.jpg");
 		Image image=background.getImage();
 		backlbl=new JLabel();
 		backlbl.setBounds(0,0,this.getWidth(), this.getHeight());

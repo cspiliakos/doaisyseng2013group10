@@ -55,10 +55,11 @@ public class Start_Frame extends JFrame{
 		setJMenuBar(new JMenuFrame().getMenu());
 		
 		try {
-			background = ImageIO.read(new File("Start\\start.jpg"));
+			background = ImageIO.read(new File("loginbackground.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		//Start\\start.jpg
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setUndecorated(true);
 		setVisible(true);
@@ -115,10 +116,6 @@ public class Start_Frame extends JFrame{
 		gbc_cont.gridy = 2;
 		helpPanel.add(cont, gbc_cont);
 		back.add(helpPanel, BorderLayout.CENTER);
-		
-		
-		
-	
 		
 	}
 }

@@ -41,14 +41,17 @@ public class Board extends JFrame{
 	private Pick_A_Hero pick;
 	private DiceListener dlistener;
 	private CoinListener clistener;
-	private ImageIcon image;
+	private ImageIcon image, smallImage;
 	private UpgradeSkillListener skillListener;
+	
+	private JLabel xpLabel;
+	private JLabel coinLabel;
 	
 	
 	
 	private ArrayList<User> players;
 	
-	public Board(ArrayList<User> p, ImageIcon heroimage){
+	public Board(ArrayList<User> p){
 		//*** MenuBar ***//
 				setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
 		
@@ -59,9 +62,18 @@ public class Board extends JFrame{
 			xristis2=players.get(1);
 		}
 		
+		image =xristis1.getImage();
+		
+		if ((players.size())>1){
+			smallImage=xristis2.getImage();
+		}
+		else smallImage=xristis1.getImage();
+			
+		
+		
 		//ImageIcon heroimage
-		image =heroimage;
-		row = 1;
+		
+			row = 1;
 		playerX = 0;
 		playerY = 0;
 		
@@ -151,11 +163,9 @@ public class Board extends JFrame{
 		imagePanel.add(imageLabel, gbc_imageLabel);
 		
 		hero2lbl=new JLabel();
-		//tha emfanizetai efoson exoun epilegei 2 paixtes
-		ImageIcon hero2Icon=new ImageIcon("Zeus.jpg");
-		//tha pairnei timh analogh me to ti exei dialeksei o deyteros paixths
-		Image hero2Image=hero2Icon.getImage();
-		Image hero2ResizedImage= hero2Image.getScaledInstance((widthSize),(heightSize),0);
+		
+		hero2=smallImage.getImage();
+		Image hero2ResizedImage= hero2.getScaledInstance((widthSize),(heightSize),0);
 		hero2lbl.setIcon(new ImageIcon(hero2ResizedImage));
 		GridBagConstraints gbc_hero2lbl=new GridBagConstraints();
 		gbc_hero2lbl.insets=new Insets(0,(2*widthSize),0,0);
@@ -163,6 +173,10 @@ public class Board extends JFrame{
 		gbc_hero2lbl.gridy=0;
 		gbc_hero2lbl.anchor=GridBagConstraints.FIRST_LINE_END;
 		imagePanel.add(hero2lbl, gbc_hero2lbl);
+		
+		if((players.size())<=1){
+			hero2lbl.setVisible(false);
+		}
 		
 		attacklbl = new JLabel("\u0388\u03C0\u03AF\u03B8\u03B5\u03C3\u03B7: "+xristis1.getDamage());//getDamage anti gia getAttack
 		attacklbl.setForeground(Color.ORANGE);
@@ -213,6 +227,20 @@ public class Board extends JFrame{
 		c.gridy=1;
 		imagePanel.add(plusAttack,c);
 		
+		coinLabel=new JLabel("Golden Coins: "+xristis1.getCoins());
+		coinLabel.setFont(new Font("Sylfaen",Font.BOLD,20));
+		coinLabel.setForeground(Color.WHITE);
+		c.gridx=1;
+		c.gridy=5;
+		imagePanel.add(coinLabel,c);
+		
+		xpLabel=new JLabel("XP: "); 
+		xpLabel.setFont(new Font("Sylfaen",Font.BOLD,20));
+		xpLabel.setForeground(Color.WHITE);
+		c.gridx=0;
+		c.gridy=5;
+		imagePanel.add(xpLabel,c);
+		
 		skillpointlbl=new JLabel("Skill Points \n"+xristis1.getSkillpoints());
 		skillpointlbl.setFont(new Font("Sylfaen",Font.BOLD,20));
 		skillpointlbl.setForeground(Color.WHITE);
@@ -260,7 +288,7 @@ public class Board extends JFrame{
 	}
 	
 	@SuppressWarnings("serial")
-	class MyGlassPane extends JComponent{
+class MyGlassPane extends JComponent{
 		private static final int ROWS = 6;
 		private static final int COLUMNS = 6;
 		private int xCoord = 0;
@@ -362,11 +390,6 @@ class DiceListener implements MouseListener {
 				}
 			}
 		}
-	
-		// TODO Auto-generated method stub
-		
-
-
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub

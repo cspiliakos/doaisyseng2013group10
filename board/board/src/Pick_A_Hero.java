@@ -385,7 +385,7 @@ public class Pick_A_Hero extends JFrame {
 						players.get(0).setDefence(Double.parseDouble( p4.getText()) );
 						
 						Pick_A_Hero.this.setVisible(false);
-						pista = new Board(players,image);
+						pista = new Board(players);
 						//metabolh kataskeyasth
 						pista.setVisible(true);
 						clip.stop();
@@ -407,7 +407,7 @@ public class Pick_A_Hero extends JFrame {
 							
 							
 							Pick_A_Hero.this.setVisible(false);
-							pista = new Board(players,image);
+							pista = new Board(players);
 							//metabolh kataskeyasth
 							pista.setVisible(true);
 							clip.stop();

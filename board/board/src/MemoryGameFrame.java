@@ -36,7 +36,10 @@ public class MemoryGameFrame extends JFrame {
     
     private int delay_secs= 1; // If user is wrong images stay open for 'delay_secs' seconds
     private int period = 199;
-    private int correct=0;    //correct guesses
+    private int correct=0;//correct guesses
+    
+    private int Clicks=0; //the ammount of clicks done by Player
+    private JLabel Clickslbl;
     
     private Image img;  //The image of the closed icons(something black)
     private Image backimg;  //The image of the backgound
@@ -192,6 +195,16 @@ public class MemoryGameFrame extends JFrame {
 		info.setText("Find the hidden pairs. GOOD LUCK!!!");
 		info.setEditable(false);
 		contentPane.add(info);
+		
+		
+		Clickslbl = new JLabel();   //x                       //y               //width                                       //height
+		Clickslbl.setBounds(label_4.getX()+ label_4.getWidth(),label_4.getY(),80,50);
+		Clickslbl.setForeground(Color.WHITE);
+		Clickslbl.setText("Clicks: "+Clicks);
+		contentPane.add(Clickslbl);
+		
+		
+		
 		
 		backlbl=new JLabel();
 		backlbl.setBounds(0,0,(int) width,(int) height);
@@ -354,17 +367,17 @@ public class MemoryGameFrame extends JFrame {
 				
 				//Give the normal image for 2 SECS  and then turn is around
 				Timer timer = new Timer();
-
+				
 				timer.schedule( new TimerTask() {
 					public void run() {
 
 						CloseOpenedLabel(cd);
 						CloseOpenedLabel(conn_label);
-					//	JOptionPane.showMessageDialog(null, "Wrong");
+						
 					}
-				},  delay_secs* 1000, period*1000);
+				},  delay_secs* 1000);
 
-					
+					JOptionPane.showMessageDialog(null, "Wrong","Wrong", JOptionPane.WARNING_MESSAGE);
 			}
 			System.out.println("CD Code: "+ cd.getCode());
 			System.out.println("conn_label Code: "+ conn_label.getCode());
@@ -378,7 +391,11 @@ public class MemoryGameFrame extends JFrame {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-	
+			Clicks++;
+			Clickslbl.setText("Clicks: "+Clicks);
+			
+			
+			System.out.println(Clicks +" clicks");
 			//User Picked Label 1
 			if(e.getSource()==label_1){
 				AppearLabel(label_1, 1);

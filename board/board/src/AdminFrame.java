@@ -39,7 +39,8 @@ public class AdminFrame extends JFrame {
 	//private Image background;
 	
 	public AdminFrame(){
-		
+		//*** MenuBar ***//
+		setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
 		
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

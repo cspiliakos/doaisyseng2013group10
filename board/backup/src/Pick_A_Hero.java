@@ -439,7 +439,6 @@ public class Pick_A_Hero extends JFrame {
 
 		play = new JButton("\u03A0\u03B1\u03AF\u03BE\u03B5");
 		play.addActionListener(new ActionListener() {
-			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent arg0) {
 				if(!checkIfDone())
 				{
@@ -462,7 +461,7 @@ public class Pick_A_Hero extends JFrame {
 							players.get(0).setHealth(Double.parseDouble(p2.getText()));
 							players.get(0).setDamage(Double.parseDouble(p3.getText()));
 							players.get(0).setDefence(Double.parseDouble(p4.getText()));
-							helpLabel.disable();
+							helpLabel.setEnabled(false);
 						}
 						else
 						{

@@ -173,14 +173,13 @@ public class Name_Frame extends JFrame {
 		helpPanel.add(help2, gbc_help2);
 		help2.setVisible(false);
 		
-		players = new ArrayList<User>();
-		
 		play = new JButton("\u03A0\u03B1\u03AF\u03BE\u03B5");
 		play.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if ((comboBox.getSelectedItem()).equals("1")){
 					if (name1.getText().length() >= 4) 
 					{
+						players = new ArrayList<User>();
 						User user = new User(name1.getText());
 						players.add(user);	
 						clip.stop();
@@ -197,6 +196,7 @@ public class Name_Frame extends JFrame {
 				{
 					if (name1.getText().length() >= 4 && name2.getText().length() >= 4) 
 					{
+						players = new ArrayList<User>();
 						User user = new User(name1.getText());
 						User user2 = new User(name2.getText());
 						players.add(user);	

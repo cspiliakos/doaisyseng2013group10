@@ -25,6 +25,14 @@ public abstract class Weapons{
 		this.level=0;
 	}
 
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
 	public String getWeaponType() {
 		return weaponType;
 	}

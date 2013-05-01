@@ -65,6 +65,8 @@ public class DuelBoardFrame extends JFrame {
 	private JPanel mainPanel;	
 	private MyGlassPane myGlassPane;
 	
+	private JLabel swordlvl, bowlvl, spearlvl;
+	private JLabel swordPrice, bowPrice, spearPrice;
 	
 	
 	
@@ -159,6 +161,38 @@ public class DuelBoardFrame extends JFrame {
 		upgradeSword.setBounds((swordBt.getX()+(swordBt.getWidth()/2)),(swordBt.getY()+swordBt.getHeight()),(swordBt.getWidth()/2),(heightSize/2));
 		mainPanel.add(upgradeSword);
 		
+		swordlvl=new JLabel("Level: 0");
+		swordlvl.setForeground(Color.ORANGE);
+		bowlvl=new JLabel("Level: 0");
+		bowlvl.setForeground(Color.ORANGE);
+		spearlvl=new JLabel("Level: 0");
+		spearlvl.setForeground(Color.ORANGE);
+		swordPrice=new JLabel("Price: 0");
+		swordPrice.setForeground(Color.ORANGE);
+		bowPrice=new JLabel("Price: 0");
+		bowPrice.setForeground(Color.ORANGE);
+		spearPrice=new JLabel("Price: 0");
+		spearPrice.setForeground(Color.ORANGE);
+		
+		
+		
+		swordlvl.setBounds(((swordBt.getX())+(swordBt.getWidth())),(swordBt.getY()), widthSize, (heightSize/2));
+		swordPrice.setBounds(swordlvl.getX(),(swordlvl.getY()+swordlvl.getHeight()),widthSize, (heightSize/2));
+		
+		bowlvl.setBounds(((crossBowBt.getX())+(crossBowBt.getWidth())),(crossBowBt.getY()), widthSize, (heightSize/2));
+		bowPrice.setBounds(bowlvl.getX(),(bowlvl.getY()+bowlvl.getHeight()),widthSize, (heightSize/2));
+		
+		spearlvl.setBounds(((spearBt.getX())+(spearBt.getWidth())),(spearBt.getY()), widthSize, (heightSize/2));
+		spearPrice.setBounds(spearlvl.getX(),(spearlvl.getY()+spearlvl.getHeight()),widthSize, (heightSize/2));
+		
+		mainPanel.add(swordlvl);
+		mainPanel.add(swordPrice);
+		mainPanel.add(bowlvl);
+		mainPanel.add(bowPrice);
+		mainPanel.add(spearlvl);
+		mainPanel.add(spearPrice);
+		
+		
 		ImageIcon  heroIcon=new  ImageIcon("Myrmidon.jpg");
 		Image heroImage=heroIcon.getImage();
 		ourHerolbl=new JLabel();
@@ -243,6 +277,9 @@ public class DuelBoardFrame extends JFrame {
 		buyBow.addActionListener(buyListener);
 		buySpear.addActionListener(buyListener);
 		
+		
+		updateWeaponStats();
+		
 		attackButtonListener attackListener=new attackButtonListener();
 		swordBt.addActionListener(attackListener);
 		crossBowBt.addActionListener(attackListener);
@@ -252,6 +289,25 @@ public class DuelBoardFrame extends JFrame {
 		this.setSize(iwidth,iheight);
 		this.setVisible(true);
 			
+	}
+	
+	public void updateWeaponStats(){
+			
+		for (Weapons w: currUser.getWeapons()){
+			if (w.getWeaponType().equals("Sword")){
+				swordlvl.setText("Level: "+w.getLevel());
+				swordPrice.setText("Price: "+w.getPrice());
+			}
+			else if(w.getWeaponType().equals("CrossBow")){
+				bowlvl.setText("Level: "+w.getLevel());
+				bowPrice.setText("Price: "+w.getPrice());
+			}
+			else if(w.getWeaponType().equals("Spear")){
+				spearlvl.setText("Level: "+w.getLevel());
+				spearPrice.setText("Price: "+w.getPrice());
+			}
+			
+		}
 	}
 	
 	public boolean checkIfWeaponExists(Weapons w){
@@ -367,6 +423,7 @@ public class DuelBoardFrame extends JFrame {
 					if(w.getWeaponType()=="Sword"){
 						w.upgradeWeapon(currUser, w);
 						System.out.println("sword "+w.level);
+						updateWeaponStats();
 					}
 				}
 			}
@@ -377,6 +434,7 @@ public class DuelBoardFrame extends JFrame {
 					if(w.getWeaponType()=="CrossBow"){
 						w.upgradeWeapon(currUser, w);
 						System.out.println("bow "+w.level);
+						updateWeaponStats();
 					}
 				}
 			}
@@ -387,6 +445,7 @@ public class DuelBoardFrame extends JFrame {
 					if(w.getWeaponType()=="Spear"){
 						w.upgradeWeapon(currUser, w);
 						System.out.println("spear "+w.level);
+						updateWeaponStats();
 					}
 				}
 			}
@@ -409,11 +468,15 @@ public class DuelBoardFrame extends JFrame {
 			System.out.println("Buy a bow ?");
 			CrossBow b=new CrossBow();
 			b.buyWeapons(currUser, b);
+			b.setLevel(1);
+			updateWeaponStats();
 			}
 		if(e.getSource()==buySpear){
 			System.out.println("Buy a spear ?");
 			Spear s=new Spear();
 			s.buyWeapons(currUser, s);
+			s.setLevel(1);
+			updateWeaponStats();
 		}
 		}
 		

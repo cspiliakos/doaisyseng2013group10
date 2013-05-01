@@ -391,7 +391,7 @@ public class DuelBoardFrame extends JFrame {
 
 			int xhDamRec=herolblPanel.getX() + widthSize;
 			int yhDamRec=herolblPanel.getY()+(heightSize+(heightSize/2));
-			int recWidthA=(int)currUser.getDamage();
+			int recWidthA=(int)currUser.getAttack();
 			g.fillRect(xhDamRec, yhDamRec, recWidthA, 10);
 
 			int xoDamRec=opplblPanel.getX() + widthSize;

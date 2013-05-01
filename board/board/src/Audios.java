@@ -14,6 +14,7 @@ public class Audios {
 	private ArrayList<AudiosPair> audiosList;
 
 	public Audios(){
+		audiosList = new ArrayList<AudiosPair>(); //CREATING ARRAYLIST
 		
 		audiosList.add(new AudiosPair("battle_theme.wav", true));
 		audiosList.add(new AudiosPair("click_meny_buttons.wav", false));

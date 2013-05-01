@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.sound.sampled.AudioInputStream;
@@ -40,5 +41,7 @@ public class Sound_Thread extends Thread{
 			System.out.println("Audio file Not found!");
 		}
 	}
-
+	/**   //Sound
+	   ArrayList<AudiosPair> list = new ArrayList<AudiosPair>(new Audios().getAudios());	
+	   Sound_Thread st1 = new Sound_Thread(list.get(0).getSongName(), list.get(0).getRepeat());    **/
 }

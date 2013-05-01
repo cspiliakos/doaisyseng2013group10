@@ -200,7 +200,7 @@ public class MemoryGameFrame extends JFrame {
 		info = new JTextArea();   //x            //y               //width                                       //height
 		info.setBounds(label_14.getX(),label_14.getY()+label_14.getHeight()+2,2*(label_16.getWidth() )+z,(int) height-(20+ 4*label_14.getHeight()+3*k)-10 );
 		info.setBackground(Color.ORANGE);
-		info.setText("Find the hidden pairs. GOOD LUCK!!!");
+		info.setText("Βρές τα κρυμμένα ζεύγη καρτών. Καλή Επιτυχία!");
 		info.setEditable(false);
 		contentPane.add(info);
 		

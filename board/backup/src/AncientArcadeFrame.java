@@ -70,6 +70,15 @@ public class AncientArcadeFrame extends JFrame {
 	private JPanel seperator_panel;
 	private JLabel title_label;
 	
+	/**Sounds
+	 * list.get(0) correct
+	 * list.get(0) dias
+	 * list.get(0) minotaur
+	 * list.get(0) olympus
+	 */
+	ArrayList<AudiosPair> list = new ArrayList<AudiosPair>(new Audios().getArcadeList());
+	Sound_Thread soundthread1 = new Sound_Thread();
+	
 	/**
 	 * Create the frame.
 	 */
@@ -385,9 +394,12 @@ public class AncientArcadeFrame extends JFrame {
 			}
 			else 
 				System.out.println("Nothing selected yet");
-
+			
+			//Player has finished
 			if(!pack_flag_1&&!pack_flag_2&&!pack_flag_3&&!pack_flag_4&&!pack_flag_5&&!pack_flag_6){  //6 flags are false ==completed
-				JOptionPane.showMessageDialog(null, "Congratulations, You have finished");
+				
+				soundthread1.PlayMusic(list.get(0).getSongName(), list.get(0).getRepeat() ); //Sound: correct
+				JOptionPane.showMessageDialog(null, "Congratulations, You have finished");	
 				
 				System.exit(EXIT_ON_CLOSE);    //***** FINISHED ----> EXIT  ***** 
 			}
@@ -404,6 +416,8 @@ public class AncientArcadeFrame extends JFrame {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			if(e.getSource()==Hero_lbl_1){            //HEROES LISTENER
+				soundthread1.PlayMusic(list.get(1).getSongName(), list.get(1).getRepeat() ); //Sound: dias
+				
 				Hero_lbl_gen.setCode("arcade_zeus");  //when a Hero label  is clicked Hero_lbl_gen gets the RIGHT CODE 
 				Hero_lbl_gen.setIcon(new ImageIcon(currlist.get(1).getImage().getScaledInstance(Hero_lbl_gen.getWidth(), Hero_lbl_gen.getHeight(), 0)));
 				Heroes_tip.setText("ZEUS");
@@ -440,6 +454,8 @@ public class AncientArcadeFrame extends JFrame {
 
 			}
 			else if(e.getSource()==Hero_lbl_6){
+				soundthread1.PlayMusic(list.get(4).getSongName(), list.get(4).getRepeat() ); //Sound: olympus
+				
 				Hero_lbl_gen.setCode("arcade_perseus");
 				Hero_lbl_gen.setIcon(new ImageIcon(currlist.get(6).getImage().getScaledInstance(Hero_lbl_gen.getWidth(), Hero_lbl_gen.getHeight(), 0)));
 				Heroes_tip.setText("PERSEUS");
@@ -454,12 +470,16 @@ public class AncientArcadeFrame extends JFrame {
 
 			}
 			else if(e.getSource()== Symbol_lbl_2){
+				soundthread1.PlayMusic(list.get(2).getSongName(), list.get(2).getRepeat() ); //Sound: minotaur
+				
 				Symbol_lbl_gen.setCode("arcade_minotaur");
 				Symbol_lbl_gen.setIcon(new ImageIcon(currlist.get(8).getImage().getScaledInstance(Symbol_lbl_gen.getWidth(), Symbol_lbl_gen.getHeight(), 0)));
 				Symbols_tip.setText("MINOTAUR");
 				symbolArea.setText(Info.get(7));
 			}
 			else if(e.getSource()== Symbol_lbl_3){
+				soundthread1.PlayMusic(list.get(3).getSongName(), list.get(3).getRepeat() ); //Sound: olympus
+				
 				Symbol_lbl_gen.setCode("arcade_olympus");
 				Symbol_lbl_gen.setIcon(new ImageIcon(currlist.get(9).getImage().getScaledInstance(Symbol_lbl_gen.getWidth(), Symbol_lbl_gen.getHeight(), 0)));
 				Symbols_tip.setText("OLYMPUS");

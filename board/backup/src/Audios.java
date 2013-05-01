@@ -13,17 +13,41 @@ public class Audios {
 	//toxo(2).wav
 	private ArrayList<AudiosPair> audiosList;
 
+	private ArrayList<AudiosPair> ArcadeList; //Arcade Sounds
+
 	public Audios(){
 		audiosList = new ArrayList<AudiosPair>(); //CREATING ARRAYLIST
+		ArcadeList= new ArrayList<AudiosPair>(); //ARRAYLIST FOR ARCADE
 
-		audiosList.add(new AudiosPair("battle_theme.wav", true));
-		audiosList.add(new AudiosPair("click_meny_buttons.wav", false));
-		audiosList.add(new AudiosPair("corona_h_grammata.wav", true));
-		audiosList.add(new AudiosPair("dice_roll.wav", false));
-		audiosList.add(new AudiosPair("swordedited.wav", false));
-		audiosList.add(new AudiosPair("toxo(2).wav", false));
+		audiosList.add(new AudiosPair("battle_theme.wav", true));           //0
+		audiosList.add(new AudiosPair("click_meny_buttons.wav", false));   //1
+		audiosList.add(new AudiosPair("corona_h_grammata.wav", true));    //2
+		audiosList.add(new AudiosPair("dice_roll.wav", false));           //3
+		audiosList.add(new AudiosPair("swordedited.wav", false));        //4
+		//Ancient Arcade Sounds
+		ArcadeList.add(new AudiosPair("ancientarcade_correct.wav", false));          //0
+		ArcadeList.add(new AudiosPair("ancientarcade_dias.wav", false));          //1
+		ArcadeList.add(new AudiosPair("ancientarcade_minotaur.wav", false));          //2
+		ArcadeList.add(new AudiosPair("ancientarcade_olympos.wav", false));          //3
+		ArcadeList.add(new AudiosPair("ancientarcade_perseus.wav", false));          //4
 
 	}
+	public ArrayList<AudiosPair> getAudiosList() {
+		return audiosList;
+	}
+
+	public void setAudiosList(ArrayList<AudiosPair> audiosList) {
+		this.audiosList = audiosList;
+	}
+
+	public ArrayList<AudiosPair> getArcadeList() {
+		return ArcadeList;
+	}
+
+	public void setArcadeList(ArrayList<AudiosPair> arcadeList) {
+		ArcadeList = arcadeList;
+	}
+
 
 	public ArrayList<AudiosPair> getAudios() {
 		return audiosList;

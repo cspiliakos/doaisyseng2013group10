@@ -55,8 +55,6 @@ public class Pick_A_Hero extends JFrame {
 		players = new ArrayList<User>();
 		players = p;
 		
-		//helpLabel = new JLabel();
-		
 		PHL = new Pick_A_Hero_Listener();
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

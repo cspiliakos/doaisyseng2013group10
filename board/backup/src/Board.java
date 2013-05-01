@@ -43,11 +43,7 @@ public class Board extends JFrame{
 	private CoinListener clistener;
 	private ImageIcon image, smallImage;
 	private UpgradeSkillListener skillListener;
-	private int userTurn=2;
-	//indicates the players turn in case of two players
-	
-	
-	
+	private int userTurn = 2;
 	private ArrayList<User> players;
 	
 	public Board(ArrayList<User> p){
@@ -72,7 +68,7 @@ public class Board extends JFrame{
 		playerY = 0;
 		
 		try {
-			background = ImageIO.read(new File("background.jpg"));
+			background = ImageIO.read(new File("Board\\background.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -83,7 +79,7 @@ public class Board extends JFrame{
 		back.setLayout(null);
 		
 		try{
-			audio = AudioSystem.getAudioInputStream(new File("battle_theme.wav").getAbsoluteFile());
+			audio = AudioSystem.getAudioInputStream(new File("Sounds\\battle_theme.wav").getAbsoluteFile());
 			clip = AudioSystem.getClip();
 			clip.open(audio);
 			clip.loop(Clip.LOOP_CONTINUOUSLY);
@@ -122,7 +118,7 @@ public class Board extends JFrame{
 		buttonPanel.setBounds((widthSize*13),(heightSize*2),(widthSize*6),(heightSize*2));
 		back.add(buttonPanel);
 		
-		ImageIcon  coin=new  ImageIcon("coin.gif");
+		ImageIcon  coin=new  ImageIcon("Board\\coin.gif");
 		Image coinImage=coin.getImage();
 		coinlbl=new JLabel();
 		Image coinResizedImage = coinImage.getScaledInstance((buttonPanel.getWidth()/2), buttonPanel.getHeight(), 0);
@@ -130,7 +126,7 @@ public class Board extends JFrame{
 		buttonPanel.add(coinlbl);
 		coinlbl.addMouseListener(clistener);
 		
-		ImageIcon dice=new ImageIcon("dice.gif");
+		ImageIcon dice=new ImageIcon("Board\\dice.gif");
 		Image diceImage=dice.getImage();
 		dicelbl=new JLabel();
 		Image diceResizedImage= diceImage.getScaledInstance((buttonPanel.getWidth()/2),buttonPanel.getHeight(),0);

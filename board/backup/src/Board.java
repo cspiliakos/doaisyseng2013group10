@@ -34,7 +34,7 @@ public class Board extends JFrame{
 	private JPanel buttonPanel, imagePanel, quitPanel;
 	private User xristis1, xristis2, currUser;
 	private MyGlassPane myGlassPane;
-	private int row, size, playerX, playerY, widthSize, heightSize;
+	private int row1, row2, size, playerX, playerY, widthSize, heightSize;
 	private BackgroundPanel back;
 	private Image background, hero, resize ,hero2;
 	private Clip clip;
@@ -46,6 +46,8 @@ public class Board extends JFrame{
 	private UpgradeSkillListener skillListener;
 	private int sqSize, userTurn = 2;
 	private ArrayList<User> players;
+	
+	private boolean done=false, adjust=false;
 	
 	public Board(ArrayList<User> p){
 		//*** MenuBar ***//
@@ -64,8 +66,11 @@ public class Board extends JFrame{
 		
 		currUser=xristis1;
 		player1lbl=new JLabel();
+		player2lbl=new JLabel();
 		
-		row = 1;
+		row1 = 1;
+		row2=1;
+		
 		playerX = 0;
 		playerY = 0;
 		
@@ -296,10 +301,19 @@ public class Board extends JFrame{
 		private static final int COLUMNS = 6;
 		private int xCoord = 0;
 		private int yCoord = 0;
+		private int x2Coord=0;
+		private int y2Coord=0;
+		
 		
 		public void setXYCoordinates(int xValue, int yValue) {
+			if (userTurn==2){
 			xCoord = xValue;
 			yCoord = yValue;
+			}
+			else if (userTurn==1){
+				x2Coord=xValue;
+				y2Coord=yValue;
+			}
 		}
 		
 		public void paintComponent(Graphics g) {
@@ -317,33 +331,76 @@ public class Board extends JFrame{
 				}
 			}
 			
-			//g.setColor(Color.RED);
-			//g.fillOval(xCoord, yCoord, sqSize, sqSize);
-			
-			
 			player1lbl.setSize(sqSize,sqSize);
 			ImageIcon p1icon=new ImageIcon("player1.gif");
 			Image p1image=p1icon.getImage();
-			System.out.println(""+sqSize);
+			//System.out.println(""+sqSize);
 			Image p1ResizedImage=p1image.getScaledInstance(player1lbl.getWidth(), player1lbl.getHeight(), 0);
 			player1lbl.setIcon(new ImageIcon(p1ResizedImage));
 			player1lbl.setBounds(xCoord, yCoord, sqSize, sqSize);
 			myGlassPane.add(player1lbl);
 			
+			
+			
+			player2lbl.setSize(sqSize,sqSize);
+			ImageIcon p2icon=new ImageIcon("player3.gif");
+			Image p2image=p2icon.getImage();
+			//System.out.println(""+sqSize);
+			Image p2ResizedImage=p2image.getScaledInstance(player2lbl.getWidth(), player2lbl.getHeight(), 0);
+			player2lbl.setIcon(new ImageIcon(p2ResizedImage));
+			player2lbl.setBounds(x2Coord, y2Coord, sqSize, sqSize);
+			if ((players.size())>1){
+				myGlassPane.add(player2lbl);
+				checkSameSquare();
+				
+			}
+			
 		}	
+	public void checkSameSquare(){
+		//resize the players figure if both players are on the same square
+		if (((player1lbl.getX())==(player2lbl.getX()))&&((player1lbl.getY())==(player2lbl.getY()))){
+			player1lbl.setSize((sqSize/2),(sqSize));
+			ImageIcon p1icon=new ImageIcon("player1.gif");
+			Image p1image=p1icon.getImage();
+			//System.out.println(""+sqSize);
+			Image p1ResizedImage=p1image.getScaledInstance(player1lbl.getWidth(), player1lbl.getHeight(), 0);
+			player1lbl.setIcon(new ImageIcon(p1ResizedImage));
+			player1lbl.setBounds(xCoord, yCoord,(sqSize/2), (sqSize));
+			
+			
+			player2lbl.setSize((sqSize/2),(sqSize));
+			ImageIcon p2icon=new ImageIcon("player3.gif");
+			Image p2image=p2icon.getImage();
+			//System.out.println(""+sqSize);
+			Image p2ResizedImage=p2image.getScaledInstance(player2lbl.getWidth(), player2lbl.getHeight(), 0);
+			player2lbl.setIcon(new ImageIcon(p2ResizedImage));
+			player2lbl.setBounds((x2Coord+(sqSize/2)),y2Coord,(sqSize/2),sqSize);
+			
+			adjust=true;
+		}
+		
+		
+
+			
 	}
+}
 	
 class DiceListener implements MouseListener {
 
 	int diceButton;
+	int row;
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 			diceButton = r.nextInt(6) + 1;
 			System.out.println("zari "+diceButton);
 			moveChar(getDice());
 			myGlassPane.setXYCoordinates(playerX, playerY);
+			
 			myGlassPane.repaint();
 			switchChars();
+			
+			
+			
 			}
 		
 		public void switchChars(){			
@@ -370,6 +427,25 @@ class DiceListener implements MouseListener {
 		}
 		
 		public void moveChar(int dice){
+			//int row;
+			if (userTurn==2){
+				playerX=player1lbl.getX();
+				playerY=player1lbl.getY();
+				row=row1;
+				adjust=false;
+			}
+			else if(userTurn==1){
+				if(adjust){
+					playerX=(player2lbl.getX())-(sqSize/2);
+				}
+				else{
+					playerX=player2lbl.getX();
+				}
+				
+				playerY=player2lbl.getY();
+				row=row2;
+				
+			}
 			for (int i = 0; i < dice; i++)
 			{
 				if (row % 2 == 0)
@@ -402,6 +478,14 @@ class DiceListener implements MouseListener {
 						playerX -= size;
 					}
 				}
+			}
+			
+			if(userTurn==2){
+				//dealing with players figure rows
+				row1=row;
+			}
+			else if(userTurn==1){
+				row2=row;
 			}
 		}
 	

@@ -29,6 +29,7 @@ public class Board extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private JButton piso, quit, plusLife, plusAttack, plusDefence;
 	private JLabel title, imageLabel, attacklbl, defencelbl, life, coinlbl, dicelbl, hero2lbl, skillpointlbl;
+	private JLabel player1lbl, player2lbl;
 	private Random r;
 	private JPanel buttonPanel, imagePanel, quitPanel;
 	private User xristis1, xristis2, currUser;
@@ -43,7 +44,7 @@ public class Board extends JFrame{
 	private CoinListener clistener;
 	private ImageIcon image, smallImage;
 	private UpgradeSkillListener skillListener;
-	private int userTurn = 2;
+	private int sqSize, userTurn = 2;
 	private ArrayList<User> players;
 	
 	public Board(ArrayList<User> p){
@@ -57,11 +58,12 @@ public class Board extends JFrame{
 		if ((players.size())>1){
 			xristis2=players.get(1);
 			smallImage=xristis2.getImage();
-			
-		}
+			}
+		else
+			smallImage=xristis1.getImage();
 		
 		currUser=xristis1;
-		
+		player1lbl=new JLabel();
 		
 		row = 1;
 		playerX = 0;
@@ -109,6 +111,8 @@ public class Board extends JFrame{
 		myGlassPane = new MyGlassPane();
 		this.setGlassPane(myGlassPane);
 		myGlassPane.setVisible(true);
+		
+		
 				
 		//
 		buttonPanel = new JPanel();
@@ -301,7 +305,7 @@ public class Board extends JFrame{
 		public void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			
-			int sqSize = this.getHeight() / ROWS;
+			sqSize = this.getHeight() / ROWS;
 			size = sqSize;
 			
 			for(int i = 0; i < ROWS; i++) {
@@ -313,8 +317,19 @@ public class Board extends JFrame{
 				}
 			}
 			
-			g.setColor(Color.RED);
-			g.fillOval(xCoord, yCoord, sqSize, sqSize);
+			//g.setColor(Color.RED);
+			//g.fillOval(xCoord, yCoord, sqSize, sqSize);
+			
+			
+			player1lbl.setSize(sqSize,sqSize);
+			ImageIcon p1icon=new ImageIcon("player1.gif");
+			Image p1image=p1icon.getImage();
+			System.out.println(""+sqSize);
+			Image p1ResizedImage=p1image.getScaledInstance(player1lbl.getWidth(), player1lbl.getHeight(), 0);
+			player1lbl.setIcon(new ImageIcon(p1ResizedImage));
+			player1lbl.setBounds(xCoord, yCoord, sqSize, sqSize);
+			myGlassPane.add(player1lbl);
+			
 		}	
 	}
 	
@@ -331,10 +346,7 @@ class DiceListener implements MouseListener {
 			switchChars();
 			}
 		
-		public void switchChars(){
-			
-			
-			
+		public void switchChars(){			
 			//tha kaleitai mono an paizoun 2 paixtes
 			ImageIcon tempIcon=new ImageIcon();
 			Icon i=imageLabel.getIcon();
@@ -343,7 +355,6 @@ class DiceListener implements MouseListener {
 			Image tempImage=tempIcon.getImage();
 			Image tempResizedImage = tempImage.getScaledInstance(hero2lbl.getWidth(), hero2lbl.getHeight(), 0);
 			//thn metasxhmatizw stis diastaseis tou mikrou label
-			//i=hero2lbl.getIcon();
 			switchTurn();
 			tempIcon=currUser.getImage();
 			tempImage=tempIcon.getImage();

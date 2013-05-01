@@ -365,6 +365,7 @@ class DiceListener implements MouseListener {
 			//allagh twn label me ta xarakthristika
 			
 		}
+		
 		public int getDice(){
 			return diceButton;
 		}
@@ -404,69 +405,70 @@ class DiceListener implements MouseListener {
 				}
 			}
 		}
-	
-		// TODO Auto-generated method stub
-		
-
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
-	
 }
 
 class CoinListener implements MouseListener {
+	private int coin, puzzle;
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		new DummyFrame(xristis1);//endeikthka enas xristis(prepi na exei ton 1 h ton 2)
-		new PuzzleList();
-		//na mpei ekei pou ftiaxnetai o paixths sthn pic a hero
+		coin = r.nextInt(2);
+		if (coin == 1)
+		{
+			new DuelBoardFrame(xristis1);
+		}
+		else
+		{
+			puzzle = r.nextInt(5);
+			switch(puzzle)
+			{
+			case 1: new ClickMeFrame(); break;
+			case 2: new TelecubeFrame(); break;
+			case 3: new MemoryGameFrame(); break;
+			case 4: new AncientArcadeFrame(); break;
+			case 5: new ClickMeFrame(); break;
+			}
+		}
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
 	}
-	
 }
 
 public class UpgradeSkillListener implements ActionListener{

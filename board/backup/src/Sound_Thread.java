@@ -13,19 +13,24 @@ public class Sound_Thread extends Thread{
 	private String SongPath;
 	private boolean repeat;
 	private HashMap<AudioInputStream, Boolean> Sounds ;
-
+	
+	public Sound_Thread(){ //Empty Constructor : gia mikrous hxous pou pezoun apo ena mono antikeimeno Sound_Thread(opws AncientArcadeFrame)
+		
+	}
 	public Sound_Thread(String sp, boolean rp){
 		SongPath = sp;
 		repeat = rp;
-		music(SongPath, repeat); //Different audios are being played many times
+		PlayMusic(SongPath, repeat); //Different audios are being played many times
 
 	}
 
 	public void StopMusic(){ //Stops the clip, USED FOR BACKGROUND SOUNDS
-		clip.stop();
+		if(clip != null)
+			clip.stop();
 	}
 
-	public void music(String SongPath, boolean repeat){
+	public void PlayMusic(String SongPath, boolean repeat){  //Stamataei tous prohgoumenous hxous(ama yparxoun) kai ksekinaei kainourgio
+		StopMusic();   
 		try{
 			File f = new File(SongPath);
 			AudioInputStream ais = AudioSystem.getAudioInputStream(f.getAbsoluteFile());

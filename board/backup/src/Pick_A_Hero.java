@@ -674,7 +674,6 @@ public class Pick_A_Hero extends JFrame {
 				p7.setText(String.valueOf(currChar.getDamage()));
 				p8.setText(String.valueOf(currChar.getDefence()));
 			}
-
 		}
 
 		@Override

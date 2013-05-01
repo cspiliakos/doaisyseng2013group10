@@ -27,7 +27,7 @@ import java.awt.Insets;
 public class Board extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
-	private JButton piso, quit, plusLife, plusAttack, plusDefence;
+	private JButton piso, plusLife, plusAttack, plusDefence;
 	private JLabel title, imageLabel, attacklbl, defencelbl, life, coinlbl, dicelbl, hero2lbl, skillpointlbl;
 	private JLabel player1lbl, player2lbl;
 	private Random r;
@@ -163,9 +163,9 @@ public class Board extends JFrame{
 		imagePanel.add(imageLabel, gbc_imageLabel);
 		
 		hero2lbl=new JLabel();
-		//Image hero2Image=smallImage.getImage();
-		//Image hero2ResizedImage= hero2Image.getScaledInstance((widthSize),(heightSize),0);
-		//hero2lbl.setIcon(new ImageIcon(hero2ResizedImage));
+		Image hero2Image=smallImage.getImage();
+		Image hero2ResizedImage= hero2Image.getScaledInstance((widthSize),(heightSize),0);
+		hero2lbl.setIcon(new ImageIcon(hero2ResizedImage));
 		GridBagConstraints gbc_hero2lbl=new GridBagConstraints();
 		gbc_hero2lbl.insets=new Insets(0,(2*widthSize),0,0);
 		gbc_hero2lbl.gridx=1;
@@ -245,13 +245,6 @@ public class Board extends JFrame{
 		
 		//
 		quitPanel = new JPanel();
-		quit = new JButton("\u0388\u03BE\u03BF\u03B4\u03BF\u03C2");
-		quit.setFont(new Font("Sylfaen", Font.PLAIN, 20));
-		quit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				System.exit(0);
-			}
-		});
 		quitPanel.setLayout(new BorderLayout(0, 0));
 		
 		piso = new JButton("\u03A0\u03AF\u03C3\u03C9");
@@ -265,7 +258,6 @@ public class Board extends JFrame{
 		});
 		piso.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		quitPanel.add(piso, BorderLayout.WEST);
-		quitPanel.add(quit, BorderLayout.EAST);
 		quitPanel.setBounds((widthSize*18),(heightSize*9),(widthSize*2),(heightSize/2));
 		back.add(quitPanel);
 		

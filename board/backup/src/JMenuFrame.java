@@ -17,20 +17,20 @@ public class JMenuFrame{
         
         // Define and add two drop down menu to the menubar
         JMenu fileMenu = new JMenu("\u0391\u03C1\u03C7\u03B5\u03AF\u03BF");
-        fileMenu.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+        fileMenu.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         JMenu infoMenu = new JMenu("\u03A3\u03C7\u03B5\u03C4\u03B9\u03BA\u03AC");
-        infoMenu.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+        infoMenu.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         menuBar.add(fileMenu);
         menuBar.add(infoMenu);
         
         // Create and add simple menu item to one of the drop down menu
 
         JMenuItem exitAction = new JMenuItem("\u0388\u03BE\u03BF\u03B4\u03BF\u03C2");
-        exitAction.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+        exitAction.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         JMenuItem info_about_puzzles_Action = new JMenuItem("\u0393\u03C1\u03AF\u03C6\u03BF\u03B9");
-        info_about_puzzles_Action.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+        info_about_puzzles_Action.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         JMenuItem info_about_game_Action = new JMenuItem("\u03A4\u03BF \u03C0\u03B1\u03B9\u03C7\u03BD\u03AF\u03B4\u03B9");
-        info_about_game_Action.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+        info_about_game_Action.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 
         fileMenu.add(exitAction);
         infoMenu.add(info_about_puzzles_Action);

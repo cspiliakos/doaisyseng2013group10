@@ -162,9 +162,9 @@ public class Board extends JFrame{
 		imagePanel.add(imageLabel, gbc_imageLabel);
 		
 		hero2lbl=new JLabel();
-		Image hero2Image=smallImage.getImage();
-		Image hero2ResizedImage= hero2Image.getScaledInstance((widthSize),(heightSize),0);
-		hero2lbl.setIcon(new ImageIcon(hero2ResizedImage));
+		//Image hero2Image=smallImage.getImage();
+		//Image hero2ResizedImage= hero2Image.getScaledInstance((widthSize),(heightSize),0);
+		//hero2lbl.setIcon(new ImageIcon(hero2ResizedImage));
 		GridBagConstraints gbc_hero2lbl=new GridBagConstraints();
 		gbc_hero2lbl.insets=new Insets(0,(2*widthSize),0,0);
 		gbc_hero2lbl.gridx=1;
@@ -422,6 +422,7 @@ class DiceListener implements MouseListener {
 			//allagh twn label me ta xarakthristika
 			
 		}
+		
 		public int getDice(){
 			return diceButton;
 		}
@@ -488,74 +489,70 @@ class DiceListener implements MouseListener {
 				row2=row;
 			}
 		}
-	
-		// TODO Auto-generated method stub
-		
-
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
-	
 }
 
-class CoinListener implements MouseListener{
-	
-	
+class CoinListener implements MouseListener {
+	private int coin, puzzle;
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		
-		new DummyFrame(xristis1);//endeikthka enas xristis(prepi na exei ton 1 h ton 2)
-		new PuzzleList();
-		//na mpei ekei pou ftiaxnetai o paixths sthn pic a hero
-		
-		
+		coin = r.nextInt(2);
+		if (coin == 1)
+		{
+			new DuelBoardFrame(xristis1);
+		}
+		else
+		{
+			puzzle = r.nextInt(5);
+			switch(puzzle)
+			{
+			case 1: new ClickMeFrame(currUser); break;
+			case 2: new TelecubeFrame(); break;
+			case 3: new MemoryGameFrame(); break;
+			case 4: new AncientArcadeFrame(); break;
+			case 5: new ClickMeFrame(currUser); break;
+			}
+		}
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
 	}
-	
 }
 
 public class UpgradeSkillListener implements ActionListener{

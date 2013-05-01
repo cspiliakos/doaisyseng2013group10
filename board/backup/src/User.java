@@ -1,16 +1,8 @@
-import java.awt.Image;
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
-
-public class User extends Monsters { //extends Mosnter --> User is a character
-	private String Username; //The name of the Current Player
-
-	private int skillpoints;
-	//points to upgrade skills
-
-
-	private int coins;
+public class User extends Monsters {
+	private String Username;
+	private int skillpoints, coins, xp;
 	private ArrayList<Weapons> weapons;
 	private Weapons currWeapon;
 
@@ -18,18 +10,12 @@ public class User extends Monsters { //extends Mosnter --> User is a character
 	{
 		super();
 		Username = name;
-		this.skillpoints=10;
-
-		//from user class of duel board
-		coins = 100000;
-		//just for checking
-		weapons =new ArrayList<Weapons>();
+		skillpoints = 10;
+		coins = 1000;
+		xp = 0;
+		weapons = new ArrayList<Weapons>();
 		weapons.add(new Sword());
 	}
-
-
-
-
 
 	public int getCoins() {
 		return coins;
@@ -39,6 +25,14 @@ public class User extends Monsters { //extends Mosnter --> User is a character
 		this.coins = coins;
 	}
 
+	public int getXP() {
+		return xp;
+	}
+
+	public void setXP(int xp) {
+		this.xp = xp;
+	}
+	
 	public ArrayList<Weapons> getWeapons() {
 		return weapons;
 	}
@@ -54,7 +48,6 @@ public class User extends Monsters { //extends Mosnter --> User is a character
 	public String getUsername() {
 		return Username;
 	}
-
 
 	public void setUsername(String username) {
 		Username = username;
@@ -75,5 +68,4 @@ public class User extends Monsters { //extends Mosnter --> User is a character
 	public void setSkillpoints(int skillpoints) {
 		this.skillpoints = skillpoints;
 	}
-
 }

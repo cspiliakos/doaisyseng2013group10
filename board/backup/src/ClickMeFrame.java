@@ -21,8 +21,10 @@ public class ClickMeFrame extends JFrame{
 	private Timer timer, iconTimer;
 	private TimerClass count;
 	private IconClass help;
+	private User player;
 	
-	public ClickMeFrame() {
+	public ClickMeFrame(User u) {
+		player = u;
 		minutes =  2;
 		seconds = 0;
 		help = new IconClass();
@@ -179,6 +181,8 @@ public class ClickMeFrame extends JFrame{
 				lifeLabel.setText("\u0396\u03C9\u03AD\u03C2: "+lives);
 				if(lives == 0 || (minutes == 0 && seconds == 0))
 				{
+					player.setCoins(player.getCoins() + 1000);
+					player.setXP(player.getXP() + 100);
 					ClickMeFrame.this.setVisible(false);
 					JOptionPane.showMessageDialog(null, "\u03A4\u03BF \u03C4\u03B5\u03BB\u03B9\u03BA\u03CC \u03C3\u03BA\u03BF\u03C1 \u03B5\u03AF\u03BD\u03B1\u03B9: "+score);
 				}

@@ -26,13 +26,13 @@ import java.awt.Insets;
 
 public class TelecubeFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
-	private String selected, question, ch;
+	private String selected, question;
 	private Timer timer;
 	private TimerClass count;
 	private BackgroundPanel back;
 	private JPanel timePanel, charPanel, checkPanel, insertPanel;
 	private int minutes, seconds, score;
-	private JLabel timeLabel, insertLabel, scoreLabel;
+	private JLabel timeLabel, insertLabel, scoreLabel, helpLabel;
 	private Image background;
 	private JButton pause, check;
 	private boolean isRunning;
@@ -41,7 +41,7 @@ public class TelecubeFrame extends JFrame {
 	private Question que;
 
 	public TelecubeFrame() {
-		setJMenuBar(new JMenuFrame().getMenu());
+		//setJMenuBar(new JMenuFrame().getMenu());
 		que = new Question();
 		
 		words = new ArrayList<String>();
@@ -67,6 +67,11 @@ public class TelecubeFrame extends JFrame {
 		back.add(charPanel, BorderLayout.CENTER);
 		
 		checkPanel = new JPanel();
+		charPanel.setLayout(new BorderLayout(0, 0));
+		helpLabel = new JLabel("");
+		helpLabel.setForeground(Color.WHITE);
+		helpLabel.setFont(new Font("Sylfaen", Font.BOLD, 40));
+		charPanel.add(helpLabel);
 		charPanel.add(que);
 		GridBagLayout gbl_checkPanel = new GridBagLayout();
 		gbl_checkPanel.columnWidths = new int[] {30};
@@ -78,13 +83,12 @@ public class TelecubeFrame extends JFrame {
 		check.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String answer = text.getText();
-				charPanel.removeAll();
 				if(answer.equals(question))
 				{
 					score++;
 					scoreLabel.setText("\u03A3\u03BA\u03BF\u03C1: "+score);
 				}
-				
+				text.setText("");
 				que.repaint();
 			}
 		});
@@ -146,7 +150,6 @@ public class TelecubeFrame extends JFrame {
 	public class Question extends JComponent {
 		public void paintComponent(Graphics g){
 			super.paintComponent(g);
-			
 			Random r = new Random(System.currentTimeMillis());
 			int randomIndex = r.nextInt(words.size());
 			question = words.get(randomIndex);
@@ -164,18 +167,7 @@ public class TelecubeFrame extends JFrame {
 			
 			selected = StringTokenizer(question);
 			System.out.println(selected);
-			
-			for (int i = 0; i < selected.length(); i++)
-			{
-				JLabel label = new JLabel();
-				GridBagConstraints gbc_label = new GridBagConstraints();
-				gbc_label.insets = new Insets(0, 0, 0, 5);
-				gbc_label.gridx = 0;
-				gbc_label.gridy = i;
-				charPanel.add(label, gbc_label);
-				ch = Character.toString(selected.charAt(i));
-				label.setText(ch);
-			}
+			helpLabel.setText(selected);
 		}
 	}
 	

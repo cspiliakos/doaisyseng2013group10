@@ -28,7 +28,7 @@ public class Board extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
 	private JButton piso, plusLife, plusAttack, plusDefence;
-	private JLabel title, imageLabel, attacklbl, defencelbl, life, coinlbl, dicelbl, hero2lbl, skillpointlbl;
+	private JLabel title, imageLabel, attacklbl, defencelbl, life, coinlbl, dicelbl, hero2lbl, skillpointlbl, playerCoins, playerXP;
 	private JLabel player1lbl, player2lbl;
 	private Random r;
 	private JPanel buttonPanel, imagePanel, quitPanel;
@@ -243,6 +243,21 @@ public class Board extends JFrame{
 		c.gridy=4;
 		imagePanel.add(skillpointlbl, c);
 		
+		playerCoins=new JLabel("Golden Coins: "+currUser.getCoins());
+		playerCoins.setFont(new Font("Sylfaen",Font.BOLD,20));
+		playerCoins.setForeground(Color.WHITE);
+		c.gridx=0;
+		c.gridy=5;
+		imagePanel.add(playerCoins,c);
+		
+		playerXP=new JLabel("XP: "+currUser.getXP());
+		playerXP.setFont(new Font("Sylfaen",Font.BOLD,20));
+		playerXP.setForeground(Color.WHITE);
+		c.gridx=0;
+		c.gridy=6;
+		imagePanel.add(playerXP,c);
+		
+		
 		skillListener=new UpgradeSkillListener();
 		plusLife.addActionListener(skillListener);
 		plusDefence.addActionListener(skillListener);
@@ -294,6 +309,8 @@ public class Board extends JFrame{
 		attacklbl.setText("\u0388\u03C0\u03AF\u03B8\u03B5\u03C3\u03B7: "+String.valueOf(currUser.getDamage()));
 		defencelbl.setText("\u0386\u03BC\u03C5\u03BD\u03B1: "+String.valueOf(currUser.getDefence()));
 		life.setText("\u0396\u03C9\u03AE: "+String.valueOf(currUser.getHealth()));
+		playerCoins.setText("Golden Coins: "+(currUser.getCoins()));
+		playerXP.setText("XP: "+(currUser.getXP()));
 		}
 
 	@SuppressWarnings("serial")
@@ -331,6 +348,7 @@ public class Board extends JFrame{
 					g.drawRect(x, y, sqSize, sqSize);
 				}
 			}
+			updateStatLabels();
 			
 			player1lbl.setSize(sqSize,sqSize);
 			ImageIcon p1icon=new ImageIcon("player1.gif");
@@ -401,7 +419,8 @@ public class Board extends JFrame{
 			myGlassPane.setXYCoordinates(playerX, playerY);
 
 			myGlassPane.repaint();
-			switchChars();
+			if((players.size())>1)
+				switchChars();
 
 
 

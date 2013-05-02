@@ -17,6 +17,8 @@ public class Audios {
 	private ArrayList<AudiosPair> ClickMeList; //MemoryGame Sounds
 	
 	private ArrayList<AudiosPair> BoardList; //Board Sounds
+	
+	private ArrayList<AudiosPair> MenuList; //Board Sounds
 
 	public Audios(){
 		audiosList = new ArrayList<AudiosPair>(); //CREATING ARRAYLIST
@@ -24,6 +26,7 @@ public class Audios {
 		MemoryGameList= new ArrayList<AudiosPair>(); //ARRAYLIST FOR MEMORYGAME
 		ClickMeList= new ArrayList<AudiosPair>(); //ARRAYLIST FOR CLICKME
 		BoardList= new ArrayList<AudiosPair>(); //ARRAYLIST FOR BOARD
+		MenuList= new ArrayList<AudiosPair>(); //ARRAYLIST FOR JMENUFRAME
 		
 		audiosList.add(new AudiosPair("Sounds\\battle_theme.wav", true));           //0
 		audiosList.add(new AudiosPair("Sounds\\click_meny_buttons.wav", false));   //1
@@ -36,6 +39,7 @@ public class Audios {
 		ArcadeList.add(new AudiosPair("Sounds\\ancientarcade_minotaur.wav", false));          //2
 		ArcadeList.add(new AudiosPair("Sounds\\ancientarcade_olympos.wav", false));          //3
 		ArcadeList.add(new AudiosPair("Sounds\\ancientarcade_perseus.wav", false));          //4
+		ArcadeList.add(new AudiosPair("Sounds\\ancientarcade_cerberus.wav", false));          //4
 		
 		//MemoryGame Sounds
 		MemoryGameList.add(new AudiosPair("Sounds\\memorygame_select.wav", false));              // 0 
@@ -49,11 +53,20 @@ public class Audios {
 		ClickMeList.add(new AudiosPair("Sounds\\clickme_wrong.wav", false));            //    2
 		
 		//Board Sounds
-		BoardList.add(new AudiosPair("Sounds\\board_corona_h_grammata.wav", false));   //    0
+		BoardList.add(new AudiosPair("Sounds\\board_corona_h_grammata.wav", false));    //    0
 		BoardList.add(new AudiosPair("Sounds\\board_dice_roll.wav", false));            //    1
+		
+		//JMENUFRAME Sounds
+		MenuList.add(new AudiosPair("Sounds\\menu_click_sword.wav", false));     //    0
 
 
 
+	}
+	public ArrayList<AudiosPair> getMenuList() {
+		return MenuList;
+	}
+	public void setMenuList(ArrayList<AudiosPair> menuList) {
+		MenuList = menuList;
 	}
 	public ArrayList<AudiosPair> getBoardList() {
 		return BoardList;

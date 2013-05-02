@@ -73,10 +73,12 @@ public abstract class Weapons{
 		else{
 			int coins=user.getCoins();
 			if (coins>=w.price){
+				coins=coins-(w.price);
 				w.level++;
 				w.price=w.price+((w.price*50)/100);
 				//aykshsh kata to 50% ths prohgoumenhs timhs
 				w.damage=w.damage+((w.damage*30)/100);
+				user.setCoins(coins);
 				}
 		}
 		
@@ -94,7 +96,14 @@ public abstract class Weapons{
 			}
 		}
 		if (!found){
-			weapons.add(bWeapon);
+			int coins=user.getCoins();
+			if(coins>=bWeapon.getPrice()){
+				weapons.add(bWeapon);
+				coins=coins-(bWeapon.getPrice());
+				user.setCoins(coins);
+				
+			}
+			
 		}
 			
 		}

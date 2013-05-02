@@ -1,11 +1,10 @@
 import javax.imageio.ImageIO;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.JTextField;
@@ -23,6 +22,7 @@ import java.util.Random;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import javax.swing.SwingConstants;
 
 public class TelecubeFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -38,14 +38,13 @@ public class TelecubeFrame extends JFrame {
 	private boolean isRunning;
 	private JTextField text;
 	private ArrayList<String> words, usedWords;
-	private Question que;
-	private Random r ;
+	private Random r;
+	private User player;
 	
-	public TelecubeFrame() {
+	public TelecubeFrame(User u) {
+		player = u;
 		setJMenuBar(new JMenuFrame().getMenu());
-		que = new Question();
 		r = new Random(System.currentTimeMillis());
-		
 		words = new ArrayList<String>();
 		usedWords = new ArrayList<String>();
 		deserializing();
@@ -58,7 +57,7 @@ public class TelecubeFrame extends JFrame {
 		score = 0;
 		
 		try {
-			background = ImageIO.read(new File("adminback.jpg"));
+			background = ImageIO.read(new File("arcade_background.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -70,10 +69,11 @@ public class TelecubeFrame extends JFrame {
 		
 		checkPanel = new JPanel();
 		charPanel.setLayout(new BorderLayout(0, 0));
-		helpLabel = new JLabel("start");
+		getWord();
+		helpLabel = new JLabel(selected);
+		helpLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		helpLabel.setForeground(Color.WHITE);
 		helpLabel.setFont(new Font("Sylfaen", Font.BOLD, 40));
-		//que.add(helpLabel);
 		charPanel.add(helpLabel);
 		GridBagLayout gbl_checkPanel = new GridBagLayout();
 		gbl_checkPanel.columnWidths = new int[] {30};
@@ -93,7 +93,7 @@ public class TelecubeFrame extends JFrame {
 				text.setText("");
 				getWord();
 				helpLabel.setText(selected);
-				//que.repaint();
+				
 			}
 		});
 		scoreLabel = new JLabel("\u03A3\u03BA\u03BF\u03C1: "+score);
@@ -123,11 +123,13 @@ public class TelecubeFrame extends JFrame {
 					isRunning = false;
 					timer.stop();
 					Toolkit.getDefaultToolkit().beep();
+					check.setEnabled(false);
 				}
 				else
 				{
 					isRunning = true;
 					timer.start();
+					check.setEnabled(true);
 				}
 			}
 		});
@@ -149,30 +151,24 @@ public class TelecubeFrame extends JFrame {
 		this.setVisible(true);
 		this.setSize(700, 500);
 	}
-public void getWord(){
-	int randomIndex = r.nextInt(words.size());
-	question = words.get(randomIndex);
 	
-	if (usedWords.size() == words.size())
-	{
-		usedWords = new ArrayList<String>();
-	}
-	
-	while (usedWords.contains(question)){
-		randomIndex = r.nextInt(words.size());
+	public void getWord(){
+		int randomIndex = r.nextInt(words.size());
 		question = words.get(randomIndex);
-	}
-	usedWords.add(question);
 	
-	selected = StringTokenizer(question);
-	System.out.println(selected);
-}
-	@SuppressWarnings("serial")
-public class Question extends JComponent {
-	public void paintComponent(Graphics g){
-			super.paintComponent(g);
-				helpLabel.setText(selected);
+		if (usedWords.size() == words.size())
+		{
+			usedWords = new ArrayList<String>();
 		}
+	
+		while (usedWords.contains(question)){
+			randomIndex = r.nextInt(words.size());
+			question = words.get(randomIndex);
+		}
+		usedWords.add(question);
+	
+		selected = StringTokenizer(question);
+		System.out.println(selected);
 	}
 	
 	public String StringTokenizer(String str) {
@@ -247,6 +243,10 @@ public class Question extends JComponent {
 			{
 				timer.stop();
 				Toolkit.getDefaultToolkit().beep();
+				player.setCoins(player.getCoins() + 1000);
+				player.setXP(player.getXP() + 100);
+				TelecubeFrame.this.setVisible(false);
+				JOptionPane.showMessageDialog(null, "\u03A4\u03BF \u03C4\u03B5\u03BB\u03B9\u03BA\u03CC \u03C3\u03BA\u03BF\u03C1 \u03B5\u03AF\u03BD\u03B1\u03B9: "+score);
 			}
 		}
 	}

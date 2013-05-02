@@ -176,8 +176,8 @@ public class DuelBoardFrame extends JFrame {
 		mainPanel.add(spearlvl);
 		mainPanel.add(spearPrice);
 
-
-		ImageIcon  heroIcon=new  ImageIcon("Duel\\Myrmidon.jpg");
+		
+		ImageIcon  heroIcon=currUser.getImage();
 		Image heroImage=heroIcon.getImage();
 		ourHerolbl=new JLabel();
 		ourHerolbl.setBounds(widthSize,(2*heightSize),(3*widthSize),(3*heightSize));

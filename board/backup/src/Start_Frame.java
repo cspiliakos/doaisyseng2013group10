@@ -59,7 +59,7 @@ public class Start_Frame extends JFrame{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		//Start\\start.jpg
+		
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setUndecorated(true);
 		setVisible(true);

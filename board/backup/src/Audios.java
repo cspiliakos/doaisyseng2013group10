@@ -39,6 +39,7 @@ public class Audios {
 		ArcadeList.add(new AudiosPair("Sounds\\ancientarcade_minotaur.wav", false));          //2
 		ArcadeList.add(new AudiosPair("Sounds\\ancientarcade_olympos.wav", false));          //3
 		ArcadeList.add(new AudiosPair("Sounds\\ancientarcade_perseus.wav", false));          //4
+		ArcadeList.add(new AudiosPair("Sounds\\ancientarcade_cerberus.wav", false));          //4
 		
 		//MemoryGame Sounds
 		MemoryGameList.add(new AudiosPair("Sounds\\memorygame_select.wav", false));              // 0 

@@ -16,11 +16,14 @@ public class Audios {
 	private ArrayList<AudiosPair> ArcadeList; //Arcade Sounds
 	
 	private ArrayList<AudiosPair> MemoryGameList; //MemoryGame Sounds
+	
+	private ArrayList<AudiosPair> ClickMeList; //MemoryGame Sounds
 
 	public Audios(){
 		audiosList = new ArrayList<AudiosPair>(); //CREATING ARRAYLIST
 		ArcadeList= new ArrayList<AudiosPair>(); //ARRAYLIST FOR ARCADE
 		MemoryGameList= new ArrayList<AudiosPair>(); //ARRAYLIST FOR MEMORYGAME
+		ClickMeList= new ArrayList<AudiosPair>(); //ARRAYLIST FOR CLICKME
 		
 		audiosList.add(new AudiosPair("Sounds\\battle_theme.wav", true));           //0
 		audiosList.add(new AudiosPair("Sounds\\click_meny_buttons.wav", false));   //1
@@ -39,9 +42,20 @@ public class Audios {
 		MemoryGameList.add(new AudiosPair("Sounds\\memorygame_right.wav", false));              //  1
 		MemoryGameList.add(new AudiosPair("Sounds\\memorygame_congratulations.wav", false));   //   2
 		MemoryGameList.add(new AudiosPair("Sounds\\memorygame_wrong.wav", false));            //    3
-		
-		           
 
+		//ClickMe Sounds
+		ClickMeList.add(new AudiosPair("Sounds\\clickme_endofgame.wav", false));            //    0
+		ClickMeList.add(new AudiosPair("Sounds\\clickme_right.wav", false));            //    1
+		ClickMeList.add(new AudiosPair("Sounds\\clickme_wrong.wav", false));            //    2
+
+
+
+	}
+	public ArrayList<AudiosPair> getClickMeList() {
+		return ClickMeList;
+	}
+	public void setClickMeList(ArrayList<AudiosPair> clickMeList) {
+		ClickMeList = clickMeList;
 	}
 	public ArrayList<AudiosPair> getMemoryGameList() {
 		return MemoryGameList;

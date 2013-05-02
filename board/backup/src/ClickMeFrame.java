@@ -3,6 +3,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -22,6 +23,14 @@ public class ClickMeFrame extends JFrame{
 	private TimerClass count;
 	private IconClass help;
 	private User player;
+	
+	/**Sounds
+	 * list.get(0) endofgame
+	 * list.get(1) right
+	 * list.get(2) wrong
+	 */
+	ArrayList<AudiosPair> list = new ArrayList<AudiosPair>(new Audios().getClickMeList());
+	Sound_Thread soundthread1 = new Sound_Thread();
 	
 	public ClickMeFrame(User u) {
 		player = u;
@@ -172,15 +181,18 @@ public class ClickMeFrame extends JFrame{
 			
 			if((clickX >= labelX) && (clickX < (labelX + iconSize)) && (clickY >= labelY) && (clickY < (labelY + iconSize)))
 			{
-					score = score + 1;
-					scoreLabel.setText("\u03A3\u03BA\u03BF\u03C1: "+score);
+				soundthread1.PlayMusic(list.get(1).getSongName(), list.get(1).getRepeat() ); //Sound: right
+				score = score + 1;
+				scoreLabel.setText("\u03A3\u03BA\u03BF\u03C1: "+score);
 			}
 			else
 			{
+				soundthread1.PlayMusic(list.get(2).getSongName(), list.get(2).getRepeat() ); //Sound: wrong
 				lives = lives - 1;
 				lifeLabel.setText("\u0396\u03C9\u03AD\u03C2: "+lives);
 				if(lives == 0 || (minutes == 0 && seconds == 0))
 				{
+					soundthread1.PlayMusic(list.get(0).getSongName(), list.get(0).getRepeat() ); //Sound: endofgame
 					player.setCoins(player.getCoins() + 1000);
 					player.setXP(player.getXP() + 100);
 					ClickMeFrame.this.setVisible(false);

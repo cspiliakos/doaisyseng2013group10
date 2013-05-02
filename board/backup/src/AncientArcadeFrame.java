@@ -264,10 +264,12 @@ public class AncientArcadeFrame extends JFrame {
 		btnVerify.addActionListener(new BListener());
 		
 		Heroes_tip = new JLabel();
+		Heroes_tip.setFont(new Font("Calibri", Font.PLAIN, 14));
 		Heroes_tip.setBounds(scrollPane.getX(),10 ,81 ,84 );
 		contentPane.add(Heroes_tip);
 
 		Symbols_tip = new JLabel();
+		Symbols_tip.setFont(new Font("Calibri", Font.PLAIN, 14));
 		Symbols_tip.setBounds( (int)( Heroes_tip.getX()+2*(width-40)/4-81 ) ,10 ,81 ,84 );
 		contentPane.add(Symbols_tip);
 		
@@ -314,11 +316,11 @@ public class AncientArcadeFrame extends JFrame {
 
 						Hero_lbl_1.setEnabled(false);
 						Symbol_lbl_3.setEnabled(false);
-						JOptionPane.showMessageDialog(null, "Correct !");
+						JOptionPane.showMessageDialog(null, "Σωστά !");
 						pack_flag_1=false;
 					}
 					else
-						JOptionPane.showMessageDialog(null, "Already Completed!");
+						JOptionPane.showMessageDialog(null, "Έχει ήδη συμπληρωθεί!");
 
 
 				}
@@ -326,11 +328,11 @@ public class AncientArcadeFrame extends JFrame {
 					if(pack_flag_2){
 						Hero_lbl_2.setEnabled(false);
 						Symbol_lbl_6.setEnabled(false);
-						JOptionPane.showMessageDialog(null, "Correct !");
+						JOptionPane.showMessageDialog(null, "Σωστά !");
 						pack_flag_2=false;
 					}
 					else
-						JOptionPane.showMessageDialog(null, "Already Completed!");
+						JOptionPane.showMessageDialog(null, "Έχει ήδη συμπληρωθεί!");
 
 
 				}
@@ -338,11 +340,11 @@ public class AncientArcadeFrame extends JFrame {
 					if(pack_flag_3){
 						Hero_lbl_3.setEnabled(false);
 						Symbol_lbl_1.setEnabled(false);
-						JOptionPane.showMessageDialog(null, "Correct !");
+						JOptionPane.showMessageDialog(null, "Σωστά !");
 						pack_flag_3=false;
 					}
 					else	
-						JOptionPane.showMessageDialog(null, "Already Completed!");
+						JOptionPane.showMessageDialog(null, "Έχει ήδη συμπληρωθεί!");
 
 
 				}
@@ -350,11 +352,11 @@ public class AncientArcadeFrame extends JFrame {
 					if(pack_flag_4){
 						Hero_lbl_4.setEnabled(false);
 						Symbol_lbl_2.setEnabled(false);
-						JOptionPane.showMessageDialog(null, "Correct !");
+						JOptionPane.showMessageDialog(null, "Σωστά !");
 						pack_flag_4=false;
 					}
 					else	
-						JOptionPane.showMessageDialog(null, "Already Completed!");
+						JOptionPane.showMessageDialog(null, "Έχει ήδη συμπληρωθεί!");
 
 
 
@@ -363,11 +365,11 @@ public class AncientArcadeFrame extends JFrame {
 					if(pack_flag_5){
 						Hero_lbl_5.setEnabled(false);
 						Symbol_lbl_5.setEnabled(false);
-						JOptionPane.showMessageDialog(null, "Correct !");
+						JOptionPane.showMessageDialog(null, "Σωστά !");
 						pack_flag_5=false;
 					}
 					else
-						JOptionPane.showMessageDialog(null, "Already Completed!");
+						JOptionPane.showMessageDialog(null, "Έχει ήδη συμπληρωθεί!");
 
 
 
@@ -377,29 +379,29 @@ public class AncientArcadeFrame extends JFrame {
 					if(pack_flag_6){
 						Hero_lbl_6.setEnabled(false);
 						Symbol_lbl_4.setEnabled(false);
-						JOptionPane.showMessageDialog(null, "Correct !");
+						JOptionPane.showMessageDialog(null, "Σωστά !");
 						pack_flag_6=false;
 					}
 					else
-						JOptionPane.showMessageDialog(null, "Already Completed!");
+						JOptionPane.showMessageDialog(null, "Έχει ήδη συμπληρωθεί!");
 
 
 
 
 				}
 				else
-					JOptionPane.showMessageDialog(null, "Wrong Mismatch !");
+					JOptionPane.showMessageDialog(null, "Λάθος !");
 
 
 			}
 			else 
-				System.out.println("Nothing selected yet");
+				System.out.println("Πρέπει να επιλέξεις κάτι");
 			
 			//Player has finished
 			if(!pack_flag_1&&!pack_flag_2&&!pack_flag_3&&!pack_flag_4&&!pack_flag_5&&!pack_flag_6){  //6 flags are false ==completed
 				
 				soundthread1.PlayMusic(list.get(0).getSongName(), list.get(0).getRepeat() ); //Sound: correct
-				JOptionPane.showMessageDialog(null, "Congratulations, You have finished");	
+				JOptionPane.showMessageDialog(null, "Συγχαρητήρια!");	
 				
 				System.exit(EXIT_ON_CLOSE);    //***** FINISHED ----> EXIT  ***** 
 			}
@@ -420,7 +422,7 @@ public class AncientArcadeFrame extends JFrame {
 				
 				Hero_lbl_gen.setCode("arcade_zeus");  //when a Hero label  is clicked Hero_lbl_gen gets the RIGHT CODE 
 				Hero_lbl_gen.setIcon(new ImageIcon(currlist.get(1).getImage().getScaledInstance(Hero_lbl_gen.getWidth(), Hero_lbl_gen.getHeight(), 0)));
-				Heroes_tip.setText("ZEUS");
+				Heroes_tip.setText("ΔΙΑΣ");
 				heroArea.setText(Info.get(0));
 
 			} 
@@ -428,28 +430,28 @@ public class AncientArcadeFrame extends JFrame {
 				Hero_lbl_gen.setCode("arcade_poseidon");
 				Hero_lbl_gen.setIcon(new ImageIcon(currlist.get(2).getImage().getScaledInstance(Hero_lbl_gen.getWidth(), Hero_lbl_gen.getHeight(), 0)));
 				
-				Heroes_tip.setText("POSEIDON");
+				Heroes_tip.setText("ΠΟΣΕΙΔΩΝΑΣ");
 				heroArea.setText(Info.get(1));
 
 			}
 			else if(e.getSource()==Hero_lbl_3){
 				Hero_lbl_gen.setCode("arcade_hercules");
 				Hero_lbl_gen.setIcon(new ImageIcon(currlist.get(3).getImage().getScaledInstance(Hero_lbl_gen.getWidth(), Hero_lbl_gen.getHeight(), 0)));
-				Heroes_tip.setText("HERCULES");
+				Heroes_tip.setText("ΗΡΑΚΛΗΣ");
 				heroArea.setText(Info.get(2));
 
 			}
 			else if(e.getSource()==Hero_lbl_4){
 				Hero_lbl_gen.setCode("arcade_theseus");
 				Hero_lbl_gen.setIcon(new ImageIcon(currlist.get(4).getImage().getScaledInstance(Hero_lbl_gen.getWidth(), Hero_lbl_gen.getHeight(), 0)));
-				Heroes_tip.setText("THESEUS");
+				Heroes_tip.setText("ΘΗΣΕΑΣ");
 				heroArea.setText(Info.get(3));
 
 			}
 			else if(e.getSource()==Hero_lbl_5){
 				Hero_lbl_gen.setCode("arcade_odysseus");
 				Hero_lbl_gen.setIcon(new ImageIcon(currlist.get(5).getImage().getScaledInstance(Hero_lbl_gen.getWidth(), Hero_lbl_gen.getHeight(), 0)));
-				Heroes_tip.setText("ODYSSEUS");
+				Heroes_tip.setText("ΟΔΔΥΣΕΑΣ");
 				heroArea.setText(Info.get(4));
 
 			}
@@ -458,14 +460,14 @@ public class AncientArcadeFrame extends JFrame {
 				
 				Hero_lbl_gen.setCode("arcade_perseus");
 				Hero_lbl_gen.setIcon(new ImageIcon(currlist.get(6).getImage().getScaledInstance(Hero_lbl_gen.getWidth(), Hero_lbl_gen.getHeight(), 0)));
-				Heroes_tip.setText("PERSEUS");
+				Heroes_tip.setText("ΠΕΡΣΕΑΣ");
 				heroArea.setText(Info.get(5));
 
 			}
 			else if(e.getSource()== Symbol_lbl_1){      //SYMBOLS LISTENER
 				Symbol_lbl_gen.setCode("arcade_cerberus");
 				Symbol_lbl_gen.setIcon(new ImageIcon(currlist.get(7).getImage().getScaledInstance(Symbol_lbl_gen.getWidth(), Symbol_lbl_gen.getHeight(), 0)));
-				Symbols_tip.setText("CERBERUS");
+				Symbols_tip.setText("ΚΕΡΒΕΡΟΣ");
 				symbolArea.setText(Info.get(6));
 
 			}
@@ -474,7 +476,7 @@ public class AncientArcadeFrame extends JFrame {
 				
 				Symbol_lbl_gen.setCode("arcade_minotaur");
 				Symbol_lbl_gen.setIcon(new ImageIcon(currlist.get(8).getImage().getScaledInstance(Symbol_lbl_gen.getWidth(), Symbol_lbl_gen.getHeight(), 0)));
-				Symbols_tip.setText("MINOTAUR");
+				Symbols_tip.setText("ΜΙΝΟΤΑΥΡΟΣ");
 				symbolArea.setText(Info.get(7));
 			}
 			else if(e.getSource()== Symbol_lbl_3){
@@ -482,25 +484,25 @@ public class AncientArcadeFrame extends JFrame {
 				
 				Symbol_lbl_gen.setCode("arcade_olympus");
 				Symbol_lbl_gen.setIcon(new ImageIcon(currlist.get(9).getImage().getScaledInstance(Symbol_lbl_gen.getWidth(), Symbol_lbl_gen.getHeight(), 0)));
-				Symbols_tip.setText("OLYMPUS");
+				Symbols_tip.setText("ΟΛΥΜΠΟΣ");
 				symbolArea.setText(Info.get(8));
 			}
 			else if(e.getSource()== Symbol_lbl_4){
 				Symbol_lbl_gen.setCode("arcade_medusa");
 				Symbol_lbl_gen.setIcon(new ImageIcon(currlist.get(10).getImage().getScaledInstance(Symbol_lbl_gen.getWidth(), Symbol_lbl_gen.getHeight(), 0)));
-				Symbols_tip.setText("MEDUSA");
+				Symbols_tip.setText("ΜΕΔΟΥΣΑ");
 				symbolArea.setText(Info.get(9));
 			}
 			else if(e.getSource()== Symbol_lbl_5){
 				Symbol_lbl_gen.setCode("arcade_scylla");
 				Symbol_lbl_gen.setIcon(new ImageIcon(currlist.get(11).getImage().getScaledInstance(Symbol_lbl_gen.getWidth(), Symbol_lbl_gen.getHeight(), 0)));
-				Symbols_tip.setText("SCYLLA");
+				Symbols_tip.setText("ΣΚΥΛΛΑ");
 				symbolArea.setText(Info.get(10));
 			}
 			else if(e.getSource()== Symbol_lbl_6){
 				Symbol_lbl_gen.setCode("arcade_sea");
 				Symbol_lbl_gen.setIcon(new ImageIcon(currlist.get(12).getImage().getScaledInstance(Symbol_lbl_gen.getWidth(), Symbol_lbl_gen.getHeight(), 0)));
-				Symbols_tip.setText("SEA WORLD");
+				Symbols_tip.setText("ΘΑΛΑΣΣΑ");
 				symbolArea.setText(Info.get(11));
 			}
 

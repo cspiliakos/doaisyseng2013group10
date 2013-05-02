@@ -15,12 +15,15 @@ public class Audios {
 	private ArrayList<AudiosPair> MemoryGameList; //MemoryGame Sounds
 	
 	private ArrayList<AudiosPair> ClickMeList; //MemoryGame Sounds
+	
+	private ArrayList<AudiosPair> BoardList; //Board Sounds
 
 	public Audios(){
 		audiosList = new ArrayList<AudiosPair>(); //CREATING ARRAYLIST
 		ArcadeList= new ArrayList<AudiosPair>(); //ARRAYLIST FOR ARCADE
 		MemoryGameList= new ArrayList<AudiosPair>(); //ARRAYLIST FOR MEMORYGAME
 		ClickMeList= new ArrayList<AudiosPair>(); //ARRAYLIST FOR CLICKME
+		BoardList= new ArrayList<AudiosPair>(); //ARRAYLIST FOR BOARD
 		
 		audiosList.add(new AudiosPair("Sounds\\battle_theme.wav", true));           //0
 		audiosList.add(new AudiosPair("Sounds\\click_meny_buttons.wav", false));   //1
@@ -44,9 +47,19 @@ public class Audios {
 		ClickMeList.add(new AudiosPair("Sounds\\clickme_endofgame.wav", false));            //    0
 		ClickMeList.add(new AudiosPair("Sounds\\clickme_right.wav", false));            //    1
 		ClickMeList.add(new AudiosPair("Sounds\\clickme_wrong.wav", false));            //    2
+		
+		//Board Sounds
+		BoardList.add(new AudiosPair("Sounds\\board_corona_h_grammata.wav", false));   //    0
+		BoardList.add(new AudiosPair("Sounds\\board_dice_roll.wav", false));            //    1
 
 
 
+	}
+	public ArrayList<AudiosPair> getBoardList() {
+		return BoardList;
+	}
+	public void setBoardList(ArrayList<AudiosPair> boardList) {
+		BoardList = boardList;
 	}
 	public ArrayList<AudiosPair> getClickMeList() {
 		return ClickMeList;

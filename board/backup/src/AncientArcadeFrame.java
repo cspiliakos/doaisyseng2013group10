@@ -1,13 +1,10 @@
-import java.awt.BorderLayout;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -15,20 +12,13 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.JScrollPane;
-import javax.swing.JTextPane;
 import javax.swing.JButton;
 import java.awt.Font;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.SwingConstants;
 import javax.swing.DropMode;
-import javax.swing.JFormattedTextField;
-import java.awt.Color;
-
 
 public class AncientArcadeFrame extends JFrame {
-
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private ArrayList<String> Info ; //info about images: hereos and symbols
 	
@@ -67,8 +57,8 @@ public class AncientArcadeFrame extends JFrame {
 	private boolean pack_flag_4=true;
 	private boolean pack_flag_5=true;
 	private boolean pack_flag_6=true;
-	private JPanel seperator_panel;
-	private JLabel title_label;
+	//private JPanel seperator_panel;
+	//private JLabel title_label;
 	
 	/**Sounds
 	 * list.get(0) correct

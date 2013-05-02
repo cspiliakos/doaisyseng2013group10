@@ -1,14 +1,14 @@
 import java.util.*;
-
 import javax.swing.*;
-
 
 public class PicsHerosHeroManager {
 	
 	private Uicons iconList;
 	private ArrayList<ImageIcon> currList;
 	private ArrayList<PicsHerosHero> heroes;
+	@SuppressWarnings("unused")
 	private PicsHerosHero currHero;
+	@SuppressWarnings("unused")
 	private String name;
 	private ArrayList<String> heroNames;
 	

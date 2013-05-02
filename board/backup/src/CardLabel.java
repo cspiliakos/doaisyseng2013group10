@@ -1,10 +1,9 @@
 import java.awt.Image;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 public class CardLabel extends JLabel {
-	
+	private static final long serialVersionUID = 1L;
 	private ImageIcon icon;
 	private String code;
 	

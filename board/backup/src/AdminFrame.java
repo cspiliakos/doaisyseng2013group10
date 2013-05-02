@@ -1,18 +1,14 @@
-
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-public class AdminFrame extends JFrame {
 
+public class AdminFrame extends JFrame {
+	private static final long serialVersionUID = 1L;
 	private JButton wordBt;
 	private JButton questionBt;
 	private JButton verifyBt;

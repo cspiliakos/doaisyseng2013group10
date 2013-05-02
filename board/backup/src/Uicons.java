@@ -1,10 +1,8 @@
 import java.util.*;
-
 import javax.swing.*;
 
-
 public class Uicons extends ImageIcon {
-	
+	private static final long serialVersionUID = 1L;
 	private ArrayList<ImageIcon> picsHerosIcons;
 	private ArrayList<CardLabel> mmg_icons;//Memory Game
 	private ArrayList<ImageIcon> ArcadeIcons;

@@ -1,33 +1,20 @@
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 
-import java.util.*;
-
-
-
-
-
-
 public class DuelBoardFrame extends JFrame {
+	private static final long serialVersionUID = 1L;
 	private User currUser;
 	private CharsOpponents currOpponent;
 	private ArrayList<Weapons> usersWeapons;
@@ -52,11 +39,8 @@ public class DuelBoardFrame extends JFrame {
 	private JButton upgradeSword;
 	private JButton upgradeBow;
 	private JButton upgradeSpear;
-
-	private Image background;
 	private JPanel herolblPanel;
 	private JPanel opplblPanel;
-
 	private int widthSize;
 	private int heightSize;
 
@@ -369,7 +353,7 @@ public class DuelBoardFrame extends JFrame {
 	}
 
 	class MyGlassPane extends JComponent{
-
+		private static final long serialVersionUID = 1L;
 
 		public void paintComponent(Graphics g) {
 			//overwrite paintcomponent

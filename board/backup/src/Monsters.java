@@ -1,7 +1,4 @@
-import java.awt.Image;
-
 import javax.swing.ImageIcon;
-
 
 public abstract class Monsters {
 

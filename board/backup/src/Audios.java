@@ -1,7 +1,4 @@
 import java.util.ArrayList;
-import java.util.HashMap;
-
-import javax.sound.sampled.AudioInputStream;
 
 //Returns a HashMap with 1)audios path and 2)booelan: whether must be repeated or not
 public class Audios {

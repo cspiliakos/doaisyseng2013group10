@@ -1,10 +1,5 @@
 import java.util.Random;
 
-import javax.swing.JOptionPane;
-
-
-
-
 public class Sword extends Weapons{
 	private Random r;
 

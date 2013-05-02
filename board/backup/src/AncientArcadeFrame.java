@@ -65,6 +65,8 @@ public class AncientArcadeFrame extends JFrame {
 	 * list.get(1) dias
 	 * list.get(2) minotaur
 	 * list.get(3) olympus
+	 * list.get(4) perseus
+	 * list.get(5) cerberus
 	 */
 	ArrayList<AudiosPair> list = new ArrayList<AudiosPair>(new Audios().getArcadeList());
 	Sound_Thread soundthread1 = new Sound_Thread();
@@ -455,6 +457,8 @@ public class AncientArcadeFrame extends JFrame {
 
 			}
 			else if(e.getSource()== Symbol_lbl_1){      //SYMBOLS LISTENER
+				soundthread1.PlayMusic(list.get(5).getSongName(), list.get(5).getRepeat() ); //Sound: cerberus
+				
 				Symbol_lbl_gen.setCode("arcade_cerberus");
 				Symbol_lbl_gen.setIcon(new ImageIcon(currlist.get(7).getImage().getScaledInstance(Symbol_lbl_gen.getWidth(), Symbol_lbl_gen.getHeight(), 0)));
 				Symbols_tip.setText(" ≈—¬≈—œ”");

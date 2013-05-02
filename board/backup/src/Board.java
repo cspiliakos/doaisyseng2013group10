@@ -36,7 +36,7 @@ public class Board extends JFrame{
 	private MyGlassPane myGlassPane;
 	private int row1, row2, size, playerX, playerY, widthSize, heightSize;
 	private BackgroundPanel back;
-	private Image background, hero, resize ,hero2;
+	private Image background, hero, resize , hero2;
 	private Clip clip;
 	private AudioInputStream audio;
 	private Pick_A_Hero pick;

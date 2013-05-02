@@ -160,7 +160,7 @@ public class AdminFrame extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource()==wordBt){
-				new AddWord();
+				new AddQ();
 			}
 			else if (e.getSource()==questionBt){
 				System.out.println("Add Question");

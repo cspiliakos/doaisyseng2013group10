@@ -26,7 +26,7 @@ import java.awt.Insets;
 
 public class TelecubeFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
-	private String selected, question;
+	private String selected, question, ch;
 	private Timer timer;
 	private TimerClass count;
 	private BackgroundPanel back;
@@ -37,17 +37,14 @@ public class TelecubeFrame extends JFrame {
 	private JButton pause, check;
 	private boolean isRunning;
 	private JTextField text;
-	private List words;
-	private ArrayList<JLabel> labels;
-	private ArrayList<String> usedWords;
+	private ArrayList<String> words, usedWords;
 	private Question que;
 
 	public TelecubeFrame() {
 		setJMenuBar(new JMenuFrame().getMenu());
 		que = new Question();
 		
-		labels = new ArrayList<JLabel>();
-		words = new List();
+		words = new ArrayList<String>();
 		usedWords = new ArrayList<String>();
 		deserializing();
 		minutes =  2;
@@ -81,11 +78,13 @@ public class TelecubeFrame extends JFrame {
 		check.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String answer = text.getText();
+				charPanel.removeAll();
 				if(answer.equals(question))
 				{
 					score++;
 					scoreLabel.setText("\u03A3\u03BA\u03BF\u03C1: "+score);
 				}
+				
 				que.repaint();
 			}
 		});
@@ -149,51 +148,62 @@ public class TelecubeFrame extends JFrame {
 			super.paintComponent(g);
 			
 			Random r = new Random(System.currentTimeMillis());
-			int randomIndex = r.nextInt(words.GetSize());
-			question = words.getWords().get(randomIndex).getName();
+			int randomIndex = r.nextInt(words.size());
+			question = words.get(randomIndex);
+			
+			if (usedWords.size() == words.size())
+			{
+				usedWords = new ArrayList<String>();
+			}
+			
 			while (usedWords.contains(question)){
-				randomIndex = r.nextInt(words.GetSize());
-				question = words.getWords().get(randomIndex).getName();
+				randomIndex = r.nextInt(words.size());
+				question = words.get(randomIndex);
 			}
 			usedWords.add(question);
-			selected = words.StringTokenizer(question);
+			
+			selected = StringTokenizer(question);
 			System.out.println(selected);
-			String ch = Character.toString(selected.charAt(0));
-			System.out.println(selected.length());
+			
 			for (int i = 0; i < selected.length(); i++)
 			{
-				
 				JLabel label = new JLabel();
-				labels.add(label);
 				GridBagConstraints gbc_label = new GridBagConstraints();
 				gbc_label.insets = new Insets(0, 0, 0, 5);
 				gbc_label.gridx = 0;
 				gbc_label.gridy = i;
 				charPanel.add(label, gbc_label);
 				ch = Character.toString(selected.charAt(i));
-				switch(i)
-				{
-				case 0:label.setText(ch);label.setVisible(true);break;
-				case 1:label.setText(ch);label.setVisible(true);break;
-				case 2:label.setText(ch);label.setVisible(true);break;
-				case 3:label.setText(ch);label.setVisible(true);break;
-				case 4:label.setText(ch);label.setVisible(true);break;
-				case 5:label.setText(ch);label.setVisible(true);break;
-				case 6:label.setText(ch);label.setVisible(true);break;
-				case 7:label.setText(ch);label.setVisible(true);break;
-				case 8:label.setText(ch);label.setVisible(true);break;
-				case 9:label.setText(ch);label.setVisible(true);break;
-				case 10:label.setText(ch);label.setVisible(true);break;
-				}
+				label.setText(ch);
 			}
 		}
 	}
 	
+	public String StringTokenizer(String str) {
+		char[] array = str.toCharArray();		
+		for(int i = 0; i < 10; i++)
+		{
+			Random char1 = new Random();
+			Random char2 = new Random();
+			
+			int randomInt1 = char1.nextInt(array.length);
+			int randomInt2 = char2.nextInt(array.length);
+			
+			char temp = array[randomInt1];
+			array[randomInt1] = array[randomInt2];
+			array[randomInt2] = temp;
+		}
+		String result = new String(array);
+		
+		return result;
+	}
+	
+	@SuppressWarnings("unchecked")
 	public void deserializing() {
 		try {
 			FileInputStream fileIn = new FileInputStream("Words.ser");
 			ObjectInputStream in = new ObjectInputStream(fileIn);
-			words = (List) in.readObject();
+			words = (ArrayList<String>) in.readObject();
 			in.close();
 			fileIn.close();		
 		}

@@ -59,8 +59,7 @@ public class Board extends JFrame{
 	Sound_Thread soundthread1 = new Sound_Thread();
 	
 	public Board(ArrayList<User> p){
-		//*** MenuBar ***//
-				setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
+		setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
 		
 		players=new ArrayList<User>();
 		players=p;

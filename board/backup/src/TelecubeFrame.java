@@ -39,10 +39,12 @@ public class TelecubeFrame extends JFrame {
 	private JTextField text;
 	private ArrayList<String> words, usedWords;
 	private Question que;
-
+	private Random r ;
+	
 	public TelecubeFrame() {
 		setJMenuBar(new JMenuFrame().getMenu());
 		que = new Question();
+		r = new Random(System.currentTimeMillis());
 		
 		words = new ArrayList<String>();
 		usedWords = new ArrayList<String>();
@@ -56,7 +58,7 @@ public class TelecubeFrame extends JFrame {
 		score = 0;
 		
 		try {
-			background = ImageIO.read(new File("arcade_background.jpg"));
+			background = ImageIO.read(new File("adminback.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -68,11 +70,11 @@ public class TelecubeFrame extends JFrame {
 		
 		checkPanel = new JPanel();
 		charPanel.setLayout(new BorderLayout(0, 0));
-		helpLabel = new JLabel("");
+		helpLabel = new JLabel("start");
 		helpLabel.setForeground(Color.WHITE);
 		helpLabel.setFont(new Font("Sylfaen", Font.BOLD, 40));
+		//que.add(helpLabel);
 		charPanel.add(helpLabel);
-		charPanel.add(que);
 		GridBagLayout gbl_checkPanel = new GridBagLayout();
 		gbl_checkPanel.columnWidths = new int[] {30};
 		gbl_checkPanel.rowHeights = new int[] {30, 30};
@@ -89,7 +91,9 @@ public class TelecubeFrame extends JFrame {
 					scoreLabel.setText("\u03A3\u03BA\u03BF\u03C1: "+score);
 				}
 				text.setText("");
-				que.repaint();
+				getWord();
+				helpLabel.setText(selected);
+				//que.repaint();
 			}
 		});
 		scoreLabel = new JLabel("\u03A3\u03BA\u03BF\u03C1: "+score);
@@ -145,29 +149,29 @@ public class TelecubeFrame extends JFrame {
 		this.setVisible(true);
 		this.setSize(700, 500);
 	}
+public void getWord(){
+	int randomIndex = r.nextInt(words.size());
+	question = words.get(randomIndex);
 	
+	if (usedWords.size() == words.size())
+	{
+		usedWords = new ArrayList<String>();
+	}
+	
+	while (usedWords.contains(question)){
+		randomIndex = r.nextInt(words.size());
+		question = words.get(randomIndex);
+	}
+	usedWords.add(question);
+	
+	selected = StringTokenizer(question);
+	System.out.println(selected);
+}
 	@SuppressWarnings("serial")
-	public class Question extends JComponent {
-		public void paintComponent(Graphics g){
+public class Question extends JComponent {
+	public void paintComponent(Graphics g){
 			super.paintComponent(g);
-			Random r = new Random(System.currentTimeMillis());
-			int randomIndex = r.nextInt(words.size());
-			question = words.get(randomIndex);
-			
-			if (usedWords.size() == words.size())
-			{
-				usedWords = new ArrayList<String>();
-			}
-			
-			while (usedWords.contains(question)){
-				randomIndex = r.nextInt(words.size());
-				question = words.get(randomIndex);
-			}
-			usedWords.add(question);
-			
-			selected = StringTokenizer(question);
-			System.out.println(selected);
-			helpLabel.setText(selected);
+				helpLabel.setText(selected);
 		}
 	}
 	

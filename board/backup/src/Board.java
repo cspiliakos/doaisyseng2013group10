@@ -524,7 +524,7 @@ class CoinListener implements MouseListener {
 		coin = r.nextInt(2);
 		if (coin == 1)
 		{
-			new DuelBoardFrame(xristis1);
+			new DuelBoardFrame(currUser);
 		}
 		else
 		{

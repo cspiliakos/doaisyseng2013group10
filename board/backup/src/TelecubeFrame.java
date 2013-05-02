@@ -41,7 +41,7 @@ public class TelecubeFrame extends JFrame {
 	private Question que;
 
 	public TelecubeFrame() {
-		//setJMenuBar(new JMenuFrame().getMenu());
+		setJMenuBar(new JMenuFrame().getMenu());
 		que = new Question();
 		
 		words = new ArrayList<String>();

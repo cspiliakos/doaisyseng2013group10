@@ -50,6 +50,13 @@ public class Board extends JFrame{
 	private boolean adjust=false;
 	//shows if the two players have been on the same square
 	
+	/**Sounds
+	 * list.get(0) corona_h_grammata
+	 * list.get(1) dice_roll
+	 */
+	ArrayList<AudiosPair> list = new ArrayList<AudiosPair>(new Audios().getBoardList());
+	Sound_Thread soundthread1 = new Sound_Thread();
+	
 	public Board(ArrayList<User> p){
 		//*** MenuBar ***//
 				setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
@@ -377,25 +384,28 @@ public class Board extends JFrame{
 			
 	}
 }
-	
-class DiceListener implements MouseListener {
 
-	int diceButton;
-	int row;
-	@Override
-	public void mouseClicked(MouseEvent arg0) {
+	class DiceListener implements MouseListener {
+
+		int diceButton;
+		int row;
+		@Override
+		public void mouseClicked(MouseEvent arg0) {
+			//Sound: dice_roll
+			soundthread1.PlayMusic(list.get(1).getSongName(), list.get(1).getRepeat() ); 
+			
 			diceButton = r.nextInt(6) + 1;
 			System.out.println("zari "+diceButton);
 			moveChar(getDice());
 			myGlassPane.setXYCoordinates(playerX, playerY);
-			
+
 			myGlassPane.repaint();
 			switchChars();
-			
-			
-			
-			}
-		
+
+
+
+		}
+
 		public void switchChars(){			
 			//tha kaleitai mono an paizoun 2 paixtes
 			ImageIcon tempIcon=new ImageIcon();
@@ -508,6 +518,8 @@ class CoinListener implements MouseListener {
 	private int coin, puzzle;
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
+		
+		soundthread1.PlayMusic(list.get(0).getSongName(), list.get(0).getRepeat() ); //Sound: corona_h_grammata
 		coin = r.nextInt(2);
 		if (coin == 1)
 		{

@@ -14,17 +14,17 @@ import java.awt.image.ImageObserver;
 import java.awt.image.ImageProducer;
 
 public class TicTacToeFrame implements ActionListener	{
-	final String VERSION = "3.0";
 	//Setting up ALL the variables
-	JFrame window = new JFrame("Tic-Tac-Toe " + VERSION);
+	private JFrame window = new JFrame();
 
-	JMenuBar mnuMain = new JMenuBar();
+	private JMenuBar mnuMain = new JMenuBar();
 			
 	
 
-	JButton btnEmpty[] = new JButton[10];
+	private JButton btnEmpty[] = new JButton[10];
+	private JButton btnTryAgain = new JButton("Ξαναπαίξε");
 
-	JPanel 	pnlNewGame = new JPanel(),
+	private JPanel 	pnlNewGame = new JPanel(),
 			pnlMenu = new JPanel(),
 			pnlMain = new JPanel(),
 			pnlTop = new JPanel(),
@@ -32,33 +32,36 @@ public class TicTacToeFrame implements ActionListener	{
 			pnlQuitNTryAgain = new JPanel(),
 			pnlPlayingField = new JPanel();
 
-	JLabel 	lblTitle = new JLabel("Tic-Tac-Toe"),
+	private JLabel 	lblTitle = new JLabel("Tic-Tac-Toe"),
 			lblTurn = new JLabel(),
 			lblStatus = new JLabel("", JLabel.CENTER),
 			lblMode = new JLabel("", JLabel.LEFT);
 	
-	JLabel back_lbl = new JLabel();
+	private JLabel back_lbl = new JLabel();
 	
-	JTextArea txtMessage = new JTextArea();
+	private JTextArea txtMessage = new JTextArea();
 
-	final int winCombo[][] = new int[][]	{
+	private int lives=3;
+	
+	private final int winCombo[][] = new int[][]	{
 			{1, 2, 3}, 			{1, 4, 7}, 		{1, 5, 9},
 			{4, 5, 6}, 			{2, 5, 8}, 		{3, 5, 7},
 			{7, 8, 9}, 			{3, 6, 9}
 			/*Horizontal Wins*/	/*Vertical Wins*/ /*Diagonal Wins*/
 	};
-	final int X = 535, Y = 342,
+	private final int X = 535, Y = 342,
 			mainColorR = 190, mainColorG = 50, mainColorB = 50,
 			btnColorR = 70, btnColorG = 70, btnColorB = 70;
-	Color clrBtnWonColor = new Color(190, 190, 190);
-	int 	turn = 1,
-			player1Won = 0, player2Won = 0,
-			wonNumber1 = 1, wonNumber2 = 1, wonNumber3 = 1,
-			option;
-	boolean 	inGame = false,
-			CPUGame = false,
+	private Color clrBtnWonColor = new Color(190, 190, 190);
+	
+	private int 	turn = 1,
+			player1Won = 0,
+		   	draws=0,
+		   	loses=0,
+			wonNumber1 = 1, wonNumber2 = 1, wonNumber3 = 1;
+	private boolean CPUGame = false,
 			win = false;
-	String 	message,
+	private String 	message,
 	Player1 = "Player 1", Player2 = "Player 2",
 	tempPlayer2 = "Player 2";
 	private final JPanel GeneralPnl = new JPanel();
@@ -66,7 +69,7 @@ public class TicTacToeFrame implements ActionListener	{
 
 	public TicTacToeFrame()	{	//Setting game properties and layout and sytle...
 		//*** MenuBar ***//
-				window.setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
+		window.setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
 	
 		//Getting Dimensions
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -126,11 +129,14 @@ public class TicTacToeFrame implements ActionListener	{
 		pnlTop.setBackground(new Color(mainColorR, mainColorG, mainColorB));
 		pnlBottom.setBackground(new Color(mainColorR, mainColorG, mainColorB));
 
+		GeneralPnl.add(btnTryAgain);
+		btnTryAgain.setBounds(pnlMain.getX(), pnlMain.getY()+pnlMain.getHeight(), 100, 35);
+		btnTryAgain.setEnabled(false);  //arxika den einai enabled
 		//Setting up Panel QuitNTryAgain
 		pnlQuitNTryAgain.setLayout(new GridLayout(1, 2, 2, 2));
 
 		//Adding Action Listener to all the Buttons and Menu Items
-
+		btnTryAgain.addActionListener(this);
 
 		//Setting up the playing field
 		pnlPlayingField.setLayout(new GridLayout(3, 3, 2, 2));
@@ -173,10 +179,10 @@ public class TicTacToeFrame implements ActionListener	{
 		//*****NEW GAME*****//
 		//--------------------//
 		// 1 v CPU Game by default epilogh
+	
 		Player2 = "Computer";
-		player1Won = 0;
-		player2Won = 0;
-		lblMode.setText("1 v CPU");
+		player1Won=0;
+		lblMode.setText("Τρίλιζα  Ζωές= "+lives +"  Νίκες= "+ player1Won +"  Ισοπαλίες= "+draws +"  Ήττες= "+loses);
 		CPUGame = true;
 		newGame();
 		
@@ -195,7 +201,6 @@ public class TicTacToeFrame implements ActionListener	{
 		pnlMain.add(pnlTop, BorderLayout.CENTER);
 		pnlMain.add(pnlBottom, BorderLayout.SOUTH);
 		pnlPlayingField.requestFocus();
-		inGame = true;
 		checkTurn();
 		checkWinStatus();
 	}
@@ -203,6 +208,7 @@ public class TicTacToeFrame implements ActionListener	{
 	public void newGame()	{	//	Sets all the game required variables to default
 		//	and then shows the playing field.
 		//	(Basically: Starts a new 1v1 Game)
+		
 		btnEmpty[wonNumber1].setBackground(new Color(btnColorR, btnColorG, btnColorB));
 		btnEmpty[wonNumber2].setBackground(new Color(btnColorR, btnColorG, btnColorB));
 		btnEmpty[wonNumber3].setBackground(new Color(btnColorR, btnColorG, btnColorB));
@@ -216,7 +222,6 @@ public class TicTacToeFrame implements ActionListener	{
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------------	
 	public void quit()	{
-		inGame = false;
 		lblMode.setText("");
 		clearPanelSouth();
 		setDefaultLayout();
@@ -258,19 +263,45 @@ public class TicTacToeFrame implements ActionListener	{
 			if(win)	{
 				if(btnEmpty[wonNumber1].getText().equals("X"))	{
 					message = "Συγχαρητηρια νίκησες!";           //***********PLAYER WINS  (X)**********//
+					showMessage(message);
 					player1Won++;
+					
+					if(player1Won == 3){   // 3 WINS -> EXIT
+						message = "3 Νίκες!";         
+						showMessage(message);
+						System.exit(0);//BGES APO TO PAIXNIDI KAI EPESTREPSE COINS & XP
+
+					}
 				}
 				else	{
 					message ="Έχασες...!";                       //***********PLAYER LOSES (O)**********//
-					player2Won++;
+					showMessage(message);
+					lives--;
+					loses++;
+					if(lives== 0)  {       //0 LIVES -> EXIT
+						message = "3 Ήττες!";         
+						showMessage(message);
+						System.exit(0); //BGES APO TO PAIXNIDI KAI EPESTREPSE XP & COINS
+					}
+
 				}
-			}	else if(!win && turn>9)
-				message = "Ισοπαλία!";                            //***********  DRAW   *********//
-			showMessage(message);
+			}	else if(!win && turn>9)      {       //***********  DRAW   *********//
+				message = "Ισοπαλία!";                            
+				showMessage(message);
+				draws++;
+				if(draws== 3)  {       //3 DRAWS -> EXIT
+					message = "3 Ισοπαλίες!";          
+					showMessage(message);
+					System.exit(0);   //BGES APO TO PAIXNIDI KAI EPESTREPSE XP & COINS
+				}
+			}
+				
 			for(int i=1; i<=9; i++)	{
 				btnEmpty[i].setEnabled(false);
 			}
+			btnTryAgain.setEnabled(true);
 			checkWinStatus();
+			lblMode.setText("Τρίλιζα  Ζωές= "+lives +"  Νίκες= "+ player1Won +"  Ισοπαλίες= "+draws +"  Ήττες= "+loses);
 		} else
 			checkTurn();
 	}
@@ -327,7 +358,7 @@ public class TicTacToeFrame implements ActionListener	{
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------------	
 	public void checkWinStatus()	{
-		lblStatus.setText(Player1 + ": " + player1Won + " | " + Player2 + ": " + player2Won);	
+		lblStatus.setText(Player1 + ": " + player1Won );	
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------------	
 	public int askMessage(String msg, String tle, int op)	{
@@ -378,7 +409,14 @@ public class TicTacToeFrame implements ActionListener	{
 			}
 		}
 
-		
+		if(source == btnTryAgain)	{
+			newGame();
+			btnTryAgain.setEnabled(false);
+		}
+		pnlMain.setVisible(false);
+		pnlMain.setVisible(true);
+
+
 	}
 }
 /* Future Plans:

@@ -75,10 +75,17 @@ public class AddQ extends JFrame {
 		check = new JButton("\u039A\u03B1\u03C4\u03B1\u03C7\u03CE\u03C1\u03B7\u03C3\u03B7");
 		check.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				words.add(textField.getText());
-				serializing();			
-				JOptionPane.showMessageDialog(null, "Η λέξη προστέθηκε με επιτυχία.");			
-				textField.setText(null);
+				if (!words.contains(textField.getText()))
+				{
+					words.add(textField.getText());
+					serializing();			
+					JOptionPane.showMessageDialog(null, "Η λέξη προστέθηκε με επιτυχία.");
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "Η λέξη υπάρχει ήδη στη λίστα.");
+				}
+				textField.setText(null);		
 			}
 		});
 		check.setFont(new Font("Sylfaen", Font.PLAIN, 20));

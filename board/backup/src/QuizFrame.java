@@ -57,6 +57,7 @@ public class QuizFrame extends JFrame {
 		questions = new ArrayList<Question>();
 		usedQuestions = new ArrayList<Question>();
 		group = new ButtonGroup();
+		group.clearSelection();
 		deserializing();
 		try {
 			background = ImageIO.read(new File("UIcons\\arcade_background.jpg"));
@@ -139,12 +140,7 @@ public class QuizFrame extends JFrame {
 				{
 					choose = choice4.getText();
 				}
-				else
-				{
-					choose = "";
-					JOptionPane.showMessageDialog(null, "You must choose an answer", "Wrong", JOptionPane.ERROR_MESSAGE);
-				}
-				
+				System.out.println(choose+"  "+selected.getCorrect());
 				if (choose.equals(selected.getCorrect())) 
 				{
 					score++;
@@ -157,6 +153,7 @@ public class QuizFrame extends JFrame {
 				choice2.setText(selected.getAnswer2());
 				choice3.setText(selected.getAnswer3());
 				choice4.setText(selected.getAnswer4());
+				group.clearSelection();
 			}
 		});
 		check.setFont(new Font("Sylfaen", Font.PLAIN, 20));
@@ -167,15 +164,19 @@ public class QuizFrame extends JFrame {
 		mainPanel = new JPanel();
 		back.add(mainPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_mainPanel = new GridBagLayout();
+		gbl_mainPanel.rowHeights = new int[] {40, 40};
+		gbl_mainPanel.columnWidths = new int[] {40};
 		mainPanel.setLayout(gbl_mainPanel);
 		
 		question = new JLabel();
+		question.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_question = new GridBagConstraints();
 		gbc_question.gridx = 0;
 		gbc_question.gridy = 0;
 		mainPanel.add(question, gbc_question);
 		
 		choice1 = new JRadioButton();
+		choice1.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_choice1 = new GridBagConstraints();
 		gbc_question.gridx = 0;
 		gbc_question.gridy = 1;
@@ -183,6 +184,7 @@ public class QuizFrame extends JFrame {
 		group.add(choice1);
 		
 		choice2 = new JRadioButton();
+		choice2.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_choice2 = new GridBagConstraints();
 		gbc_question.gridx = 1;
 		gbc_question.gridy = 1;
@@ -190,6 +192,7 @@ public class QuizFrame extends JFrame {
 		group.add(choice2);
 		
 		choice3 = new JRadioButton();
+		choice3.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_choice3 = new GridBagConstraints();
 		gbc_question.gridx = 2;
 		gbc_question.gridy = 1;
@@ -197,6 +200,7 @@ public class QuizFrame extends JFrame {
 		group.add(choice3);
 		
 		choice4 = new JRadioButton();
+		choice4.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_choice4 = new GridBagConstraints();
 		gbc_question.gridx = 3;
 		gbc_question.gridy = 1;
@@ -225,8 +229,6 @@ public class QuizFrame extends JFrame {
 			selected = questions.get(randomIndex);
 		}
 		usedQuestions.add(selected);
-	
-		System.out.println(selected);
 	}
 	
 	@SuppressWarnings("unchecked")

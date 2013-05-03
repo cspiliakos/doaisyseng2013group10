@@ -82,6 +82,7 @@ public class AddQuestion extends JFrame {
 		mainPanel.setLayout(gbl_mainPanel);
 		
 		makeQuestion = new JLabel();
+		makeQuestion.setText("\u0395\u03C1\u03CE\u03C4\u03B7\u03C3\u03B7");
 		makeQuestion.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_makeQuestion = new GridBagConstraints();
 		gbc_makeQuestion.insets = new Insets(0, 0, 0, 5);
@@ -90,6 +91,7 @@ public class AddQuestion extends JFrame {
 		mainPanel.add(makeQuestion, gbc_makeQuestion);
 		
 		makeField = new JTextField();
+		makeField.setColumns(20);
 		makeField.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_makeField = new GridBagConstraints();
 		gbc_makeField.insets = new Insets(0, 0, 0, 5);
@@ -107,6 +109,7 @@ public class AddQuestion extends JFrame {
 		group.add(answer1);
 		
 		field1 = new JTextField();
+		field1.setColumns(20);
 		field1.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_field1 = new GridBagConstraints();
 		gbc_field1.insets = new Insets(0, 0, 0, 5);
@@ -124,6 +127,7 @@ public class AddQuestion extends JFrame {
 		group.add(answer2);
 		
 		field2 = new JTextField();
+		field2.setColumns(20);
 		field2.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_field2 = new GridBagConstraints();
 		gbc_field2.insets = new Insets(0, 0, 0, 5);
@@ -141,6 +145,7 @@ public class AddQuestion extends JFrame {
 		group.add(answer3);
 		
 		field3 = new JTextField();
+		field3.setColumns(20);
 		field3.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_field3 = new GridBagConstraints();
 		gbc_field3.insets = new Insets(0, 0, 0, 5);
@@ -158,6 +163,7 @@ public class AddQuestion extends JFrame {
 		group.add(answer4);
 		
 		field4 = new JTextField();
+		field4.setColumns(20);
 		field4.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_field4 = new GridBagConstraints();
 		gbc_field4.insets = new Insets(0, 0, 0, 5);
@@ -170,41 +176,37 @@ public class AddQuestion extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (field1.getText().equals("") || field2.getText().equals("") || field3.getText().equals("") || field4.getText().equals(""))
 				{
-					JOptionPane.showMessageDialog(null, "Δεν έχετε συμπληρώσει όλα τα πεδία που χρειάζονται.");
+					JOptionPane.showMessageDialog(null, "Δεν έχετε συμπληρώσει όλα τα πεδία που χρειάζονται.", "Σφάλμα", JOptionPane.ERROR_MESSAGE);
 				}
-				
-				if (!answer1.isSelected() && !answer2.isSelected() && !answer3.isSelected() && !answer4.isSelected())
+				else if (!answer1.isSelected() && !answer2.isSelected() && !answer3.isSelected() && !answer4.isSelected())
 				{
-					JOptionPane.showMessageDialog(null, "Δεν έχετε διαλέξει σωστή απάντηση.");
+					JOptionPane.showMessageDialog(null, "Δεν έχετε διαλέξει σωστή απάντηση.", "Σφάλμα", JOptionPane.ERROR_MESSAGE);
 				}
-				
-				if (!questions.contains(makeField.getText()))
+				else if (exist(makeField.getText()))
 				{
 					if (answer1.isSelected()) 
 					{
-						choose = answer1.getText();
+						choose = field1.getText();
 					}
 					else if (answer2.isSelected()) 
 					{
-						choose = answer2.getText();
+						choose = field2.getText();
 					}
 					else if (answer3.isSelected()) 
 					{
-						choose = answer3.getText();
+						choose = field3.getText();
 					}
 					else if (answer4.isSelected())
 					{
-						choose = answer4.getText();
+						choose = field4.getText();
 					}
 					Question question = new Question(makeField.getText(), field1.getText(), field2.getText(), field3.getText(), field4.getText(), choose);
 					questions.add(question);
 					serializing();			
 					JOptionPane.showMessageDialog(null, "Η ερώτηση προστέθηκε με επιτυχία.");
 				}
-				else
-				{
-					JOptionPane.showMessageDialog(null, "Η ερώτηση υπάρχει ήδη στη λίστα.");
-				}
+				
+				group.clearSelection();
 				makeField.setText(null);
 				field1.setText(null);
 				field2.setText(null);
@@ -218,6 +220,21 @@ public class AddQuestion extends JFrame {
 		gbc_check.gridx = 0;
 		gbc_check.gridy = 5;
 		mainPanel.add(check, gbc_check);
+	}
+	
+	public boolean exist(String check) {
+		boolean flag = true;
+		
+		for (int i = 0; i < questions.size(); i++) 
+		{
+			String help = questions.get(i).getQuestion();
+			if (help.equals(check)) 
+			{
+				JOptionPane.showMessageDialog(null, "Η ερώτηση υπάρχει ήδη", "Σφάλμα", JOptionPane.ERROR_MESSAGE); 
+				flag = false;
+			}
+		}
+		return flag;
 	}
 	
 	public void serializing() {

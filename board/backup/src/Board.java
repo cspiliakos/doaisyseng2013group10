@@ -553,7 +553,7 @@ class CoinListener implements MouseListener {
 			case 2: new TelecubeFrame(currUser); break;
 			case 3: new MemoryGameFrame(); break;
 			case 4: new AncientArcadeFrame(); break;
-			case 5: new ClickMeFrame(currUser); break;
+			case 5: new QuizFrame(currUser); break;
 			}
 		}
 	}

@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Random;
-
 import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -67,7 +66,7 @@ public class QuizFrame extends JFrame {
 		
 		////////////////
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		//setUndecorated(true);
+		setUndecorated(true);
 		setVisible(true);
 		back = new BackgroundPanel(background);
 		setContentPane(back);
@@ -88,12 +87,20 @@ public class QuizFrame extends JFrame {
 					timer.stop();
 					Toolkit.getDefaultToolkit().beep();
 					check.setEnabled(false);
+					choice1.setEnabled(false);
+					choice2.setEnabled(false);
+					choice3.setEnabled(false);
+					choice4.setEnabled(false);
 				}
 				else
 				{
 					isRunning = true;
 					timer.start();
 					check.setEnabled(true);
+					choice1.setEnabled(true);
+					choice2.setEnabled(true);
+					choice3.setEnabled(true);
+					choice4.setEnabled(true);
 				}
 			}
 		});

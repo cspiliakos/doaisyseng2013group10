@@ -159,7 +159,7 @@ public class AdminFrame extends JFrame {
 				new AddQ();
 			}
 			else if (e.getSource()==questionBt){
-				System.out.println("Add Question");
+				new AddQuestion();
 			}
 			
 		}

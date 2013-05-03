@@ -75,6 +75,10 @@ public class AddQ extends JFrame {
 		check = new JButton("\u039A\u03B1\u03C4\u03B1\u03C7\u03CE\u03C1\u03B7\u03C3\u03B7");
 		check.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				if (textField.getText().equals(""))
+				{
+					JOptionPane.showMessageDialog(null, "Πρέπει να συμπληρώσετε το πεδίο.");
+				}
 				if (!words.contains(textField.getText()))
 				{
 					words.add(textField.getText());

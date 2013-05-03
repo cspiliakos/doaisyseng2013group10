@@ -93,7 +93,6 @@ public class TelecubeFrame extends JFrame {
 				text.setText("");
 				getWord();
 				helpLabel.setText(selected);
-				
 			}
 		});
 		scoreLabel = new JLabel("\u03A3\u03BA\u03BF\u03C1: "+score);

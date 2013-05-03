@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -14,15 +15,16 @@ public class ClickMeFrame extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private BackgroundPanel back;
 	private JPanel scorePanel, timePanel;
-	private int iconSize, score, lives, minutes, seconds;
+	private int iconSize, score, lives, minutes, seconds,delay=2000,oldX, oldY;
 	private JLabel iconLabel, scoreLabel, lifeLabel, timeLabel;
 	private Image background;
 	private JButton pause;
-	private boolean isRunning;
+	private boolean isRunning,hit=false;
 	private Timer timer, iconTimer;
 	private TimerClass count;
 	private IconClass help;
 	private User player;
+	private MyListener listener; 
 	
 	/**Sounds
 	 * list.get(0) endofgame
@@ -36,9 +38,11 @@ public class ClickMeFrame extends JFrame{
 		player = u;
 		minutes =  2;
 		seconds = 0;
+		
 		help = new IconClass();
 		count = new TimerClass(minutes, seconds);
-		iconTimer = new Timer(2000, help);
+		iconTimer = new Timer(delay, help);
+		
 		iconTimer.start();
 		timer = new Timer(1000, count);
 		timer.start();
@@ -111,12 +115,40 @@ public class ClickMeFrame extends JFrame{
 		iconLabel.setSize(iconSize, iconSize);		
 		Image resizedImage = image.getScaledInstance(iconLabel.getWidth(), iconLabel.getHeight(), 0);
 		iconLabel.setIcon(new ImageIcon(resizedImage));
-		MyListener listener = new MyListener();
+		listener = new MyListener();
 		help.addMouseListener(listener);
 		back.add(help, BorderLayout.CENTER);
 		
+		oldX=iconLabel.getX();
+		oldY=iconLabel.getY();
+		
 		this.setVisible(true);
 		this.setSize(500, 500);
+	}
+	
+	public void checkIfHit(int x, int y){
+		if((x!=oldX)&&(y!=oldY)&&(hit)){
+			hit=false;
+			oldX=x;
+			oldY=y;
+		}
+		else if((x!=oldX)&&(y!=oldY)&&(!hit)){
+			lives--;
+			lifeLabel.setText("\u0396\u03C9\u03AD\u03C2: "+lives);
+			if(lives == 0 || (minutes == 0 && seconds == 0))
+			{
+				soundthread1.PlayMusic(list.get(0).getSongName(), list.get(0).getRepeat() ); //Sound: endofgame
+				player.setCoins(player.getCoins() + 1000);
+				player.setXP(player.getXP() + 100);
+				ClickMeFrame.this.setVisible(false);
+				JOptionPane.showMessageDialog(null, "\u03A4\u03BF \u03C4\u03B5\u03BB\u03B9\u03BA\u03CC \u03C3\u03BA\u03BF\u03C1 \u03B5\u03AF\u03BD\u03B1\u03B9: "+score);
+				help.repaint();
+			}
+			oldX=x;
+			oldY=y;
+		}
+			
+		
 	}
 	
 	public class IconClass extends JComponent implements ActionListener{
@@ -124,13 +156,19 @@ public class ClickMeFrame extends JFrame{
 
 		public void paintComponent(Graphics g){
 			super.paintComponent(g);
+			
 		}
 		
 		public void actionPerformed(ActionEvent e) {
+			checkIfHit(iconLabel.getX(),iconLabel.getY());
 			Random r = new Random(System.currentTimeMillis());
 			int randomX = r.nextInt(400 - iconSize);
 			int randomY = r.nextInt((480 - iconSize) + (score + 1));
 			iconLabel.setBounds(randomX, randomY, iconSize, iconSize);
+			
+			
+			
+			
 		}
 	}
 	
@@ -179,11 +217,34 @@ public class ClickMeFrame extends JFrame{
 			int clickX = e.getX();
 			int clickY = e.getY();
 			
+			checkIfHit(labelX, labelY);
+			
 			if((clickX >= labelX) && (clickX < (labelX + iconSize)) && (clickY >= labelY) && (clickY < (labelY + iconSize)))
 			{
 				soundthread1.PlayMusic(list.get(1).getSongName(), list.get(1).getRepeat() ); //Sound: right
-				score = score + 1;
+				if(!hit)
+					score = score + 1;
+				hit=true;
+				
 				scoreLabel.setText("\u03A3\u03BA\u03BF\u03C1: "+score);
+				if ((score%5)==0){
+				double size=iconSize/1.05;
+				iconSize=(int)Math.round(size);
+				double timerDelay=delay/1.20;
+				delay=(int)Math.round(timerDelay);
+				
+				System.out.println("my"+iconSize);
+				iconLabel.setSize(iconSize,iconSize);
+				System.out.println(iconLabel.getWidth()+"");
+				ImageIcon icon = new ImageIcon("ClickMe\\medusa.png");
+				Image image=icon.getImage();
+				Image resizedImage = image.getScaledInstance(iconLabel.getWidth(), iconLabel.getHeight(), 0);
+				iconLabel.setIcon(new ImageIcon(resizedImage));
+				}
+				System.out.println(delay);
+				help.repaint();
+				iconTimer.setDelay(delay);
+				
 			}
 			else
 			{
@@ -197,9 +258,11 @@ public class ClickMeFrame extends JFrame{
 					player.setXP(player.getXP() + 100);
 					ClickMeFrame.this.setVisible(false);
 					JOptionPane.showMessageDialog(null, "\u03A4\u03BF \u03C4\u03B5\u03BB\u03B9\u03BA\u03CC \u03C3\u03BA\u03BF\u03C1 \u03B5\u03AF\u03BD\u03B1\u03B9: "+score);
+					help.repaint();
 				}
 			}
-			help.repaint();
+			
+			
 		}
 	}
 }

@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Toolkit;
@@ -16,11 +17,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.awt.Cursor;
 import javax.imageio.ImageIO;
+import javax.swing.DropMode;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.Timer;
 import javax.swing.ImageIcon;
 import javax.swing.border.LineBorder;
@@ -47,6 +51,12 @@ public class AncientArcadeFrame extends JFrame {
 	private Labels2 listen2;
 	private boolean flag1, flag2, flag3, flag4, flag5, flag6, isRunning;
 	private String name, symbol;
+	
+	private JTextArea heroArea;
+	private JTextArea symbolArea;
+	private JScrollPane scrollPane,scrollPane_1;
+	
+	private ArrayList<String> Info ;
 	
 	public AncientArcadeFrame(User u) {
 		setJMenuBar(new JMenuFrame().getMenu());
@@ -80,6 +90,7 @@ public class AncientArcadeFrame extends JFrame {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 		
 		////////////////
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -218,8 +229,30 @@ public class AncientArcadeFrame extends JFrame {
 		back.add(timePanel, BorderLayout.NORTH);
 		
 		/////////////////////////////
-		checkPanel = new JPanel();
+		checkPanel = new JPanel(new GridLayout(3,1));
 		back.add(checkPanel, BorderLayout.SOUTH);
+		
+		Info = new ArrayList<String>();
+		addTips();
+		
+		
+		scrollPane = new JScrollPane();
+				
+		heroArea=new JTextArea();
+		heroArea.setEditable(false);
+		heroArea.setLineWrap(true);
+		heroArea.setFont(new Font ("Aria",Font.PLAIN,15));
+		
+		checkPanel.add(heroArea);
+		
+		symbolArea=new JTextArea();
+		symbolArea.setEditable(false);
+		symbolArea.setLineWrap(true);
+		symbolArea.setFont(new Font ("Aria",Font.PLAIN,15));
+		symbolArea.setDropMode(DropMode.INSERT);
+		checkPanel.add(symbolArea);
+
+		
 		
 		check = new JButton();
 		check.addActionListener(new ActionListener() {
@@ -467,7 +500,53 @@ public class AncientArcadeFrame extends JFrame {
 		gbc_symbol6.gridy = 5;
 		image2.add(symbol6, gbc_symbol6);
 	}
+	public void addTips(){
+		         //info about Zeus
+		Info.add("King of the gods, the ruler of Mount Olympus and the god of the sky" +
+				", weather, thunder, lightning, law, order, and fate.");
+
+		Info.add("Poseidon or Posidon is one of the twelve Olympian deities of the pantheon" +
+				" in Greek mythology. His main domain is the ocean, and he is  called the 'God of the Sea'.");
+
+		Info.add("Hercules is the Roman name for the Greek divine hero Heracles, who was the son of Zeus " +
+				"and the mortal Alcmene. In classical mythology, Hercules is famous for his strength and for his" +
+				" numerous far-ranging adventures.");
+
+		Info.add("Theseus was the mythical founder-king of Athens, son of Aegeus and Poseidon, both of whom Aethra had " +
+				"slept with in one night. Theseus was a founder-hero , like Perseus, Cadmus, or Heracles,");
+		
+		Info.add("Odysseus also known by the Roman name Ulysses , was a legendary Greek king of Ithaca and a" +
+		      		" hero of Homer's epic poem the Odyssey.");
+		
+		Info.add("Perseus the legendary founder of Mycenae and the Perseid dynasty of Danaans there, was the first of the" +
+				" heroes of Greek mythology whose exploits in defeating various archaic monsters provided the founding myths of the" +
+				" Twelve Olympians. Perseus was a demi-god, the Greek hero who killed the Gorgon Medusa, and claimed Andromeda, having " +
+				"rescued her from a sea monster sent by Poseidon in retribution for Queen Cassiopeia declaring that her daughter, " +
+				"Andromeda, was more beautiful than the Nereids");
+		
+		Info.add("Cerberus or Kerberos, in Greek and Roman mythology, is a multi-headed (usually three-headed) dog, whi" +
+				"ch guards the gates of the Underworld , to prevent those who have" +
+				" crossed the river Styx from ever escaping. ");
 	
+		Info.add("In Greek mythology, the Minotaur was a creature with the head of a bull on the body of a man." +
+				" He dwelt at the center of the Cretan Labyrinth, which was an elaborate maze-like construction" +
+				" designed by the architect Daedalus and his son Icarus, on the command of King Minos of Crete." +
+				" The Minotaur was eventually killed by the Athenian hero Theseus.");
+		
+		Info.add("Mount Olympus is the highest mountain in Greece, located in the Olympus Range on the border between Thessaly " +
+				"and Macedonia. In Greek mythology Olympus was regarded as the home of the Twelve Olympian gods of the ancient Greek world." +
+				" It formed itself after the gods defeated the Titans in the Titan War, and soon the palace was inhabited by the gods.");
+		
+		Info.add("In Greek mythology Medusa was a monster, a Gorgon, generally described as having the face of a hideous human female with living " +
+			     	"venomous snakes in place of hair. Gazing directly upon her would turn onlookers to stone");
+	
+		Info.add("In Greek mythology, Scylla was a monster that lived on one side of a narrow channel of water, opposite its counterpart Charybdis. " +
+				" The two sides of the strait were within an arrow's range of each other≈so close that sailors attempting to avoid Charybdis would " +
+		   		"pass too close to Scylla and vice versa.");
+		
+		Info.add("In ancient Greece, the sea world was one of the most important things, as the fish was a basic part of Greek" +
+			          	" nutrition. They also used sea to trade with other civilizations");
+	}
 	public class Labels implements MouseListener{
 		public void mouseClicked(MouseEvent e) {
 			hero1.setBorder(null);
@@ -480,6 +559,7 @@ public class AncientArcadeFrame extends JFrame {
 			if(e.getSource() == hero1)
 			{
 				hero1.setBorder(new LineBorder(Color.RED, 5));
+				heroArea.setText(Info.get(0));
 				soundthread1.PlayMusic(list.get(1).getSongName(), list.get(1).getRepeat() ); //Sound: dias
 				heroTip.setText("диас");
 				name = "dias";
@@ -487,30 +567,35 @@ public class AncientArcadeFrame extends JFrame {
 			else if(e.getSource() == hero2)
 			{
 				hero2.setBorder(new LineBorder(Color.RED, 5));
+				heroArea.setText(Info.get(1));
 				heroTip.setText("посеидымас");
 				name = "poseidonas";
 			}
 			else if(e.getSource() == hero3)
 			{
 				hero3.setBorder(new LineBorder(Color.RED, 5));
+				heroArea.setText(Info.get(2));
 				heroTip.setText("гяайкгс");
 				name = "iraklis";
 			}
 			else if(e.getSource() == hero4)
 			{
 				hero4.setBorder(new LineBorder(Color.RED, 5));
+				heroArea.setText(Info.get(3));
 				heroTip.setText("хгсеас");
 				name = "thiseas";
 			}
 			else if(e.getSource() == hero5)
 			{
 				hero5.setBorder(new LineBorder(Color.RED, 5));
-				heroTip.setText("оддусеас");
+				heroArea.setText(Info.get(4));
+				heroTip.setText("одуссеас");
 				name = "oddyseas";
 			}
 			else if(e.getSource() == hero6)
 			{
 				hero6.setBorder(new LineBorder(Color.RED, 5));
+				heroArea.setText(Info.get(5));
 				soundthread1.PlayMusic(list.get(4).getSongName(), list.get(4).getRepeat() ); //Sound: olympus
 				heroTip.setText("пеясеас");
 				name = "perseas";
@@ -550,6 +635,7 @@ public class AncientArcadeFrame extends JFrame {
 			if(e.getSource() == symbol1)
 			{
 				symbol1.setBorder(new LineBorder(Color.RED, 5));
+				symbolArea.setText(Info.get(6));
 				soundthread1.PlayMusic(list.get(5).getSongName(), list.get(5).getRepeat() ); //Sound: cerberus
 				symbolTip.setText("йеябеяос");
 				symbol = "kerveros";
@@ -557,6 +643,7 @@ public class AncientArcadeFrame extends JFrame {
 			else if(e.getSource() == symbol2)
 			{
 				symbol2.setBorder(new LineBorder(Color.RED, 5));
+				symbolArea.setText(Info.get(7));
 				soundthread1.PlayMusic(list.get(2).getSongName(), list.get(2).getRepeat() ); //Sound: minotaur
 				symbolTip.setText("лимотауяос");
 				symbol = "minotavros";
@@ -564,6 +651,7 @@ public class AncientArcadeFrame extends JFrame {
 			else if(e.getSource() == symbol3)
 			{
 				symbol3.setBorder(new LineBorder(Color.RED, 5));
+				symbolArea.setText(Info.get(8));
 				soundthread1.PlayMusic(list.get(3).getSongName(), list.get(3).getRepeat() ); //Sound: olympus
 				symbolTip.setText("окулпос");
 				symbol = "olympos";
@@ -571,18 +659,21 @@ public class AncientArcadeFrame extends JFrame {
 			else if(e.getSource() == symbol4)
 			{
 				symbol4.setBorder(new LineBorder(Color.RED, 5));
+				symbolArea.setText(Info.get(9));
 				symbolTip.setText("ледоуса");
 				symbol = "medousa";
 			}
 			else if(e.getSource() == symbol5)
 			{
 				symbol5.setBorder(new LineBorder(Color.RED, 5));
+				symbolArea.setText(Info.get(10));
 				symbolTip.setText("сйукка");
 				symbol = "skylla";
 			}
 			else if(e.getSource() == symbol6)
 			{
 				symbol6.setBorder(new LineBorder(Color.RED, 5));
+				symbolArea.setText(Info.get(11));
 				symbolTip.setText("хакасса");
 				symbol = "thallassa";
 			}

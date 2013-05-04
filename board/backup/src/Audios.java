@@ -19,6 +19,8 @@ public class Audios {
 	private ArrayList<AudiosPair> BoardList; //Board Sounds
 	
 	private ArrayList<AudiosPair> MenuList; //Board Sounds
+	
+	private ArrayList<AudiosPair> DuelList; //Board Sounds
 
 	public Audios(){
 		audiosList = new ArrayList<AudiosPair>(); //CREATING ARRAYLIST
@@ -27,6 +29,7 @@ public class Audios {
 		ClickMeList= new ArrayList<AudiosPair>(); //ARRAYLIST FOR CLICKME
 		BoardList= new ArrayList<AudiosPair>(); //ARRAYLIST FOR BOARD
 		MenuList= new ArrayList<AudiosPair>(); //ARRAYLIST FOR JMENUFRAME
+		DuelList= new ArrayList<AudiosPair>(); //ARRAYLIST FOR DUELBOARDFRAME
 		
 		audiosList.add(new AudiosPair("Sounds\\battle_theme.wav", true));           //0
 		audiosList.add(new AudiosPair("Sounds\\click_meny_buttons.wav", false));   //1
@@ -39,7 +42,7 @@ public class Audios {
 		ArcadeList.add(new AudiosPair("Sounds\\ancientarcade_minotaur.wav", false));          //2
 		ArcadeList.add(new AudiosPair("Sounds\\ancientarcade_olympos.wav", false));          //3
 		ArcadeList.add(new AudiosPair("Sounds\\ancientarcade_perseus.wav", false));          //4
-		ArcadeList.add(new AudiosPair("Sounds\\ancientarcade_cerberus.wav", false));          //4
+		ArcadeList.add(new AudiosPair("Sounds\\ancientarcade_cerberus.wav", false));          //5
 		
 		//MemoryGame Sounds
 		MemoryGameList.add(new AudiosPair("Sounds\\memorygame_select.wav", false));              // 0 
@@ -59,9 +62,18 @@ public class Audios {
 		
 		//JMENUFRAME Sounds
 		MenuList.add(new AudiosPair("Sounds\\menu_click_sword.wav", false));     //    0
+		
+		DuelList.add(new AudiosPair("Sounds\\duel_buy.wav", false));     //    0
+		DuelList.add(new AudiosPair("Sounds\\duel_upgrade.wav", false));  //    1
 
 
 
+	}
+	public ArrayList<AudiosPair> getDuelList() {
+		return DuelList;
+	}
+	public void setDuelList(ArrayList<AudiosPair> duelList) {
+		DuelList = duelList;
 	}
 	public ArrayList<AudiosPair> getMenuList() {
 		return MenuList;

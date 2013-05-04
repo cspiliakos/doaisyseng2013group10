@@ -52,10 +52,11 @@ public class DuelBoardFrame extends JFrame {
 	private JLabel swordlvl, bowlvl, spearlvl;
 	private JLabel swordPrice, bowPrice, spearPrice;
 
+	ArrayList<AudiosPair> list = new ArrayList<AudiosPair>(new Audios().getDuelList()); 
+	Sound_Thread soundthread1 = new Sound_Thread(); //Thread 1 gia mikrous hxous, pou diakoptei o enas ton allon
 
 
 	public DuelBoardFrame(User user){
-
 
 
 		currOpponent= new CharsOpponents ("Lernaia Ydra",80,15,30,new ImageIcon("battle_hydra_1.jpg"));
@@ -401,6 +402,8 @@ public class DuelBoardFrame extends JFrame {
 		//method to upgrade weapons
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			soundthread1.PlayMusic(list.get(1).getSongName(), list.get(1).getRepeat());   //Sound upgrade
+			
 			if(e.getSource()==upgradeSword){
 				usersWeapons=currUser.getWeapons();
 				for(Weapons w: usersWeapons){
@@ -447,7 +450,8 @@ public class DuelBoardFrame extends JFrame {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
+		soundthread1.PlayMusic(list.get(0).getSongName(), list.get(0).getRepeat());   //Sound buy
+		
 		if(e.getSource()==buyBow){				
 			System.out.println("Buy a bow ?");
 			CrossBow b=new CrossBow();

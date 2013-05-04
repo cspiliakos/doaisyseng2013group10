@@ -221,6 +221,7 @@ public class TicTacToeFrame implements ActionListener	{
 		btnEmpty[wonNumber3].setBackground(new Color(btnColorR, btnColorG, btnColorB));
 		for(int i=1; i<10; i++)	{
 			btnEmpty[i].setText("");
+			btnEmpty[i].setIcon(null);
 			btnEmpty[i].setEnabled(true);
 		}
 		turn = 1;
@@ -324,8 +325,13 @@ public class TicTacToeFrame implements ActionListener	{
 			if(computerButton == 0)
 				Random();
 			else {
+				
+				ImageIcon oIcon=new ImageIcon("tictactoe_shield.jpg");
+				Image oImage=oIcon.getImage();
+				Image oResizedImage=oImage.getScaledInstance(btnEmpty[computerButton].getWidth(), btnEmpty[computerButton].getHeight(), 0);
+				btnEmpty[computerButton].setIcon(new ImageIcon(oResizedImage));
 				btnEmpty[computerButton].setText("O");
-				btnEmpty[computerButton].setEnabled(false);
+				//btnEmpty[computerButton].setEnabled(false);
 			}
 			checkWin();
 		}
@@ -339,8 +345,12 @@ public class TicTacToeFrame implements ActionListener	{
 				random = (int)(Math.random() * 10);
 			}
 			if(TicTacToeCPU.doRandomMove(btnEmpty[random]))	{
+				ImageIcon oIcon=new ImageIcon("tictactoe_shield.jpg");
+				Image oImage=oIcon.getImage();
+				Image oResizedImage=oImage.getScaledInstance(btnEmpty[random].getWidth(), btnEmpty[random].getHeight(), 0);
+				btnEmpty[random].setIcon(new ImageIcon(oResizedImage));
 				btnEmpty[random].setText("O");
-				btnEmpty[random].setEnabled(false);
+				//btnEmpty[random].setEnabled(false);
 			} else {
 				Random();
 			}
@@ -405,16 +415,37 @@ public class TicTacToeFrame implements ActionListener	{
 		Object source = click.getSource();
 		for(int i=1; i<=9; i++)	{
 			if(source == btnEmpty[i] && turn <	10)	{
-				if(!(turn % 2 == 0))
+				String btnText=btnEmpty[i].getText();
+				int btnLength=btnText.length();
+				if(btnLength==0){
+				if(!(turn % 2 == 0)){
+					ImageIcon xIcon=new ImageIcon("tictactoe_swords.jpg");
+					Image xImage=xIcon.getImage();
+					Image xResizedImage=xImage.getScaledInstance(btnEmpty[i].getWidth(), btnEmpty[i].getHeight(), 0);
+					btnEmpty[i].setIcon(new ImageIcon(xResizedImage));
+					
+					
+					
 					btnEmpty[i].setText("X");
+				}
+					//btnEmpty[i].setIcon(new ImageIcon("tictactoe_swords.jpg"));
+					
 				else
+				{
+					ImageIcon oIcon=new ImageIcon("tictactoe_shield.jpg");
+					Image oImage=oIcon.getImage();
+					Image oResizedImage=oImage.getScaledInstance(btnEmpty[i].getWidth(), btnEmpty[i].getHeight(), 0);
+					btnEmpty[i].setIcon(new ImageIcon(oResizedImage));
 					btnEmpty[i].setText("O");
-				btnEmpty[i].setEnabled(false);
+				}
+					//btnEmpty[i].setText("O");
+				//btnEmpty[i].setEnabled(false);
 				pnlPlayingField.requestFocus();
 				turn++;
 				checkWin();
 				if(CPUGame && win == false)
 					AI();
+				}
 			}
 		}
 

@@ -26,7 +26,7 @@ public class PicsHerosFrame extends JFrame{
 	private myButtonListener buttonListener;
 	
 	
-	public PicsHerosFrame(PicsHerosHeroManager heroManager){
+	public PicsHerosFrame(PicsHerosHeroManager heroManager, User u){
 		super("3 photos 1 Hero");
 		
 		//*** MenuBar ***//

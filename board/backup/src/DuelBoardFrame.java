@@ -54,10 +54,12 @@ public class DuelBoardFrame extends JFrame {
 
 	ArrayList<AudiosPair> list = new ArrayList<AudiosPair>(new Audios().getDuelList()); 
 	Sound_Thread soundthread1 = new Sound_Thread(); //Thread 1 gia mikrous hxous, pou diakoptei o enas ton allon
+	Sound_Thread soundthread2 = new Sound_Thread(); //Thread 2 gia soundtrack
 
 
 	public DuelBoardFrame(User user){
 
+		soundthread2.PlayMusic(list.get(2).getSongName(), list.get(2).getRepeat());   //Sound soundtrack
 
 		currOpponent= new CharsOpponents ("Lernaia Ydra",80,15,30,new ImageIcon("battle_hydra_1.jpg"));
 		//trial opponent

@@ -12,6 +12,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.ImageObserver;
 import java.awt.image.ImageProducer;
+import java.util.ArrayList;
 
 public class TicTacToeFrame implements ActionListener	{
 	//Setting up ALL the variables
@@ -65,11 +66,17 @@ public class TicTacToeFrame implements ActionListener	{
 	Player1 = "Player 1", Player2 = "Player 2",
 	tempPlayer2 = "Player 2";
 	private final JPanel GeneralPnl = new JPanel();
+	
+	ArrayList<AudiosPair> list = new ArrayList<AudiosPair>(new Audios().getTicTacToeList()); 
+	Sound_Thread soundthread1 = new Sound_Thread(); //Thread 1 gia mikrous hxous, pou diakoptei o enas ton allon
+	Sound_Thread soundthread2 = new Sound_Thread(); //Thread 2 gia soundtrack
 
 
 	public TicTacToeFrame()	{	//Setting game properties and layout and sytle...
 		//*** MenuBar ***//
 		window.setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
+		
+		soundthread2.PlayMusic(list.get(1).getSongName(), list.get(1).getRepeat());   //Sound soundtrack
 	
 		//Getting Dimensions
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -393,6 +400,8 @@ public class TicTacToeFrame implements ActionListener	{
 
 	//-------------------ACTION PERFORMED METHOD (Button Click --> Action?)-------------------------//	
 	public void actionPerformed(ActionEvent click)	{
+		soundthread1.PlayMusic(list.get(0).getSongName(), list.get(0).getRepeat());   //Sound click
+		
 		Object source = click.getSource();
 		for(int i=1; i<=9; i++)	{
 			if(source == btnEmpty[i] && turn <	10)	{

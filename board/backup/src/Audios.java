@@ -18,9 +18,11 @@ public class Audios {
 	
 	private ArrayList<AudiosPair> BoardList; //Board Sounds
 	
-	private ArrayList<AudiosPair> MenuList; //Board Sounds
+	private ArrayList<AudiosPair> MenuList; //Menu Sounds
 	
-	private ArrayList<AudiosPair> DuelList; //Board Sounds
+	private ArrayList<AudiosPair> DuelList; //Duel Sounds
+	
+	private ArrayList<AudiosPair> TicTacToeList; //Duel Sounds
 
 	public Audios(){
 		audiosList = new ArrayList<AudiosPair>(); //CREATING ARRAYLIST
@@ -30,6 +32,7 @@ public class Audios {
 		BoardList= new ArrayList<AudiosPair>(); //ARRAYLIST FOR BOARD
 		MenuList= new ArrayList<AudiosPair>(); //ARRAYLIST FOR JMENUFRAME
 		DuelList= new ArrayList<AudiosPair>(); //ARRAYLIST FOR DUELBOARDFRAME
+		TicTacToeList= new ArrayList<AudiosPair>(); //ARRAYLIST FOR TicTacToe
 		
 		audiosList.add(new AudiosPair("Sounds\\battle_theme.wav", true));           //0
 		audiosList.add(new AudiosPair("Sounds\\click_meny_buttons.wav", false));   //1
@@ -63,11 +66,20 @@ public class Audios {
 		//JMENUFRAME Sounds
 		MenuList.add(new AudiosPair("Sounds\\menu_click_sword.wav", false));     //    0
 		
-		DuelList.add(new AudiosPair("Sounds\\duel_buy.wav", false));     //    0
-		DuelList.add(new AudiosPair("Sounds\\duel_upgrade.wav", false));  //    1
+		DuelList.add(new AudiosPair("Sounds\\duel_buy.wav", false));          //    0
+		DuelList.add(new AudiosPair("Sounds\\duel_upgrade.wav", false));      //    1
+		DuelList.add(new AudiosPair("Sounds\\duel_soundtrack.wav", false))  ; //    2
+
+		TicTacToeList.add(new AudiosPair("Sounds\\tic_tac_toe_click.wav", false));        //    0
+		TicTacToeList.add(new AudiosPair("Sounds\\tic_tac_toe_soundtrack.wav", false));  //    1
 
 
-
+	}
+	public ArrayList<AudiosPair> getTicTacToeList() {
+		return TicTacToeList;
+	}
+	public void setTicTacToeList(ArrayList<AudiosPair> ticTacToeList) {
+		TicTacToeList = ticTacToeList;
 	}
 	public ArrayList<AudiosPair> getDuelList() {
 		return DuelList;

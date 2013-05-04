@@ -540,6 +540,8 @@ class CoinListener implements MouseListener {
 		
 		soundthread1.PlayMusic(list.get(0).getSongName(), list.get(0).getRepeat() ); //Sound: corona_h_grammata
 		coin = r.nextInt(2);
+		
+		clip.stop(); //maxh kai grifoi exoun allo soundtrack
 		if (coin == 1)
 		{
 			new DuelBoardFrame(currUser);

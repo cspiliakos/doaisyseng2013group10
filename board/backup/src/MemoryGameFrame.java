@@ -61,13 +61,18 @@ public class MemoryGameFrame extends JFrame {
 	 * list.get(1) right
 	 * list.get(2) congratulations
 	 * list.get(3) wrong
+	 * list.get(4) soundtrack
 	 */
-	ArrayList<AudiosPair> list = new ArrayList<AudiosPair>(new Audios().getMemoryGameList());
-	Sound_Thread soundthread1 = new Sound_Thread();
+	ArrayList<AudiosPair> list = new ArrayList<AudiosPair>(new Audios().getMemoryGameList()); 
+	Sound_Thread soundthread1 = new Sound_Thread(); //Thread 1 gia mikrous hxous, pou diakoptei o enas ton allon
+	Sound_Thread soundthread2 = new Sound_Thread(); //Thread 2 gia soundtrack
+	
 	
 	public MemoryGameFrame() {
 		//*** MenuBar ***//
-				setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
+		setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
+		
+		soundthread2.PlayMusic(list.get(4).getSongName(), list.get(4).getRepeat());   //Sound soundtrack
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		double width = screenSize.getWidth();

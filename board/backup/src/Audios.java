@@ -46,6 +46,7 @@ public class Audios {
 		MemoryGameList.add(new AudiosPair("Sounds\\memorygame_right.wav", false));              //  1
 		MemoryGameList.add(new AudiosPair("Sounds\\memorygame_congratulations.wav", false));   //   2
 		MemoryGameList.add(new AudiosPair("Sounds\\memorygame_wrong.wav", false));            //    3
+		MemoryGameList.add(new AudiosPair("Sounds\\memorygame_soundtrack.wav", true));       //     4
 
 		//ClickMe Sounds
 		ClickMeList.add(new AudiosPair("Sounds\\clickme_endofgame.wav", false));            //    0

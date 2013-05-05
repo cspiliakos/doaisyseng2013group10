@@ -60,7 +60,7 @@ public class AddQ extends JFrame {
 		piso.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		backPanel.add(piso, BorderLayout.WEST);
 		
-		title = new JLabel("\u03A0\u03C1\u03CC\u03C3\u03B8\u03B5\u03C3\u03B5 \u03C4\u03B9\u03C2 \u03BB\u03AD\u03BE\u03B5\u03B9\u03C2 \u03C0\u03BF\u03C5 \u03B8\u03AD\u03BB\u03B5\u03B9\u03C2 \u03BD\u03B1 \u03B5\u03AF\u03BD\u03B1\u03B9 \u03B4\u03B9\u03B1\u03B8\u03AD\u03C3\u03B9\u03BC\u03B5\u03C2 \u03B3\u03B9\u03B1 \u03C4\u03BF \u03C0\u03B1\u03B9\u03C7\u03BD\u03AF\u03B4\u03B9 \u03C4\u03BF\u03C5 \u03B1\u03BD\u03B1\u03B3\u03C1\u03B1\u03BC\u03BC\u03B1\u03C4\u03B9\u03C3\u03BC\u03BF\u03CD");
+		title = new JLabel("\u03A0\u03C1\u03BF\u03C3\u03B8\u03AE\u03BA\u03B7 \u03BB\u03AD\u03BE\u03B7\u03C2");
 		title.setFont(new Font("Sylfaen", Font.PLAIN, 25));
 		title.setHorizontalAlignment(SwingConstants.CENTER);
 		back.add(title, BorderLayout.NORTH);
@@ -68,8 +68,6 @@ public class AddQ extends JFrame {
 		panel = new JPanel();
 		back.add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{50};
-		gbl_panel.rowHeights = new int[]{60, 60};
 		panel.setLayout(gbl_panel);
 		
 		check = new JButton("\u039A\u03B1\u03C4\u03B1\u03C7\u03CE\u03C1\u03B7\u03C3\u03B7");
@@ -79,7 +77,7 @@ public class AddQ extends JFrame {
 				{
 					JOptionPane.showMessageDialog(null, "Πρέπει να συμπληρώσετε το πεδίο.");
 				}
-				if (!words.contains(textField.getText()))
+				else if (!words.contains(textField.getText()))
 				{
 					words.add(textField.getText());
 					serializing();			
@@ -100,6 +98,7 @@ public class AddQ extends JFrame {
 		panel.add(check, gbc_check);
 		
 		textField = new JTextField();
+		textField.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.gridx = 0;
 		gbc_textField.gridy = 0;
@@ -124,9 +123,6 @@ public class AddQ extends JFrame {
 		catch(ClassNotFoundException c) {
 			c.printStackTrace();
 		}
-		finally {
-			System.out.println("De-Serialization Attempted...");		
-		}
 	}
 	
 	public void serializing() {
@@ -140,9 +136,6 @@ public class AddQ extends JFrame {
 		catch(IOException i) {
 			System.out.println("Error");
 			i.printStackTrace();
-		}
-		finally {
-			System.out.println("Serialization Attempted...");
 		}
 	}
 }

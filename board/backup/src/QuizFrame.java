@@ -251,9 +251,6 @@ public class QuizFrame extends JFrame {
 		catch(ClassNotFoundException c) {
 			c.printStackTrace();
 		}
-		finally {
-			System.out.println("De-Serialization Attempted...");		
-		}
 	}
 	
 	public class TimerClass implements ActionListener{

@@ -68,7 +68,7 @@ public class AddQuestion extends JFrame {
 		piso.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		backPanel.add(piso, BorderLayout.WEST);
 		
-		title = new JLabel("\u03A0\u03C1\u03CC\u03C3\u03B8\u03B5\u03C3\u03B5 \u03C4\u03B9\u03C2 \u03BB\u03AD\u03BE\u03B5\u03B9\u03C2 \u03C0\u03BF\u03C5 \u03B8\u03AD\u03BB\u03B5\u03B9\u03C2 \u03BD\u03B1 \u03B5\u03AF\u03BD\u03B1\u03B9 \u03B4\u03B9\u03B1\u03B8\u03AD\u03C3\u03B9\u03BC\u03B5\u03C2 \u03B3\u03B9\u03B1 \u03C4\u03BF \u03C0\u03B1\u03B9\u03C7\u03BD\u03AF\u03B4\u03B9 \u03C4\u03C9\u03BD \u03B5\u03C1\u03C9\u03C4\u03AE\u03C3\u03B5\u03C9\u03BD");
+		title = new JLabel("\u03A0\u03C1\u03BF\u03C3\u03B8\u03AE\u03BA\u03B7 \u03B5\u03C1\u03CE\u03C4\u03B7\u03C3\u03B7\u03C2");
 		title.setFont(new Font("Sylfaen", Font.PLAIN, 25));
 		title.setHorizontalAlignment(SwingConstants.CENTER);
 		back.add(title, BorderLayout.NORTH);
@@ -77,8 +77,6 @@ public class AddQuestion extends JFrame {
 		mainPanel = new JPanel();
 		back.add(mainPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_mainPanel = new GridBagLayout();
-		gbl_mainPanel.columnWidths = new int[]{50, 50};
-		gbl_mainPanel.rowHeights = new int[]{50, 50, 50, 50, 50};
 		mainPanel.setLayout(gbl_mainPanel);
 		
 		makeQuestion = new JLabel();
@@ -249,9 +247,6 @@ public class AddQuestion extends JFrame {
 			System.out.println("Error");
 			i.printStackTrace();
 		}
-		finally {
-			System.out.println("Serialization Attempted...");
-		}
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -268,9 +263,6 @@ public class AddQuestion extends JFrame {
 		}
 		catch(ClassNotFoundException c) {
 			c.printStackTrace();
-		}
-		finally {
-			System.out.println("De-Serialization Attempted...");		
 		}
 	}
 }

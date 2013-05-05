@@ -205,9 +205,6 @@ public class TelecubeFrame extends JFrame {
 		catch(ClassNotFoundException c) {
 			c.printStackTrace();
 		}
-		finally {
-			System.out.println("De-Serialization Attempted...");		
-		}
 	}
 	
 	public class TimerClass implements ActionListener{

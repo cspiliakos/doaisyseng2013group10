@@ -548,14 +548,17 @@ class CoinListener implements MouseListener {
 		}
 		else
 		{
-			puzzle = r.nextInt(5);
+			puzzle = r.nextInt(6);
 			switch(puzzle)
 			{
-			case 1: new ClickMeFrame(currUser); break;
-			case 2: new TelecubeFrame(currUser); break;
+			case 1: new AncientArcadeFrame(currUser); break;
+			case 2: new ClickMeFrame(currUser); break;
+			////hangman
 			case 3: new MemoryGameFrame(currUser); break;
-			case 4: new AncientArcadeFrame(currUser); break;
+			case 4: new PicsHerosFrame(currUser); break;
 			case 5: new QuizFrame(currUser); break;
+			case 6: new TelecubeFrame(currUser); break;
+			////////////////tictactoe
 			}
 		}
 	}

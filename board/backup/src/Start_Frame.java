@@ -95,14 +95,14 @@ public class Start_Frame extends JFrame{
 				Start_Frame.this.setVisible(false);
 				if (comboBox.getSelectedItem().toString().equals("\u0394\u03B9\u03B1\u03C7\u03B5\u03B9\u03C1\u03B9\u03C3\u03C4\u03AE\u03C2")){
 					//new TicTacToeFrame();
-					//new ClickMeFrame(new User("temp"));
+					new ClickMeFrame(new User("temp"));
 					//new AncientArcadeFrame(new User("temp"));
 					//new HangmanFrame();
 					//new MemoryGameFrame(new User("temp"));
 					//new PicsHerosFrame(new User("temp"));
 					//new QuizFrame(new User("temp"));
 					//new TelecubeFrame(new User("temp"));
-					new AdminFrame();
+					//new AdminFrame();
 				}
 				else
 				{

@@ -1,20 +1,17 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Random;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 
 public class HangmanFrame extends JFrame {
-	private JLabel wordLabel;
+	private static final long serialVersionUID = 1L;
 	private JButton A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z;
 	private JLabel hanglbl, backlbl;
 	private JPanel buttonPanel, mainPanel;
@@ -513,6 +510,7 @@ public class letterButtonListener implements ActionListener{
 		}
 		
 	}
+@SuppressWarnings("serial")
 public class hangGlassPane extends JComponent{
 	public void paintComponent(Graphics g) {
 		//overwrite paintcomponent
@@ -528,6 +526,7 @@ public class hangGlassPane extends JComponent{
 	}
 }
 
+@SuppressWarnings("unchecked")
 public void deserializing() {
 	try {
 		FileInputStream fileIn = new FileInputStream("Words.ser");
@@ -542,9 +541,6 @@ public void deserializing() {
 	}
 	catch(ClassNotFoundException c) {
 		c.printStackTrace();
-	}
-	finally {
-		System.out.println("De-Serialization Attempted...");		
 	}
 }
 

@@ -1,5 +1,3 @@
-//Tic-Tac-Toe Artificial Intelligence
-//Created: October 13, 2008
 import javax.swing.JButton;
 
 public class TicTacToeCPU	{
@@ -130,7 +128,6 @@ public class TicTacToeCPU	{
 		else
 			return 0;
 	}
-	
 	
 	public static boolean doRandomMove(JButton button)	{
 		if(button.getText().equals("O") || button.getText().equals("X"))

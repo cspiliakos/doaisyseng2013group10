@@ -3,10 +3,10 @@ public class Main {
 		//new Start_Frame();
 		//new TicTacToeFrame();
 		//new ClickMeFrame(new User("temp"));
-		new AncientArcadeFrame(new User("temp"));
+		//new AncientArcadeFrame(new User("temp"));
 		//new HangmanFrame();
 		//new MemoryGameFrame();
-		//new PicsHerosFrame(new PicsHerosHeroManager(),new User("temp"));
+		new PicsHerosFrame(new User("temp"));
 		//new QuizFrame(new User("temp"));
 		//new TelecubeFrame(new User("temp"));	
 	}

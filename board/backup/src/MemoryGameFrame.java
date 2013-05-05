@@ -68,13 +68,13 @@ public class MemoryGameFrame extends JFrame {
 		check = new ImageIcon();
 		player = u;
 		correct = 0;
-		minutes =  2;
-		seconds = 0;
+		minutes =  0;
+		seconds = 5;
 		turned = false;
 		count = new TimerClass(minutes, seconds);
 		timer = new Timer(1000, count);
 		turn = new TurnClass(turned);
-		turnTimer = new Timer(5000, turn);
+		turnTimer = new Timer(3500, turn);
 		isRunning  = true;
 		hasPicked = false;
 		turnTimer.start();
@@ -87,7 +87,7 @@ public class MemoryGameFrame extends JFrame {
 		
 		////////////////
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		//setUndecorated(true);
+		setUndecorated(true);
 		setVisible(true);
 		back = new BackgroundPanel(background);
 		setContentPane(back);
@@ -99,6 +99,7 @@ public class MemoryGameFrame extends JFrame {
 		timePanel = new JPanel();
 		timePanel.add(timeLabel);
 		pause = new JButton("\u03A0\u03B1\u03CD\u03C3\u03B7");
+		pause.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		pause.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (isRunning)
@@ -535,7 +536,7 @@ public class MemoryGameFrame extends JFrame {
 			this.minutes = minutes;
 			this.seconds = seconds;
 		}
-
+		
 		public void actionPerformed(ActionEvent arg0) {
 			if(seconds == 0)
 			{
@@ -561,6 +562,7 @@ public class MemoryGameFrame extends JFrame {
 				timer.stop();
 				Toolkit.getDefaultToolkit().beep();
 				MemoryGameFrame.this.setVisible(false);
+				soundthread2.StopMusic();
 				JOptionPane.showMessageDialog(null, "Έχασες!");	
 			}
 		}

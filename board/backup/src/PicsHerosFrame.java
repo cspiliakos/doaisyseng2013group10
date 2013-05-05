@@ -83,7 +83,7 @@ public class PicsHerosFrame extends JFrame{
 		
 		////////////////
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		//setUndecorated(true);
+		setUndecorated(true);
 		setVisible(true);
 		back = new BackgroundPanel(background);
 		setContentPane(back);
@@ -95,6 +95,7 @@ public class PicsHerosFrame extends JFrame{
 		timePanel = new JPanel();
 		timePanel.add(timeLabel);
 		pause = new JButton("\u03A0\u03B1\u03CD\u03C3\u03B7");
+		pause.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		pause.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (isRunning)
@@ -262,7 +263,6 @@ public class PicsHerosFrame extends JFrame{
 		question.setText("Ποια εικόνα αντιστοιχεί "+helpString.get(randomIndex)+": "+correct.getDescription());
 	}
 	
-	
 	public class TimerClass implements ActionListener{
 		int minutes, seconds;
 		
@@ -303,7 +303,6 @@ public class PicsHerosFrame extends JFrame{
 			}
 		}
 	}
-	
 	
 	public class Labels implements MouseListener {
 		public void mouseClicked(MouseEvent e) {

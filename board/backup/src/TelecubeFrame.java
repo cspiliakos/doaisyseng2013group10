@@ -57,11 +57,14 @@ public class TelecubeFrame extends JFrame {
 		score = 0;
 		
 		try {
-			background = ImageIO.read(new File("arcade_background.jpg"));
+			background = ImageIO.read(new File("UIcons\\arcade_background.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		back = new BackgroundPanel(background);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setUndecorated(true);
+		setVisible(true);
 		setContentPane(back);
 		
 		charPanel = new JPanel();
@@ -76,8 +79,6 @@ public class TelecubeFrame extends JFrame {
 		helpLabel.setFont(new Font("Sylfaen", Font.BOLD, 40));
 		charPanel.add(helpLabel);
 		GridBagLayout gbl_checkPanel = new GridBagLayout();
-		gbl_checkPanel.columnWidths = new int[] {30};
-		gbl_checkPanel.rowHeights = new int[] {30, 30};
 		checkPanel.setLayout(gbl_checkPanel);
 		back.add(checkPanel, BorderLayout.EAST);
 		check = new JButton();
@@ -115,6 +116,7 @@ public class TelecubeFrame extends JFrame {
 		timePanel = new JPanel();
 		timePanel.add(timeLabel);
 		pause = new JButton("\u03A0\u03B1\u03CD\u03C3\u03B7");
+		pause.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		pause.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (isRunning)
@@ -123,12 +125,14 @@ public class TelecubeFrame extends JFrame {
 					timer.stop();
 					Toolkit.getDefaultToolkit().beep();
 					check.setEnabled(false);
+					text.setEnabled(false);
 				}
 				else
 				{
 					isRunning = true;
 					timer.start();
 					check.setEnabled(true);
+					text.setEnabled(true);
 				}
 			}
 		});
@@ -146,9 +150,6 @@ public class TelecubeFrame extends JFrame {
 		text.setColumns(10);
 		insertPanel.add(text);
 		back.add(insertPanel, BorderLayout.SOUTH);
-		
-		this.setVisible(true);
-		this.setSize(700, 500);
 	}
 	
 	public void getWord(){

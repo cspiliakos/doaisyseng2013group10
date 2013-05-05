@@ -44,6 +44,7 @@ public class QuizFrame extends JFrame {
 	private String choose;
 	
 	public QuizFrame(User u) {
+		setJMenuBar(new JMenuFrame().getMenu());
 		r = new Random(System.currentTimeMillis());
 		player = u;
 		minutes =  2;
@@ -79,6 +80,7 @@ public class QuizFrame extends JFrame {
 		timePanel = new JPanel();
 		timePanel.add(timeLabel);
 		pause = new JButton("\u03A0\u03B1\u03CD\u03C3\u03B7");
+		pause.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		pause.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (isRunning)
@@ -110,8 +112,6 @@ public class QuizFrame extends JFrame {
 		////////////////////////
 		scorePanel = new JPanel();
 		GridBagLayout gbl_scorePanel = new GridBagLayout();
-		gbl_scorePanel.columnWidths = new int[] {40};
-		gbl_scorePanel.rowHeights = new int[] {25};
 		scorePanel.setLayout(gbl_scorePanel);
 		
 		scoreLabel = new JLabel("\u03A3\u03BA\u03BF\u03C1: 0");
@@ -171,8 +171,6 @@ public class QuizFrame extends JFrame {
 		mainPanel = new JPanel();
 		back.add(mainPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_mainPanel = new GridBagLayout();
-		gbl_mainPanel.rowHeights = new int[] {40, 40};
-		gbl_mainPanel.columnWidths = new int[] {40};
 		mainPanel.setLayout(gbl_mainPanel);
 		
 		question = new JLabel();

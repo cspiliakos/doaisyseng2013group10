@@ -15,34 +15,31 @@ public class ClickMeFrame extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private BackgroundPanel back;
 	private JPanel scorePanel, timePanel;
-	private int iconSize, score, lives, minutes, seconds,delay=2000,oldX, oldY;
+	private int iconSize, score, lives, minutes, seconds, delay, oldX, oldY;
 	private JLabel iconLabel, scoreLabel, lifeLabel, timeLabel;
 	private Image background;
 	private JButton pause;
-	private boolean isRunning,hit=false;
+	private boolean isRunning, hit;
 	private Timer timer, iconTimer;
 	private TimerClass count;
 	private IconClass help;
 	private User player;
 	private MyListener listener; 
-	
-	/**Sounds
-	 * list.get(0) endofgame
-	 * list.get(1) right
-	 * list.get(2) wrong
-	 */
-	ArrayList<AudiosPair> list = new ArrayList<AudiosPair>(new Audios().getClickMeList());
-	Sound_Thread soundthread1 = new Sound_Thread();
+	private ArrayList<AudiosPair> list;
+	private Sound_Thread soundthread1;
 	
 	public ClickMeFrame(User u) {
+		setJMenuBar(new JMenuFrame().getMenu());
 		player = u;
 		minutes =  2;
 		seconds = 0;
-		
+		delay = 2000;
+		hit = false;
+		list = new ArrayList<AudiosPair>(new Audios().getClickMeList());
 		help = new IconClass();
 		count = new TimerClass(minutes, seconds);
 		iconTimer = new Timer(delay, help);
-		
+		soundthread1 = new Sound_Thread();
 		iconTimer.start();
 		timer = new Timer(1000, count);
 		timer.start();
@@ -55,12 +52,13 @@ public class ClickMeFrame extends JFrame{
 			e.printStackTrace();
 		}
 		back = new BackgroundPanel(background);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setUndecorated(true);
+		setVisible(true);
 		setContentPane(back);
 		
 		scorePanel = new JPanel();
 		GridBagLayout gbl_scorePanel = new GridBagLayout();
-		gbl_scorePanel.columnWidths = new int[] {40};
-		gbl_scorePanel.rowHeights = new int[] {25};
 		scorePanel.setLayout(gbl_scorePanel);
 		
 		scoreLabel = new JLabel("\u03A3\u03BA\u03BF\u03C1: 0");
@@ -87,6 +85,7 @@ public class ClickMeFrame extends JFrame{
 		timePanel = new JPanel();
 		timePanel.add(timeLabel);
 		pause = new JButton("\u03A0\u03B1\u03CD\u03C3\u03B7");
+		pause.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		pause.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (isRunning)
@@ -119,20 +118,19 @@ public class ClickMeFrame extends JFrame{
 		help.addMouseListener(listener);
 		back.add(help, BorderLayout.CENTER);
 		
-		oldX=iconLabel.getX();
-		oldY=iconLabel.getY();
-		
-		this.setVisible(true);
-		this.setSize(500, 500);
+		oldX = iconLabel.getX();
+		oldY = iconLabel.getY();
 	}
 	
 	public void checkIfHit(int x, int y){
-		if((x!=oldX)&&(y!=oldY)&&(hit)){
-			hit=false;
-			oldX=x;
-			oldY=y;
+		if((x!=oldX)&&(y!=oldY)&&(hit))
+		{
+			hit = false;
+			oldX = x;
+			oldY = y;
 		}
-		else if((x!=oldX)&&(y!=oldY)&&(!hit)){
+		else if((x != oldX) && (y != oldY) && (!hit))
+		{
 			lives--;
 			lifeLabel.setText("\u0396\u03C9\u03AD\u03C2: "+lives);
 			if(lives == 0 || (minutes == 0 && seconds == 0))
@@ -144,11 +142,9 @@ public class ClickMeFrame extends JFrame{
 				JOptionPane.showMessageDialog(null, "\u03A4\u03BF \u03C4\u03B5\u03BB\u03B9\u03BA\u03CC \u03C3\u03BA\u03BF\u03C1 \u03B5\u03AF\u03BD\u03B1\u03B9: "+score);
 				help.repaint();
 			}
-			oldX=x;
-			oldY=y;
+			oldX = x;
+			oldY = y;
 		}
-			
-		
 	}
 	
 	public class IconClass extends JComponent implements ActionListener{
@@ -156,7 +152,6 @@ public class ClickMeFrame extends JFrame{
 
 		public void paintComponent(Graphics g){
 			super.paintComponent(g);
-			
 		}
 		
 		public void actionPerformed(ActionEvent e) {
@@ -165,10 +160,6 @@ public class ClickMeFrame extends JFrame{
 			int randomX = r.nextInt(400 - iconSize);
 			int randomY = r.nextInt((480 - iconSize) + (score + 1));
 			iconLabel.setBounds(randomX, randomY, iconSize, iconSize);
-			
-			
-			
-			
 		}
 	}
 	
@@ -223,28 +214,25 @@ public class ClickMeFrame extends JFrame{
 			{
 				soundthread1.PlayMusic(list.get(1).getSongName(), list.get(1).getRepeat() ); //Sound: right
 				if(!hit)
+				{
 					score = score + 1;
-				hit=true;
-				
+				}
+					
+				hit = true;
 				scoreLabel.setText("\u03A3\u03BA\u03BF\u03C1: "+score);
-				if ((score%5)==0){
-				double size=iconSize/1.05;
-				iconSize=(int)Math.round(size);
-				double timerDelay=delay/1.20;
-				delay=(int)Math.round(timerDelay);
-				
-				System.out.println("my"+iconSize);
+				if ((score % 5) == 0){
+				double size = iconSize / 1.05;
+				iconSize = (int)Math.round(size);
+				double timerDelay = delay / 1.20;
+				delay = (int)Math.round(timerDelay);
 				iconLabel.setSize(iconSize,iconSize);
-				System.out.println(iconLabel.getWidth()+"");
 				ImageIcon icon = new ImageIcon("ClickMe\\medusa.png");
 				Image image=icon.getImage();
 				Image resizedImage = image.getScaledInstance(iconLabel.getWidth(), iconLabel.getHeight(), 0);
 				iconLabel.setIcon(new ImageIcon(resizedImage));
-				}
-				System.out.println(delay);
-				help.repaint();
-				iconTimer.setDelay(delay);
-				
+			}
+			help.repaint();
+			iconTimer.setDelay(delay);
 			}
 			else
 			{
@@ -261,8 +249,6 @@ public class ClickMeFrame extends JFrame{
 					help.repaint();
 				}
 			}
-			
-			
 		}
 	}
 }

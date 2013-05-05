@@ -1,541 +1,659 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Timer;
-import java.util.TimerTask;
-import javax.swing.ImageIcon;
+import java.awt.Cursor;
+import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
+import javax.swing.Timer;
+import javax.swing.ImageIcon;
 
 public class MemoryGameFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
+	private User player;
+	private Image background, help, resize;
+	private ImageIcon hero, helpIcon, check;
+	private BackgroundPanel back;
+	private JButton pause;
+	private Timer timer, turnTimer, wrongTimer;
+	private TimerClass count;
+	private TurnClass turn;
+	private JPanel timePanel, mainPanel;
+	private int helpWidth, helpHeight, widthSize, heightSize, minutes, seconds, correct;
+	private JLabel timeLabel, label1, label2, label3, label4, label5, label6, label7, label8, label9, label10,
+	label11, label12, label13, label14, label15, label16, helpLabel;
+	private double frameWidth, frameHeight;
 	private Uicons iconlist;
-	private ArrayList<CardLabel> currlist;
-	
-	private CardLabel conn_label= new CardLabel();//The label that is responsible for the connention with the previous one(if there is)
-    private boolean hasPicked =false;   // We need to know if the user has already picked something!
-                                    // TRUE:The user has picked something    FALSE:The user has picked nothing
-    
-    private int delay_secs= 1; // If user is wrong images stay open for 'delay_secs' seconds
-    private int correct=0;    //correct guesses
-    
-    private int Clicks=0; //the ammount of clicks done by Player
-    private JLabel Clickslbl;
-    
-    private Image img;  //The image of the closed icons(something black)
-    private Image backimg;  //The image of the backgound
-    private CardLabel label_1;
-	private CardLabel label_2;
-	private CardLabel label_3;
-	private CardLabel label_4;
-	private CardLabel label_5;
-	private CardLabel label_6;
-	private CardLabel label_7;
-	private CardLabel label_8;
-	private CardLabel label_9;
-	private CardLabel label_10;
-	private CardLabel label_11;
-	private CardLabel label_12;
-	private CardLabel label_13;
-	private CardLabel label_14;
-	private CardLabel label_15;
-	private CardLabel label_16;
-	private JTextArea info;
-	private JLabel backlbl;
-	
-	private LblListener listener;
+	private ArrayList<ImageIcon> currlist;
+	private boolean isRunning, turned, hasPicked;
+	private Labels listen;
+	private Wrong wrong;
+	private Sound_Thread soundthread1, soundthread2;
+	private ArrayList<AudiosPair> list;
 
-	/**Sounds
-	 * list.get(0) select
-	 * list.get(1) right
-	 * list.get(2) congratulations
-	 * list.get(3) wrong
-	 * list.get(4) soundtrack
-	 */
-	ArrayList<AudiosPair> list = new ArrayList<AudiosPair>(new Audios().getMemoryGameList()); 
-	Sound_Thread soundthread1 = new Sound_Thread(); //Thread 1 gia mikrous hxous, pou diakoptei o enas ton allon
-	Sound_Thread soundthread2 = new Sound_Thread(); //Thread 2 gia soundtrack
-	
-	
-	public MemoryGameFrame() {
-		//*** MenuBar ***//
-		setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
-		
-		soundthread2.PlayMusic(list.get(4).getSongName(), list.get(4).getRepeat());   //Sound soundtrack
-		
+	public MemoryGameFrame(User u) {
+		setJMenuBar(new JMenuFrame().getMenu());
+		list = new ArrayList<AudiosPair>(new Audios().getMemoryGameList()); 
+		soundthread1 = new Sound_Thread();
+		soundthread2 = new Sound_Thread();
+		soundthread2.PlayMusic(list.get(4).getSongName(), list.get(4).getRepeat());
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		double width = screenSize.getWidth();
-		double height = screenSize.getHeight();
-		System.out.println("Width is: "+width +" and height is: "+height);
+		frameWidth = screenSize.getWidth();
+		frameHeight = screenSize.getHeight();
+		helpWidth = (int)frameWidth;
+		helpHeight = (int)frameHeight;
+		widthSize = helpWidth / 5;
+		heightSize = helpHeight / 8;
+		iconlist = new Uicons();
+		currlist = new ArrayList<ImageIcon>(iconlist.getMMGIcons());
+		Collections.shuffle(currlist.subList(2, currlist.size()));
+		helpIcon = new ImageIcon();
+		check = new ImageIcon();
+		player = u;
+		correct = 0;
+		minutes =  2;
+		seconds = 0;
+		turned = false;
+		count = new TimerClass(minutes, seconds);
+		timer = new Timer(1000, count);
+		turn = new TurnClass(turned);
+		turnTimer = new Timer(5000, turn);
+		isRunning  = true;
+		hasPicked = false;
+		turnTimer.start();
+		listen = new Labels();
+		try {
+			background = ImageIO.read(new File("UIcons\\mmg_background.jpg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
-		iconlist= new Uicons();
-		currlist=new ArrayList<CardLabel>(iconlist.getMMGIcons());
-		Collections.shuffle(currlist.subList(2, currlist.size()));//randomize ALL the pictures and codes except form 
-		                                                              //no 1(backgorund) and no2(pattern) 
-		                                                                    
+		////////////////
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		//setUndecorated(true);
+		setVisible(true);
+		back = new BackgroundPanel(background);
+		setContentPane(back);
+		back.setLayout(new BorderLayout(5, 5));
 		
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		
-		
-		//Adding the Labels
-		int z=26;   //ystera apo prakseis to z=26.6666 synarthsei tou WIDTH!!!
-		int k=20 ;    // ystera apo prakseis to k=20 synartisei toy ΗEIGHT!!!
-		
-		label_1 = new CardLabel();
-		label_1=currlist.get(2); 	 //label gets icon and code
-		label_1.setBounds(20, 20,(int) (width/4-40) , (int) (height/4-30));
-		label_1.setCursor(new Cursor(Cursor.HAND_CURSOR)) ;
-		contentPane.add(label_1);
-		
-		
-		label_2 = new CardLabel();
-		label_2=currlist.get(3);   //label gets icon and code
-		label_2.setBounds(label_1.getX()+label_1.getWidth()+ z , 20,(int) (width/4-40) , (int) (height/4-30));
-		label_2.setCursor(new Cursor(Cursor.HAND_CURSOR)) ;
-		contentPane.add(label_2);
-		
-		label_3 = new CardLabel(); 
-		label_3=currlist.get(4);     //label gets icon and code
-		label_3.setBounds(label_2.getX()+label_2.getWidth()+ z  , 20,(int) (width/4-40) , (int) (height/4-30));
-		label_3.setCursor(new Cursor(Cursor.HAND_CURSOR)) ;
-		contentPane.add(label_3);
-		
-		label_4 = new CardLabel();
-		label_4=currlist.get(5);     //label gets icon and code
-		label_4.setBounds(label_3.getX()+label_3.getWidth()+ z , 20,(int) (width/4-40) , (int) (height/4-30));
-		label_4.setCursor(new Cursor(Cursor.HAND_CURSOR)) ;
-		contentPane.add(label_4);
-		
-		label_5 = new CardLabel();	
-		label_5=currlist.get(6);      //label gets icon and code
-		label_5.setBounds(20,label_1.getY()+label_1.getHeight()+k, (int) (width/4-40),   (int) (height/4-30));
-		label_5.setCursor(new Cursor(Cursor.HAND_CURSOR)) ;
-		contentPane.add(label_5);
-		
-		label_6 = new CardLabel();
-		label_6=currlist.get(7);
-		label_6.setBounds(label_5.getX()+label_5.getWidth()+z, label_2.getY()+label_2.getHeight()+k , (int) (width/4-40),   (int) (height/4-30)   );
-		label_6.setCursor(new Cursor(Cursor.HAND_CURSOR)) ;
-		contentPane.add(label_6);
-		
-		label_7 = new CardLabel();
-		label_7=currlist.get(8);      //label gets icon and code
-		label_7.setBounds(label_6.getX()+label_6.getWidth()+z, label_3.getY()+label_3.getHeight()+k , (int) (width/4-40),   (int) (height/4-30)   );
-		label_7.setCursor(new Cursor(Cursor.HAND_CURSOR)) ;
-		contentPane.add(label_7);
-		
-		label_8 = new CardLabel();
-		label_8=currlist.get(9);      //label gets icon and code
-		label_8.setBounds(label_7.getX()+label_7.getWidth()+z, label_4.getY()+label_4.getHeight()+k , (int) (width/4-40),   (int) (height/4-30)   );
-		label_8.setCursor(new Cursor(Cursor.HAND_CURSOR)) ;
-		contentPane.add(label_8);
-		
-		label_9 = new CardLabel();
-		label_9=currlist.get(10);      //label gets icon and code
-		label_9.setBounds(20, label_5.getY()+label_5.getHeight()+k , (int) (width/4-40),   (int) (height/4-30)   );
-		label_9.setCursor(new Cursor(Cursor.HAND_CURSOR)) ;
-		contentPane.add(label_9);
-		
-		label_10 = new CardLabel();
-		label_10=currlist.get(11);      //label gets icon and code
-		label_10.setBounds(label_9.getX()+label_9.getWidth()+z, label_6.getY()+label_6.getHeight()+k , (int) (width/4-40),   (int) (height/4-30)   );
-		label_10.setCursor(new Cursor(Cursor.HAND_CURSOR)) ;
-		contentPane.add(label_10);
-		
-		label_11 = new CardLabel();
-		label_11=currlist.get(12);      //label gets icon and code
-		label_11.setBounds(label_10.getX()+label_10.getWidth()+z, label_7.getY()+label_7.getHeight()+k , (int) (width/4-40),   (int) (height/4-30)   );
-		label_11.setCursor(new Cursor(Cursor.HAND_CURSOR)) ;
-		contentPane.add(label_11);
-		
-		label_12 = new CardLabel();
-		label_12=currlist.get(13);      //label gets icon and code
-		label_12.setBounds(label_11.getX()+label_11.getWidth()+z, label_8.getY()+label_8.getHeight()+k , (int) (width/4-40),   (int) (height/4-30)   );
-		label_12.setCursor(new Cursor(Cursor.HAND_CURSOR)) ;
-		contentPane.add(label_12);
-		
-		label_13 = new CardLabel();
-		label_13=currlist.get(14);      //label gets icon and code
-		label_13.setBounds(20 , label_9.getY()+label_9.getHeight()+k , (int) (width/4-40),   (int) (height/4-30)   );
-		label_13.setCursor(new Cursor(Cursor.HAND_CURSOR)) ;
-		contentPane.add(label_13);
-		
-		label_14 = new CardLabel();
-		label_14=currlist.get(15);      //label gets icon and code
-		label_14.setBounds(label_13.getX()+label_13.getWidth()+z, label_10.getY()+label_10.getHeight()+k , (int) (width/4-40),   (int) (height/4-30)   );
-		label_14.setCursor(new Cursor(Cursor.HAND_CURSOR)) ;
-		contentPane.add(label_14);
-		
-		label_15 = new CardLabel();
-		label_15=currlist.get(16);      //label gets icon and code
-		label_15.setBounds(label_14.getX()+label_14.getWidth()+z, label_11.getY()+label_11.getHeight()+k , (int) (width/4-40),   (int) (height/4-30)   );
-		label_15.setCursor(new Cursor(Cursor.HAND_CURSOR)) ;
-		contentPane.add(label_15);
-		
-		label_16 = new CardLabel();
-		label_16=currlist.get(17);      //label gets icon and code
-		label_16.setBounds(label_15.getX()+label_15.getWidth()+z, label_12.getY()+label_12.getHeight()+k , (int) (width/4-40),   (int) (height/4-30)   );
-		label_16.setCursor(new Cursor(Cursor.HAND_CURSOR)) ;
-		contentPane.add(label_16);
-		
-		
-		//Informational JPanel 
-		info = new JTextArea();   //x            //y               //width                                       //height
-		info.setBounds(label_14.getX(),label_14.getY()+label_14.getHeight()+2,2*(label_16.getWidth() )+z,(int) height-(20+ 4*label_14.getHeight()+3*k)-10 );
-		info.setBackground(Color.ORANGE);
-		info.setText("Βρές τα κρυμμένα ζεύγη καρτών. Καλή Επιτυχία!");
-		info.setEditable(false);
-		contentPane.add(info);
-		
-		//Label that shows how many clicks are done by the player
-		Clickslbl = new JLabel(); //x //y //width //height
-		Clickslbl.setBounds(label_4.getX()+ label_4.getWidth(),label_4.getY(),80,50);
-		Clickslbl.setForeground(Color.WHITE);
-		Clickslbl.setText("Clicks: "+Clicks);
-		contentPane.add(Clickslbl);
-		
-		backlbl=new JLabel();
-		backlbl.setBounds(0,0,(int) width,(int) height);
-		backimg = currlist.get(0).getImage();   //eikona backgorund
-		backlbl.setIcon(new ImageIcon(backimg.getScaledInstance(backlbl.getWidth(), backlbl.getHeight(), 0)));
-		//prosarmogh eikonas fontou
-		contentPane.add(backlbl);
-		
-		//appear all images normally
-		appear_all_cards_mormally();
-		
-    	
-    	//images turn around after we wait n seconds
-		int l= 100; //every 100 the cards close again
-		int n=8 ;//after 8 secs tha cards turn around
-    	turn_around_images_in_seconds(n,l);
-		
-		
-		
-		
-		//Adding the listener 
-		listener = new LblListener();
-		label_1.addMouseListener(listener);
-		label_2.addMouseListener(listener);
-		label_3.addMouseListener(listener);
-		label_4.addMouseListener(listener);
-		label_5.addMouseListener(listener);
-		label_6.addMouseListener(listener);
-		label_7.addMouseListener(listener);
-		label_8.addMouseListener(listener);
-		label_9.addMouseListener(listener);
-		label_10.addMouseListener(listener);
-		label_11.addMouseListener(listener);
-		label_12.addMouseListener(listener);
-		label_13.addMouseListener(listener);
-		label_14.addMouseListener(listener);
-		label_15.addMouseListener(listener);
-		label_16.addMouseListener(listener);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		
-		//WINDOW MANAGEMENT
-	//	this.setSize(500, 500);
-		this.setSize((int) width,(int) height);
-		this.setLocation(0, 0);
-		this.setUndecorated(true);
-		this.setVisible(true);
-	}
-	
-
-	public void appear_all_cards_mormally(){
-		//appear all images normally
-		label_1.setIcon(new ImageIcon(currlist.get(2).getImage().getScaledInstance(label_1.getWidth(), label_1.getHeight(), 0)));
-		label_2.setIcon(new ImageIcon(currlist.get(3).getImage().getScaledInstance(label_2.getWidth(), label_2.getHeight(), 0)));
-		label_3.setIcon(new ImageIcon(currlist.get(4).getImage().getScaledInstance(label_3.getWidth(), label_3.getHeight(), 0)));
-		label_4.setIcon(new ImageIcon(currlist.get(5).getImage().getScaledInstance(label_4.getWidth(), label_4.getHeight(), 0)));
-		label_5.setIcon(new ImageIcon(currlist.get(6).getImage().getScaledInstance(label_5.getWidth(), label_5.getHeight(), 0)));
-		label_6.setIcon(new ImageIcon(currlist.get(7).getImage().getScaledInstance(label_6.getWidth(), label_6.getHeight(), 0)));
-		label_7.setIcon(new ImageIcon(currlist.get(8).getImage().getScaledInstance(label_7.getWidth(), label_7.getHeight(), 0)));
-		label_8.setIcon(new ImageIcon(currlist.get(9).getImage().getScaledInstance(label_8.getWidth(), label_8.getHeight(), 0)));
-		label_9.setIcon(new ImageIcon(currlist.get(10).getImage().getScaledInstance(label_9.getWidth(), label_9.getHeight(), 0)));
-		label_10.setIcon(new ImageIcon(currlist.get(11).getImage().getScaledInstance(label_10.getWidth(), label_10.getHeight(), 0)));
-		label_11.setIcon(new ImageIcon(currlist.get(12).getImage().getScaledInstance(label_11.getWidth(), label_11.getHeight(), 0)));
-		label_12.setIcon(new ImageIcon(currlist.get(13).getImage().getScaledInstance(label_12.getWidth(), label_12.getHeight(), 0)));
-		label_13.setIcon(new ImageIcon(currlist.get(14).getImage().getScaledInstance(label_13.getWidth(), label_13.getHeight(), 0)));
-		label_14.setIcon(new ImageIcon(currlist.get(15).getImage().getScaledInstance(label_14.getWidth(), label_14.getHeight(), 0)));
-		label_15.setIcon(new ImageIcon(currlist.get(16).getImage().getScaledInstance(label_15.getWidth(), label_15.getHeight(), 0)));
-		label_16.setIcon(new ImageIcon(currlist.get(17).getImage().getScaledInstance(label_16.getWidth(), label_16.getHeight(), 0)));
-	}
-
-	public void turn_around_images_in_seconds(int n, int l){
-		Timer timer = new Timer();
-		timer.schedule( new TimerTask() {
-			public void run() {
-				img = currlist.get(1).getImage();   //h basikh eikona backgorund ennalasete se pola labels
-				label_1.setIcon(new ImageIcon(img.getScaledInstance(label_1.getWidth(), label_1.getHeight(), 0)));
-				label_2.setIcon(new ImageIcon(img.getScaledInstance(label_2.getWidth(), label_2.getHeight(), 0)));
-				label_3.setIcon(new ImageIcon(img.getScaledInstance(label_3.getWidth(), label_3.getHeight(), 0)));
-				label_4.setIcon(new ImageIcon(img.getScaledInstance(label_4.getWidth(), label_4.getHeight(), 0)));
-				label_5.setIcon(new ImageIcon(img.getScaledInstance(label_5.getWidth(), label_5.getHeight(), 0)));
-				label_6.setIcon(new ImageIcon(img.getScaledInstance(label_6.getWidth(), label_6.getHeight(), 0)));
-				label_7.setIcon(new ImageIcon(img.getScaledInstance(label_7.getWidth(), label_7.getHeight(), 0)));
-				label_8.setIcon(new ImageIcon(img.getScaledInstance(label_8.getWidth(), label_8.getHeight(), 0)));
-				label_9.setIcon(new ImageIcon(img.getScaledInstance(label_9.getWidth(), label_9.getHeight(), 0)));
-				label_10.setIcon(new ImageIcon(img.getScaledInstance(label_10.getWidth(), label_10.getHeight(), 0)));
-				label_11.setIcon(new ImageIcon(img.getScaledInstance(label_11.getWidth(), label_11.getHeight(), 0)));
-				label_12.setIcon(new ImageIcon(img.getScaledInstance(label_12.getWidth(), label_12.getHeight(), 0)));
-				label_13.setIcon(new ImageIcon(img.getScaledInstance(label_13.getWidth(), label_13.getHeight(), 0)));
-				label_14.setIcon(new ImageIcon(img.getScaledInstance(label_14.getWidth(), label_14.getHeight(), 0)));
-				label_15.setIcon(new ImageIcon(img.getScaledInstance(label_15.getWidth(), label_15.getHeight(), 0)));
-				label_16.setIcon(new ImageIcon(img.getScaledInstance(label_16.getWidth(), label_16.getHeight(), 0)));
-
-
+		timeLabel = new JLabel(minutes+" : 0"+seconds);
+		timeLabel.setFont(new Font("Sylfaen", Font.BOLD, 20));
+		timeLabel.setForeground(new Color(139, 69, 19));
+		timePanel = new JPanel();
+		timePanel.add(timeLabel);
+		pause = new JButton("\u03A0\u03B1\u03CD\u03C3\u03B7");
+		pause.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (isRunning)
+				{
+					isRunning = false;
+					timer.stop();
+					Toolkit.getDefaultToolkit().beep();	
+					label1.removeMouseListener(listen);
+					label2.removeMouseListener(listen);
+					label3.removeMouseListener(listen);
+					label4.removeMouseListener(listen);
+					label5.removeMouseListener(listen);
+					label6.removeMouseListener(listen);
+					label7.removeMouseListener(listen);
+					label8.removeMouseListener(listen);
+					label9.removeMouseListener(listen);
+					label10.removeMouseListener(listen);
+					label11.removeMouseListener(listen);
+					label12.removeMouseListener(listen);
+					label13.removeMouseListener(listen);
+					label14.removeMouseListener(listen);
+					label15.removeMouseListener(listen);
+					label16.removeMouseListener(listen);
+				}
+				else
+				{
+					isRunning = true;
+					timer.start();
+					label1.addMouseListener(listen);
+					label2.addMouseListener(listen);
+					label3.addMouseListener(listen);
+					label4.addMouseListener(listen);
+					label5.addMouseListener(listen);
+					label6.addMouseListener(listen);
+					label7.addMouseListener(listen);
+					label8.addMouseListener(listen);
+					label9.addMouseListener(listen);
+					label10.addMouseListener(listen);
+					label11.addMouseListener(listen);
+					label12.addMouseListener(listen);
+					label13.addMouseListener(listen);
+					label14.addMouseListener(listen);
+					label15.addMouseListener(listen);
+					label16.addMouseListener(listen);
+				}
 			}
-		}, n*1000, l*1000);
+		});
+		timePanel.add(pause);
+		back.add(timePanel, BorderLayout.NORTH);
+		
+		//////////////////////////
+		mainPanel = new JPanel();
+		back.add(mainPanel, BorderLayout.CENTER);
+		GridBagLayout gbl_mainPanel = new GridBagLayout();
+		mainPanel.setLayout(gbl_mainPanel);
+		
+		label1 = new JLabel();
+		label1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		hero = new ImageIcon(currlist.get(2).getImage());
+		help = hero.getImage();
+		resize = help.getScaledInstance(widthSize, heightSize, 0);
+		label1.setIcon(new ImageIcon(resize));
+		GridBagConstraints gbc_label1 = new GridBagConstraints();
+		gbc_label1.insets = new Insets(0, 0, 0, 5);
+		gbc_label1.gridx = 0;
+		gbc_label1.gridy = 0;
+		mainPanel.add(label1, gbc_label1);
+		
+		label2 = new JLabel();
+		label2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		hero = new ImageIcon(currlist.get(3).getImage());
+		help = hero.getImage();
+		resize = help.getScaledInstance(widthSize, heightSize, 0);
+		label2.setIcon(new ImageIcon(resize));
+		GridBagConstraints gbc_label2 = new GridBagConstraints();
+		gbc_label2.insets = new Insets(0, 0, 0, 5);
+		gbc_label2.gridx = 1;
+		gbc_label2.gridy = 0;
+		mainPanel.add(label2, gbc_label2);
+		
+		label3 = new JLabel();
+		label3.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		hero = new ImageIcon(currlist.get(4).getImage());
+		help = hero.getImage();
+		resize = help.getScaledInstance(widthSize, heightSize, 0);
+		label3.setIcon(new ImageIcon(resize));
+		GridBagConstraints gbc_label3 = new GridBagConstraints();
+		gbc_label3.insets = new Insets(0, 0, 0, 5);
+		gbc_label3.gridx = 2;
+		gbc_label3.gridy = 0;
+		mainPanel.add(label3, gbc_label3);
+		
+		label4 = new JLabel();
+		label4.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		hero = new ImageIcon(currlist.get(5).getImage());
+		help = hero.getImage();
+		resize = help.getScaledInstance(widthSize, heightSize, 0);
+		label4.setIcon(new ImageIcon(resize));
+		GridBagConstraints gbc_label4 = new GridBagConstraints();
+		gbc_label4.insets = new Insets(0, 0, 0, 5);
+		gbc_label4.gridx = 3;
+		gbc_label4.gridy = 0;
+		mainPanel.add(label4, gbc_label4);
+		
+		label5 = new JLabel();
+		label5.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		hero = new ImageIcon(currlist.get(6).getImage());
+		help = hero.getImage();
+		resize = help.getScaledInstance(widthSize, heightSize, 0);
+		label5.setIcon(new ImageIcon(resize));
+		GridBagConstraints gbc_label5 = new GridBagConstraints();
+		gbc_label5.insets = new Insets(0, 0, 0, 5);
+		gbc_label5.gridx = 0;
+		gbc_label5.gridy = 1;
+		mainPanel.add(label5, gbc_label5);
+		
+		label6 = new JLabel();
+		label6.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		hero = new ImageIcon(currlist.get(7).getImage());
+		help = hero.getImage();
+		resize = help.getScaledInstance(widthSize, heightSize, 0);
+		label6.setIcon(new ImageIcon(resize));
+		GridBagConstraints gbc_label6 = new GridBagConstraints();
+		gbc_label6.insets = new Insets(0, 0, 0, 5);
+		gbc_label6.gridx = 1;
+		gbc_label6.gridy = 1;
+		mainPanel.add(label6, gbc_label6);
+		
+		label7 = new JLabel();
+		label7.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		hero = new ImageIcon(currlist.get(8).getImage());
+		help = hero.getImage();
+		resize = help.getScaledInstance(widthSize, heightSize, 0);
+		label7.setIcon(new ImageIcon(resize));
+		GridBagConstraints gbc_label7 = new GridBagConstraints();
+		gbc_label7.insets = new Insets(0, 0, 0, 5);
+		gbc_label7.gridx = 2;
+		gbc_label7.gridy = 1;
+		mainPanel.add(label7, gbc_label7);
+		
+		label8 = new JLabel();
+		label8.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		hero = new ImageIcon(currlist.get(9).getImage());
+		help = hero.getImage();
+		resize = help.getScaledInstance(widthSize, heightSize, 0);
+		label8.setIcon(new ImageIcon(resize));
+		GridBagConstraints gbc_label8 = new GridBagConstraints();
+		gbc_label8.insets = new Insets(0, 0, 0, 5);
+		gbc_label8.gridx = 3;
+		gbc_label8.gridy = 1;
+		mainPanel.add(label8, gbc_label8);
+		
+		label9 = new JLabel();
+		label9.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		hero = new ImageIcon(currlist.get(10).getImage());
+		help = hero.getImage();
+		resize = help.getScaledInstance(widthSize, heightSize, 0);
+		label9.setIcon(new ImageIcon(resize));
+		GridBagConstraints gbc_label9 = new GridBagConstraints();
+		gbc_label9.insets = new Insets(0, 0, 0, 5);
+		gbc_label9.gridx = 0;
+		gbc_label9.gridy = 2;
+		mainPanel.add(label9, gbc_label9);
+		
+		label10 = new JLabel();
+		label10.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		hero = new ImageIcon(currlist.get(11).getImage());
+		help = hero.getImage();
+		resize = help.getScaledInstance(widthSize, heightSize, 0);
+		label10.setIcon(new ImageIcon(resize));
+		GridBagConstraints gbc_label10 = new GridBagConstraints();
+		gbc_label10.insets = new Insets(0, 0, 0, 5);
+		gbc_label10.gridx = 1;
+		gbc_label10.gridy = 2;
+		mainPanel.add(label10, gbc_label10);
+		
+		label11 = new JLabel();
+		label11.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		hero = new ImageIcon(currlist.get(12).getImage());
+		help = hero.getImage();
+		resize = help.getScaledInstance(widthSize, heightSize, 0);
+		label11.setIcon(new ImageIcon(resize));
+		GridBagConstraints gbc_label11 = new GridBagConstraints();
+		gbc_label11.insets = new Insets(0, 0, 0, 5);
+		gbc_label11.gridx = 2;
+		gbc_label11.gridy = 2;
+		mainPanel.add(label11, gbc_label11);
+		
+		label12 = new JLabel();
+		label12.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		hero = new ImageIcon(currlist.get(13).getImage());
+		help = hero.getImage();
+		resize = help.getScaledInstance(widthSize, heightSize, 0);
+		label12.setIcon(new ImageIcon(resize));
+		GridBagConstraints gbc_label12 = new GridBagConstraints();
+		gbc_label12.insets = new Insets(0, 0, 0, 5);
+		gbc_label12.gridx = 3;
+		gbc_label12.gridy = 2;
+		mainPanel.add(label12, gbc_label12);
+		
+		label13 = new JLabel();
+		label13.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		hero = new ImageIcon(currlist.get(14).getImage());
+		help = hero.getImage();
+		resize = help.getScaledInstance(widthSize, heightSize, 0);
+		label13.setIcon(new ImageIcon(resize));
+		GridBagConstraints gbc_label13 = new GridBagConstraints();
+		gbc_label13.insets = new Insets(0, 0, 0, 5);
+		gbc_label13.gridx = 0;
+		gbc_label13.gridy = 3;
+		mainPanel.add(label13, gbc_label13);
+		
+		label14 = new JLabel();
+		label14.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		hero = new ImageIcon(currlist.get(15).getImage());
+		help = hero.getImage();
+		resize = help.getScaledInstance(widthSize, heightSize, 0);
+		label14.setIcon(new ImageIcon(resize));
+		GridBagConstraints gbc_label14 = new GridBagConstraints();
+		gbc_label14.insets = new Insets(0, 0, 0, 5);
+		gbc_label14.gridx = 1;
+		gbc_label14.gridy = 3;
+		mainPanel.add(label14, gbc_label14);
+		
+		label15 = new JLabel();
+		label15.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		hero = new ImageIcon(currlist.get(16).getImage());
+		help = hero.getImage();
+		resize = help.getScaledInstance(widthSize, heightSize, 0);
+		label15.setIcon(new ImageIcon(resize));
+		GridBagConstraints gbc_label15 = new GridBagConstraints();
+		gbc_label15.insets = new Insets(0, 0, 0, 5);
+		gbc_label15.gridx = 2;
+		gbc_label15.gridy = 3;
+		mainPanel.add(label15, gbc_label15);
+		
+		label16 = new JLabel();
+		label16.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		hero = new ImageIcon(currlist.get(17).getImage());
+		help = hero.getImage();
+		resize = help.getScaledInstance(widthSize, heightSize, 0);
+		label16.setIcon(new ImageIcon(resize));
+		GridBagConstraints gbc_label16 = new GridBagConstraints();
+		gbc_label16.gridx = 3;
+		gbc_label16.gridy = 3;
+		mainPanel.add(label16, gbc_label16);
+		
+		helpLabel = new JLabel();
 	}
-
-
 	
-	public void SwitchFlag(){
-		if(hasPicked) 
-			hasPicked=false;
-		else
-			hasPicked= true;
-	}
-	
-	public void AppearLabel(CardLabel lbl_to_appear, int i){
-		lbl_to_appear.setIcon(new ImageIcon(currlist.get(i+1).getImage().getScaledInstance(lbl_to_appear.getWidth(), lbl_to_appear.getHeight(), 0)));
-	}
-
-	
-	//gets a JLabel(the conn_label) and finds which one of the rest is equal to, and turns is around
-	public void CloseOpenedLabel(CardLabel lbl_to_close){
-
-		lbl_to_close.setIcon(new ImageIcon(img.getScaledInstance(lbl_to_close.getWidth(), lbl_to_close.getHeight(), 0)));
-	/**	if(lbl_to_close == label_1){
-			label_1.setIcon(new ImageIcon(img.getScaledInstance(label_1.getWidth(), label_1.getHeight(), 0)));
-		}
-		else if(lbl_to_close == label_2){
-			label_2.setIcon(new ImageIcon(img.getScaledInstance(label_2.getWidth(), label_2.getHeight(), 0)));
-		}
-		else if(lbl_to_close == label_3){
-			label_3.setIcon(new ImageIcon(img.getScaledInstance(label_3.getWidth(), label_3.getHeight(), 0)));
-		}
-		else if(lbl_to_close == label_4){
-			label_4.setIcon(new ImageIcon(img.getScaledInstance(label_4.getWidth(), label_4.getHeight(), 0)));
-		}
-		else if(lbl_to_close == label_5){
-			label_5.setIcon(new ImageIcon(img.getScaledInstance(label_5.getWidth(), label_5.getHeight(), 0)));
-		}
-		else if(lbl_to_close == label_6){
-			label_6.setIcon(new ImageIcon(img.getScaledInstance(label_6.getWidth(), label_6.getHeight(), 0)));
-		}   **/
-
-	}
-	
-	public void set_conn_label(CardLabel lbl_to_save){
-
-		conn_label=lbl_to_save;
-	}
-
-	public void Verify_CardLabel (final CardLabel cd, int i){
-		if(!hasPicked){                 //user hasn 't chosen anything before  , conn_label DOES NOT have a value
-			set_conn_label(cd);
-			SwitchFlag();
-
-		}
-		else
-			//User has picked something before
-			//We must check if he is correct
+	public void Verify_CardLabel (JLabel cd, ImageIcon check){
+		if(!hasPicked)
 		{
-			//clik twice tha same picture                             
-			if(cd == conn_label){
-				soundthread1.PlayMusic(list.get(3).getSongName(), list.get(3).getRepeat());   //Sound Wrong
-			}
-			//User is correct!  
-			else if(  conn_label.getCode().equals(cd.getCode()) ){
-
-				soundthread1.PlayMusic(list.get(1).getSongName(), list.get(1).getRepeat());   //Sound when Correct
+			helpLabel = cd;
+			hasPicked = true;
+		}
+		else
+		{
+			if(helpIcon.getDescription().equals(check.getDescription()))
+			{
+				soundthread1.PlayMusic(list.get(1).getSongName(), list.get(1).getRepeat());
 
 				correct++;
-				cd.removeMouseListener(listener);      // if a PAIR is correct LOCK IT,so it doesnt get clicked AGAIN !!!
-				conn_label.removeMouseListener(listener);
+				cd.removeMouseListener(listen);
+				helpLabel.removeMouseListener(listen);
+				cd.setEnabled(false);
+				helpLabel.setEnabled(false);
 			}
-			else{//User is wrong
-
-				//Give the normal image for 2 SECS  and then turn is around
-				Timer timer = new Timer();
-
-				timer.schedule( new TimerTask() {
-					public void run() {
-
-						CloseOpenedLabel(cd);
-						CloseOpenedLabel(conn_label);
-
-					}
-				},  delay_secs* 1000);
-				JOptionPane.showMessageDialog(null, "Wrong");
-
+			else
+			{
+				wrong = new Wrong(helpLabel, cd);
+				wrongTimer = new Timer(500, wrong);
+				wrongTimer.start();
+				label1.removeMouseListener(listen);
+				label2.removeMouseListener(listen);
+				label3.removeMouseListener(listen);
+				label4.removeMouseListener(listen);
+				label5.removeMouseListener(listen);
+				label6.removeMouseListener(listen);
+				label7.removeMouseListener(listen);
+				label8.removeMouseListener(listen);
+				label9.removeMouseListener(listen);
+				label10.removeMouseListener(listen);
+				label11.removeMouseListener(listen);
+				label12.removeMouseListener(listen);
+				label13.removeMouseListener(listen);
+				label14.removeMouseListener(listen);
+				label15.removeMouseListener(listen);
+				label16.removeMouseListener(listen);
 			}
-			System.out.println("CD Code: "+ cd.getCode());
-			System.out.println("conn_label Code: "+ conn_label.getCode());
-			SwitchFlag();
+			hasPicked = false;
 		}
 	}
 
-
-
-	class LblListener implements MouseListener{
-
-		@Override
+	public void AppearLabel(JLabel label, int i){
+		hero = new ImageIcon(currlist.get(i + 1).getImage());
+		help = hero.getImage();
+		resize = help.getScaledInstance(widthSize, heightSize, 0);
+		label.setIcon(new ImageIcon(resize));
+		if (!hasPicked)
+		{
+			helpIcon.setDescription(currlist.get(i + 1).getDescription());
+		}
+		else
+		{
+			check.setDescription(currlist.get(i + 1).getDescription());
+		}
+	}
+	
+	public class Labels implements MouseListener {
 		public void mouseClicked(MouseEvent e) {
-			Clicks++;                      //Clicks Counter
-			Clickslbl.setText("Clicks: "+Clicks);
-
-			soundthread1.PlayMusic(list.get(0).getSongName(), list.get(0).getRepeat());   //Sound when Click
-
-			//User Picked Label 1
-			if(e.getSource()==label_1){
-				AppearLabel(label_1, 1);
-				Verify_CardLabel(label_1, 1);
-
+			soundthread1.PlayMusic(list.get(0).getSongName(), list.get(0).getRepeat());
+			
+			if (helpLabel != e.getSource())
+			{
+				if(e.getSource() == label1)
+				{
+					AppearLabel(label1, 1);
+					Verify_CardLabel(label1, check);
+				}
+				else if(e.getSource() == label2)
+				{
+					AppearLabel(label2, 2);
+					Verify_CardLabel(label2, check);
+				}
+				else if(e.getSource() == label3)
+				{
+					AppearLabel(label3, 3);
+					Verify_CardLabel(label3, check);
+				}
+				else if(e.getSource() == label4)
+				{
+					AppearLabel(label4, 4);
+					Verify_CardLabel(label4, check);
+				}
+				else if(e.getSource() == label5)
+				{
+					AppearLabel(label5, 5);
+					Verify_CardLabel(label5, check);
+				}
+				else if(e.getSource() == label6)
+				{
+					AppearLabel(label6, 6);
+					Verify_CardLabel(label6, check);
+				}
+				else if(e.getSource() == label7)
+				{
+					AppearLabel(label7, 7);
+					Verify_CardLabel(label7, check);
+				}
+				else if(e.getSource() == label8)
+				{
+					AppearLabel(label8, 8);
+					Verify_CardLabel(label8, check);
+				}
+				else if(e.getSource() == label9)
+				{
+					AppearLabel(label9, 9);
+					Verify_CardLabel(label9, check);
+				}
+				else if(e.getSource() == label10)
+				{
+					AppearLabel(label10, 10);
+					Verify_CardLabel(label10, check);
+				}
+				else if(e.getSource() == label11)
+				{
+					AppearLabel(label11, 11);
+					Verify_CardLabel(label11, check);
+				}
+				else if(e.getSource() == label12)
+				{
+					AppearLabel(label12, 12);
+					Verify_CardLabel(label12, check);
+				}
+				else if(e.getSource() == label13)
+				{
+					AppearLabel(label13, 13);
+					Verify_CardLabel(label13, check);
+				}
+				else if(e.getSource() == label14)
+				{
+					AppearLabel(label14, 14);
+					Verify_CardLabel(label14, check);
+				}
+				else if(e.getSource() == label15)
+				{
+					AppearLabel(label15, 15);
+					Verify_CardLabel(label15, check);
+				}
+				else if(e.getSource() == label16)
+				{
+					AppearLabel(label16, 16);
+					Verify_CardLabel(label16, check);
+				}
 			}
-
-			//User Picked Label 2
-			else if(e.getSource()==label_2){
-				AppearLabel(label_2, 2);
-				Verify_CardLabel(label_2, 2);
-
-			}
-			//User Picked Label 3
-			else if(e.getSource()==label_3){
-				AppearLabel(label_3, 3);
-				Verify_CardLabel(label_3, 3);
-
-
-			}
-			//User Picked Label 4
-			else if(e.getSource()==label_4){
-				AppearLabel(label_4, 4);
-				Verify_CardLabel(label_4, 4);
-
-			}
-			//User Picked Label 5
-			else if(e.getSource()==label_5){
-				AppearLabel(label_5, 5);
-				Verify_CardLabel(label_5, 5);
-
-			}
-			//User Picked Label 6
-			else if(e.getSource()==label_6){
-				AppearLabel(label_6, 6);
-				Verify_CardLabel(label_6, 6);
-
-			}
-			//User Picked Label 7
-			else if(e.getSource()==label_7){
-				AppearLabel(label_7, 7);
-				Verify_CardLabel(label_7, 7);
-
-			}
-			//User Picked Label 8
-			else if(e.getSource()==label_8){
-				AppearLabel(label_8, 8);
-				Verify_CardLabel(label_8, 8);
-
-			}
-			//User Picked Label 9
-			else if(e.getSource()==label_9){
-				AppearLabel(label_9, 9);
-				Verify_CardLabel(label_9, 9);
-
-			}
-			//User Picked Label 10
-			else if(e.getSource()==label_10){
-				AppearLabel(label_10, 10);
-				Verify_CardLabel(label_10, 10);
-
-			}
-			//User Picked Label 11
-			else if(e.getSource()==label_11){
-				AppearLabel(label_11, 11);
-				Verify_CardLabel(label_11, 11);
-
-			}
-			//User Picked Label 12
-			else if(e.getSource()==label_12){
-				AppearLabel(label_12, 12);
-				Verify_CardLabel(label_12, 12);
-
-			}
-			//User Picked Label 13
-			else if(e.getSource()==label_13){
-				AppearLabel(label_13, 13);
-				Verify_CardLabel(label_13, 13);
-
-			}
-			//User Picked Label 14
-			else if(e.getSource()==label_14){
-				AppearLabel(label_14, 14);
-				Verify_CardLabel(label_14, 14);
-
-			}
-			//User Picked Label 15
-			else if(e.getSource()==label_15){
-				AppearLabel(label_15, 15);
-				Verify_CardLabel(label_15, 15);
-
-			}
-			//User Picked Label 16
-			else if(e.getSource()==label_16){
-				AppearLabel(label_16, 16);
-				Verify_CardLabel(label_16, 16);
-
-			}
-			if(correct==8){
-				soundthread1.PlayMusic(list.get(2).getSongName(), list.get(2).getRepeat());   //Sound when Finish
-				
-				JOptionPane.showMessageDialog(null, "Congatulations");
-				//RETURN XP & COINS
+			
+			if(correct == 8)
+			{
+				soundthread1.PlayMusic(list.get(2).getSongName(), list.get(2).getRepeat());
+				player.setCoins(player.getCoins() + 1000);
+				player.setXP(player.getXP() + 1000);
+				MemoryGameFrame.this.setVisible(false);
+				JOptionPane.showMessageDialog(null, "Συγχαρητήρια!");
 			}
 		}
-
 
 		@Override
 		public void mouseEntered(MouseEvent e) {
 			// TODO Auto-generated method stub
-			
 		}
 
 		@Override
 		public void mouseExited(MouseEvent e) {
 			// TODO Auto-generated method stub
-			
 		}
 
 		@Override
 		public void mousePressed(MouseEvent e) {
 			// TODO Auto-generated method stub
-			
 		}
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-		
+			// TODO Auto-generated method stub	
+		}		
 	}
+	
+	public class TimerClass implements ActionListener{
+		int minutes, seconds;
+		
+		public TimerClass(int minutes, int seconds)
+		{
+			this.minutes = minutes;
+			this.seconds = seconds;
+		}
 
+		public void actionPerformed(ActionEvent arg0) {
+			if(seconds == 0)
+			{
+				minutes--;
+				seconds = 59;
+			}
+			else
+			{
+				seconds--;
+			}
+
+			if (seconds < 10)
+			{
+				timeLabel.setText(minutes+" : 0"+seconds);
+			}
+			else
+			{
+				timeLabel.setText(minutes+" : "+seconds);
+			}
+			
+			if (seconds == 0 && minutes == 0)
+			{
+				timer.stop();
+				Toolkit.getDefaultToolkit().beep();
+				MemoryGameFrame.this.setVisible(false);
+				JOptionPane.showMessageDialog(null, "Έχασες!");	
+			}
+		}
+	}
+	
+	public class TurnClass implements ActionListener{
+		boolean turned;
+		
+		public TurnClass(boolean turned)
+		{
+			this.turned = turned;
+		}
+
+		public void actionPerformed(ActionEvent arg0) {
+			hero = new ImageIcon(currlist.get(1).getImage());
+			help = hero.getImage();
+			resize = help.getScaledInstance(widthSize, heightSize, 0);
+			if (!turned)
+			{
+				label1.setIcon(new ImageIcon(resize));
+				label2.setIcon(new ImageIcon(resize));
+				label3.setIcon(new ImageIcon(resize));
+				label4.setIcon(new ImageIcon(resize));
+				label5.setIcon(new ImageIcon(resize));
+				label6.setIcon(new ImageIcon(resize));
+				label7.setIcon(new ImageIcon(resize));
+				label8.setIcon(new ImageIcon(resize));
+				label9.setIcon(new ImageIcon(resize));
+				label10.setIcon(new ImageIcon(resize));
+				label11.setIcon(new ImageIcon(resize));
+				label12.setIcon(new ImageIcon(resize));
+				label13.setIcon(new ImageIcon(resize));
+				label14.setIcon(new ImageIcon(resize));
+				label15.setIcon(new ImageIcon(resize));
+				label16.setIcon(new ImageIcon(resize));
+				turned = true;
+			}
+			else
+			{
+				turnTimer.stop();
+				timer.start();
+				label1.addMouseListener(listen);
+				label2.addMouseListener(listen);
+				label3.addMouseListener(listen);
+				label4.addMouseListener(listen);
+				label5.addMouseListener(listen);
+				label6.addMouseListener(listen);
+				label7.addMouseListener(listen);
+				label8.addMouseListener(listen);
+				label9.addMouseListener(listen);
+				label10.addMouseListener(listen);
+				label11.addMouseListener(listen);
+				label12.addMouseListener(listen);
+				label13.addMouseListener(listen);
+				label14.addMouseListener(listen);
+				label15.addMouseListener(listen);
+				label16.addMouseListener(listen);
+			}
+		}
+	}
+	
+	public class Wrong implements ActionListener{
+		
+		JLabel prev, curr;
+		
+		public Wrong (JLabel prev, JLabel curr)
+		{
+			this.prev = prev;
+			this.curr = curr;
+		}
+		public void actionPerformed(ActionEvent arg0) {
+			hero = new ImageIcon(currlist.get(1).getImage());
+			help = hero.getImage();
+			resize = help.getScaledInstance(widthSize, heightSize, 0);
+			curr.setIcon(new ImageIcon(resize));
+			helpLabel.setIcon(new ImageIcon(resize));
+			label1.addMouseListener(listen);
+			label2.addMouseListener(listen);
+			label3.addMouseListener(listen);
+			label4.addMouseListener(listen);
+			label5.addMouseListener(listen);
+			label6.addMouseListener(listen);
+			label7.addMouseListener(listen);
+			label8.addMouseListener(listen);
+			label9.addMouseListener(listen);
+			label10.addMouseListener(listen);
+			label11.addMouseListener(listen);
+			label12.addMouseListener(listen);
+			label13.addMouseListener(listen);
+			label14.addMouseListener(listen);
+			label15.addMouseListener(listen);
+			label16.addMouseListener(listen);
+			wrongTimer.stop();
+		}
+	}
 }

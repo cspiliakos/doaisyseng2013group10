@@ -94,7 +94,6 @@ public class Pick_A_Hero extends JFrame {
 
 		//panel gia emfanisi stat tou paixth 1
 		player1Panel = new JPanel();
-		player1Panel.setBorder(new EmptyBorder(100, 0, 100, 0));
 		back.add(player1Panel,BorderLayout.WEST);
 		GridBagLayout gbl_player1Panel = new GridBagLayout();
 		gbl_player1Panel.columnWidths = new int[]{30, 30};
@@ -106,7 +105,6 @@ public class Pick_A_Hero extends JFrame {
 		name1lbl.setFont(new Font ("Arial", Font.BOLD,20));
 		name1lbl.setForeground(Color.RED);
 		GridBagConstraints gbc_name1lbl = new GridBagConstraints();
-		gbc_name1lbl.fill = GridBagConstraints.BOTH;
 		gbc_name1lbl.insets = new Insets(0, 0, 0, 5);
 		gbc_name1lbl.gridx = 0;
 		gbc_name1lbl.gridy = 0;
@@ -116,7 +114,6 @@ public class Pick_A_Hero extends JFrame {
 		p1.setFont(new Font ("Arial", Font.BOLD,20));
 		p1.setForeground(Color.YELLOW);
 		GridBagConstraints gbc_p1 = new GridBagConstraints();
-		gbc_p1.fill = GridBagConstraints.BOTH;
 		gbc_p1.gridx = 1;
 		gbc_p1.gridy = 0;
 		player1Panel.add(p1, gbc_p1);
@@ -125,7 +122,6 @@ public class Pick_A_Hero extends JFrame {
 		damage1lbl.setFont(new Font ("Arial", Font.BOLD,20));
 		damage1lbl.setForeground(Color.RED);
 		GridBagConstraints gbc_damage1lbl = new GridBagConstraints();
-		gbc_damage1lbl.fill = GridBagConstraints.BOTH;
 		gbc_damage1lbl.insets = new Insets(0, 0, 5, 5);
 		gbc_damage1lbl.gridx = 0;
 		gbc_damage1lbl.gridy = 1;
@@ -135,7 +131,6 @@ public class Pick_A_Hero extends JFrame {
 		p3.setFont(new Font ("Arial", Font.BOLD,20));
 		p3.setForeground(Color.YELLOW);
 		GridBagConstraints gbc_p3 = new GridBagConstraints();
-		gbc_p3.fill = GridBagConstraints.BOTH;
 		gbc_p3.insets = new Insets(0, 0, 5, 0);
 		gbc_p3.gridx = 1;
 		gbc_p3.gridy = 1;
@@ -145,7 +140,6 @@ public class Pick_A_Hero extends JFrame {
 		defence1lbl.setFont(new Font ("Arial", Font.BOLD,20));
 		defence1lbl.setForeground(Color.RED);
 		GridBagConstraints gbc_defence1lbl = new GridBagConstraints();
-		gbc_defence1lbl.fill = GridBagConstraints.BOTH;
 		gbc_defence1lbl.insets = new Insets(0, 0, 5, 5);
 		gbc_defence1lbl.gridx = 0;
 		gbc_defence1lbl.gridy = 2;
@@ -155,7 +149,6 @@ public class Pick_A_Hero extends JFrame {
 		p4.setFont(new Font ("Arial", Font.BOLD,20));
 		p4.setForeground(Color.YELLOW);
 		GridBagConstraints gbc_p4 = new GridBagConstraints();
-		gbc_p4.fill = GridBagConstraints.BOTH;
 		gbc_p4.insets = new Insets(0, 0, 5, 0);
 		gbc_p4.gridx = 1;
 		gbc_p4.gridy = 2;
@@ -165,7 +158,6 @@ public class Pick_A_Hero extends JFrame {
 		health1lbl.setFont(new Font ("Arial", Font.BOLD,20));
 		health1lbl.setForeground(Color.RED);
 		GridBagConstraints gbc_health1lbl = new GridBagConstraints();
-		gbc_health1lbl.fill = GridBagConstraints.BOTH;
 		gbc_health1lbl.insets = new Insets(0, 0, 5, 5);
 		gbc_health1lbl.gridx = 0;
 		gbc_health1lbl.gridy = 3;
@@ -175,7 +167,6 @@ public class Pick_A_Hero extends JFrame {
 		p2.setFont(new Font ("Arial", Font.BOLD,20));
 		p2.setForeground(Color.YELLOW);
 		GridBagConstraints gbc_p2 = new GridBagConstraints();
-		gbc_p2.fill = GridBagConstraints.BOTH;
 		gbc_p2.insets = new Insets(0, 0, 5, 0);
 		gbc_p2.gridx = 1;
 		gbc_p2.gridy = 3;
@@ -183,7 +174,6 @@ public class Pick_A_Hero extends JFrame {
 
 		//panel gia emfanisi stat tou paixth 2
 		player2Panel = new JPanel();
-		player2Panel.setBorder(new EmptyBorder(100, 0, 100, 0));
 		back.add(player2Panel,BorderLayout.EAST);
 		GridBagLayout gbl_player2Panel = new GridBagLayout();
 		gbl_player2Panel.columnWidths = new int[]{30, 30};
@@ -196,7 +186,6 @@ public class Pick_A_Hero extends JFrame {
 		name2lbl.setFont(new Font ("Arial", Font.BOLD,20));
 		name2lbl.setForeground(Color.RED);
 		GridBagConstraints gbc_name2lbl = new GridBagConstraints();
-		gbc_name2lbl.fill = GridBagConstraints.BOTH;
 		gbc_name2lbl.insets = new Insets(0, 0, 0, 5);
 		gbc_name2lbl.gridx = 0;
 		gbc_name2lbl.gridy = 0;
@@ -206,7 +195,6 @@ public class Pick_A_Hero extends JFrame {
 		p5.setFont(new Font ("Arial", Font.BOLD,20));
 		p5.setForeground(Color.YELLOW);
 		GridBagConstraints gbc_p5 = new GridBagConstraints();
-		gbc_p5.fill = GridBagConstraints.BOTH;
 		gbc_p5.gridx = 1;
 		gbc_p5.gridy = 0;
 		player2Panel.add(p5, gbc_p5);
@@ -215,7 +203,6 @@ public class Pick_A_Hero extends JFrame {
 		damage2lbl.setFont(new Font ("Arial", Font.BOLD,20));
 		damage2lbl.setForeground(Color.RED);
 		GridBagConstraints gbc_damage2lbl = new GridBagConstraints();
-		gbc_damage2lbl.fill = GridBagConstraints.BOTH;
 		gbc_damage2lbl.insets = new Insets(0, 0, 5, 5);
 		gbc_damage2lbl.gridx = 0;
 		gbc_damage2lbl.gridy = 1;
@@ -225,7 +212,6 @@ public class Pick_A_Hero extends JFrame {
 		p7.setFont(new Font ("Arial", Font.BOLD,20));
 		p7.setForeground(Color.YELLOW);
 		GridBagConstraints gbc_p7 = new GridBagConstraints();
-		gbc_p7.fill = GridBagConstraints.BOTH;
 		gbc_p7.insets = new Insets(0, 0, 5, 0);
 		gbc_p7.gridx = 1;
 		gbc_p7.gridy = 1;
@@ -235,7 +221,6 @@ public class Pick_A_Hero extends JFrame {
 		defence2lbl.setFont(new Font ("Arial", Font.BOLD,20));
 		defence2lbl.setForeground(Color.RED);
 		GridBagConstraints gbc_defence2lbl = new GridBagConstraints();
-		gbc_defence2lbl.fill = GridBagConstraints.BOTH;
 		gbc_defence2lbl.insets = new Insets(0, 0, 5, 5);
 		gbc_defence2lbl.gridx = 0;
 		gbc_defence2lbl.gridy = 2;
@@ -245,7 +230,6 @@ public class Pick_A_Hero extends JFrame {
 		p8.setFont(new Font ("Arial", Font.BOLD,20));
 		p8.setForeground(Color.YELLOW);
 		GridBagConstraints gbc_p8 = new GridBagConstraints();
-		gbc_p8.fill = GridBagConstraints.BOTH;
 		gbc_p8.insets = new Insets(0, 0, 5, 0);
 		gbc_p8.gridx = 1;
 		gbc_p8.gridy = 2;
@@ -255,7 +239,6 @@ public class Pick_A_Hero extends JFrame {
 		health2lbl.setFont(new Font ("Arial", Font.BOLD,20));
 		health2lbl.setForeground(Color.RED);
 		GridBagConstraints gbc_health2lbl = new GridBagConstraints();
-		gbc_health2lbl.fill = GridBagConstraints.BOTH;
 		gbc_health2lbl.insets = new Insets(0, 0, 5, 5);
 		gbc_health2lbl.gridx = 0;
 		gbc_health2lbl.gridy = 3;
@@ -265,7 +248,6 @@ public class Pick_A_Hero extends JFrame {
 		p6.setFont(new Font ("Arial", Font.BOLD,20));
 		p6.setForeground(Color.YELLOW);
 		GridBagConstraints gbc_p6 = new GridBagConstraints();
-		gbc_p6.fill = GridBagConstraints.BOTH;
 		gbc_p6.insets = new Insets(0, 0, 5, 0);
 		gbc_p6.gridx = 1;
 		gbc_p6.gridy = 3;
@@ -273,28 +255,26 @@ public class Pick_A_Hero extends JFrame {
 		
 		//
 		helpPanel = new JPanel();
-		helpPanel.setBorder(new EmptyBorder(100, 0, helpHeight / 5, 0));
+		helpPanel.setBorder(new EmptyBorder(helpHeight / 5, 0, helpHeight / 5, 0));
 		back.add(helpPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_helpPanel = new GridBagLayout();
-		gbl_helpPanel.columnWidths = new int[]{10, 10, 10};
-		gbl_helpPanel.rowHeights = new int[]{50, 4, 4, 4, 4};
 		helpPanel.setLayout(gbl_helpPanel);
 
 		lab1 = new JLabel("\u0386\u03C1\u03B7\u03C2");
+		lab1.setForeground(Color.RED);
 		lab1.setHorizontalAlignment(SwingConstants.CENTER);
 		lab1.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_lab1 = new GridBagConstraints();
-		gbc_lab1.fill = GridBagConstraints.BOTH;
 		gbc_lab1.insets = new Insets(0, 0, 5, 5);
 		gbc_lab1.gridx = 1;
 		gbc_lab1.gridy = 1;
 		helpPanel.add(lab1, gbc_lab1);
 
 		lab2 = new JLabel("\u039A\u03C1\u03CC\u03BD\u03BF\u03C2");
+		lab2.setForeground(Color.RED);
 		lab2.setHorizontalAlignment(SwingConstants.CENTER);
 		lab2.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_lab2 = new GridBagConstraints();
-		gbc_lab2.fill = GridBagConstraints.BOTH;
 		gbc_lab2.insets = new Insets(0, 0, 5, 5);
 		gbc_lab2.gridx = 2;
 		gbc_lab2.gridy = 1;
@@ -302,6 +282,7 @@ public class Pick_A_Hero extends JFrame {
 		lab2.setLabelFor(pl2);
 
 		lab3 = new JLabel("\u0386\u03B4\u03B7\u03C2");
+		lab3.setForeground(Color.RED);
 		lab3.setHorizontalAlignment(SwingConstants.CENTER);
 		lab3.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_lab3 = new GridBagConstraints();
@@ -335,7 +316,6 @@ public class Pick_A_Hero extends JFrame {
 		pl2.setIcon(new ImageIcon(resize));
 		pl2.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		GridBagConstraints gbc_pl2 = new GridBagConstraints();
-		gbc_pl2.fill = GridBagConstraints.BOTH;
 		gbc_pl2.insets = new Insets(0, 0, 5, 5);
 		gbc_pl2.gridx = 2;
 		gbc_pl2.gridy = 2;
@@ -360,30 +340,30 @@ public class Pick_A_Hero extends JFrame {
 		char3 = new CharsOpponents("’δης", 20, 30, 10, hero);
 
 		lab4 = new JLabel("\u03A0\u03BF\u03C3\u03B5\u03B9\u03B4\u03CE\u03BD\u03B1\u03C2");
+		lab4.setForeground(Color.RED);
 		lab4.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		lab4.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_lab4 = new GridBagConstraints();
-		gbc_lab4.fill = GridBagConstraints.BOTH;
 		gbc_lab4.insets = new Insets(0, 0, 5, 5);
 		gbc_lab4.gridx = 1;
 		gbc_lab4.gridy = 3;
 		helpPanel.add(lab4, gbc_lab4);
 
 		lab5 = new JLabel("\u039F\u03C5\u03C1\u03B1\u03BD\u03CC\u03C2");
+		lab5.setForeground(Color.RED);
 		lab5.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		lab5.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_lab5 = new GridBagConstraints();
-		gbc_lab5.fill = GridBagConstraints.BOTH;
 		gbc_lab5.insets = new Insets(0, 0, 5, 5);
 		gbc_lab5.gridx = 2;
 		gbc_lab5.gridy = 3;
 		helpPanel.add(lab5, gbc_lab5);
 
 		lab6 = new JLabel("\u0394\u03AF\u03B1\u03C2");
+		lab6.setForeground(Color.RED);
 		lab6.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		lab6.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_lab6 = new GridBagConstraints();
-		gbc_lab6.fill = GridBagConstraints.BOTH;
 		gbc_lab6.insets = new Insets(0, 0, 5, 0);
 		gbc_lab6.gridx = 3;
 		gbc_lab6.gridy = 3;
@@ -396,7 +376,6 @@ public class Pick_A_Hero extends JFrame {
 		pl4.setIcon(new ImageIcon(resize));
 		pl4.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		GridBagConstraints gbc_pl4 = new GridBagConstraints();
-		gbc_pl4.fill = GridBagConstraints.BOTH;
 		gbc_pl4.insets = new Insets(0, 0, 5, 5);
 		gbc_pl4.gridx = 1;
 		gbc_pl4.gridy = 4;
@@ -412,7 +391,6 @@ public class Pick_A_Hero extends JFrame {
 		pl5.setIcon(new ImageIcon(resize));
 		pl5.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		GridBagConstraints gbc_pl5 = new GridBagConstraints();
-		gbc_pl5.fill = GridBagConstraints.BOTH;
 		gbc_pl5.insets = new Insets(0, 0, 5, 5);
 		gbc_pl5.gridx = 2;
 		gbc_pl5.gridy = 4;
@@ -428,7 +406,6 @@ public class Pick_A_Hero extends JFrame {
 		pl6.setIcon(new ImageIcon(resize));
 		pl6.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		GridBagConstraints gbc_pl6 = new GridBagConstraints();
-		gbc_pl6.fill = GridBagConstraints.BOTH;
 		gbc_pl6.insets = new Insets(0, 0, 5, 0);
 		gbc_pl6.gridx = 3;
 		gbc_pl6.gridy = 4;
@@ -490,7 +467,6 @@ public class Pick_A_Hero extends JFrame {
 		});
 		play.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_play = new GridBagConstraints();
-		gbc_play.fill = GridBagConstraints.VERTICAL;
 		gbc_play.insets = new Insets(0, 0, 0, 5);
 		gbc_play.gridx = 2;
 		gbc_play.gridy = 5;

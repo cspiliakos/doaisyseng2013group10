@@ -291,14 +291,13 @@ public class AncientArcadeFrame extends JFrame {
 					player.setCoins(player.getCoins() + 1000);
 					player.setXP(player.getXP() + 1000);
 					AncientArcadeFrame.this.setVisible(false);
-					JOptionPane.showMessageDialog(null, "Συγχαρητήρια!");	
+					JOptionPane.showMessageDialog(null, "Συγχαρητήρια.", "Τέλος παιχνιδιού", JOptionPane.INFORMATION_MESSAGE);	
 				}
 			}
 		});
 		check.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		check.setText("\u0388\u03BB\u03B5\u03B3\u03C7\u03BF\u03C2");
 		GridBagConstraints gbc_check = new GridBagConstraints();
-		gbc_check.fill = GridBagConstraints.BOTH;
 		gbc_check.gridx = 0;
 		gbc_check.gridy = 0;
 		checkPanel.add(check, gbc_check);
@@ -647,7 +646,7 @@ public class AncientArcadeFrame extends JFrame {
 				timer.stop();
 				Toolkit.getDefaultToolkit().beep();
 				AncientArcadeFrame.this.setVisible(false);
-				JOptionPane.showMessageDialog(null, "Έχασες!");	
+				JOptionPane.showMessageDialog(null, "Έχασες.", "Τέλος παιχνιδιού", JOptionPane.ERROR_MESSAGE);	
 			}
 		}
 	}

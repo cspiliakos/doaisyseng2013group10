@@ -75,17 +75,17 @@ public class AddQ extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				if (textField.getText().equals(""))
 				{
-					JOptionPane.showMessageDialog(null, "Πρέπει να συμπληρώσετε το πεδίο.");
+					JOptionPane.showMessageDialog(null, "Πρέπει να συμπληρώσετε το πεδίο.", "Σφάλμα", JOptionPane.ERROR_MESSAGE);
 				}
 				else if (!words.contains(textField.getText()))
 				{
 					words.add(textField.getText());
 					serializing();			
-					JOptionPane.showMessageDialog(null, "Η λέξη προστέθηκε με επιτυχία.");
+					JOptionPane.showMessageDialog(null, "Η λέξη προστέθηκε με επιτυχία.", "Επιτυχία", JOptionPane.INFORMATION_MESSAGE);
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(null, "Η λέξη υπάρχει ήδη στη λίστα.");
+					JOptionPane.showMessageDialog(null, "Η λέξη υπάρχει ήδη στη λίστα.", "Σφάλμα", JOptionPane.ERROR_MESSAGE);
 				}
 				textField.setText(null);		
 			}
@@ -134,7 +134,6 @@ public class AddQ extends JFrame {
 			fileOut.close();		
 		}
 		catch(IOException i) {
-			System.out.println("Error");
 			i.printStackTrace();
 		}
 	}

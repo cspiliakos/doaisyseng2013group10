@@ -75,7 +75,6 @@ public class Name_Frame extends JFrame {
 		helpPanel = new JPanel();
 		back.add(helpPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_helpPanel = new GridBagLayout();
-		gbl_helpPanel.columnWidths = new int[] {250};
 		gbl_helpPanel.rowHeights = new int[] {50, 50, 50};
 		helpPanel.setLayout(gbl_helpPanel);
 		
@@ -127,7 +126,6 @@ public class Name_Frame extends JFrame {
 		name1.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_name1 = new GridBagConstraints();
 		gbc_name1.insets = new Insets(0, 0, 5, 0);
-		gbc_name1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_name1.gridx = 1;
 		gbc_name1.gridy = 1;
 		helpPanel.add(name1, gbc_name1);
@@ -156,7 +154,6 @@ public class Name_Frame extends JFrame {
 		name2.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_name2 = new GridBagConstraints();
 		gbc_name2.insets = new Insets(0, 0, 5, 0);
-		gbc_name2.fill = GridBagConstraints.HORIZONTAL;
 		gbc_name2.gridx = 1;
 		gbc_name2.gridy = 2;
 		helpPanel.add(name2, gbc_name2);

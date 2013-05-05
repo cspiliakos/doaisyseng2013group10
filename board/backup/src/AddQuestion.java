@@ -201,7 +201,7 @@ public class AddQuestion extends JFrame {
 					Question question = new Question(makeField.getText(), field1.getText(), field2.getText(), field3.getText(), field4.getText(), choose);
 					questions.add(question);
 					serializing();			
-					JOptionPane.showMessageDialog(null, "Η ερώτηση προστέθηκε με επιτυχία.");
+					JOptionPane.showMessageDialog(null, "Η ερώτηση προστέθηκε με επιτυχία.", "Επιτυχία", JOptionPane.INFORMATION_MESSAGE);
 				}
 				
 				group.clearSelection();
@@ -244,7 +244,6 @@ public class AddQuestion extends JFrame {
 			fileOut.close();		
 		}
 		catch(IOException i) {
-			System.out.println("Error");
 			i.printStackTrace();
 		}
 	}

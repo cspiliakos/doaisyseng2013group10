@@ -68,8 +68,8 @@ public class MemoryGameFrame extends JFrame {
 		check = new ImageIcon();
 		player = u;
 		correct = 0;
-		minutes =  0;
-		seconds = 5;
+		minutes =  2;
+		seconds = 0;
 		turned = false;
 		count = new TimerClass(minutes, seconds);
 		timer = new Timer(1000, count);

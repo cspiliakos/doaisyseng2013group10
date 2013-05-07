@@ -19,6 +19,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -224,7 +225,7 @@ public class Board extends JFrame{
 		gbc_plus_life.gridy = 4;
 		playersPanel.add(plusLife, gbc_plus_life);
 		
-		skillpointlbl=new JLabel("Skill Points: "+currUser.getSkillpoints());
+		skillpointlbl = new JLabel("Πόντοι ικανότητας: "+currUser.getSkillpoints());
 		skillpointlbl.setFont(new Font("Sylfaen",Font.BOLD,20));
 		skillpointlbl.setForeground(Color.WHITE);
 		GridBagConstraints gbc_skill = new GridBagConstraints();
@@ -232,7 +233,7 @@ public class Board extends JFrame{
 		gbc_skill.gridy = 5;
 		playersPanel.add(skillpointlbl, gbc_skill);
 		
-		playerCoins = new JLabel("Golden Coins: "+currUser.getCoins());
+		playerCoins = new JLabel("Νομίσματα: "+currUser.getCoins());
 		playerCoins.setFont(new Font("Sylfaen",Font.BOLD,20));
 		playerCoins.setForeground(Color.WHITE);
 		GridBagConstraints gbc_coin = new GridBagConstraints();
@@ -240,7 +241,7 @@ public class Board extends JFrame{
 		gbc_coin.gridy = 6;
 		playersPanel.add(playerCoins, gbc_coin);
 		
-		playerXP = new JLabel("XP: "+currUser.getXP());
+		playerXP = new JLabel("Εμπειρία: "+currUser.getXP());
 		playerXP.setFont(new Font("Sylfaen",Font.BOLD,20));
 		playerXP.setForeground(Color.WHITE);
 		GridBagConstraints gbc_xp = new GridBagConstraints();
@@ -308,6 +309,15 @@ public class Board extends JFrame{
 				////////////////tictactoe
 				}
 			}
+			
+			if (currUser.getWin())
+			{
+				dicelbl.setEnabled(true);
+			}
+			else
+			{
+				dicelbl.setEnabled(false);
+			}
 		}
 
 		@Override
@@ -333,27 +343,28 @@ public class Board extends JFrame{
 	
 	public void switchTurn(){
 		//method to switch turns in multi player		
-		if(userTurn==1){
-			userTurn=2;
-			currUser=xristis1;
+		if(userTurn == 1)
+		{
+			userTurn = 2;
+			currUser = xristis1;
 		}
-		else if (userTurn==2){
-			userTurn=1;
-			currUser=xristis2;
+		else if (userTurn == 2)
+		{
+			userTurn = 1;
+			currUser = xristis2;
 		}
-		JOptionPane.showMessageDialog(null, currUser.getDamage());
 		updateStatLabels();
 	}
 	
 	public void updateStatLabels(){
 		//for the values of the labels to be in accordance with the player 
-		skillpointlbl.setText("Skill Points \n"+String.valueOf(currUser.getSkillpoints()));
+		skillpointlbl.setText("Πόντοι ικανότητας: "+String.valueOf(currUser.getSkillpoints()));
 		attacklbl.setText("\u0388\u03C0\u03AF\u03B8\u03B5\u03C3\u03B7: "+String.valueOf(currUser.getDamage()));
 		defencelbl.setText("\u0386\u03BC\u03C5\u03BD\u03B1: "+String.valueOf(currUser.getDefence()));
 		life.setText("\u0396\u03C9\u03AE: "+String.valueOf(currUser.getHealth()));
-		playerCoins.setText("Golden Coins: "+(currUser.getCoins()));
-		playerXP.setText("XP: "+(currUser.getXP()));
-		}
+		playerCoins.setText("Νομίσματα: "+(currUser.getCoins()));
+		playerXP.setText("Εμεπειρία: "+(currUser.getXP()));
+	}
 
 	@SuppressWarnings("serial")
 	public class MyGlassPane extends JComponent{
@@ -361,18 +372,19 @@ public class Board extends JFrame{
 		private static final int COLUMNS = 6;
 		private int xCoord = 0;
 		private int yCoord = 0;
-		private int x2Coord=0;
-		private int y2Coord=0;
-		
+		private int x2Coord = 0;
+		private int y2Coord = 0;
 		
 		public void setXYCoordinates(int xValue, int yValue) {
-			if (userTurn==2){
-			xCoord = xValue;
-			yCoord = yValue;
+			if (userTurn == 2)
+			{
+				xCoord = xValue;
+				yCoord = yValue;
 			}
-			else if (userTurn==1){
-				x2Coord=xValue;
-				y2Coord=yValue;
+			else if (userTurn == 1)
+			{
+				x2Coord = xValue;
+				y2Coord = yValue;
 			}
 		}
 		
@@ -382,8 +394,10 @@ public class Board extends JFrame{
 			sqSize = this.getHeight() / ROWS;
 			size = sqSize;
 			
-			for(int i = 0; i < ROWS; i++) {
-				for(int j = 0; j < COLUMNS; j++) {
+			for(int i = 0; i < ROWS; i++) 
+			{
+				for(int j = 0; j < COLUMNS; j++) 
+				{
 					int x = j * sqSize;
 					int y = i * sqSize;
 					g.setColor(Color.YELLOW);
@@ -393,87 +407,90 @@ public class Board extends JFrame{
 			updateStatLabels();
 			
 			player1lbl.setSize(sqSize,sqSize);
-			ImageIcon p1icon=new ImageIcon("player1.gif");
-			Image p1image=p1icon.getImage();
-			//System.out.println(""+sqSize);
-			Image p1ResizedImage=p1image.getScaledInstance(player1lbl.getWidth(), player1lbl.getHeight(), 0);
-			player1lbl.setIcon(new ImageIcon(p1ResizedImage));
+			helpIcon = new ImageIcon("player1.gif");
+			helpImage = helpIcon.getImage();
+			resize = helpImage.getScaledInstance(player1lbl.getWidth(), player1lbl.getHeight(), 0);
+			player1lbl.setIcon(new ImageIcon(resize));
 			player1lbl.setBounds(xCoord, yCoord, sqSize, sqSize);
 			myGlassPane.add(player1lbl);
 			
 			player2lbl.setSize(sqSize,sqSize);
-			ImageIcon p2icon=new ImageIcon("player3.gif");
-			Image p2image=p2icon.getImage();
-			//System.out.println(""+sqSize);
-			Image p2ResizedImage=p2image.getScaledInstance(player2lbl.getWidth(), player2lbl.getHeight(), 0);
-			player2lbl.setIcon(new ImageIcon(p2ResizedImage));
+			helpIcon = new ImageIcon("player3.gif");
+			helpImage = helpIcon.getImage();
+			resize = helpImage.getScaledInstance(player2lbl.getWidth(), player2lbl.getHeight(), 0);
+			player2lbl.setIcon(new ImageIcon(resize));
 			player2lbl.setBounds(x2Coord, y2Coord, sqSize, sqSize);
-			if ((players.size())>1){
+			if ((players.size())>1)
+			{
 				myGlassPane.add(player2lbl);
 				checkSameSquare();
 				
 			}
-			
-		}	
-	public void checkSameSquare(){
+		}
+		
+		public void checkSameSquare(){
 		//resize the players figure if both players are on the same square
-		if (((player1lbl.getX())==(player2lbl.getX()))&&((player1lbl.getY())==(player2lbl.getY()))){
-			player1lbl.setSize((sqSize/2),(sqSize));
-			ImageIcon p1icon=new ImageIcon("player1.gif");
-			Image p1image=p1icon.getImage();
-			//System.out.println(""+sqSize);
-			Image p1ResizedImage=p1image.getScaledInstance(player1lbl.getWidth(), player1lbl.getHeight(), 0);
-			player1lbl.setIcon(new ImageIcon(p1ResizedImage));
-			player1lbl.setBounds(xCoord, yCoord,(sqSize/2), (sqSize));
+			if (((player1lbl.getX()) == (player2lbl.getX())) && ((player1lbl.getY()) == (player2lbl.getY())))
+			{
+				player1lbl.setSize((sqSize / 2), sqSize);
+				helpIcon = new ImageIcon("player1.gif");
+				helpImage = helpIcon.getImage();
+				resize = helpImage.getScaledInstance(player1lbl.getWidth(), player1lbl.getHeight(), 0);
+				player1lbl.setIcon(new ImageIcon(resize));
+				player1lbl.setBounds(xCoord, yCoord,(sqSize/2), (sqSize));
 			
+				player2lbl.setSize((sqSize / 2), sqSize);
+				helpIcon = new ImageIcon("player3.gif");
+				helpImage = helpIcon.getImage();
+				resize= helpImage.getScaledInstance(player2lbl.getWidth(), player2lbl.getHeight(), 0);
+				player2lbl.setIcon(new ImageIcon(resize));
+				player2lbl.setBounds((x2Coord + (sqSize / 2)), y2Coord, (sqSize / 2), sqSize);
 			
-			player2lbl.setSize((sqSize/2),(sqSize));
-			ImageIcon p2icon=new ImageIcon("player3.gif");
-			Image p2image=p2icon.getImage();
-			//System.out.println(""+sqSize);
-			Image p2ResizedImage=p2image.getScaledInstance(player2lbl.getWidth(), player2lbl.getHeight(), 0);
-			player2lbl.setIcon(new ImageIcon(p2ResizedImage));
-			player2lbl.setBounds((x2Coord+(sqSize/2)),y2Coord,(sqSize/2),sqSize);
-			
-			adjust=true;
-		}		
+				adjust=true;
+			}		
+		}
 	}
-}
 
 	public class UpgradeSkillListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			double health=currUser.getHealth();
-			double attack=currUser.getDamage();
-			double defence=currUser.getDefence();
-			int skillpoints=currUser.getSkillpoints();
-			if(skillpoints>0){
-				if(e.getSource()==plusLife){
+			double health = currUser.getHealth();
+			double attack = currUser.getDamage();
+			double defence = currUser.getDefence();
+			int skillpoints = currUser.getSkillpoints();
+			if(skillpoints > 0)
+			{
+				if(e.getSource() == plusLife)
+				{
 					health++;
 					currUser.setHealth(health);
 					skillpoints--;
 					currUser.setSkillpoints(skillpoints);
-					skillpointlbl.setText("Skill Points" +currUser.getSkillpoints());
+					skillpointlbl.setText("Πόντοι ικανότητας: " +currUser.getSkillpoints());
 					life.setText("\u0396\u03C9\u03AE: "+currUser.getHealth());
 				}
-				else if(e.getSource()==plusAttack){
+				else if(e.getSource() == plusAttack)
+				{
 					attack++;
 					currUser.setDamage(attack);
 					skillpoints--;
 					currUser.setSkillpoints(skillpoints);
-					skillpointlbl.setText("Skill Points" +currUser.getSkillpoints());
+					skillpointlbl.setText("Πόντοι ικανότητας: " +currUser.getSkillpoints());
 					attacklbl.setText("\u0388\u03C0\u03AF\u03B8\u03B5\u03C3\u03B7: "+currUser.getDamage());
 				}
-				else if(e.getSource()==plusDefence){
+				else if(e.getSource() == plusDefence)
+				{
 					defence++;
 					currUser.setDefence(defence);
 					skillpoints--;
 					currUser.setSkillpoints(skillpoints);
-					skillpointlbl.setText("Skill Points" +currUser.getSkillpoints());
+					skillpointlbl.setText("Πόντοι ικανότητας: " +currUser.getSkillpoints());
 					defencelbl.setText("\u0386\u03BC\u03C5\u03BD\u03B1: "+currUser.getDefence());
 				}
 			}
 			else
-				JOptionPane.showMessageDialog(null,"You Don't Have Any Skill Points Available");
+			{
+				JOptionPane.showMessageDialog(null, "Δεν έχεις άλλους πόντους ικανότητας διαθέσιμους.", "Σφάλμα", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
 	
@@ -488,34 +505,32 @@ public class Board extends JFrame{
 				soundthread1.PlayMusic(list.get(1).getSongName(), list.get(1).getRepeat() ); 
 				
 				diceButton = r.nextInt(6) + 1;
-				System.out.println("zari "+diceButton);
 				moveChar(getDice());
-				//myGlassPane.setXYCoordinates(playerX, playerY);
-
-				//myGlassPane.repaint();
-				if((players.size())>1)
+				myGlassPane.setXYCoordinates(playerX, playerY);
+				myGlassPane.repaint();
+				if((players.size()) > 1)
+				{
 					switchChars();
+				}
 			}
 		}
 
 		public void switchChars(){			
 			//tha kaleitai mono an paizoun 2 paixtes
-			ImageIcon tempIcon=new ImageIcon();
-			Icon i=hero1Label.getIcon();
-			tempIcon=(ImageIcon)i;
+			ImageIcon tempIcon = new ImageIcon();
+			Icon i = hero1Label.getIcon();
+			tempIcon = (ImageIcon)i;
 			//apothikeyw to icon ths megalhs eikonas
-			Image tempImage=tempIcon.getImage();
+			Image tempImage = tempIcon.getImage();
 			Image tempResizedImage = tempImage.getScaledInstance(hero2Label.getWidth(), hero2Label.getHeight(), 0);
 			//thn metasxhmatizw stis diastaseis tou mikrou label
 			switchTurn();
-			tempIcon=currUser.getImage();
-			tempImage=tempIcon.getImage();
+			tempIcon = currUser.getImage();
+			tempImage = tempIcon.getImage();
 			hero2Label.setIcon(new ImageIcon(tempResizedImage));
-			tempResizedImage=tempImage.getScaledInstance(hero1Label.getWidth(), hero1Label.getHeight(),0);
+			tempResizedImage = tempImage.getScaledInstance(hero1Label.getWidth(), hero1Label.getHeight(), 0);
 			hero1Label.setIcon(new ImageIcon(tempResizedImage));
-			
 			//allagh twn label me ta xarakthristika
-			
 		}
 		
 		public int getDice(){
@@ -524,23 +539,26 @@ public class Board extends JFrame{
 		
 		public void moveChar(int dice){
 			//int row;
-			if (userTurn==2){
-				playerX=player1lbl.getX();
-				playerY=player1lbl.getY();
-				row=row1;
-				adjust=false;
+			if (userTurn == 2)
+			{
+				playerX = player1lbl.getX();
+				playerY = player1lbl.getY();
+				row = row1;
+				adjust = false;
 			}
-			else if(userTurn==1){
-				if(adjust){
-					playerX=(player2lbl.getX())-(sqSize/2);
+			else if(userTurn == 1)
+			{
+				if(adjust)
+				{
+					playerX = (player2lbl.getX()) - (sqSize / 2);
 				}
-				else{
-					playerX=player2lbl.getX();
+				else
+				{
+					playerX = player2lbl.getX();
 				}
 				
-				playerY=player2lbl.getY();
-				row=row2;
-				
+				playerY = player2lbl.getY();
+				row = row2;
 			}
 			for (int i = 0; i < dice; i++)
 			{
@@ -560,7 +578,7 @@ public class Board extends JFrame{
 							i = dice;
 							playerX = 0;
 							playerY = playerY;
-							JOptionPane.showMessageDialog(null, "End of Stage");
+							JOptionPane.showMessageDialog(null, "Τέλος πίστας.", "Τέλος παιχνιδιού", JOptionPane.INFORMATION_MESSAGE);
 						}	
 					}
 				}
@@ -576,33 +594,35 @@ public class Board extends JFrame{
 				}
 			}
 			
-			if(userTurn==2){
+			if(userTurn == 2)
+			{
 				//dealing with players figure rows
 				row1=row;
 			}
-			else if(userTurn==1){
-				row2=row;
+			else if(userTurn == 1)
+			{
+				row2 = row;
 			}
 		}
 
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-	}
+		@Override
+		public void mouseEntered(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+		}
 
-	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-	}
+		@Override
+		public void mouseExited(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+		}
 
-	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-	}
+		@Override
+		public void mousePressed(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+		}
 
-	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub	
+		@Override
+		public void mouseReleased(MouseEvent arg0) {
+			// TODO Auto-generated method stub	
+		}
 	}
-}
 }

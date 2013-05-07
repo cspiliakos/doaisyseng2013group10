@@ -18,55 +18,24 @@ public class DuelBoardFrame extends JFrame {
 	private User currUser;
 	private CharsOpponents currOpponent;
 	private ArrayList<Weapons> usersWeapons;
-
-	private JLabel ourHerolbl;
-	private JLabel oppHerolbl;
-	private JLabel backlbl;
-	private JButton swordBt;
-	private JButton crossBowBt;
-	private JButton spearBt;
-	private JButton quitBt;
-
-	private JLabel heroLifelbl;
-	private JLabel oppLifelbl;
-	private JLabel heroDamagelbl;
-	private JLabel oppDamagelbl;
-	private JLabel heroDeflbl;
-	private JLabel oppDeflbl;
-
-	private JButton buyBow;
-	private JButton buySpear;
-	private JButton upgradeSword;
-	private JButton upgradeBow;
-	private JButton upgradeSpear;
-	private JPanel herolblPanel;
-	private JPanel opplblPanel;
-	private int widthSize;
-	private int heightSize;
-
-	private boolean hit=false;
-
-	private JPanel mainPanel;	
+	private JLabel ourHerolbl, oppHerolbl, backlbl, heroLifelbl, oppLifelbl, heroDamagelbl, oppDamagelbl, heroDeflbl, oppDeflbl,
+	swordlvl, bowlvl, spearlvl, swordPrice, bowPrice, spearPrice;
+	private JButton swordBt, crossBowBt, spearBt, quitBt, buyBow, buySpear, upgradeSword, upgradeBow, upgradeSpear;
+	private JPanel herolblPanel, opplblPanel, mainPanel;
+	private int widthSize, heightSize;
+	private boolean hit=false;	
 	private MyGlassPane myGlassPane;
-
-	private JLabel swordlvl, bowlvl, spearlvl;
-	private JLabel swordPrice, bowPrice, spearPrice;
-
-	ArrayList<AudiosPair> list = new ArrayList<AudiosPair>(new Audios().getDuelList()); 
-	Sound_Thread soundthread1 = new Sound_Thread(); //Thread 1 gia mikrous hxous, pou diakoptei o enas ton allon
-	Sound_Thread soundthread2 = new Sound_Thread(); //Thread 2 gia soundtrack
-
+	private ArrayList<AudiosPair> list = new ArrayList<AudiosPair>(new Audios().getDuelList()); 
+	private Sound_Thread soundthread1 = new Sound_Thread(); //Thread 1 gia mikrous hxous, pou diakoptei o enas ton allon
+	private Sound_Thread soundthread2 = new Sound_Thread(); //Thread 2 gia soundtrack
 
 	public DuelBoardFrame(User user){
 
 		soundthread2.PlayMusic(list.get(2).getSongName(), list.get(2).getRepeat());   //Sound soundtrack
 
 		currOpponent= new CharsOpponents ("Lernaia Ydra",80,15,30,new ImageIcon("battle_hydra_1.jpg"));
-		//trial opponent
-
-		//*** MenuBar ***//
-				setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
-
+		setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
+		
 		//make the frame full screen
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		double fwidth = screenSize.getWidth();
@@ -110,11 +79,11 @@ public class DuelBoardFrame extends JFrame {
 		mainPanel.add(spearBt);
 		//dhmiourgia koumpiou gia spear
 
-		buySpear=new JButton("Buy");
+		buySpear=new JButton("Αγορά");
 		buySpear.setBounds(spearBt.getX(),(spearBt.getY()+spearBt.getHeight()),(spearBt.getWidth()/2),(heightSize/2));
 		mainPanel.add(buySpear);
 
-		upgradeSpear=new JButton("Upgrade");
+		upgradeSpear=new JButton("Αναβάθμιση");
 		upgradeSpear.setBounds((spearBt.getX()+buySpear.getWidth()),(spearBt.getY()+spearBt.getHeight()),(spearBt.getWidth()/2),(heightSize/2));
 		mainPanel.add(upgradeSpear);
 
@@ -127,11 +96,11 @@ public class DuelBoardFrame extends JFrame {
 		mainPanel.add(crossBowBt);
 		//dhmiourgia koumpiou gia bow
 
-		buyBow=new JButton("Buy");
+		buyBow=new JButton("Αγορά");
 		buyBow.setBounds(crossBowBt.getX(),(crossBowBt.getY()+crossBowBt.getHeight()),(crossBowBt.getWidth()/2),(heightSize/2));
 		mainPanel.add(buyBow);
 
-		upgradeBow=new JButton("Upgrade");
+		upgradeBow=new JButton("Αναβάθμιση");
 		upgradeBow.setBounds((crossBowBt.getX()+buyBow.getWidth()),(crossBowBt.getY()+crossBowBt.getHeight()),(crossBowBt.getWidth()/2),(heightSize/2));
 		mainPanel.add(upgradeBow);
 
@@ -144,21 +113,21 @@ public class DuelBoardFrame extends JFrame {
 		mainPanel.add(swordBt);
 		//dhmiourgia koumpiou gia sword
 
-		upgradeSword=new JButton("Upgrade");
+		upgradeSword=new JButton("Αναβάθμιση");
 		upgradeSword.setBounds((swordBt.getX()+(swordBt.getWidth()/2)),(swordBt.getY()+swordBt.getHeight()),(swordBt.getWidth()/2),(heightSize/2));
 		mainPanel.add(upgradeSword);
 
-		swordlvl=new JLabel("Level: 0");
+		swordlvl=new JLabel("Επίπεδο: 0");
 		swordlvl.setForeground(Color.ORANGE);
-		bowlvl=new JLabel("Level: 0");
+		bowlvl=new JLabel("Επίπεδο: 0");
 		bowlvl.setForeground(Color.ORANGE);
-		spearlvl=new JLabel("Level: 0");
+		spearlvl=new JLabel("Επίπεδο: 0");
 		spearlvl.setForeground(Color.ORANGE);
-		swordPrice=new JLabel("Price: 0");
+		swordPrice=new JLabel("Τιμή: 0");
 		swordPrice.setForeground(Color.ORANGE);
-		bowPrice=new JLabel("Price: 0");
+		bowPrice=new JLabel("Τιμή: 0");
 		bowPrice.setForeground(Color.ORANGE);
-		spearPrice=new JLabel("Price: 0");
+		spearPrice=new JLabel("Τιμή: 0");
 		spearPrice.setForeground(Color.ORANGE);
 
 
@@ -194,17 +163,17 @@ public class DuelBoardFrame extends JFrame {
 		herolblPanel.setBounds(widthSize,(6*heightSize),widthSize,(3*heightSize));
 
 
-		heroLifelbl=new JLabel("Life: ");
+		heroLifelbl=new JLabel("Ζωή: ");
 		heroLifelbl.setForeground(Color.RED);
 		herolblPanel.add(heroLifelbl);
 		//label Life tou xarakthra		
 
-		heroDamagelbl=new JLabel("Damage: ");
+		heroDamagelbl=new JLabel("Επίθεση: ");
 		heroDamagelbl.setForeground(Color.RED);
 		herolblPanel.add(heroDamagelbl);
 		//label Damage tou xarakthra mono to damage pou proerxetai apo ta skill
 
-		heroDeflbl=new JLabel("Defence: ");
+		heroDeflbl=new JLabel("’μυνα: ");
 		heroDeflbl.setForeground(Color.RED);
 		herolblPanel.add(heroDeflbl);
 		//label gia to Defence tou xarakthra
@@ -225,17 +194,17 @@ public class DuelBoardFrame extends JFrame {
 
 		opplblPanel=new JPanel(new GridLayout(3,1));
 		opplblPanel.setBounds((16*widthSize),(6*heightSize),(widthSize),(3*heightSize));
-		oppLifelbl=new JLabel("Life: ");
+		oppLifelbl=new JLabel("Ζωή: ");
 		oppLifelbl.setForeground(Color.RED);
 		opplblPanel.add(oppLifelbl);
 		//Life label opponent
 
-		oppDamagelbl=new JLabel("Damage: ");
+		oppDamagelbl=new JLabel("Επίθεση: ");
 		oppDamagelbl.setForeground(Color.RED);
 		opplblPanel.add(oppDamagelbl);
 		//Damage label opponent
 
-		oppDeflbl=new JLabel("Defence: ");
+		oppDeflbl=new JLabel("’μυνα: ");
 		oppDeflbl.setForeground(Color.RED);
 		//Defence label opponent
 
@@ -281,15 +250,15 @@ public class DuelBoardFrame extends JFrame {
 	public void updateWeaponStats(){
 
 		for (Weapons w: currUser.getWeapons()){
-			if (w.getWeaponType().equals("Sword")){
+			if (w.getWeaponType().equals("Σπαθί")){
 				swordlvl.setText("Level: "+w.getLevel());
 				swordPrice.setText("Price: "+w.getPrice());
 			}
-			else if(w.getWeaponType().equals("CrossBow")){
+			else if(w.getWeaponType().equals("Τόξο")){
 				bowlvl.setText("Level: "+w.getLevel());
 				bowPrice.setText("Price: "+w.getPrice());
 			}
-			else if(w.getWeaponType().equals("Spear")){
+			else if(w.getWeaponType().equals("Δόρυ")){
 				spearlvl.setText("Level: "+w.getLevel());
 				spearPrice.setText("Price: "+w.getPrice());
 			}
@@ -312,7 +281,7 @@ public class DuelBoardFrame extends JFrame {
 		double remainHealth;
 			remainHealth=c.getHealth();
 		if(remainHealth<=0){
-			JOptionPane.showMessageDialog(null, "YOU WIN!");
+			JOptionPane.showMessageDialog(null, "Κέρδισες τη μάχη.", "Τέλος μάχης", JOptionPane.INFORMATION_MESSAGE);
 			DuelBoardFrame.this.setVisible(false);
 			soundthread2.StopMusic();
 			return true;
@@ -331,7 +300,7 @@ public class DuelBoardFrame extends JFrame {
 			hit=false;
 			myGlassPane.repaint();
 			if (u.getHealth()<=0){
-				JOptionPane.showMessageDialog(null, "YOU LOSE!");
+				JOptionPane.showMessageDialog(null, "Έχασες τη μάχη.", "Τέλος μάχης", JOptionPane.ERROR_MESSAGE);
 				DuelBoardFrame.this.setVisible(false);
 				soundthread2.StopMusic();
 			}
@@ -488,7 +457,7 @@ public class DuelBoardFrame extends JFrame {
 			//the player can't hit twice unless the opponent attacks back
 
 		if(e.getSource()==swordBt){
-			JOptionPane.showMessageDialog(null, "Attack with sword");
+			JOptionPane.showMessageDialog(null, "Επίθεση με σπαθί.", "Επίθεση", JOptionPane.INFORMATION_MESSAGE);
 			currOpponent.setHealth((currOpponent.getHealth())-10);
 			myGlassPane.repaint();
 			checkIfDead(currOpponent);
@@ -496,25 +465,25 @@ public class DuelBoardFrame extends JFrame {
 			}
 		else if (e.getSource()==crossBowBt){
 			if(checkIfWeaponExists(new CrossBow())){				
-				JOptionPane.showMessageDialog(null,"Attack with bow");
+				JOptionPane.showMessageDialog(null, "Επίθεση με τόξο.", "Επίθεση", JOptionPane.INFORMATION_MESSAGE);
 				currOpponent.setHealth((currOpponent.getHealth())-10);
 				myGlassPane.repaint();
 				checkIfDead(currOpponent);
 				hit=true;
 				}
 			else
-				JOptionPane.showMessageDialog(null,"Pick another weapon");
+				JOptionPane.showMessageDialog(null,"Διάλεξε άλλο όπλο.", "Σφάλμα", JOptionPane.ERROR_MESSAGE);
 			}
 		else if(e.getSource()==spearBt){
 			if(checkIfWeaponExists(new Spear())){
-				JOptionPane.showMessageDialog(null, "Attack with spear");
+				JOptionPane.showMessageDialog(null, "Επίθεση με δόρυ.", "Επίθεση", JOptionPane.INFORMATION_MESSAGE);
 				currOpponent.setHealth((currOpponent.getHealth())-10);
 				myGlassPane.repaint();
 				checkIfDead(currOpponent);
 				hit=true;			
 			}
 			else
-				JOptionPane.showMessageDialog(null,"Pick another weapon");
+				JOptionPane.showMessageDialog(null,"Διάλεξε άλλο όπλο.", "Σφάλμα", JOptionPane.ERROR_MESSAGE);
 		}
 		if (hit)
 			timer=new TimerBeep();
@@ -522,7 +491,7 @@ public class DuelBoardFrame extends JFrame {
 		//the opponent attacks only if the player has attacked before
 		}
 		else
-			JOptionPane.showMessageDialog(null, "It 's not your turn");
+			JOptionPane.showMessageDialog(null, "Δεν είναι η σειρά σου.", "Σφάλμα", JOptionPane.ERROR_MESSAGE);
 
 		}
 

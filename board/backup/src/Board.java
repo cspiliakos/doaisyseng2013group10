@@ -289,25 +289,25 @@ public class Board extends JFrame{
 			coin = r.nextInt(2);
 		
 			clip.stop(); //maxh kai grifoi exoun allo soundtrack
-			if (coin == 1)
-			{
+			//if (coin == 1)
+			//{
 				new DuelBoardFrame(currUser);
-			}
-			else
-			{
-				puzzle = r.nextInt(6);
-				switch(puzzle)
-				{
-				case 0: new AncientArcadeFrame(currUser); break;
-				case 1: new ClickMeFrame(currUser); break;
-				case 2: new HangmanFrame(currUser); break;
-				case 3: new MemoryGameFrame(currUser); break;
-				case 4: new PicsHerosFrame(currUser); break;
-				case 5: new QuizFrame(currUser); break;
-				case 6: new TelecubeFrame(currUser); break;
+			//}
+			//else
+			//{
+				//puzzle = r.nextInt(6);
+				//switch(puzzle)
+				//{
+				//case 0: new AncientArcadeFrame(currUser); break;
+				//case 1: new ClickMeFrame(currUser); break;
+				//case 2: new HangmanFrame(currUser); break;
+				//case 3: new MemoryGameFrame(currUser); break;
+				//case 4: new PicsHerosFrame(currUser); break;
+				//case 5: new QuizFrame(currUser); break;
+				//case 6: new TelecubeFrame(currUser); break;
 				////////////////tictactoe
-				}
-			}
+				//}
+			//}
 			
 			if (currUser.getWin())
 			{
@@ -317,8 +317,11 @@ public class Board extends JFrame{
 			else
 			{
 				dicelbl.setEnabled(false);
-				switchTurn();
 				dicelbl.removeMouseListener(dlistener);
+				if (players.size() > 1)
+				{
+					switchTurn();
+				}
 			}
 		}
 

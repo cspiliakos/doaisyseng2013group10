@@ -97,7 +97,7 @@ public class Start_Frame extends JFrame{
 					//new TicTacToeFrame();
 					//new ClickMeFrame(new User("temp"));
 					//new AncientArcadeFrame(new User("temp"));
-					new HangmanFrame();
+					new HangmanFrame(new User("temp"));
 					// MemoryGameFrame(new User("temp"));
 					//new PicsHerosFrame(new User("temp"));
 					//new QuizFrame(new User("temp"));

@@ -295,16 +295,16 @@ public class Board extends JFrame{
 			}
 			else
 			{
-				puzzle = r.nextInt(5);
+				puzzle = r.nextInt(6);
 				switch(puzzle)
 				{
 				case 0: new AncientArcadeFrame(currUser); break;
 				case 1: new ClickMeFrame(currUser); break;
-				////hangman
-				case 2: new MemoryGameFrame(currUser); break;
-				case 3: new PicsHerosFrame(currUser); break;
-				case 4: new QuizFrame(currUser); break;
-				case 5: new TelecubeFrame(currUser); break;
+				case 2: new HangmanFrame(currUser); break;
+				case 3: new MemoryGameFrame(currUser); break;
+				case 4: new PicsHerosFrame(currUser); break;
+				case 5: new QuizFrame(currUser); break;
+				case 6: new TelecubeFrame(currUser); break;
 				////////////////tictactoe
 				}
 			}

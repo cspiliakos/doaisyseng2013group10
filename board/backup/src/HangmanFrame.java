@@ -9,7 +9,6 @@ import java.util.Random;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-
 public class HangmanFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JButton A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X;
@@ -23,9 +22,11 @@ public class HangmanFrame extends JFrame {
 	private Random r;
 	private char[] currWord;
 	private letterButtonListener letterL;
+	private User player;
 	
-	public HangmanFrame(){
-		
+	public HangmanFrame(User u){
+		setJMenuBar(new JMenuFrame().getMenu());
+		player = u;
 		r = new Random(System.currentTimeMillis());
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -34,7 +35,7 @@ public class HangmanFrame extends JFrame {
 
 		iwidth=(int)fwidth;
 		iheight=(int)fheight;
-		//this.setUndecorated(true);
+		this.setUndecorated(true);
 		//this.setLocation(0,0);
 		
 		widthSize=iwidth/20;
@@ -229,295 +230,287 @@ public class HangmanFrame extends JFrame {
 		
 		mainPanel.add(backlbl);
 		
-		
-		
-		
-		
 		this.setContentPane(mainPanel);
 		this.setSize(iwidth,iheight);
 		this.setVisible(true);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		
-		
 	}
 	
-public void getWord(){
-	int randomIndex = r.nextInt(words.size());
-	newWord = words.get(randomIndex);
-
-	if (usedWords.size() == words.size())
-	{
-		usedWords = new ArrayList<String>();
-	}
-
-	while (usedWords.contains(newWord)){
-		randomIndex = r.nextInt(words.size());
+	public void getWord(){
+		int randomIndex = r.nextInt(words.size());
 		newWord = words.get(randomIndex);
-	}
-	usedWords.add(newWord);
-	currWord=newWord.toCharArray();
-	System.out.println(newWord);
-	charSize=currWord.length;
-	System.out.println(charSize);
-}
 
-public void createLabels(){
-	int x=widthSize*6,y=((heightSize*5)-51);
-	letterlbl=new JLabel[charSize];
-	for(int i=0;i<charSize;i++){
-		String j=Character.toString(currWord[i]);
-		letterlbl[i]=new JLabel(j);		
-		letterlbl[i].setForeground(Color.MAGENTA);
-		letterlbl[i].setFont(new Font("Arial",Font.BOLD,30));
-		letterlbl[i].setBounds(x, y, 40, 50);
-		mainPanel.add(letterlbl[i]);
-		letterlbl[i].setVisible(false);
-		x=x+45;
-		
-	}
-}
-
-public void hangmanIcon(){
-	ImageIcon im;
-	Image helpImage, resizedhelpHang;
-	switch (miss){
-	case 1:im=new ImageIcon("gallow1.gif");
-		helpImage=im.getImage();
-		hanglbl.setBounds((iwidth-(8*widthSize)), (2*heightSize), (widthSize*8), (iheight-(2*heightSize)));
-		resizedhelpHang=helpImage.getScaledInstance(hanglbl.getWidth(), hanglbl.getHeight(), 0);
-		hanglbl.setIcon(new ImageIcon(resizedhelpHang));
-		break;
-	case 2:im=new ImageIcon("gallow2.gif");
-		helpImage=im.getImage();
-		hanglbl.setBounds((iwidth-(8*widthSize)), (2*heightSize), (widthSize*8), (iheight-(2*heightSize)));
-		resizedhelpHang=helpImage.getScaledInstance(hanglbl.getWidth(), hanglbl.getHeight(), 0);
-		hanglbl.setIcon(new ImageIcon(resizedhelpHang));
-		break; 
-	case 3: im=new ImageIcon("gallow3.gif");
-		helpImage=im.getImage();
-		hanglbl.setBounds((iwidth-(8*widthSize)), (2*heightSize), (widthSize*8), (iheight-(2*heightSize)));
-		resizedhelpHang=helpImage.getScaledInstance(hanglbl.getWidth(), hanglbl.getHeight(), 0);
-		hanglbl.setIcon(new ImageIcon(resizedhelpHang));
-		break;
-	case 4: im=new ImageIcon("gallow4.gif");
-		helpImage=im.getImage();
-		hanglbl.setBounds((iwidth-(8*widthSize)), (2*heightSize), (widthSize*8), (iheight-(2*heightSize)));
-		resizedhelpHang=helpImage.getScaledInstance(hanglbl.getWidth(), hanglbl.getHeight(), 0);
-		hanglbl.setIcon(new ImageIcon(resizedhelpHang));
-		break;
-	case 5: im=new ImageIcon("gallow5.gif");
-		helpImage=im.getImage();
-		hanglbl.setBounds((iwidth-(8*widthSize)), (2*heightSize), (widthSize*8), (iheight-(2*heightSize)));
-		resizedhelpHang=helpImage.getScaledInstance(hanglbl.getWidth(), hanglbl.getHeight(), 0);
-		hanglbl.setIcon(new ImageIcon(resizedhelpHang));
-		break;
-	case 6:im=new ImageIcon("gallow6.gif");
-		helpImage=im.getImage();
-		hanglbl.setBounds((iwidth-(8*widthSize)), (2*heightSize), (widthSize*8), (iheight-(2*heightSize)));
-		resizedhelpHang=helpImage.getScaledInstance(hanglbl.getWidth(), hanglbl.getHeight(), 0);
-		hanglbl.setIcon(new ImageIcon(resizedhelpHang));
-		break;
-	default: im=new ImageIcon("gallow.gif");
-		helpImage=im.getImage();
-		hanglbl.setBounds((iwidth-(8*widthSize)), (2*heightSize), (widthSize*8), (iheight-(2*heightSize)));
-		resizedhelpHang=helpImage.getScaledInstance(hanglbl.getWidth(), hanglbl.getHeight(), 0);
-		hanglbl.setIcon(new ImageIcon(resizedhelpHang));
-		break;
-		
-	
-		
-	}
-}
-	
-public class letterButtonListener implements ActionListener{
-	boolean found=false;
-
-		public void checkIfLetterExists(String letter){
-			
-			for(int i=0;i<charSize;i++){
-				System.out.println("doen");
-				String j=Character.toString(currWord[i]);
-				if (letter.equals(j)){
-					System.out.println("found" +i);
-					letterlbl[i].setVisible(true);
-					success++;
-					mainPanel.repaint();
-					found=true;
-					//return true;
-				}
-			} 
-			
-			if(!found){
-				miss++;
-				hangmanIcon();
-				mainPanel.repaint();
-			}
-			if(success==charSize){
-				JOptionPane.showMessageDialog(null, "YOU WIN");
-			}
-			if(miss==6){
-				JOptionPane.showMessageDialog(null, "YOU LOSE");
-			}
-			found= false;
-			}
-		
-		public void actionPerformed(ActionEvent e) {
-			if(e.getSource()==A){
-				checkIfLetterExists("Α");
-				A.removeActionListener(letterL);
-				A.setEnabled(false);
-				
-			}
-			else if(e.getSource()==B){
-				checkIfLetterExists("Β");
-				B.removeActionListener(letterL);
-				B.setEnabled(false);
-			}
-			else if(e.getSource()==C){
-				checkIfLetterExists("Γ");
-				C.removeActionListener(letterL);
-				C.setEnabled(false);
-			}
-			else if(e.getSource()==D){
-				checkIfLetterExists("Δ");
-				D.removeActionListener(letterL);
-				D.setEnabled(false);
-			}
-			else if(e.getSource()==E){
-				checkIfLetterExists("Ε");
-				E.removeActionListener(letterL);
-				E.setEnabled(false);
-			}
-			else if(e.getSource()==F){
-				checkIfLetterExists("Ζ");
-				F.removeActionListener(letterL);
-				F.setEnabled(false);
-			}
-			else if(e.getSource()==G){
-				checkIfLetterExists("Η");
-				G.removeActionListener(letterL);
-				G.setEnabled(false);
-			}
-			else if(e.getSource()==H){
-				checkIfLetterExists("Θ");
-				H.removeActionListener(letterL);
-				H.setEnabled(false);
-			}
-			else if(e.getSource()==I){
-				checkIfLetterExists("Ι");
-				I.removeActionListener(letterL);
-				I.setEnabled(false);
-			}
-			else if(e.getSource()==J){
-				checkIfLetterExists("Κ");
-				J.removeActionListener(letterL);
-				J.setEnabled(false);
-			}
-			else if(e.getSource()==K){
-				checkIfLetterExists("Λ");
-				K.removeActionListener(letterL);
-				K.setEnabled(false);
-			}
-			else if(e.getSource()==L){
-				checkIfLetterExists("Μ");
-				L.removeActionListener(letterL);
-				L.setEnabled(false);
-			}
-			else if(e.getSource()==M){
-				checkIfLetterExists("Ν");
-				M.removeActionListener(letterL);
-				M.setEnabled(false);
-			}
-			else if(e.getSource()==N){
-				checkIfLetterExists("Ξ");
-				N.removeActionListener(letterL);
-				N.setEnabled(false);
-			}
-			else if(e.getSource()==O){
-				checkIfLetterExists("Ο");
-				O.removeActionListener(letterL);
-				O.setEnabled(false);
-			}
-			else if(e.getSource()==P){
-				checkIfLetterExists("Π");
-				P.removeActionListener(letterL);
-				P.setEnabled(false);
-			}
-			else if(e.getSource()==Q){
-				checkIfLetterExists("Ρ");
-				Q.removeActionListener(letterL);
-				Q.setEnabled(false);
-			}
-			else if(e.getSource()==R){
-				checkIfLetterExists("Σ");
-				R.removeActionListener(letterL);
-				R.setEnabled(false);
-			}
-			else if(e.getSource()==S){
-				checkIfLetterExists("Τ");
-				S.removeActionListener(letterL);
-				S.setEnabled(false);
-			}
-			else if(e.getSource()==T){
-				checkIfLetterExists("Υ");
-				T.removeActionListener(letterL);
-				T.setEnabled(false);
-			}
-			else if(e.getSource()==U){
-				checkIfLetterExists("Φ");
-				U.removeActionListener(letterL);
-				U.setEnabled(false);
-			}
-			else if(e.getSource()==V){
-				checkIfLetterExists("Χ");
-				V.removeActionListener(letterL);
-				V.setEnabled(false);
-			}
-			else if(e.getSource()==W){
-				checkIfLetterExists("Ψ");
-				W.removeActionListener(letterL);
-				W.setEnabled(false);
-			}
-			else if(e.getSource()==X){
-				checkIfLetterExists("Ω");
-				X.removeActionListener(letterL);
-				X.setEnabled(false);
-			}
+		if (usedWords.size() == words.size())
+		{
+			usedWords = new ArrayList<String>();
 		}
+
+		while (usedWords.contains(newWord)){
+			randomIndex = r.nextInt(words.size());
+			newWord = words.get(randomIndex);
+		}
+		usedWords.add(newWord);
+		currWord=newWord.toCharArray();
+		System.out.println(newWord);
+		charSize=currWord.length;
 	}
-@SuppressWarnings("serial")
-public class hangGlassPane extends JComponent{
-	public void paintComponent(Graphics g) {
-		//overwrite paintcomponent
-		super.paintComponent(g);
-		int xf=widthSize*6, yf=heightSize*5, xl=40, yl=5;
+
+	public void createLabels(){
+		int x=widthSize*6,y=((heightSize*5)-51);
+		letterlbl=new JLabel[charSize];
 		for(int i=0;i<charSize;i++){
-			//to charArraySize
+			String j=Character.toString(currWord[i]);
+			letterlbl[i]=new JLabel(j);		
+			letterlbl[i].setForeground(Color.MAGENTA);
+			letterlbl[i].setFont(new Font("Arial",Font.BOLD,30));
+			letterlbl[i].setBounds(x, y, 40, 50);
+			mainPanel.add(letterlbl[i]);
+			letterlbl[i].setVisible(false);
+			x=x+45;
 			
-		g.setColor(Color.RED);
-		g.fillRect(xf, yf, xl, yl);
-		xf=xf+45;
 		}
 	}
-}
 
-@SuppressWarnings("unchecked")
-public void deserializing() {
-	try {
-		FileInputStream fileIn = new FileInputStream("Words.ser");
-		ObjectInputStream in = new ObjectInputStream(fileIn);
-		words = (ArrayList<String>) in.readObject();
-		in.close();
-		fileIn.close();	
-		
+	public void hangmanIcon(){
+		ImageIcon im;
+		Image helpImage, resizedhelpHang;
+		switch (miss){
+		case 1:im=new ImageIcon("gallow1.gif");
+			helpImage=im.getImage();
+			hanglbl.setBounds((iwidth-(8*widthSize)), (2*heightSize), (widthSize*8), (iheight-(2*heightSize)));
+			resizedhelpHang=helpImage.getScaledInstance(hanglbl.getWidth(), hanglbl.getHeight(), 0);
+			hanglbl.setIcon(new ImageIcon(resizedhelpHang));
+			break;
+		case 2:im=new ImageIcon("gallow2.gif");
+			helpImage=im.getImage();
+			hanglbl.setBounds((iwidth-(8*widthSize)), (2*heightSize), (widthSize*8), (iheight-(2*heightSize)));
+			resizedhelpHang=helpImage.getScaledInstance(hanglbl.getWidth(), hanglbl.getHeight(), 0);
+			hanglbl.setIcon(new ImageIcon(resizedhelpHang));
+			break; 
+		case 3: im=new ImageIcon("gallow3.gif");
+			helpImage=im.getImage();
+			hanglbl.setBounds((iwidth-(8*widthSize)), (2*heightSize), (widthSize*8), (iheight-(2*heightSize)));
+			resizedhelpHang=helpImage.getScaledInstance(hanglbl.getWidth(), hanglbl.getHeight(), 0);
+			hanglbl.setIcon(new ImageIcon(resizedhelpHang));
+			break;
+		case 4: im=new ImageIcon("gallow4.gif");
+			helpImage=im.getImage();
+			hanglbl.setBounds((iwidth-(8*widthSize)), (2*heightSize), (widthSize*8), (iheight-(2*heightSize)));
+			resizedhelpHang=helpImage.getScaledInstance(hanglbl.getWidth(), hanglbl.getHeight(), 0);
+			hanglbl.setIcon(new ImageIcon(resizedhelpHang));
+			break;
+		case 5: im=new ImageIcon("gallow5.gif");
+			helpImage=im.getImage();
+			hanglbl.setBounds((iwidth-(8*widthSize)), (2*heightSize), (widthSize*8), (iheight-(2*heightSize)));
+			resizedhelpHang=helpImage.getScaledInstance(hanglbl.getWidth(), hanglbl.getHeight(), 0);
+			hanglbl.setIcon(new ImageIcon(resizedhelpHang));
+			break;
+		case 6:im=new ImageIcon("gallow6.gif");
+			helpImage=im.getImage();
+			hanglbl.setBounds((iwidth-(8*widthSize)), (2*heightSize), (widthSize*8), (iheight-(2*heightSize)));
+			resizedhelpHang=helpImage.getScaledInstance(hanglbl.getWidth(), hanglbl.getHeight(), 0);
+			hanglbl.setIcon(new ImageIcon(resizedhelpHang));
+			break;
+		default: im=new ImageIcon("gallow.gif");
+			helpImage=im.getImage();
+			hanglbl.setBounds((iwidth-(8*widthSize)), (2*heightSize), (widthSize*8), (iheight-(2*heightSize)));
+			resizedhelpHang=helpImage.getScaledInstance(hanglbl.getWidth(), hanglbl.getHeight(), 0);
+			hanglbl.setIcon(new ImageIcon(resizedhelpHang));
+			break;		
+		}
 	}
-	catch(IOException i) {
-		i.printStackTrace();
-	}
-	catch(ClassNotFoundException c) {
-		c.printStackTrace();
-	}
-}
+	
+	public class letterButtonListener implements ActionListener{
+		boolean found=false;
 
+			public void checkIfLetterExists(String letter){
+				
+				for(int i=0;i<charSize;i++){
+					String j=Character.toString(currWord[i]);
+					if (letter.equals(j)){
+						letterlbl[i].setVisible(true);
+						success++;
+						mainPanel.repaint();
+						found=true;
+						//return true;
+					}
+				} 
+				
+				if(!found){
+					miss++;
+					hangmanIcon();
+					mainPanel.repaint();
+				}
+				if(success==charSize){
+					HangmanFrame.this.setVisible(false);
+					player.setCoins(player.getCoins() + 1000);
+					player.setXP(player.getXP() + 1000);
+					player.setWin(true);
+					JOptionPane.showMessageDialog(null, "Βρήκες την λέξη.", "Τέλος παιχνιδιού", JOptionPane.INFORMATION_MESSAGE);
+				}
+				if(miss==6){
+					HangmanFrame.this.setVisible(false);
+					player.setWin(false);
+					JOptionPane.showMessageDialog(null, "Δε βρήκες τη λέξη", "Τέλος παιχνιδιού", JOptionPane.ERROR_MESSAGE);
+				}
+				found= false;
+				}
+			
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource()==A){
+					checkIfLetterExists("Α");
+					A.removeActionListener(letterL);
+					A.setEnabled(false);
+					
+				}
+				else if(e.getSource()==B){
+					checkIfLetterExists("Β");
+					B.removeActionListener(letterL);
+					B.setEnabled(false);
+				}
+				else if(e.getSource()==C){
+					checkIfLetterExists("Γ");
+					C.removeActionListener(letterL);
+					C.setEnabled(false);
+				}
+				else if(e.getSource()==D){
+					checkIfLetterExists("Δ");
+					D.removeActionListener(letterL);
+					D.setEnabled(false);
+				}
+				else if(e.getSource()==E){
+					checkIfLetterExists("Ε");
+					E.removeActionListener(letterL);
+					E.setEnabled(false);
+				}
+				else if(e.getSource()==F){
+					checkIfLetterExists("Ζ");
+					F.removeActionListener(letterL);
+					F.setEnabled(false);
+				}
+				else if(e.getSource()==G){
+					checkIfLetterExists("Η");
+					G.removeActionListener(letterL);
+					G.setEnabled(false);
+				}
+				else if(e.getSource()==H){
+					checkIfLetterExists("Θ");
+					H.removeActionListener(letterL);
+					H.setEnabled(false);
+				}
+				else if(e.getSource()==I){
+					checkIfLetterExists("Ι");
+					I.removeActionListener(letterL);
+					I.setEnabled(false);
+				}
+				else if(e.getSource()==J){
+					checkIfLetterExists("Κ");
+					J.removeActionListener(letterL);
+					J.setEnabled(false);
+				}
+				else if(e.getSource()==K){
+					checkIfLetterExists("Λ");
+					K.removeActionListener(letterL);
+					K.setEnabled(false);
+				}
+				else if(e.getSource()==L){
+					checkIfLetterExists("Μ");
+					L.removeActionListener(letterL);
+					L.setEnabled(false);
+				}
+				else if(e.getSource()==M){
+					checkIfLetterExists("Ν");
+					M.removeActionListener(letterL);
+					M.setEnabled(false);
+				}
+				else if(e.getSource()==N){
+					checkIfLetterExists("Ξ");
+					N.removeActionListener(letterL);
+					N.setEnabled(false);
+				}
+				else if(e.getSource()==O){
+					checkIfLetterExists("Ο");
+					O.removeActionListener(letterL);
+					O.setEnabled(false);
+				}
+				else if(e.getSource()==P){
+					checkIfLetterExists("Π");
+					P.removeActionListener(letterL);
+					P.setEnabled(false);
+				}
+				else if(e.getSource()==Q){
+					checkIfLetterExists("Ρ");
+					Q.removeActionListener(letterL);
+					Q.setEnabled(false);
+				}
+				else if(e.getSource()==R){
+					checkIfLetterExists("Σ");
+					R.removeActionListener(letterL);
+					R.setEnabled(false);
+				}
+				else if(e.getSource()==S){
+					checkIfLetterExists("Τ");
+					S.removeActionListener(letterL);
+					S.setEnabled(false);
+				}
+				else if(e.getSource()==T){
+					checkIfLetterExists("Υ");
+					T.removeActionListener(letterL);
+					T.setEnabled(false);
+				}
+				else if(e.getSource()==U){
+					checkIfLetterExists("Φ");
+					U.removeActionListener(letterL);
+					U.setEnabled(false);
+				}
+				else if(e.getSource()==V){
+					checkIfLetterExists("Χ");
+					V.removeActionListener(letterL);
+					V.setEnabled(false);
+				}
+				else if(e.getSource()==W){
+					checkIfLetterExists("Ψ");
+					W.removeActionListener(letterL);
+					W.setEnabled(false);
+				}
+				else if(e.getSource()==X){
+					checkIfLetterExists("Ω");
+					X.removeActionListener(letterL);
+					X.setEnabled(false);
+				}
+			}
+		}
+	
+	@SuppressWarnings("serial")
+	public class hangGlassPane extends JComponent{
+		public void paintComponent(Graphics g) {
+			//overwrite paintcomponent
+			super.paintComponent(g);
+			int xf=widthSize*6, yf=heightSize*5, xl=40, yl=5;
+			for(int i=0;i<charSize;i++){
+				//to charArraySize
+				
+			g.setColor(Color.RED);
+			g.fillRect(xf, yf, xl, yl);
+			xf=xf+45;
+			}
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public void deserializing() {
+		try {
+			FileInputStream fileIn = new FileInputStream("Words.ser");
+			ObjectInputStream in = new ObjectInputStream(fileIn);
+			words = (ArrayList<String>) in.readObject();
+			in.close();
+			fileIn.close();	
+			
+		}
+		catch(IOException i) {
+			i.printStackTrace();
+		}
+		catch(ClassNotFoundException c) {
+			c.printStackTrace();
+		}
+	}
 }

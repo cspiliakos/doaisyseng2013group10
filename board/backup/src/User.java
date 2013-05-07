@@ -5,6 +5,7 @@ public class User extends Monsters {
 	private int skillpoints, coins, xp;
 	private ArrayList<Weapons> weapons;
 	private Weapons currWeapon;
+	private boolean win;
 
 	public User(String name)
 	{
@@ -15,6 +16,7 @@ public class User extends Monsters {
 		xp = 0;
 		weapons = new ArrayList<Weapons>();
 		weapons.add(new Sword());
+		win = false;
 	}
 
 	public int getCoins() {
@@ -31,6 +33,14 @@ public class User extends Monsters {
 
 	public void setXP(int xp) {
 		this.xp = xp;
+	}
+	
+	public boolean getWin() {
+		return win;
+	}
+	
+	public void setWin(boolean win) {
+		this.win = win;
 	}
 	
 	public ArrayList<Weapons> getWeapons() {

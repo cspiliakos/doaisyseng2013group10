@@ -1,9 +1,9 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -19,7 +19,6 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -28,56 +27,70 @@ public class Board extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
 	private JButton piso, plusLife, plusAttack, plusDefence;
-	private JLabel title, imageLabel, attacklbl, defencelbl, life, coinlbl, dicelbl, hero2lbl, skillpointlbl, playerCoins, playerXP;
-	private JLabel player1lbl, player2lbl;
+	private JLabel attacklbl, defencelbl, life, coinlbl, dicelbl, skillpointlbl, playerCoins, hero1Label, hero2Label, 
+	playerXP, player1lbl, player2lbl;
 	private Random r;
-	private JPanel buttonPanel, imagePanel, quitPanel;
+	private JPanel playersPanel, quitPanel;
 	private User xristis1, xristis2, currUser;
 	private MyGlassPane myGlassPane;
-	private int row1, row2, size, playerX, playerY, widthSize, heightSize;
+	private int row1, row2, size, playerX, playerY, widthSize, heightSize, sqSize, userTurn, helpWidth, helpHeight;
+	private double frameWidth, frameHeight;
 	private BackgroundPanel back;
 	@SuppressWarnings("unused")
-	private Image background, hero, resize , hero2;
+	private Image background, hero, resize , hero2, helpImage;
 	private Clip clip;
 	private AudioInputStream audio;
-	private Pick_A_Hero pick;
-	private DiceListener dlistener;
-	private CoinListener clistener;
-	private ImageIcon image, smallImage;
+	private Dice dlistener;
+	private Coin clistener;
+	private ImageIcon image, smallImage, helpIcon;
 	private UpgradeSkillListener skillListener;
-	private int sqSize, userTurn = 2;
 	private ArrayList<User> players;
-	
-	private boolean adjust=false;
+	private boolean adjust;
 	//shows if the two players have been on the same square
-	
 	/**Sounds
 	 * list.get(0) corona_h_grammata
 	 * list.get(1) dice_roll
 	 */
-	ArrayList<AudiosPair> list = new ArrayList<AudiosPair>(new Audios().getBoardList());
-	Sound_Thread soundthread1 = new Sound_Thread();
+	private ArrayList<AudiosPair> list;
+	private Sound_Thread soundthread1;
 	
 	public Board(ArrayList<User> p){
-		setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
-		
-		players=new ArrayList<User>();
-		players=p;
+		r = new Random(System.currentTimeMillis());
+		setJMenuBar(new JMenuFrame().getMenu());
+		players = new ArrayList<User>();
+		list = new ArrayList<AudiosPair>(new Audios().getBoardList());
+		soundthread1 = new Sound_Thread();
+		clistener = new Coin();
+		dlistener = new Dice();
+		skillListener = new UpgradeSkillListener();
+		adjust = false;
+		userTurn = 2;
+		players = p;
 		xristis1 = players.get(0);
-		image=xristis1.getImage();
-		if ((players.size())>1){
-			xristis2=players.get(1);
-			smallImage=xristis2.getImage();
-			}
+		image = xristis1.getImage();
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		frameWidth = screenSize.getWidth();
+		frameHeight = screenSize.getHeight();
+		helpWidth = (int)frameWidth;
+		helpHeight = (int)frameHeight;
+		widthSize = helpWidth / 7;
+		heightSize = helpHeight / 5;
+		if (players.size() > 1)
+		{
+			xristis2 = players.get(1);
+			smallImage = xristis2.getImage();
+		}
 		else
-			smallImage=xristis1.getImage();
+		{
+			smallImage = xristis1.getImage();
+		}
 		
-		currUser=xristis1;
-		player1lbl=new JLabel();
-		player2lbl=new JLabel();
+		currUser = xristis1;
+		player1lbl = new JLabel();
+		player2lbl = new JLabel();
 		
 		row1 = 1;
-		row2=1;
+		row2 = 1;
 		
 		playerX = 0;
 		playerY = 0;
@@ -87,11 +100,12 @@ public class Board extends JFrame{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		back = new BackgroundPanel(background);
+		back.setLayout(new BorderLayout(5, 5));
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setUndecorated(true);
-		back = new BackgroundPanel(background);
-		
-		back.setLayout(null);
+		setContentPane(back);
+		setVisible(true);
 		
 		try{
 			audio = AudioSystem.getAudioInputStream(new File("Sounds\\battle_theme.wav").getAbsoluteFile());
@@ -103,169 +117,153 @@ public class Board extends JFrame{
 			e.printStackTrace();
 		}
 		
-		dlistener=new DiceListener();
-		clistener=new CoinListener();
+		///////////////////////////
+		playersPanel = new JPanel();
+		back.add(playersPanel, BorderLayout.EAST);
 		
-		
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		double fwidth = screenSize.getWidth();
-		double fheight = screenSize.getHeight();
-		int iwidth = (int)fwidth;
-		int iheight = (int)fheight;
-		widthSize = iwidth / 20;
-		heightSize = iheight / 10;
-		
-		//
-		title = new JLabel("\u03A4\u03B1\u03BC\u03C0\u03BB\u03CC");
-		title.setFont(new Font("Sylfaen", Font.PLAIN, 40));
-		title.setHorizontalAlignment(SwingConstants.CENTER);
-		title.setBounds((iwidth/2),5,(widthSize*2),(heightSize));
-		
-		myGlassPane = new MyGlassPane();
-		this.setGlassPane(myGlassPane);
-		myGlassPane.setVisible(true);
-		
-		
-				
-		//
-		buttonPanel = new JPanel();
-		GridLayout gbl_buttonPanel = new GridLayout(1,2);
-		buttonPanel.setLayout(gbl_buttonPanel);
-		
-		buttonPanel.setBounds((widthSize*13),(heightSize*2),(widthSize*6),(heightSize*2));
-		back.add(buttonPanel);
-		
-		ImageIcon  coin=new  ImageIcon("Board\\coin.gif");
-		Image coinImage=coin.getImage();
-		coinlbl=new JLabel();
-		Image coinResizedImage = coinImage.getScaledInstance((buttonPanel.getWidth()/2), buttonPanel.getHeight(), 0);
-		coinlbl.setIcon(new ImageIcon(coinResizedImage));
-		buttonPanel.add(coinlbl);
+		coinlbl = new JLabel();
 		coinlbl.addMouseListener(clistener);
+		coinlbl.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		helpIcon = new  ImageIcon("Board\\coin.gif");
+		helpImage = helpIcon.getImage();
+		resize = helpImage.getScaledInstance(widthSize, heightSize, 0);
+		GridBagLayout gbl_playersPanel = new GridBagLayout();
+		playersPanel.setLayout(gbl_playersPanel);
+		coinlbl.setIcon(new ImageIcon(resize));
+		GridBagConstraints gbc_coinlbl = new GridBagConstraints();
+		gbc_coinlbl.insets = new Insets(0, 0, 0, 5);
+		gbc_coinlbl.gridx = 0;
+		gbc_coinlbl.gridy = 0;
+		playersPanel.add(coinlbl, gbc_coinlbl);
 		
-		ImageIcon dice=new ImageIcon("Board\\dice.gif");
-		Image diceImage=dice.getImage();
-		dicelbl=new JLabel();
-		Image diceResizedImage= diceImage.getScaledInstance((buttonPanel.getWidth()/2),buttonPanel.getHeight(),0);
-		dicelbl.setIcon(new ImageIcon(diceResizedImage));
-		buttonPanel.add(dicelbl);
+		dicelbl = new JLabel();
 		dicelbl.addMouseListener(dlistener);
+		dicelbl.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		helpIcon = new ImageIcon("Board\\dice.gif");
+		helpImage = helpIcon.getImage();
+		resize = helpImage.getScaledInstance(widthSize, heightSize, 0);
+		dicelbl.setIcon(new ImageIcon(resize));
+		GridBagConstraints gbc_dicelbl = new GridBagConstraints();
+		gbc_dicelbl.gridx = 1;
+		gbc_dicelbl.gridy = 0;
+		playersPanel.add(dicelbl, gbc_dicelbl);
+		dicelbl.setEnabled(false);
 		
-		imagePanel = new JPanel();
-		imagePanel.setBounds((widthSize*13),(heightSize*4),(widthSize*6),(heightSize*5));
-		GridBagLayout gbl_imagePanel = new GridBagLayout();
-		imagePanel.setLayout(gbl_imagePanel);
-		back.add(imagePanel);
-		
-		imageLabel = new JLabel();
-		hero = image.getImage();
-		resize = hero.getScaledInstance((widthSize*3), (heightSize*3), 0);
-		imageLabel.setIcon(new ImageIcon(resize));
+		heightSize = helpHeight / 4;
+		hero1Label = new JLabel();
+		helpImage = image.getImage();
+		resize = helpImage.getScaledInstance(widthSize, heightSize, 0);
+		hero1Label.setIcon(new ImageIcon(resize));
 		GridBagConstraints gbc_imageLabel = new GridBagConstraints();
-		gbc_imageLabel.fill=GridBagConstraints.HORIZONTAL;
-		gbc_imageLabel.insets = new Insets(0, 0, 0, 5);
 		gbc_imageLabel.gridx = 0;
-		gbc_imageLabel.gridy = 0;
-		//gbc_imageLabel.anchor=GridBagConstraints.FIRST_LINE_START;
-		imagePanel.add(imageLabel, gbc_imageLabel);
+		gbc_imageLabel.gridy = 1;
+		playersPanel.add(hero1Label, gbc_imageLabel);
 		
-		hero2lbl=new JLabel();
-		Image hero2Image=smallImage.getImage();
-		Image hero2ResizedImage= hero2Image.getScaledInstance((widthSize),(heightSize),0);
-		hero2lbl.setIcon(new ImageIcon(hero2ResizedImage));
-		GridBagConstraints gbc_hero2lbl=new GridBagConstraints();
-		gbc_hero2lbl.insets=new Insets(0,(2*widthSize),0,0);
-		gbc_hero2lbl.gridx=1;
-		gbc_hero2lbl.gridy=0;
-		gbc_hero2lbl.anchor=GridBagConstraints.FIRST_LINE_END;
-		imagePanel.add(hero2lbl, gbc_hero2lbl);
-		
-		if((players.size())>1)
-			hero2lbl.setVisible(true);
-		else
-			hero2lbl.setVisible(false);
-		//only visible in multiplayer mode
+		widthSize = helpWidth / 8;
+		heightSize = helpHeight / 6;
+		hero2Label = new JLabel();
+		helpImage = smallImage.getImage();
+		resize = helpImage.getScaledInstance(widthSize, heightSize, 0);
+		hero2Label.setIcon(new ImageIcon(resize));
+		GridBagConstraints gbc_hero2lbl = new GridBagConstraints();
+		gbc_hero2lbl.gridx = 1;
+		gbc_hero2lbl.gridy = 1;
+		playersPanel.add(hero2Label, gbc_hero2lbl);
 		
 		attacklbl = new JLabel("\u0388\u03C0\u03AF\u03B8\u03B5\u03C3\u03B7: "+currUser.getDamage());
 		attacklbl.setForeground(Color.ORANGE);
 		attacklbl.setFont(new Font("Sylfaen", Font.BOLD, 20));
 		GridBagConstraints gbc_attack = new GridBagConstraints();
-		gbc_attack.insets = new Insets(0, 0, 0, 5);
 		gbc_attack.gridx = 0;
-		gbc_attack.gridy = 1;
-		imagePanel.add(attacklbl, gbc_attack);
+		gbc_attack.gridy = 2;
+		playersPanel.add(attacklbl, gbc_attack);
+		
+		plusAttack = new JButton("+");
+		plusAttack.addActionListener(skillListener);
+		plusAttack.setForeground(Color.ORANGE);
+		plusAttack.setBackground(Color.BLACK);
+		plusAttack.setFont(new Font("Sylfaen",Font.BOLD,30));
+		GridBagConstraints gbc_plus_attack = new GridBagConstraints();
+		gbc_plus_attack.gridx = 1;
+		gbc_plus_attack.gridy = 2;
+		playersPanel.add(plusAttack, gbc_plus_attack);
 		
 		defencelbl = new JLabel("\u0386\u03BC\u03C5\u03BD\u03B1: "+currUser.getDefence());
 		defencelbl.setForeground(Color.ORANGE);
 		defencelbl.setFont(new Font("Sylfaen", Font.BOLD, 20));
 		GridBagConstraints gbc_defence = new GridBagConstraints();
-		gbc_defence.insets = new Insets(0, 0, 0, 5);
 		gbc_defence.gridx = 0;
-		gbc_defence.gridy = 2;
-		imagePanel.add(defencelbl, gbc_defence);
+		gbc_defence.gridy = 3;
+		playersPanel.add(defencelbl, gbc_defence);
+		
+		plusDefence = new JButton("+");
+		plusDefence.addActionListener(skillListener);
+		plusDefence.setForeground(Color.ORANGE);
+		plusDefence.setBackground(Color.BLACK);
+		plusDefence.setFont(new Font("Sylfaen",Font.BOLD,30));
+		GridBagConstraints gbc_plus_defence = new GridBagConstraints();
+		gbc_plus_defence.gridx = 1;
+		gbc_plus_defence.gridy = 3;
+		playersPanel.add(plusDefence, gbc_plus_defence);
 		
 		life = new JLabel("\u0396\u03C9\u03AE: "+currUser.getHealth());
 		life.setForeground(Color.ORANGE);
 		life.setFont(new Font("Sylfaen", Font.BOLD, 20));
 		GridBagConstraints gbc_life = new GridBagConstraints();
 		gbc_life.gridx = 0;
-		gbc_life.gridy = 3;
-		imagePanel.add(life, gbc_life);
+		gbc_life.gridy = 4;
+		playersPanel.add(life, gbc_life);
 		
-		plusLife=new JButton("+");
+		plusLife = new JButton("+");
+		plusLife.addActionListener(skillListener);
 		plusLife.setForeground(Color.ORANGE);
 		plusLife.setBackground(Color.BLACK);
 		plusLife.setFont(new Font("Sylfaen",Font.BOLD,30));
-		GridBagConstraints c=new GridBagConstraints();
-		c.gridx=1;
-		c.gridy=3;
-		imagePanel.add(plusLife,c);
-		plusDefence=new JButton("+");
-		plusDefence.setForeground(Color.ORANGE);
-		plusDefence.setBackground(Color.BLACK);
-		plusDefence.setFont(new Font("Sylfaen",Font.BOLD,30));
-		c.gridx=1;
-		c.gridy=2;
-		imagePanel.add(plusDefence,c);
-		plusAttack=new JButton("+");
-		plusAttack.setForeground(Color.ORANGE);
-		plusAttack.setBackground(Color.BLACK);
-		plusAttack.setFont(new Font("Sylfaen",Font.BOLD,30));
-		c.gridx=1;
-		c.gridy=1;
-		imagePanel.add(plusAttack,c);
+		GridBagConstraints gbc_plus_life = new GridBagConstraints();
+		gbc_plus_life.gridx = 1;
+		gbc_plus_life.gridy = 4;
+		playersPanel.add(plusLife, gbc_plus_life);
 		
-		skillpointlbl=new JLabel("Skill Points \n"+currUser.getSkillpoints());
+		skillpointlbl=new JLabel("Skill Points: "+currUser.getSkillpoints());
 		skillpointlbl.setFont(new Font("Sylfaen",Font.BOLD,20));
 		skillpointlbl.setForeground(Color.WHITE);
-		c.gridx=1;
-		c.gridy=4;
-		imagePanel.add(skillpointlbl, c);
+		GridBagConstraints gbc_skill = new GridBagConstraints();
+		gbc_skill.gridx = 0;
+		gbc_skill.gridy = 5;
+		playersPanel.add(skillpointlbl, gbc_skill);
 		
-		playerCoins=new JLabel("Golden Coins: "+currUser.getCoins());
+		playerCoins = new JLabel("Golden Coins: "+currUser.getCoins());
 		playerCoins.setFont(new Font("Sylfaen",Font.BOLD,20));
 		playerCoins.setForeground(Color.WHITE);
-		c.gridx=0;
-		c.gridy=5;
-		imagePanel.add(playerCoins,c);
+		GridBagConstraints gbc_coin = new GridBagConstraints();
+		gbc_coin.gridx = 0;
+		gbc_coin.gridy = 6;
+		playersPanel.add(playerCoins, gbc_coin);
 		
-		playerXP=new JLabel("XP: "+currUser.getXP());
+		playerXP = new JLabel("XP: "+currUser.getXP());
 		playerXP.setFont(new Font("Sylfaen",Font.BOLD,20));
 		playerXP.setForeground(Color.WHITE);
-		c.gridx=0;
-		c.gridy=6;
-		imagePanel.add(playerXP,c);
+		GridBagConstraints gbc_xp = new GridBagConstraints();
+		gbc_xp.gridx = 0;
+		gbc_xp.gridy = 7;
+		playersPanel.add(playerXP, gbc_xp);
 		
+		if((players.size()) > 1)
+		{
+			hero2Label.setVisible(true);
+		}
+		else
+		{
+			hero2Label.setVisible(false);
+		}
 		
-		skillListener=new UpgradeSkillListener();
-		plusLife.addActionListener(skillListener);
-		plusDefence.addActionListener(skillListener);
-		plusAttack.addActionListener(skillListener);
+		/////////////////////////
+		myGlassPane = new MyGlassPane();
+		this.setGlassPane(myGlassPane);
+		myGlassPane.setVisible(true);
+		back.add(myGlassPane, BorderLayout.CENTER);
 		
-		
-		r = new Random(System.currentTimeMillis());
-		
-		//
+		///////////////////
 		quitPanel = new JPanel();
 		quitPanel.setLayout(new BorderLayout(0, 0));
 		
@@ -274,18 +272,63 @@ public class Board extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				clip.stop();
 				Board.this.setVisible(false);
-				pick = new Pick_A_Hero(players);
-				pick.setVisible(true);
+				new Pick_A_Hero(players);
 			}
 		});
 		piso.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		quitPanel.add(piso, BorderLayout.WEST);
-		quitPanel.setBounds((widthSize*18),(heightSize*9),(widthSize*2),(heightSize/2));
-		back.add(quitPanel);
+		back.add(quitPanel, BorderLayout.SOUTH);
+	}
+	
+	public class Coin implements MouseListener {
+		private int coin, puzzle;
+		@Override
+		public void mouseClicked(MouseEvent arg0) {
 		
-		back.setTransparentAdd(true);
-		this.setVisible(true);
-		this.setContentPane(back);
+			soundthread1.PlayMusic(list.get(0).getSongName(), list.get(0).getRepeat() ); //Sound: corona_h_grammata
+			coin = r.nextInt(2);
+		
+			clip.stop(); //maxh kai grifoi exoun allo soundtrack
+			if (coin == 1)
+			{
+				new DuelBoardFrame(currUser);
+			}
+			else
+			{
+				puzzle = r.nextInt(5);
+				switch(puzzle)
+				{
+				case 0: new AncientArcadeFrame(currUser); break;
+				case 1: new ClickMeFrame(currUser); break;
+				////hangman
+				case 2: new MemoryGameFrame(currUser); break;
+				case 3: new PicsHerosFrame(currUser); break;
+				case 4: new QuizFrame(currUser); break;
+				case 5: new TelecubeFrame(currUser); break;
+				////////////////tictactoe
+				}
+			}
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+		}
+
+		@Override
+		public void mouseExited(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+		}
+		
+		@Override
+		public void mousePressed(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+		}
+		
+		@Override
+		public void mouseReleased(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+		}
 	}
 	
 	public void switchTurn(){
@@ -313,7 +356,7 @@ public class Board extends JFrame{
 		}
 
 	@SuppressWarnings("serial")
-	class MyGlassPane extends JComponent{
+	public class MyGlassPane extends JComponent{
 		private static final int ROWS = 6;
 		private static final int COLUMNS = 6;
 		private int xCoord = 0;
@@ -358,8 +401,6 @@ public class Board extends JFrame{
 			player1lbl.setBounds(xCoord, yCoord, sqSize, sqSize);
 			myGlassPane.add(player1lbl);
 			
-			
-			
 			player2lbl.setSize(sqSize,sqSize);
 			ImageIcon p2icon=new ImageIcon("player3.gif");
 			Image p2image=p2icon.getImage();
@@ -395,51 +436,83 @@ public class Board extends JFrame{
 			player2lbl.setBounds((x2Coord+(sqSize/2)),y2Coord,(sqSize/2),sqSize);
 			
 			adjust=true;
-		}
-		
-		
-
-			
+		}		
 	}
 }
 
-	class DiceListener implements MouseListener {
-
-		int diceButton;
-		int row;
-		@Override
+	public class UpgradeSkillListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			double health=currUser.getHealth();
+			double attack=currUser.getDamage();
+			double defence=currUser.getDefence();
+			int skillpoints=currUser.getSkillpoints();
+			if(skillpoints>0){
+				if(e.getSource()==plusLife){
+					health++;
+					currUser.setHealth(health);
+					skillpoints--;
+					currUser.setSkillpoints(skillpoints);
+					skillpointlbl.setText("Skill Points" +currUser.getSkillpoints());
+					life.setText("\u0396\u03C9\u03AE: "+currUser.getHealth());
+				}
+				else if(e.getSource()==plusAttack){
+					attack++;
+					currUser.setDamage(attack);
+					skillpoints--;
+					currUser.setSkillpoints(skillpoints);
+					skillpointlbl.setText("Skill Points" +currUser.getSkillpoints());
+					attacklbl.setText("\u0388\u03C0\u03AF\u03B8\u03B5\u03C3\u03B7: "+currUser.getDamage());
+				}
+				else if(e.getSource()==plusDefence){
+					defence++;
+					currUser.setDefence(defence);
+					skillpoints--;
+					currUser.setSkillpoints(skillpoints);
+					skillpointlbl.setText("Skill Points" +currUser.getSkillpoints());
+					defencelbl.setText("\u0386\u03BC\u03C5\u03BD\u03B1: "+currUser.getDefence());
+				}
+			}
+			else
+				JOptionPane.showMessageDialog(null,"You Don't Have Any Skill Points Available");
+		}
+	}
+	
+	public class Dice implements MouseListener {
+		int diceButton, row;
+		
 		public void mouseClicked(MouseEvent arg0) {
-			//Sound: dice_roll
-			soundthread1.PlayMusic(list.get(1).getSongName(), list.get(1).getRepeat() ); 
-			
-			diceButton = r.nextInt(6) + 1;
-			System.out.println("zari "+diceButton);
-			moveChar(getDice());
-			myGlassPane.setXYCoordinates(playerX, playerY);
+			if (currUser.getWin())
+			{
+				dicelbl.setEnabled(true);
+				dicelbl.addMouseListener(dlistener);
+				soundthread1.PlayMusic(list.get(1).getSongName(), list.get(1).getRepeat() ); 
+				
+				diceButton = r.nextInt(6) + 1;
+				System.out.println("zari "+diceButton);
+				moveChar(getDice());
+				//myGlassPane.setXYCoordinates(playerX, playerY);
 
-			myGlassPane.repaint();
-			if((players.size())>1)
-				switchChars();
-
-
-
+				//myGlassPane.repaint();
+				if((players.size())>1)
+					switchChars();
+			}
 		}
 
 		public void switchChars(){			
 			//tha kaleitai mono an paizoun 2 paixtes
 			ImageIcon tempIcon=new ImageIcon();
-			Icon i=imageLabel.getIcon();
+			Icon i=hero1Label.getIcon();
 			tempIcon=(ImageIcon)i;
 			//apothikeyw to icon ths megalhs eikonas
 			Image tempImage=tempIcon.getImage();
-			Image tempResizedImage = tempImage.getScaledInstance(hero2lbl.getWidth(), hero2lbl.getHeight(), 0);
+			Image tempResizedImage = tempImage.getScaledInstance(hero2Label.getWidth(), hero2Label.getHeight(), 0);
 			//thn metasxhmatizw stis diastaseis tou mikrou label
 			switchTurn();
 			tempIcon=currUser.getImage();
 			tempImage=tempIcon.getImage();
-			hero2lbl.setIcon(new ImageIcon(tempResizedImage));
-			tempResizedImage=tempImage.getScaledInstance(imageLabel.getWidth(), imageLabel.getHeight(),0);
-			imageLabel.setIcon(new ImageIcon(tempResizedImage));
+			hero2Label.setIcon(new ImageIcon(tempResizedImage));
+			tempResizedImage=tempImage.getScaledInstance(hero1Label.getWidth(), hero1Label.getHeight(),0);
+			hero1Label.setIcon(new ImageIcon(tempResizedImage));
 			
 			//allagh twn label me ta xarakthristika
 			
@@ -532,96 +605,4 @@ public class Board extends JFrame{
 		// TODO Auto-generated method stub	
 	}
 }
-
-class CoinListener implements MouseListener {
-	private int coin, puzzle;
-	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		
-		soundthread1.PlayMusic(list.get(0).getSongName(), list.get(0).getRepeat() ); //Sound: corona_h_grammata
-		coin = r.nextInt(2);
-		
-		clip.stop(); //maxh kai grifoi exoun allo soundtrack
-		if (coin == 1)
-		{
-			new DuelBoardFrame(currUser);
-		}
-		else
-		{
-			puzzle = r.nextInt(6);
-			switch(puzzle)
-			{
-			case 1: new AncientArcadeFrame(currUser); break;
-			case 2: new ClickMeFrame(currUser); break;
-			////hangman
-			case 3: new MemoryGameFrame(currUser); break;
-			case 4: new PicsHerosFrame(currUser); break;
-			case 5: new QuizFrame(currUser); break;
-			case 6: new TelecubeFrame(currUser); break;
-			////////////////tictactoe
-			}
-		}
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-	}
-}
-
-public class UpgradeSkillListener implements ActionListener{
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		double health=currUser.getHealth();
-		double attack=currUser.getDamage();
-		double defence=currUser.getDefence();
-		int skillpoints=currUser.getSkillpoints();
-		if(skillpoints>0){
-			if(e.getSource()==plusLife){
-				health++;
-				currUser.setHealth(health);
-				skillpoints--;
-				currUser.setSkillpoints(skillpoints);
-				skillpointlbl.setText("Skill Points" +currUser.getSkillpoints());
-				life.setText("\u0396\u03C9\u03AE: "+currUser.getHealth());
-			}
-			else if(e.getSource()==plusAttack){
-				attack++;
-				currUser.setDamage(attack);
-				skillpoints--;
-				currUser.setSkillpoints(skillpoints);
-				skillpointlbl.setText("Skill Points" +currUser.getSkillpoints());
-				attacklbl.setText("\u0388\u03C0\u03AF\u03B8\u03B5\u03C3\u03B7: "+currUser.getDamage());
-			}
-			else if(e.getSource()==plusDefence){
-				defence++;
-				currUser.setDefence(defence);
-				skillpoints--;
-				currUser.setSkillpoints(skillpoints);
-				skillpointlbl.setText("Skill Points" +currUser.getSkillpoints());
-				defencelbl.setText("\u0386\u03BC\u03C5\u03BD\u03B1: "+currUser.getDefence());
-			}
-		}
-		else
-			JOptionPane.showMessageDialog(null,"You Don't Have Any Skill Points Available");
-	}
-	
-}
-
 }

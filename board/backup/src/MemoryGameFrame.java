@@ -504,6 +504,7 @@ public class MemoryGameFrame extends JFrame {
 				player.setXP(player.getXP() + 1000);
 				MemoryGameFrame.this.setVisible(false);
 				JOptionPane.showMessageDialog(null, "Συγχαρητήρια.", "Τέλος παιχνιδιού", JOptionPane.INFORMATION_MESSAGE);
+				player.setWin(true);
 			}
 		}
 
@@ -563,7 +564,8 @@ public class MemoryGameFrame extends JFrame {
 				Toolkit.getDefaultToolkit().beep();
 				MemoryGameFrame.this.setVisible(false);
 				soundthread2.StopMusic();
-				JOptionPane.showMessageDialog(null, "Έχασες.", "Τέλος παιχνιδιού", JOptionPane.ERROR_MESSAGE);	
+				JOptionPane.showMessageDialog(null, "Έχασες.", "Τέλος παιχνιδιού", JOptionPane.ERROR_MESSAGE);
+				player.setWin(false);
 			}
 		}
 	}

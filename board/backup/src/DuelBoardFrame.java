@@ -313,6 +313,8 @@ public class DuelBoardFrame extends JFrame {
 			remainHealth=c.getHealth();
 		if(remainHealth<=0){
 			JOptionPane.showMessageDialog(null, "YOU WIN!");
+			DuelBoardFrame.this.setVisible(false);
+			soundthread2.StopMusic();
 			return true;
 		}			
 		else
@@ -330,6 +332,8 @@ public class DuelBoardFrame extends JFrame {
 			myGlassPane.repaint();
 			if (u.getHealth()<=0){
 				JOptionPane.showMessageDialog(null, "YOU LOSE!");
+				DuelBoardFrame.this.setVisible(false);
+				soundthread2.StopMusic();
 			}
 		}
 

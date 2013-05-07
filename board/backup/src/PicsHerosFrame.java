@@ -206,7 +206,7 @@ public class PicsHerosFrame extends JFrame{
 	public void getQuestion(){
 		helpImages = new ArrayList<ImageIcon>();
 		helpString = new ArrayList<String>();
-		System.out.println(usedImages.size()+"     "+currlist.size());
+		
 		if (usedImages.size() + 2 == currlist.size())
 		{
 			usedImages = new ArrayList<ImageIcon>();

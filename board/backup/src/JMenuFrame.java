@@ -31,23 +31,41 @@ public class JMenuFrame{
         menuBar.add(infoMenu);
         
         // Create and add simple menu item to one of the drop down menu
-
+        
+        
         JMenuItem exitAction = new JMenuItem("\u0388\u03BE\u03BF\u03B4\u03BF\u03C2");
         exitAction.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         JMenuItem info_about_puzzles_Action = new JMenuItem("\u0393\u03C1\u03AF\u03C6\u03BF\u03B9");
         info_about_puzzles_Action.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        
+        JMenuItem info_about_heroes_Action = new JMenuItem("\u0389\u03C1\u03C9\u03B5\u03C2");
+        info_about_heroes_Action.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        
         JMenuItem info_about_game_Action = new JMenuItem("\u03A4\u03BF \u03C0\u03B1\u03B9\u03C7\u03BD\u03AF\u03B4\u03B9");
         info_about_game_Action.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 
-        fileMenu.add(exitAction);
-        infoMenu.add(info_about_puzzles_Action);
-        infoMenu.addSeparator();
-        infoMenu.add(info_about_game_Action);
+        fileMenu.add(exitAction);       //KLEISIMO     
+        infoMenu.add(info_about_heroes_Action);//HEROES
+        infoMenu.addSeparator();              // SEPERATOR
+        infoMenu.add(info_about_puzzles_Action);  //GRIFOI
+        infoMenu.addSeparator();               //SEPERATOR
+        infoMenu.add(info_about_game_Action);     //TO PAIXNIDI
           
         
         // Add a listener to the New menu item. actionPerformed() method will
         // invoked, if user triggred this menu item
         //EXIT
+        
+        //info_about_heroes_Action
+        info_about_heroes_Action.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {              
+				                                                     //**** PLHROFORIES GIA TOYS HRWES ****//
+				 
+			}
+		});
+        
         exitAction.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {	
         		System.exit(0);

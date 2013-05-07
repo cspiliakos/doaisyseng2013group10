@@ -138,7 +138,6 @@ public class Board extends JFrame{
 		playersPanel.add(coinlbl, gbc_coinlbl);
 		
 		dicelbl = new JLabel();
-		dicelbl.addMouseListener(dlistener);
 		dicelbl.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		helpIcon = new ImageIcon("Board\\dice.gif");
 		helpImage = helpIcon.getImage();
@@ -313,10 +312,13 @@ public class Board extends JFrame{
 			if (currUser.getWin())
 			{
 				dicelbl.setEnabled(true);
+				dicelbl.addMouseListener(dlistener);
 			}
 			else
 			{
 				dicelbl.setEnabled(false);
+				switchTurn();
+				dicelbl.removeMouseListener(dlistener);
 			}
 		}
 

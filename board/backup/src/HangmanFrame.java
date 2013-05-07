@@ -12,7 +12,7 @@ import javax.swing.border.EmptyBorder;
 
 public class HangmanFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
-	private JButton A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z;
+	private JButton A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X;
 	private JLabel hanglbl, backlbl;
 	private JPanel buttonPanel, mainPanel;
 	private int widthSize, heightSize, miss=0,success=0, charSize,iwidth,iheight;
@@ -51,110 +51,102 @@ public class HangmanFrame extends JFrame {
 		deserializing();
 		getWord();
 		
-		A=new JButton("A");
+		A=new JButton("Á");
 		A.setBackground(Color.BLUE);
 		A.setForeground(Color.ORANGE);
-		A.setFont(new Font("Jokerman",Font.BOLD,30));
-		B=new JButton("B");
+		A.setFont(new Font("Sylfaen",Font.BOLD,30));
+		B=new JButton("Â");
 		B.setBackground(Color.BLUE);
 		B.setForeground(Color.ORANGE);
-		B.setFont(new Font("Jokerman",Font.BOLD,30));
-		C=new JButton("C");
+		B.setFont(new Font("Sylfaen",Font.BOLD,30));
+		C=new JButton("Ã");
 		C.setBackground(Color.BLUE);
 		C.setForeground(Color.ORANGE);
-		C.setFont(new Font("Jokerman",Font.BOLD,30));
-		D=new JButton("D");
+		C.setFont(new Font("Sylfaen",Font.BOLD,30));
+		D=new JButton("Ä");
 		D.setBackground(Color.BLUE);
 		D.setForeground(Color.ORANGE);
-		D.setFont(new Font("Jokerman",Font.BOLD,30));
-		E=new JButton("E");
+		D.setFont(new Font("Sylfaen",Font.BOLD,30));
+		E=new JButton("Å");
 		E.setBackground(Color.BLUE);
 		E.setForeground(Color.ORANGE);
-		E.setFont(new Font("Jokerman",Font.BOLD,30));
-		F=new JButton("F");
+		E.setFont(new Font("Sylfaen",Font.BOLD,30));
+		F=new JButton("Æ");
 		F.setBackground(Color.BLUE);
 		F.setForeground(Color.ORANGE);
-		F.setFont(new Font("Jokerman",Font.BOLD,30));
-		G=new JButton("G");
+		F.setFont(new Font("Sylfaen",Font.BOLD,30));
+		G=new JButton("Ç");
 		G.setBackground(Color.BLUE);
 		G.setForeground(Color.ORANGE);
-		G.setFont(new Font("Jokerman",Font.BOLD,30));
-		H=new JButton("H");
+		G.setFont(new Font("Sylfaen",Font.BOLD,30));
+		H=new JButton("È");
 		H.setBackground(Color.BLUE);
 		H.setForeground(Color.ORANGE);
-		H.setFont(new Font("Jokerman",Font.BOLD,30));
-		I=new JButton("I");
+		H.setFont(new Font("Sylfaen",Font.BOLD,30));
+		I=new JButton("É");
 		I.setBackground(Color.BLUE);
 		I.setForeground(Color.ORANGE);
-		I.setFont(new Font("Jokerman",Font.BOLD,30));
-		J=new JButton("J");
+		I.setFont(new Font("Sylfaen",Font.BOLD,30));
+		J=new JButton("Ê");
 		J.setBackground(Color.BLUE);
 		J.setForeground(Color.ORANGE);
-		J.setFont(new Font("Jokerman",Font.BOLD,30));
-		K=new JButton("K");
+		J.setFont(new Font("Sylfaen",Font.BOLD,30));
+		K=new JButton("Ë");
 		K.setBackground(Color.BLUE);
 		K.setForeground(Color.ORANGE);
-		K.setFont(new Font("Jokerman",Font.BOLD,30));
-		L=new JButton("L");
+		K.setFont(new Font("Sylfaen",Font.BOLD,30));
+		L=new JButton("Ì");
 		L.setBackground(Color.BLUE);
 		L.setForeground(Color.ORANGE);
-		L.setFont(new Font("Jokerman",Font.BOLD,30));
-		M=new JButton("M");
+		L.setFont(new Font("Sylfaen",Font.BOLD,30));
+		M=new JButton("Í");
 		M.setBackground(Color.BLUE);
 		M.setForeground(Color.ORANGE);
-		M.setFont(new Font("Jokerman",Font.BOLD,30));
-		N=new JButton("N");
+		M.setFont(new Font("Sylfaen",Font.BOLD,30));
+		N=new JButton("Î");
 		N.setBackground(Color.BLUE);
 		N.setForeground(Color.ORANGE);
-		N.setFont(new Font("Jokerman",Font.BOLD,30));
-		O=new JButton("O");
+		N.setFont(new Font("Sylfaen",Font.BOLD,30));
+		O=new JButton("Ï");
 		O.setBackground(Color.BLUE);
 		O.setForeground(Color.ORANGE);
-		O.setFont(new Font("Jokerman",Font.BOLD,30));
-		P=new JButton("P");
+		O.setFont(new Font("Sylfaen",Font.BOLD,30));
+		P=new JButton("Ð");
 		P.setBackground(Color.BLUE);
 		P.setForeground(Color.ORANGE);
-		P.setFont(new Font("Jokerman",Font.BOLD,30));
-		Q=new JButton("Q");
+		P.setFont(new Font("Sylfaen",Font.BOLD,30));
+		Q=new JButton("Ñ");
 		Q.setBackground(Color.BLUE);
 		Q.setForeground(Color.ORANGE);
-		Q.setFont(new Font("Jokerman",Font.BOLD,30));
-		R=new JButton("R");
+		Q.setFont(new Font("Sylfaen",Font.BOLD,30));
+		R=new JButton("Ó");
 		R.setBackground(Color.BLUE);
 		R.setForeground(Color.ORANGE);
-		R.setFont(new Font("Jokerman",Font.BOLD,30));
-		S=new JButton("S");
+		R.setFont(new Font("Sylfaen",Font.BOLD,30));
+		S=new JButton("Ô");
 		S.setBackground(Color.BLUE);
 		S.setForeground(Color.ORANGE);
-		S.setFont(new Font("Jokerman",Font.BOLD,30));
-		T=new JButton("T");
+		S.setFont(new Font("Sylfaen",Font.BOLD,30));
+		T=new JButton("Õ");
 		T.setBackground(Color.BLUE);
 		T.setForeground(Color.ORANGE);
-		T.setFont(new Font("Jokerman",Font.BOLD,30));
-		U=new JButton("U");
+		T.setFont(new Font("Sylfaen",Font.BOLD,30));
+		U=new JButton("Ö");
 		U.setBackground(Color.BLUE);
 		U.setForeground(Color.ORANGE);
-		U.setFont(new Font("Jokerman",Font.BOLD,30));
-		V=new JButton("V");
+		U.setFont(new Font("Sylfaen",Font.BOLD,30));
+		V=new JButton("×");
 		V.setBackground(Color.BLUE);
 		V.setForeground(Color.ORANGE);
-		V.setFont(new Font("Jokerman",Font.BOLD,30));
-		W=new JButton("W");
+		V.setFont(new Font("Sylfaen",Font.BOLD,30));
+		W=new JButton("Ø");
 		W.setBackground(Color.BLUE);
 		W.setForeground(Color.ORANGE);
-		W.setFont(new Font("Jokerman",Font.BOLD,30));
-		X=new JButton("X");
+		W.setFont(new Font("Sylfaen",Font.BOLD,30));
+		X=new JButton("Ù");
 		X.setBackground(Color.BLUE);
 		X.setForeground(Color.ORANGE);
-		X.setFont(new Font("Jokerman",Font.BOLD,30));
-		Y=new JButton("Y");
-		Y.setBackground(Color.BLUE);
-		Y.setForeground(Color.ORANGE);
-		Y.setFont(new Font("Jokerman",Font.BOLD,30));
-		Z=new JButton("Z");
-		Z.setBackground(Color.BLUE);
-		Z.setForeground(Color.ORANGE);
-		Z.setFont(new Font("Jokerman",Font.BOLD,30));
+		X.setFont(new Font("Sylfaen",Font.BOLD,30));
 		
 		buttonPanel=new JPanel(new GridLayout(7,4));
 		buttonPanel.add(A);
@@ -181,8 +173,6 @@ public class HangmanFrame extends JFrame {
 		buttonPanel.add(V);
 		buttonPanel.add(W);
 		buttonPanel.add(X);
-		buttonPanel.add(Y);
-		buttonPanel.add(Z);
 		
 		letterL=new letterButtonListener();
 		A.addActionListener(letterL);
@@ -209,8 +199,6 @@ public class HangmanFrame extends JFrame {
 		V.addActionListener(letterL);
 		W.addActionListener(letterL);
 		X.addActionListener(letterL);
-		Y.addActionListener(letterL);
-		Z.addActionListener(letterL);
 		
 		buttonPanel.setBounds(0,3*heightSize,5*widthSize,5*heightSize);
 		buttonPanel.setOpaque(false);
@@ -376,139 +364,127 @@ public class letterButtonListener implements ActionListener{
 		
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource()==A){
-				checkIfLetterExists("a");
+				checkIfLetterExists("Á");
 				A.removeActionListener(letterL);
 				A.setEnabled(false);
 				
 			}
 			else if(e.getSource()==B){
-				checkIfLetterExists("b");
+				checkIfLetterExists("Â");
 				B.removeActionListener(letterL);
 				B.setEnabled(false);
 			}
 			else if(e.getSource()==C){
-				checkIfLetterExists("c");
+				checkIfLetterExists("Ã");
 				C.removeActionListener(letterL);
 				C.setEnabled(false);
 			}
 			else if(e.getSource()==D){
-				checkIfLetterExists("d");
+				checkIfLetterExists("Ä");
 				D.removeActionListener(letterL);
 				D.setEnabled(false);
 			}
 			else if(e.getSource()==E){
-				checkIfLetterExists("e");
+				checkIfLetterExists("Å");
 				E.removeActionListener(letterL);
 				E.setEnabled(false);
 			}
 			else if(e.getSource()==F){
-				checkIfLetterExists("f");
+				checkIfLetterExists("Æ");
 				F.removeActionListener(letterL);
 				F.setEnabled(false);
 			}
 			else if(e.getSource()==G){
-				checkIfLetterExists("g");
+				checkIfLetterExists("Ç");
 				G.removeActionListener(letterL);
 				G.setEnabled(false);
 			}
 			else if(e.getSource()==H){
-				checkIfLetterExists("h");
+				checkIfLetterExists("È");
 				H.removeActionListener(letterL);
 				H.setEnabled(false);
 			}
 			else if(e.getSource()==I){
-				checkIfLetterExists("i");
+				checkIfLetterExists("É");
 				I.removeActionListener(letterL);
 				I.setEnabled(false);
 			}
 			else if(e.getSource()==J){
-				checkIfLetterExists("j");
+				checkIfLetterExists("Ê");
 				J.removeActionListener(letterL);
 				J.setEnabled(false);
 			}
 			else if(e.getSource()==K){
-				checkIfLetterExists("k");
+				checkIfLetterExists("Ë");
 				K.removeActionListener(letterL);
 				K.setEnabled(false);
 			}
 			else if(e.getSource()==L){
-				checkIfLetterExists("l");
+				checkIfLetterExists("Ì");
 				L.removeActionListener(letterL);
 				L.setEnabled(false);
 			}
 			else if(e.getSource()==M){
-				checkIfLetterExists("m");
+				checkIfLetterExists("Í");
 				M.removeActionListener(letterL);
 				M.setEnabled(false);
 			}
 			else if(e.getSource()==N){
-				checkIfLetterExists("n");
+				checkIfLetterExists("Î");
 				N.removeActionListener(letterL);
 				N.setEnabled(false);
 			}
 			else if(e.getSource()==O){
-				checkIfLetterExists("o");
+				checkIfLetterExists("Ï");
 				O.removeActionListener(letterL);
 				O.setEnabled(false);
 			}
 			else if(e.getSource()==P){
-				checkIfLetterExists("p");
+				checkIfLetterExists("Ð");
 				P.removeActionListener(letterL);
 				P.setEnabled(false);
 			}
 			else if(e.getSource()==Q){
-				checkIfLetterExists("q");
+				checkIfLetterExists("Ñ");
 				Q.removeActionListener(letterL);
 				Q.setEnabled(false);
 			}
 			else if(e.getSource()==R){
-				checkIfLetterExists("r");
+				checkIfLetterExists("Ó");
 				R.removeActionListener(letterL);
 				R.setEnabled(false);
 			}
 			else if(e.getSource()==S){
-				checkIfLetterExists("s");
+				checkIfLetterExists("Ô");
 				S.removeActionListener(letterL);
 				S.setEnabled(false);
 			}
 			else if(e.getSource()==T){
-				checkIfLetterExists("t");
+				checkIfLetterExists("Õ");
 				T.removeActionListener(letterL);
 				T.setEnabled(false);
 			}
 			else if(e.getSource()==U){
-				checkIfLetterExists("u");
+				checkIfLetterExists("Ö");
 				U.removeActionListener(letterL);
 				U.setEnabled(false);
 			}
 			else if(e.getSource()==V){
-				checkIfLetterExists("v");
+				checkIfLetterExists("×");
 				V.removeActionListener(letterL);
 				V.setEnabled(false);
 			}
 			else if(e.getSource()==W){
-				checkIfLetterExists("w");
+				checkIfLetterExists("Ø");
 				W.removeActionListener(letterL);
 				W.setEnabled(false);
 			}
 			else if(e.getSource()==X){
-				checkIfLetterExists("x");
+				checkIfLetterExists("Ù");
 				X.removeActionListener(letterL);
 				X.setEnabled(false);
 			}
-			else if(e.getSource()==Y){
-				checkIfLetterExists("y");
-				Y.removeActionListener(letterL);
-				Y.setEnabled(false);
-			}
-			else if(e.getSource()==Z){
-				checkIfLetterExists("z");
-				Z.removeActionListener(letterL);
-				Z.setEnabled(false);
-			}
-			
 		}
-		
 	}
 @SuppressWarnings("serial")
 public class hangGlassPane extends JComponent{

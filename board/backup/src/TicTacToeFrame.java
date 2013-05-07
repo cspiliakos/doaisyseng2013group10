@@ -28,6 +28,7 @@ public class TicTacToeFrame implements ActionListener	{
 			{7, 8, 9}, 			{3, 6, 9}
 			/*Horizontal Wins*/	/*Vertical Wins*/ /*Diagonal Wins*/
 	};
+	@SuppressWarnings("unused")
 	private final int X = 535, Y = 342,
 			mainColorR = 190, mainColorG = 50, mainColorB = 50,
 			btnColorR = 70, btnColorG = 70, btnColorB = 70;
@@ -39,6 +40,7 @@ public class TicTacToeFrame implements ActionListener	{
 			wonNumber1 = 1, wonNumber2 = 1, wonNumber3 = 1;
 	private boolean CPUGame = false,
 			win = false;
+	@SuppressWarnings("unused")
 	private String 	message,
 	Player1 = "Player 1", Player2 = "Player 2",
 	tempPlayer2 = "Player 2";

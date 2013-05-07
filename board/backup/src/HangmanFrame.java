@@ -206,7 +206,7 @@ public class HangmanFrame extends JFrame {
 		mainPanel.add(buttonPanel);
 		
 		
-		ImageIcon hangIcon=new ImageIcon("gallow.gif");
+		ImageIcon hangIcon=new ImageIcon("Hangman\\gallow.gif");
 		Image hang=hangIcon.getImage();
 		hanglbl=new JLabel();
 		hanglbl.setBounds((iwidth-(8*widthSize)), (2*heightSize), (widthSize*8), (iheight-(2*heightSize)));
@@ -221,7 +221,7 @@ public class HangmanFrame extends JFrame {
 		
 		createLabels();
 		
-		ImageIcon  background=new  ImageIcon("back1.jpg");
+		ImageIcon  background=new  ImageIcon("Hangman\\back1.jpg");
 		Image image=background.getImage();
 		backlbl=new JLabel();
 		backlbl.setBounds(0,0,iwidth,iheight);
@@ -274,43 +274,43 @@ public class HangmanFrame extends JFrame {
 		ImageIcon im;
 		Image helpImage, resizedhelpHang;
 		switch (miss){
-		case 1:im=new ImageIcon("gallow1.gif");
+		case 1:im=new ImageIcon("Hangman\\gallow1.gif");
 			helpImage=im.getImage();
 			hanglbl.setBounds((iwidth-(8*widthSize)), (2*heightSize), (widthSize*8), (iheight-(2*heightSize)));
 			resizedhelpHang=helpImage.getScaledInstance(hanglbl.getWidth(), hanglbl.getHeight(), 0);
 			hanglbl.setIcon(new ImageIcon(resizedhelpHang));
 			break;
-		case 2:im=new ImageIcon("gallow2.gif");
+		case 2:im=new ImageIcon("Hangman\\gallow2.gif");
 			helpImage=im.getImage();
 			hanglbl.setBounds((iwidth-(8*widthSize)), (2*heightSize), (widthSize*8), (iheight-(2*heightSize)));
 			resizedhelpHang=helpImage.getScaledInstance(hanglbl.getWidth(), hanglbl.getHeight(), 0);
 			hanglbl.setIcon(new ImageIcon(resizedhelpHang));
 			break; 
-		case 3: im=new ImageIcon("gallow3.gif");
+		case 3: im=new ImageIcon("Hangman\\gallow3.gif");
 			helpImage=im.getImage();
 			hanglbl.setBounds((iwidth-(8*widthSize)), (2*heightSize), (widthSize*8), (iheight-(2*heightSize)));
 			resizedhelpHang=helpImage.getScaledInstance(hanglbl.getWidth(), hanglbl.getHeight(), 0);
 			hanglbl.setIcon(new ImageIcon(resizedhelpHang));
 			break;
-		case 4: im=new ImageIcon("gallow4.gif");
+		case 4: im=new ImageIcon("Hangman\\gallow4.gif");
 			helpImage=im.getImage();
 			hanglbl.setBounds((iwidth-(8*widthSize)), (2*heightSize), (widthSize*8), (iheight-(2*heightSize)));
 			resizedhelpHang=helpImage.getScaledInstance(hanglbl.getWidth(), hanglbl.getHeight(), 0);
 			hanglbl.setIcon(new ImageIcon(resizedhelpHang));
 			break;
-		case 5: im=new ImageIcon("gallow5.gif");
+		case 5: im=new ImageIcon("Hangman\\gallow5.gif");
 			helpImage=im.getImage();
 			hanglbl.setBounds((iwidth-(8*widthSize)), (2*heightSize), (widthSize*8), (iheight-(2*heightSize)));
 			resizedhelpHang=helpImage.getScaledInstance(hanglbl.getWidth(), hanglbl.getHeight(), 0);
 			hanglbl.setIcon(new ImageIcon(resizedhelpHang));
 			break;
-		case 6:im=new ImageIcon("gallow6.gif");
+		case 6:im=new ImageIcon("Hangman\\gallow6.gif");
 			helpImage=im.getImage();
 			hanglbl.setBounds((iwidth-(8*widthSize)), (2*heightSize), (widthSize*8), (iheight-(2*heightSize)));
 			resizedhelpHang=helpImage.getScaledInstance(hanglbl.getWidth(), hanglbl.getHeight(), 0);
 			hanglbl.setIcon(new ImageIcon(resizedhelpHang));
 			break;
-		default: im=new ImageIcon("gallow.gif");
+		default: im=new ImageIcon("Hangman\\gallow.gif");
 			helpImage=im.getImage();
 			hanglbl.setBounds((iwidth-(8*widthSize)), (2*heightSize), (widthSize*8), (iheight-(2*heightSize)));
 			resizedhelpHang=helpImage.getScaledInstance(hanglbl.getWidth(), hanglbl.getHeight(), 0);
@@ -485,7 +485,7 @@ public class HangmanFrame extends JFrame {
 		public void paintComponent(Graphics g) {
 			//overwrite paintcomponent
 			super.paintComponent(g);
-			int xf=widthSize*6, yf=heightSize*5, xl=40, yl=5;
+			int xf=widthSize*6, yf=heightSize*6 - 55, xl=40, yl=5;
 			for(int i=0;i<charSize;i++){
 				//to charArraySize
 				

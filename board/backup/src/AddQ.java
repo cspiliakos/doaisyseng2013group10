@@ -46,6 +46,8 @@ public class AddQ extends JFrame {
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setVisible(true);
 		
+		words = new ArrayList<String>();
+		
 		backPanel = new JPanel();
 		back.add(backPanel, BorderLayout.SOUTH);
 		backPanel.setLayout(new BorderLayout(0, 0));
@@ -77,9 +79,9 @@ public class AddQ extends JFrame {
 				{
 					JOptionPane.showMessageDialog(null, "Πρέπει να συμπληρώσετε το πεδίο.", "Σφάλμα", JOptionPane.ERROR_MESSAGE);
 				}
-				else if (!words.contains(textField.getText()))
+				else if (!words.contains(textField.getText().toUpperCase()))
 				{
-					words.add(textField.getText());
+					words.add(textField.getText().toUpperCase());
 					serializing();			
 					JOptionPane.showMessageDialog(null, "Η λέξη προστέθηκε με επιτυχία.", "Επιτυχία", JOptionPane.INFORMATION_MESSAGE);
 				}

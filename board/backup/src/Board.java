@@ -27,22 +27,20 @@ import java.awt.Insets;
 public class Board extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
-	private JButton piso, plusLife, plusAttack, plusDefence;
-	private JLabel attacklbl, defencelbl, life, coinlbl, dicelbl, skillpointlbl, playerCoins, hero1Label, hero2Label, 
+	private JButton piso, plusLife, plusAttack, plusDefence, coinlbl, dicelbl;
+	private JLabel attacklbl, defencelbl, life, skillpointlbl, playerCoins, hero1Label, hero2Label, 
 	playerXP, player1lbl, player2lbl;
 	private Random r;
 	private JPanel playersPanel, quitPanel;
 	private User xristis1, xristis2, currUser;
 	private MyGlassPane myGlassPane;
-	private int row1, row2, size, playerX, playerY, widthSize, heightSize, sqSize, userTurn, helpWidth, helpHeight;
+	private int row1, row2, size, playerX, playerY, widthSize, heightSize, sqSize, userTurn, helpWidth, helpHeight, coin, puzzle, dice, row;
 	private double frameWidth, frameHeight;
 	private BackgroundPanel back;
 	@SuppressWarnings("unused")
 	private Image background, hero, resize , hero2, helpImage;
 	private Clip clip;
 	private AudioInputStream audio;
-	private Dice dlistener;
-	private Coin clistener;
 	private ImageIcon image, smallImage, helpIcon;
 	private UpgradeSkillListener skillListener;
 	private ArrayList<User> players;
@@ -61,8 +59,6 @@ public class Board extends JFrame{
 		players = new ArrayList<User>();
 		list = new ArrayList<AudiosPair>(new Audios().getBoardList());
 		soundthread1 = new Sound_Thread();
-		clistener = new Coin();
-		dlistener = new Dice();
 		skillListener = new UpgradeSkillListener();
 		adjust = false;
 		userTurn = 2;
@@ -122,8 +118,48 @@ public class Board extends JFrame{
 		playersPanel = new JPanel();
 		back.add(playersPanel, BorderLayout.EAST);
 		
-		coinlbl = new JLabel();
-		coinlbl.addMouseListener(clistener);
+		coinlbl = new JButton();
+		coinlbl.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				soundthread1.PlayMusic(list.get(0).getSongName(), list.get(0).getRepeat() ); //Sound: corona_h_grammata
+				coin = r.nextInt(2);
+			
+				clip.stop(); //maxh kai grifoi exoun allo soundtrack
+				//if (coin == 1)
+				//{
+					//new DuelBoardFrame(currUser);
+				//}
+				//else
+				//{
+					//puzzle = r.nextInt(7);
+					//switch(puzzle)
+					//{
+					//case 0: new AncientArcadeFrame(currUser); break;
+					//case 1: new ClickMeFrame(currUser); break;
+					//case 2: 
+				new HangmanFrame(currUser); //break;
+					//case 3: new MemoryGameFrame(currUser); break;
+					//case 4: new PicsHerosFrame(currUser); break;
+					//case 5: new QuizFrame(currUser); break;
+					//case 6: new TelecubeFrame(currUser); break;
+					//case 7: new TicTacToeFrame(currUser); break;
+					//}
+				//}
+				System.out.println(currUser.getWin());
+				if (currUser.getWin())
+				{
+					dicelbl.setEnabled(true);
+				}
+				else
+				{
+					dicelbl.setEnabled(false);
+					if (players.size() > 1)
+					{
+						switchTurn();
+					}
+				}
+			}
+		});
 		coinlbl.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		helpIcon = new  ImageIcon("Board\\coin.gif");
 		helpImage = helpIcon.getImage();
@@ -137,7 +173,21 @@ public class Board extends JFrame{
 		gbc_coinlbl.gridy = 0;
 		playersPanel.add(coinlbl, gbc_coinlbl);
 		
-		dicelbl = new JLabel();
+		dicelbl = new JButton();
+		dicelbl.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				soundthread1.PlayMusic(list.get(1).getSongName(), list.get(1).getRepeat() ); 
+				dice = r.nextInt(6) + 1;
+				moveChar(getDice());
+				myGlassPane.setXYCoordinates(playerX, playerY);
+				myGlassPane.repaint();
+				if((players.size()) > 1)
+				{
+					switchChars();
+				}
+				dicelbl.setEnabled(false);
+			}
+		});
 		dicelbl.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		helpIcon = new ImageIcon("Board\\dice.gif");
 		helpImage = helpIcon.getImage();
@@ -278,72 +328,6 @@ public class Board extends JFrame{
 		piso.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		quitPanel.add(piso, BorderLayout.WEST);
 		back.add(quitPanel, BorderLayout.SOUTH);
-	}
-	
-	public class Coin implements MouseListener {
-		private int coin, puzzle;
-		@Override
-		public void mouseClicked(MouseEvent arg0) {
-		
-			soundthread1.PlayMusic(list.get(0).getSongName(), list.get(0).getRepeat() ); //Sound: corona_h_grammata
-			coin = r.nextInt(2);
-		
-			clip.stop(); //maxh kai grifoi exoun allo soundtrack
-			//if (coin == 1)
-			//{
-				new DuelBoardFrame(currUser);
-			//}
-			//else
-			//{
-				//puzzle = r.nextInt(7);
-				//switch(puzzle)
-				//{
-				//case 0: new AncientArcadeFrame(currUser); break;
-				//case 1: new ClickMeFrame(currUser); break;
-				//case 2: new HangmanFrame(currUser); break;
-				//case 3: new MemoryGameFrame(currUser); break;
-				//case 4: new PicsHerosFrame(currUser); break;
-				//case 5: new QuizFrame(currUser); break;
-				//case 6: new TelecubeFrame(currUser); break;
-				//case 7: new TicTacToeFrame(currUser); break;
-				//}
-			//}
-			
-			if (currUser.getWin())
-			{
-				dicelbl.setEnabled(true);
-				dicelbl.addMouseListener(dlistener);
-			}
-			else
-			{
-				dicelbl.setEnabled(false);
-				dicelbl.removeMouseListener(dlistener);
-				if (players.size() > 1)
-				{
-					switchTurn();
-				}
-			}
-		}
-
-		@Override
-		public void mouseEntered(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-		}
-
-		@Override
-		public void mouseExited(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-		}
-		
-		@Override
-		public void mousePressed(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-		}
-		
-		@Override
-		public void mouseReleased(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-		}
 	}
 	
 	public void switchTurn(){
@@ -499,135 +483,93 @@ public class Board extends JFrame{
 		}
 	}
 	
-	public class Dice implements MouseListener {
-		int diceButton, row;
-		
-		public void mouseClicked(MouseEvent arg0) {
-			if (currUser.getWin())
-			{
-				dicelbl.setEnabled(true);
-				dicelbl.addMouseListener(dlistener);
-				soundthread1.PlayMusic(list.get(1).getSongName(), list.get(1).getRepeat() ); 
-				
-				diceButton = r.nextInt(6) + 1;
-				moveChar(getDice());
-				myGlassPane.setXYCoordinates(playerX, playerY);
-				myGlassPane.repaint();
-				if((players.size()) > 1)
-				{
-					switchChars();
-				}
-			}
+	public void switchChars(){			
+		//tha kaleitai mono an paizoun 2 paixtes
+		ImageIcon tempIcon = new ImageIcon();
+		Icon i = hero1Label.getIcon();
+		tempIcon = (ImageIcon)i;
+		//apothikeyw to icon ths megalhs eikonas
+		Image tempImage = tempIcon.getImage();
+		Image tempResizedImage = tempImage.getScaledInstance(hero2Label.getWidth(), hero2Label.getHeight(), 0);
+		//thn metasxhmatizw stis diastaseis tou mikrou label
+		switchTurn();
+		tempIcon = currUser.getImage();
+		tempImage = tempIcon.getImage();
+		hero2Label.setIcon(new ImageIcon(tempResizedImage));
+		tempResizedImage = tempImage.getScaledInstance(hero1Label.getWidth(), hero1Label.getHeight(), 0);
+		hero1Label.setIcon(new ImageIcon(tempResizedImage));
+		//allagh twn label me ta xarakthristika
+	}
+	
+	public int getDice(){
+		return dice;
+	}
+	
+	public void moveChar(int dice){
+		//int row;
+		if (userTurn == 2)
+		{
+			playerX = player1lbl.getX();
+			playerY = player1lbl.getY();
+			row = row1;
+			adjust = false;
 		}
-
-		public void switchChars(){			
-			//tha kaleitai mono an paizoun 2 paixtes
-			ImageIcon tempIcon = new ImageIcon();
-			Icon i = hero1Label.getIcon();
-			tempIcon = (ImageIcon)i;
-			//apothikeyw to icon ths megalhs eikonas
-			Image tempImage = tempIcon.getImage();
-			Image tempResizedImage = tempImage.getScaledInstance(hero2Label.getWidth(), hero2Label.getHeight(), 0);
-			//thn metasxhmatizw stis diastaseis tou mikrou label
-			switchTurn();
-			tempIcon = currUser.getImage();
-			tempImage = tempIcon.getImage();
-			hero2Label.setIcon(new ImageIcon(tempResizedImage));
-			tempResizedImage = tempImage.getScaledInstance(hero1Label.getWidth(), hero1Label.getHeight(), 0);
-			hero1Label.setIcon(new ImageIcon(tempResizedImage));
-			//allagh twn label me ta xarakthristika
-		}
-		
-		public int getDice(){
-			return diceButton;
-		}
-		
-		public void moveChar(int dice){
-			//int row;
-			if (userTurn == 2)
+		else if(userTurn == 1)
+		{
+			if(adjust)
 			{
-				playerX = player1lbl.getX();
-				playerY = player1lbl.getY();
-				row = row1;
-				adjust = false;
+				playerX = (player2lbl.getX()) - (sqSize / 2);
 			}
-			else if(userTurn == 1)
+			else
 			{
-				if(adjust)
-				{
-					playerX = (player2lbl.getX()) - (sqSize / 2);
-				}
-				else
-				{
-					playerX = player2lbl.getX();
-				}
-				
-				playerY = player2lbl.getY();
-				row = row2;
-			}
-			for (int i = 0; i < dice; i++)
-			{
-				if (row % 2 == 0)
-				{
-					playerX -= size;
-					if(playerX < 0)
-					{
-						if(row != 6)
-						{
-						playerY += size;
-						row++;
-						playerX += size;
-						}
-						else
-						{
-							i = dice;
-							playerX = 0;
-							playerY = playerY;
-							JOptionPane.showMessageDialog(null, "Τέλος πίστας.", "Τέλος παιχνιδιού", JOptionPane.INFORMATION_MESSAGE);
-						}	
-					}
-				}
-				else
-				{
-					playerX = playerX + size;
-					if (playerX + size > (6 * size))
-					{
-						playerY += size;
-						row++;
-						playerX -= size;
-					}
-				}
+				playerX = player2lbl.getX();
 			}
 			
-			if(userTurn == 2)
+			playerY = player2lbl.getY();
+			row = row2;
+		}
+		for (int i = 0; i < dice; i++)
+		{
+			if (row % 2 == 0)
 			{
-				//dealing with players figure rows
-				row1=row;
+				playerX -= size;
+				if(playerX < 0)
+				{
+					if(row != 6)
+					{
+					playerY += size;
+					row++;
+					playerX += size;
+					}
+					else
+					{
+						i = dice;
+						playerX = 0;
+						playerY = playerY;
+						JOptionPane.showMessageDialog(null, "Τέλος πίστας.", "Τέλος παιχνιδιού", JOptionPane.INFORMATION_MESSAGE);
+					}	
+				}
 			}
-			else if(userTurn == 1)
+			else
 			{
-				row2 = row;
+				playerX = playerX + size;
+				if (playerX + size > (6 * size))
+				{
+					playerY += size;
+					row++;
+					playerX -= size;
+				}
 			}
 		}
-
-		@Override
-		public void mouseEntered(MouseEvent arg0) {
-			// TODO Auto-generated method stub
+		
+		if(userTurn == 2)
+		{
+			//dealing with players figure rows
+			row1=row;
 		}
-
-		@Override
-		public void mouseExited(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-		}
-
-		@Override
-		public void mousePressed(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent arg0) {
-			// TODO Auto-generated method stub	
+		else if(userTurn == 1)
+		{
+			row2 = row;
 		}
 	}
 }

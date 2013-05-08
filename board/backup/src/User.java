@@ -39,8 +39,8 @@ public class User extends Monsters {
 		return win;
 	}
 	
-	public void setWin(boolean win) {
-		this.win = win;
+	public void setWin(boolean timi) {
+		win = timi;
 	}
 	
 	public ArrayList<Weapons> getWeapons() {

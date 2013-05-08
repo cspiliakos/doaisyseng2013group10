@@ -39,7 +39,7 @@ public class HangmanFrame extends JFrame {
 		back = new BackgroundPanel(background);
 		back.setLayout(new BorderLayout(5, 5));
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		//setUndecorated(true);
+		setUndecorated(true);
 		setContentPane(back);
 		setVisible(true);
 		

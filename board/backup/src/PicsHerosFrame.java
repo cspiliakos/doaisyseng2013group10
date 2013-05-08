@@ -47,7 +47,13 @@ public class PicsHerosFrame extends JFrame{
 	private String name1, name2, name3;
 	private ArrayList<String> helpString;
 	
+	ArrayList<AudiosPair> list = new ArrayList<AudiosPair>(new Audios().getPicsHerosList()); 
+	Sound_Thread soundthread1 = new Sound_Thread(); //Thread 1 gia mikrous hxous, pou diakoptei o enas ton allon
+	Sound_Thread soundthread2 = new Sound_Thread(); //Thread 2 gia soundtrack
+	
 	public PicsHerosFrame(User u){
+		soundthread2.PlayMusic(list.get(1).getSongName(), list.get(1).getRepeat());
+		
 		setJMenuBar(new JMenuFrame().getMenu());
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		frameWidth = screenSize.getWidth();
@@ -167,6 +173,7 @@ public class PicsHerosFrame extends JFrame{
 		commit = new JButton();
 		commit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+			
 				if (correct.getDescription().equals(check.getDescription()))
 				{
 					score++;
@@ -294,6 +301,7 @@ public class PicsHerosFrame extends JFrame{
 			
 			if (seconds == 0 && minutes == 0)
 			{
+				soundthread2.StopMusic();
 				timer.stop();
 				Toolkit.getDefaultToolkit().beep();
 				player.setCoins(player.getCoins() + 1000);
@@ -314,6 +322,7 @@ public class PicsHerosFrame extends JFrame{
 	
 	public class Labels implements MouseListener {
 		public void mouseClicked(MouseEvent e) {
+			soundthread1.PlayMusic(list.get(0).getSongName(), list.get(0).getRepeat());
 			photo1.setBorder(null);
 			photo2.setBorder(null);
 			photo3.setBorder(null);

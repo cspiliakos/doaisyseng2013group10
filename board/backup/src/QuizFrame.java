@@ -43,7 +43,13 @@ public class QuizFrame extends JFrame {
 	private ButtonGroup group;
 	private String choose;
 	
+	ArrayList<AudiosPair> list = new ArrayList<AudiosPair>(new Audios().getQuizList()); 
+	Sound_Thread soundthread1 = new Sound_Thread(); //Thread 1 gia mikrous hxous, pou diakoptei o enas ton allon
+	Sound_Thread soundthread2 = new Sound_Thread(); //Thread 2 gia soundtrack
+	
 	public QuizFrame(User u) {
+		soundthread2.PlayMusic(list.get(1).getSongName(), list.get(1).getRepeat());
+		
 		setJMenuBar(new JMenuFrame().getMenu());
 		r = new Random(System.currentTimeMillis());
 		player = u;
@@ -131,6 +137,7 @@ public class QuizFrame extends JFrame {
 		check = new JButton();
 		check.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				soundthread1.PlayMusic(list.get(0).getSongName(), list.get(0).getRepeat());
 				if (choice1.isSelected()) 
 				{
 					choose = choice1.getText();
@@ -284,6 +291,7 @@ public class QuizFrame extends JFrame {
 			
 			if (seconds == 0 && minutes == 0)
 			{
+				soundthread2.StopMusic();
 				timer.stop();
 				Toolkit.getDefaultToolkit().beep();
 				player.setCoins(player.getCoins() + 1000);

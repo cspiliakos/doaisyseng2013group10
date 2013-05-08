@@ -29,7 +29,15 @@ public class HangmanFrame extends JFrame {
 	private ImageIcon helpIcon;
 	private User player;
 	
+	ArrayList<AudiosPair> list = new ArrayList<AudiosPair>(new Audios().getHangmamList()); 
+	Sound_Thread soundthread1 = new Sound_Thread(); //Thread 1 gia mikrous hxous, pou diakoptei o enas ton allon
+	Sound_Thread soundthread2 = new Sound_Thread(); //Thread 2 gia soundtrack
+	
 	public HangmanFrame(User u){
+		setJMenuBar(new JMenuFrame().getMenu());
+		
+		soundthread2.PlayMusic(list.get(2).getSongName(), list.get(2).getRepeat());
+		
 		player = u;
 		try {
 			background = ImageIO.read(new File("Hangman\\back1.jpg"));
@@ -476,6 +484,7 @@ public class HangmanFrame extends JFrame {
 					String j = Character.toString(currWord[i]);
 					if (letter.equals(j))
 					{
+						soundthread1.PlayMusic(list.get(0).getSongName(),list.get(0).getRepeat());
 						letterlbl[i].setVisible(true);
 						success++;
 						found = true;
@@ -484,12 +493,14 @@ public class HangmanFrame extends JFrame {
 				
 				if(!found)
 				{
+					soundthread1.PlayMusic(list.get(3).getSongName(), list.get(3).getRepeat());
 					miss++;
 					hangmanIcon();
 				}
 				
 				if(success == charSize) 
 				{
+					soundthread2.StopMusic();
 					HangmanFrame.this.setVisible(false);
 					player.setWin(true);
 					player.setCoins(player.getCoins() + 1000);
@@ -499,6 +510,7 @@ public class HangmanFrame extends JFrame {
 				
 				if(miss == 6)
 				{
+					soundthread2.StopMusic();
 					HangmanFrame.this.setVisible(false);
 					player.setWin(false);
 					JOptionPane.showMessageDialog(null, "Δε βρήκες τη λέξη", "Αποτυχία", JOptionPane.ERROR_MESSAGE);
@@ -507,6 +519,7 @@ public class HangmanFrame extends JFrame {
 			}
 			
 			public void actionPerformed(ActionEvent e) {
+				soundthread1.PlayMusic(list.get(1).getSongName(), list.get(1).getRepeat());
 				if(e.getSource() == A)
 				{
 					checkIfLetterExists("Α");

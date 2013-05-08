@@ -60,7 +60,7 @@ public class MemoryGameFrame extends JFrame {
 		helpWidth = (int)frameWidth;
 		helpHeight = (int)frameHeight;
 		widthSize = helpWidth / 5;
-		heightSize = helpHeight / 8;
+		heightSize = helpHeight / 5;
 		iconlist = new Uicons();
 		currlist = new ArrayList<ImageIcon>(iconlist.getMMGIcons());
 		Collections.shuffle(currlist.subList(2, currlist.size()));
@@ -503,6 +503,8 @@ public class MemoryGameFrame extends JFrame {
 				player.setCoins(player.getCoins() + 1000);
 				player.setXP(player.getXP() + 1000);
 				MemoryGameFrame.this.setVisible(false);
+				soundthread1.StopMusic();
+				soundthread2.StopMusic();
 				JOptionPane.showMessageDialog(null, "Συγχαρητήρια.", "Τέλος παιχνιδιού", JOptionPane.INFORMATION_MESSAGE);
 				player.setWin(true);
 			}

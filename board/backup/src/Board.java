@@ -132,21 +132,19 @@ public class Board extends JFrame{
 				//}
 				//else
 				//{
-					//puzzle = r.nextInt(7);
-					//switch(puzzle)
-					//{
-					//case 0: new AncientArcadeFrame(currUser); break;
-					//case 1: new ClickMeFrame(currUser); break;
-					//case 2: 
-				new HangmanFrame(currUser); //break;
-					//case 3: new MemoryGameFrame(currUser); break;
-					//case 4: new PicsHerosFrame(currUser); break;
-					//case 5: new QuizFrame(currUser); break;
-					//case 6: new TelecubeFrame(currUser); break;
-					//case 7: new TicTacToeFrame(currUser); break;
-					//}
+					puzzle = r.nextInt(7);
+					switch(puzzle)
+					{
+					case 0: new AncientArcadeFrame(currUser); break;
+					case 1: new ClickMeFrame(currUser); break;
+					case 2: new HangmanFrame(currUser); break;
+					case 3: new MemoryGameFrame(currUser); break;
+					case 4: new PicsHerosFrame(currUser); break;
+					case 5: new QuizFrame(currUser); break;
+					case 6: new TelecubeFrame(currUser); break;
+					case 7: new TicTacToeFrame(currUser); break;
+					}
 				//}
-				
 			}
 		});
 		coinlbl.setCursor(new Cursor(Cursor.HAND_CURSOR));

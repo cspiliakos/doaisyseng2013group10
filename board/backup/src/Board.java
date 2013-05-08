@@ -397,7 +397,7 @@ public class Board extends JFrame{
 					g.drawRect(x, y, sqSize, sqSize);
 				}
 			}
-			//updateStatLabels();
+			updateStatLabels();
 		
 			boolean win=currUser.getWin();
 			if (win)

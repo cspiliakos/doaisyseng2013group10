@@ -40,14 +40,15 @@ public class TelecubeFrame extends JFrame {
 	private ArrayList<String> words, usedWords;
 	private Random r;
 	private User player;
-	
-	ArrayList<AudiosPair> list = new ArrayList<AudiosPair>(new Audios().getTelecubeList()); 
-	Sound_Thread soundthread1 = new Sound_Thread(); //Thread 1 gia mikrous hxous, pou diakoptei o enas ton allon
-	Sound_Thread soundthread2 = new Sound_Thread(); //Thread 2 gia soundtrack
+	private ArrayList<AudiosPair> list;
+	private Sound_Thread soundthread1, soundthread2; //Thread 1 gia mikrous hxous, pou diakoptei o enas ton allon
+	 												//Thread 2 gia soundtrack
 	
 	public TelecubeFrame(User u) {
+		soundthread1 = new Sound_Thread();
+		soundthread2 = new Sound_Thread();
 		soundthread2.PlayMusic(list.get(1).getSongName(), list.get(1).getRepeat());
-		
+		list = new ArrayList<AudiosPair>(new Audios().getTelecubeList()); 
 		player = u;
 		setJMenuBar(new JMenuFrame().getMenu());
 		r = new Random(System.currentTimeMillis());
@@ -91,9 +92,7 @@ public class TelecubeFrame extends JFrame {
 		check.setFont(new Font("Sylfaen", Font.BOLD, 20));
 		check.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				String answer = text.getText();
-				if(answer.equals(question))
+				if(text.getText().toUpperCase().equals(question))
 				{
 					soundthread1.PlayMusic(list.get(0).getSongName(), list.get(0).getRepeat());   //Sound click
 					score++;
@@ -254,6 +253,7 @@ public class TelecubeFrame extends JFrame {
 				player.setCoins(player.getCoins() + 1000);
 				player.setXP(player.getXP() + 100);
 				TelecubeFrame.this.setVisible(false);
+				soundthread2.StopMusic();
 				JOptionPane.showMessageDialog(null, "\u03A4\u03BF \u03C4\u03B5\u03BB\u03B9\u03BA\u03CC \u03C3\u03BA\u03BF\u03C1 \u03B5\u03AF\u03BD\u03B1\u03B9: "+score, "Τέλος παιχνιδιού", JOptionPane.INFORMATION_MESSAGE);
 				if (score > 8)
 				{

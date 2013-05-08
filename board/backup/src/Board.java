@@ -35,7 +35,7 @@ public class Board extends JFrame{
 	private User xristis1, xristis2, currUser;
 	private MyGlassPane myGlassPane;
 	private int row1, row2, size, playerX, playerY, widthSize, heightSize, sqSize, userTurn, helpWidth, helpHeight, 
-	coin, puzzle, dice, row, result;
+	coin, puzzle, dice, row;
 	private double frameWidth, frameHeight;
 	private BackgroundPanel back;
 	@SuppressWarnings("unused")
@@ -101,7 +101,7 @@ public class Board extends JFrame{
 		back = new BackgroundPanel(background);
 		back.setLayout(new BorderLayout(5, 5));
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		//setUndecorated(true);
+		setUndecorated(true);
 		setContentPane(back);
 		setVisible(true);
 		
@@ -132,7 +132,7 @@ public class Board extends JFrame{
 				//}
 				//else
 				//{
-					puzzle = r.nextInt(7);
+					puzzle = r.nextInt(8);
 					switch(puzzle)
 					{
 					case 0: new AncientArcadeFrame(currUser); break;
@@ -143,6 +143,7 @@ public class Board extends JFrame{
 					case 5: new QuizFrame(currUser); break;
 					case 6: new TelecubeFrame(currUser); break;
 					case 7: new TicTacToeFrame(currUser); break;
+					case 8: new Pics3(currUser); break;
 					}
 				//}
 			}
@@ -316,8 +317,6 @@ public class Board extends JFrame{
 		piso.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		quitPanel.add(piso, BorderLayout.WEST);
 		back.add(quitPanel, BorderLayout.SOUTH);
-		
-		result = currUser.getCoins();
 	}
 	
 	public void switchTurn(){

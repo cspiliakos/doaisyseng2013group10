@@ -22,8 +22,14 @@ public class Audios {
 	
 	private ArrayList<AudiosPair> DuelList; //Duel Sounds
 	
-	private ArrayList<AudiosPair> TicTacToeList; //Duel Sounds
+	private ArrayList<AudiosPair> TicTacToeList; //Triliza Sounds
+	
+	private ArrayList<AudiosPair> HangmamList; //Hangman Sounds
+	
+	private ArrayList<AudiosPair> PicsHerosList; //PicsHeros Sounds
 
+	private ArrayList<AudiosPair> QuizList; //Quiz Sounds
+	
 	public Audios(){
 		audiosList = new ArrayList<AudiosPair>(); //CREATING ARRAYLIST
 		ArcadeList= new ArrayList<AudiosPair>(); //ARRAYLIST FOR ARCADE
@@ -33,6 +39,9 @@ public class Audios {
 		MenuList= new ArrayList<AudiosPair>(); //ARRAYLIST FOR JMENUFRAME
 		DuelList= new ArrayList<AudiosPair>(); //ARRAYLIST FOR DUELBOARDFRAME
 		TicTacToeList= new ArrayList<AudiosPair>(); //ARRAYLIST FOR TicTacToe
+		HangmamList= new ArrayList<AudiosPair>(); //ARRAYLIST FOR Hangman
+		PicsHerosList= new ArrayList<AudiosPair>(); //ARRAYLIST FOR PicsHerosFrame
+		QuizList= new ArrayList<AudiosPair>(); //ARRAYLIST FOR QuizFrame
 		
 		audiosList.add(new AudiosPair("Sounds\\battle_theme.wav", true));           //0
 		audiosList.add(new AudiosPair("Sounds\\click_meny_buttons.wav", false));   //1
@@ -46,7 +55,7 @@ public class Audios {
 		ArcadeList.add(new AudiosPair("Sounds\\ancientarcade_olympos.wav", false));          //3
 		ArcadeList.add(new AudiosPair("Sounds\\ancientarcade_perseus.wav", false));          //4
 		ArcadeList.add(new AudiosPair("Sounds\\ancientarcade_cerberus.wav", false));          //5
-		
+		ArcadeList.add(new AudiosPair("Sounds\\quiz_theme2.wav", true));                    //6		
 		//MemoryGame Sounds
 		MemoryGameList.add(new AudiosPair("Sounds\\memorygame_select.wav", false));              // 0 
 		MemoryGameList.add(new AudiosPair("Sounds\\memorygame_right.wav", false));              //  1
@@ -58,10 +67,26 @@ public class Audios {
 		ClickMeList.add(new AudiosPair("Sounds\\clickme_endofgame.wav", false));            //    0
 		ClickMeList.add(new AudiosPair("Sounds\\clickme_right.wav", false));            //    1
 		ClickMeList.add(new AudiosPair("Sounds\\clickme_wrong.wav", false));            //    2
+		ClickMeList.add(new AudiosPair("Sounds\\quiz_theme1.wav", true));            //    3
+		
+		//Hangman Sounds
+		HangmamList.add(new AudiosPair("Sounds\\hangman_right.wav", false));            //    0
+		HangmamList.add(new AudiosPair("Sounds\\hangman_select.wav", false));            //    1
+		HangmamList.add(new AudiosPair("Sounds\\quiz_theme1.wav", true));            //    2
+		HangmamList.add(new AudiosPair("Sounds\\hangman_wrong.wav", false));            //    3
+		
 		
 		//Board Sounds
 		BoardList.add(new AudiosPair("Sounds\\board_corona_h_grammata.wav", false));    //    0
 		BoardList.add(new AudiosPair("Sounds\\board_dice_roll.wav", false));            //    1
+		
+		//PicsHeros Sounds
+		PicsHerosList.add(new AudiosPair("Sounds\\picsheros_click.wav", false));        //    0
+		PicsHerosList.add(new AudiosPair("Sounds\\picsheros_soundtrack.wav", true));    //    1
+		
+		//Quiz Sounds
+		QuizList.add(new AudiosPair("Sounds\\quiz_click.wav", false));        //    0
+		QuizList.add(new AudiosPair("Sounds\\quiz_soundtrack.wav", true));    //    1
 		
 		//JMENUFRAME Sounds
 		MenuList.add(new AudiosPair("Sounds\\menu_click_sword.wav", false));     //    0
@@ -74,6 +99,24 @@ public class Audios {
 		TicTacToeList.add(new AudiosPair("Sounds\\tic_tac_toe_soundtrack.wav", false));  //    1
 
 
+	}
+	public ArrayList<AudiosPair> getQuizList() {
+		return QuizList;
+	}
+	public void setQuizList(ArrayList<AudiosPair> quizList) {
+		QuizList = quizList;
+	}
+	public ArrayList<AudiosPair> getPicsHerosList() {
+		return PicsHerosList;
+	}
+	public void setPicsHerosList(ArrayList<AudiosPair> picsHerosList) {
+		PicsHerosList = picsHerosList;
+	}
+	public ArrayList<AudiosPair> getHangmamList() {
+		return HangmamList;
+	}
+	public void setHangmamList(ArrayList<AudiosPair> hangmamList) {
+		HangmamList = hangmamList;
 	}
 	public ArrayList<AudiosPair> getTicTacToeList() {
 		return TicTacToeList;

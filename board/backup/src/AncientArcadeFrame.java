@@ -42,13 +42,17 @@ public class AncientArcadeFrame extends JFrame {
 	private Uicons iconlist;
 	private ArrayList<ImageIcon> currlist;
 	private ArrayList<AudiosPair> list = new ArrayList<AudiosPair>(new Audios().getArcadeList());
-	private Sound_Thread soundthread1 = new Sound_Thread();
+	private Sound_Thread soundthread1 = new Sound_Thread(); //Thread 1 gia mikrous hxous, pou diakoptei o enas ton allon
+	private Sound_Thread soundthread2 = new Sound_Thread();//Thread 2 gia soundtrack
+	
 	private Labels listen;
 	private Labels2 listen2;
 	private boolean flag1, flag2, flag3, flag4, flag5, flag6, isRunning;
 	private String name, symbol;
 	
 	public AncientArcadeFrame(User u) {
+		soundthread2.PlayMusic(list.get(6).getSongName(), list.get(6).getRepeat());
+		
 		setJMenuBar(new JMenuFrame().getMenu());
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		frameWidth = screenSize.getWidth();
@@ -288,6 +292,8 @@ public class AncientArcadeFrame extends JFrame {
 				if(flag1 && flag2 && flag3 && flag4 && flag5 && flag6)
 				{
 					soundthread1.PlayMusic(list.get(0).getSongName(), list.get(0).getRepeat());
+					soundthread2.StopMusic();
+					
 					player.setCoins(player.getCoins() + 1000);
 					player.setXP(player.getXP() + 1000);
 					AncientArcadeFrame.this.setVisible(false);

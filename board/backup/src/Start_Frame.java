@@ -98,10 +98,10 @@ public class Start_Frame extends JFrame{
 					//new ClickMeFrame(new User("temp"));
 					//new AncientArcadeFrame(new User("temp"));
 					//new HangmanFrame(new User("temp"));
-					new MemoryGameFrame(new User("temp"));
+					//new MemoryGameFrame(new User("temp"));
 					//new PicsHerosFrame(new User("temp"));
 					//new QuizFrame(new User("temp"));
-					//new TelecubeFrame(new User("temp"));
+					new TelecubeFrame(new User("temp"));
 					//new AdminFrame();
 				}
 				else

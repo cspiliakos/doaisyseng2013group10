@@ -217,7 +217,7 @@ public class TicTacToeFrame implements ActionListener{
 					if(player1Won == 3){   // 3 WINS -> EXIT
 						message = "3 Νίκες!";         
 						showMessage(message);
-						window.setVisible(false);
+						window.setVisible(false);      soundthread2.StopMusic();
 						player.setCoins(player.getCoins() + 1000);
 						player.setXP(player.getXP() + 1000);
 						player.setWin(true);
@@ -231,7 +231,7 @@ public class TicTacToeFrame implements ActionListener{
 					if(lives== 0)  {       //0 LIVES -> EXIT
 						message = "3 Ήττες!";         
 						showMessage(message);
-						window.setVisible(false);
+						window.setVisible(false);    soundthread2.StopMusic();
 						player.setWin(false);
 					}
 
@@ -243,7 +243,7 @@ public class TicTacToeFrame implements ActionListener{
 				if(draws== 3)  {       //3 DRAWS -> EXIT
 					message = "3 Ισοπαλίες!";          
 					showMessage(message);
-					window.setVisible(false);
+					window.setVisible(false);       soundthread2.StopMusic();
 					player.setCoins(player.getCoins() + 500);
 					player.setXP(player.getXP() + 500);
 					player.setWin(true);

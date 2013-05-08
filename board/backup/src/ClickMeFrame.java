@@ -26,9 +26,12 @@ public class ClickMeFrame extends JFrame{
 	private User player;
 	private MyListener listener; 
 	private ArrayList<AudiosPair> list;
-	private Sound_Thread soundthread1;
+	private Sound_Thread soundthread1 = new Sound_Thread(); //Thread 1 gia mikrous hxous, pou diakoptei o enas ton allon
+	private Sound_Thread soundthread2 = new Sound_Thread();//Thread 2 gia soundtrack
 	
 	public ClickMeFrame(User u) {
+		
+		
 		setJMenuBar(new JMenuFrame().getMenu());
 		player = u;
 		minutes =  2;
@@ -36,10 +39,11 @@ public class ClickMeFrame extends JFrame{
 		delay = 2000;
 		hit = false;
 		list = new ArrayList<AudiosPair>(new Audios().getClickMeList());
+		soundthread2.PlayMusic(list.get(3).getSongName(), list.get(3).getRepeat());
 		help = new IconClass();
 		count = new TimerClass(minutes, seconds);
 		iconTimer = new Timer(delay, help);
-		soundthread1 = new Sound_Thread();
+		
 		iconTimer.start();
 		timer = new Timer(1000, count);
 		timer.start();
@@ -133,9 +137,11 @@ public class ClickMeFrame extends JFrame{
 		{
 			lives--;
 			lifeLabel.setText("\u0396\u03C9\u03AD\u03C2: "+lives);
-			if(lives == 0 || (minutes == 0 && seconds == 0))
+			if(lives == 0 || (minutes == 0 && seconds == 0))      
 			{
 				soundthread1.PlayMusic(list.get(0).getSongName(), list.get(0).getRepeat() ); //Sound: endofgame
+				soundthread2.StopMusic();
+				
 				player.setCoins(player.getCoins() + 1000);
 				player.setXP(player.getXP() + 100);
 				ClickMeFrame.this.setVisible(false);

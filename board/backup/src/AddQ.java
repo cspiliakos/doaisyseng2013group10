@@ -63,7 +63,7 @@ public class AddQ extends JFrame {
 		backPanel.add(piso, BorderLayout.WEST);
 		
 		title = new JLabel("\u03A0\u03C1\u03BF\u03C3\u03B8\u03AE\u03BA\u03B7 \u03BB\u03AD\u03BE\u03B7\u03C2");
-		title.setFont(new Font("Sylfaen", Font.PLAIN, 25));
+		title.setFont(new Font("Sylfaen", Font.PLAIN, 40));
 		title.setHorizontalAlignment(SwingConstants.CENTER);
 		back.add(title, BorderLayout.NORTH);
 		

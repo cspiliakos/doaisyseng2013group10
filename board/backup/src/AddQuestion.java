@@ -69,7 +69,7 @@ public class AddQuestion extends JFrame {
 		backPanel.add(piso, BorderLayout.WEST);
 		
 		title = new JLabel("\u03A0\u03C1\u03BF\u03C3\u03B8\u03AE\u03BA\u03B7 \u03B5\u03C1\u03CE\u03C4\u03B7\u03C3\u03B7\u03C2");
-		title.setFont(new Font("Sylfaen", Font.PLAIN, 25));
+		title.setFont(new Font("Sylfaen", Font.PLAIN, 40));
 		title.setHorizontalAlignment(SwingConstants.CENTER);
 		back.add(title, BorderLayout.NORTH);
 		

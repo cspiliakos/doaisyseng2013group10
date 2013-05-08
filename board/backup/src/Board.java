@@ -8,8 +8,6 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -126,26 +124,26 @@ public class Board extends JFrame{
 				coin = r.nextInt(2);
 			
 				clip.stop(); //maxh kai grifoi exoun allo soundtrack
-				//if (coin == 1)
-				//{
-					//new DuelBoardFrame(currUser);
-				//}
-				//else
-				//{
-					puzzle = r.nextInt(8);
+				if (coin == 1)
+				{
+					new DuelBoardFrame(currUser);
+				}
+				else
+				{
+					puzzle = r.nextInt(9);
 					switch(puzzle)
 					{
-					case 0: new AncientArcadeFrame(currUser); break;
-					case 1: new ClickMeFrame(currUser); break;
-					case 2: new HangmanFrame(currUser); break;
-					case 3: new MemoryGameFrame(currUser); break;
-					case 4: new PicsHerosFrame(currUser); break;
-					case 5: new QuizFrame(currUser); break;
-					case 6: new TelecubeFrame(currUser); break;
-					case 7: new TicTacToeFrame(currUser); break;
-					case 8: new Pics3(currUser); break;
+					case 1: new AncientArcadeFrame(currUser); break;
+					case 2: new ClickMeFrame(currUser); break;
+					case 3: new HangmanFrame(currUser); break;
+					case 4: new MemoryGameFrame(currUser); break;
+					case 5: new PicsHerosFrame(currUser); break;
+					case 6: new QuizFrame(currUser); break;
+					case 7: new TelecubeFrame(currUser); break;
+					case 8: new TicTacToeFrame(currUser); break;
+					case 9: new Pics3(currUser); break;
 					}
-				//}
+				}
 			}
 		});
 		coinlbl.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -341,7 +339,7 @@ public class Board extends JFrame{
 		defencelbl.setText("\u0386\u03BC\u03C5\u03BD\u03B1: "+String.valueOf(currUser.getDefence()));
 		life.setText("\u0396\u03C9\u03AE: "+String.valueOf(currUser.getHealth()));
 		playerCoins.setText("Νομίσματα: "+(currUser.getCoins()));
-		playerXP.setText("Εμεπειρία: "+(currUser.getXP()));
+		playerXP.setText("Εμπειρία: "+(currUser.getXP()));
 	}
 
 	@SuppressWarnings("serial")
@@ -549,6 +547,8 @@ public class Board extends JFrame{
 						playerX = 0;
 						playerY = playerY;
 						JOptionPane.showMessageDialog(null, "Τέλος πίστας.", "Τέλος παιχνιδιού", JOptionPane.INFORMATION_MESSAGE);
+						Board.this.setVisible(false);
+						new Start_Frame();
 					}	
 				}
 			}

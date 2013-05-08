@@ -154,7 +154,7 @@ public class QuizFrame extends JFrame {
 				{
 					choose = choice4.getText();
 				}
-				System.out.println(choose+"  "+selected.getCorrect());
+				
 				if (choose.equals(selected.getCorrect())) 
 				{
 					score++;

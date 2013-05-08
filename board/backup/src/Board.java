@@ -133,15 +133,15 @@ public class Board extends JFrame{
 					puzzle = r.nextInt(9);
 					switch(puzzle)
 					{
-					case 1: new AncientArcadeFrame(currUser); break;
-					case 2: new ClickMeFrame(currUser); break;
-					case 3: new HangmanFrame(currUser); break;
-					case 4: new MemoryGameFrame(currUser); break;
-					case 5: new PicsHerosFrame(currUser); break;
-					case 6: new QuizFrame(currUser); break;
-					case 7: new TelecubeFrame(currUser); break;
-					case 8: new TicTacToeFrame(currUser); break;
-					case 9: new Pics3(currUser); break;
+					case 0: new AncientArcadeFrame(currUser); break;
+					case 1: new ClickMeFrame(currUser); break;
+					case 2: new HangmanFrame(currUser); break;
+					case 3: new MemoryGameFrame(currUser); break;
+					case 4: new PicsHerosFrame(currUser); break;
+					case 5: new QuizFrame(currUser); break;
+					case 6: new TelecubeFrame(currUser); break;
+					case 7: new TicTacToeFrame(currUser); break;
+					case 8: new Pics3(currUser); break;
 					}
 				}
 			}

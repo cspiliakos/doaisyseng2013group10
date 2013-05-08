@@ -40,7 +40,7 @@ public class TelecubeFrame extends JFrame {
 	private ArrayList<String> words, usedWords;
 	private Random r;
 	private User player;
-	private ArrayList<AudiosPair> list;
+	ArrayList<AudiosPair> list = new ArrayList<AudiosPair>(new Audios().getTelecubeList()); 
 	private Sound_Thread soundthread1, soundthread2; //Thread 1 gia mikrous hxous, pou diakoptei o enas ton allon
 	 												//Thread 2 gia soundtrack
 	

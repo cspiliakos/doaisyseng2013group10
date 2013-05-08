@@ -166,7 +166,7 @@ public class Board extends JFrame{
 		dicelbl.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				soundthread1.PlayMusic(list.get(1).getSongName(), list.get(1).getRepeat() ); 
-				dicelbl.setEnabled(false);
+				currUser.setWin(false);
 				dice = r.nextInt(6) + 1;
 				moveChar(getDice());
 				myGlassPane.setXYCoordinates(playerX, playerY);

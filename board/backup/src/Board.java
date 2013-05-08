@@ -295,7 +295,7 @@ public class Board extends JFrame{
 			//}
 			//else
 			//{
-				//puzzle = r.nextInt(6);
+				//puzzle = r.nextInt(7);
 				//switch(puzzle)
 				//{
 				//case 0: new AncientArcadeFrame(currUser); break;
@@ -305,7 +305,7 @@ public class Board extends JFrame{
 				//case 4: new PicsHerosFrame(currUser); break;
 				//case 5: new QuizFrame(currUser); break;
 				//case 6: new TelecubeFrame(currUser); break;
-				////////////////tictactoe
+				//case 7: new TicTacToeFrame(currUser); break;
 				//}
 			//}
 			

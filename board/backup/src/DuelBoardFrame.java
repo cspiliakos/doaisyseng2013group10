@@ -28,9 +28,10 @@ public class DuelBoardFrame extends JFrame {
 	private ArrayList<AudiosPair> list = new ArrayList<AudiosPair>(new Audios().getDuelList()); 
 	private Sound_Thread soundthread1 = new Sound_Thread(); //Thread 1 gia mikrous hxous, pou diakoptei o enas ton allon
 	private Sound_Thread soundthread2 = new Sound_Thread(); //Thread 2 gia soundtrack
+	private User player;
 
 	public DuelBoardFrame(User user){
-
+		player = user;
 		soundthread2.PlayMusic(list.get(2).getSongName(), list.get(2).getRepeat());   //Sound soundtrack
 
 		currOpponent= new CharsOpponents ("Lernaia Ydra",80,15,30,new ImageIcon("battle_hydra_1.jpg"));
@@ -282,6 +283,9 @@ public class DuelBoardFrame extends JFrame {
 			remainHealth=c.getHealth();
 		if(remainHealth<=0){
 			JOptionPane.showMessageDialog(null, "Κέρδισες τη μάχη.", "Τέλος μάχης", JOptionPane.INFORMATION_MESSAGE);
+			player.setWin(true);
+			player.setCoins(player.getCoins() + 1000);
+			player.setXP(player.getXP() + 1000);
 			DuelBoardFrame.this.setVisible(false);
 			soundthread2.StopMusic();
 			return true;
@@ -300,6 +304,7 @@ public class DuelBoardFrame extends JFrame {
 			hit=false;
 			myGlassPane.repaint();
 			if (u.getHealth()<=0){
+				player.setWin(false);
 				JOptionPane.showMessageDialog(null, "Έχασες τη μάχη.", "Τέλος μάχης", JOptionPane.ERROR_MESSAGE);
 				DuelBoardFrame.this.setVisible(false);
 				soundthread2.StopMusic();

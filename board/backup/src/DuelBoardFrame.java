@@ -284,6 +284,7 @@ public class DuelBoardFrame extends JFrame {
 		if(remainHealth<=0){
 			JOptionPane.showMessageDialog(null, "Κέρδισες τη μάχη.", "Τέλος μάχης", JOptionPane.INFORMATION_MESSAGE);
 			player.setWin(true);
+			player.setPlayed(true);
 			player.setCoins(player.getCoins() + 1000);
 			player.setXP(player.getXP() + 1000);
 			DuelBoardFrame.this.setVisible(false);
@@ -305,6 +306,7 @@ public class DuelBoardFrame extends JFrame {
 			myGlassPane.repaint();
 			if (u.getHealth()<=0){
 				player.setWin(false);
+				player.setPlayed(true);
 				JOptionPane.showMessageDialog(null, "Έχασες τη μάχη.", "Τέλος μάχης", JOptionPane.ERROR_MESSAGE);
 				DuelBoardFrame.this.setVisible(false);
 				soundthread2.StopMusic();

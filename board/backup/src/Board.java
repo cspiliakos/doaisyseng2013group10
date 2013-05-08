@@ -43,7 +43,7 @@ public class Board extends JFrame{
 	private ImageIcon image, smallImage, helpIcon;
 	private UpgradeSkillListener skillListener;
 	private ArrayList<User> players;
-	private boolean adjust;
+	private boolean adjust, played=false;
 	//shows if the two players have been on the same square
 	/**Sounds
 	 * list.get(0) corona_h_grammata
@@ -122,7 +122,7 @@ public class Board extends JFrame{
 			public void actionPerformed(ActionEvent arg0) {
 				soundthread1.PlayMusic(list.get(0).getSongName(), list.get(0).getRepeat() ); //Sound: corona_h_grammata
 				coin = r.nextInt(2);
-			
+				played=true;
 				clip.stop(); //maxh kai grifoi exoun allo soundtrack
 				if (coin == 1)
 				{
@@ -170,7 +170,10 @@ public class Board extends JFrame{
 				myGlassPane.repaint();
 				if((players.size()) > 1)
 				{
-					switchChars();
+					dicelbl.setEnabled(false);
+				
+					//switchChars();
+					switchTurn();
 				}
 				
 			}
@@ -298,7 +301,7 @@ public class Board extends JFrame{
 		myGlassPane = new MyGlassPane();
 		this.setGlassPane(myGlassPane);
 		myGlassPane.setVisible(true);
-		back.add(myGlassPane, BorderLayout.CENTER);
+		back.add(myGlassPane);
 		
 		///////////////////
 		quitPanel = new JPanel();
@@ -318,18 +321,29 @@ public class Board extends JFrame{
 	}
 	
 	public void switchTurn(){
+		if(played==true){
 		//method to switch turns in multi player		
 		if(userTurn == 1)
 		{
+			currUser.setWin(false);
+			currUser.setPlayed(false);
+			System.out.println("1");
 			userTurn = 2;
 			currUser = xristis1;
 		}
 		else if (userTurn == 2)
 		{
+			currUser.setWin(false);
+			currUser.setPlayed(false);
+			System.out.println("2");
 			userTurn = 1;
 			currUser = xristis2;
 		}
 		updateStatLabels();
+		
+		played=false;
+		switchChars();
+		}
 	}
 	
 	public void updateStatLabels(){
@@ -380,17 +394,20 @@ public class Board extends JFrame{
 					g.drawRect(x, y, sqSize, sqSize);
 				}
 			}
-			updateStatLabels();
-			
-			if (currUser.getWin())
+			//updateStatLabels();
+		
+			boolean win=currUser.getWin();
+			if (win)
 			{
 				dicelbl.setEnabled(true);
+				System.out.println("dice");
 			}
 			else
 			{
-				dicelbl.setEnabled(false);
+				//dicelbl.setEnabled(false);
 				if (players.size() > 1)
 				{
+					if(currUser.isPlayed())
 					switchTurn();
 				}
 			}

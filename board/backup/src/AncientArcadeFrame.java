@@ -299,6 +299,7 @@ public class AncientArcadeFrame extends JFrame {
 					AncientArcadeFrame.this.setVisible(false);
 					JOptionPane.showMessageDialog(null, "Συγχαρητήρια.", "Τέλος παιχνιδιού", JOptionPane.INFORMATION_MESSAGE);	
 					player.setWin(true);
+					player.setPlayed(true);
 				}
 			}
 		});
@@ -655,6 +656,7 @@ public class AncientArcadeFrame extends JFrame {
 				AncientArcadeFrame.this.setVisible(false);
 				JOptionPane.showMessageDialog(null, "Έχασες.", "Τέλος παιχνιδιού", JOptionPane.ERROR_MESSAGE);	
 				player.setWin(false);
+				player.setPlayed(true);
 			}
 		}
 	}

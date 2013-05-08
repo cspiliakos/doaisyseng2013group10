@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-public class TicTacToeFrame implements ActionListener	{
+public class TicTacToeFrame implements ActionListener{
 	private JFrame window = new JFrame();
 	private JMenuBar mnuMain = new JMenuBar();	
 	private JButton btnEmpty[] = new JButton[10];
@@ -48,18 +48,17 @@ public class TicTacToeFrame implements ActionListener	{
 	ArrayList<AudiosPair> list = new ArrayList<AudiosPair>(new Audios().getTicTacToeList()); 
 	Sound_Thread soundthread1 = new Sound_Thread(); //Thread 1 gia mikrous hxous, pou diakoptei o enas ton allon
 	Sound_Thread soundthread2 = new Sound_Thread(); //Thread 2 gia soundtrack
+	private User player;
 
-
-	public TicTacToeFrame()	{
+	public TicTacToeFrame(User u)	{
 		window.setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
-		
+		player = u;
 		soundthread2.PlayMusic(list.get(1).getSongName(), list.get(1).getRepeat());   //Sound soundtrack
 	
 		//Getting Dimensions
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		double width = screenSize.getWidth();
 		double height = screenSize.getHeight();
-		System.out.println("Width is: "+width +" and height is: "+height);
 		
 		//Setting window properties:
 		window.setSize((int) width,(int) height);
@@ -143,15 +142,11 @@ public class TicTacToeFrame implements ActionListener	{
 		pnlMain.add(pnlTop);
 		 **/
 	}
-	
-	public static void main(String[] args) {
-		new TicTacToeFrame();
-	}
 
 	public void beginToPlay(){
 		Player2 = "Computer";
 		player1Won=0;
-		lblMode.setText("Τρίλιζα  Ζωές= "+lives +"  Νίκες= "+ player1Won +"  Ισοπαλίες= "+draws +"  Ήττες= "+loses);
+		lblMode.setText("Τρίλιζα  Ζωές = "+lives +"  Νίκες = "+ player1Won +"  Ισοπαλίες = "+draws +"  Ήττες = "+loses);
 		CPUGame = true;
 		newGame();
 		
@@ -169,7 +164,6 @@ public class TicTacToeFrame implements ActionListener	{
 		pnlMain.add(pnlTop, BorderLayout.CENTER);
 		pnlMain.add(pnlBottom, BorderLayout.SOUTH);
 		pnlPlayingField.requestFocus();
-		checkTurn();
 		checkWinStatus();
 	}
 		
@@ -223,8 +217,10 @@ public class TicTacToeFrame implements ActionListener	{
 					if(player1Won == 3){   // 3 WINS -> EXIT
 						message = "3 Νίκες!";         
 						showMessage(message);
-						System.exit(0);//BGES APO TO PAIXNIDI KAI EPESTREPSE COINS & XP
-
+						window.setVisible(false);
+						player.setCoins(player.getCoins() + 1000);
+						player.setXP(player.getXP() + 1000);
+						player.setWin(true);
 					}
 				}
 				else	{
@@ -235,7 +231,8 @@ public class TicTacToeFrame implements ActionListener	{
 					if(lives== 0)  {       //0 LIVES -> EXIT
 						message = "3 Ήττες!";         
 						showMessage(message);
-						System.exit(0); //BGES APO TO PAIXNIDI KAI EPESTREPSE XP & COINS
+						window.setVisible(false);
+						player.setWin(false);
 					}
 
 				}
@@ -246,7 +243,10 @@ public class TicTacToeFrame implements ActionListener	{
 				if(draws== 3)  {       //3 DRAWS -> EXIT
 					message = "3 Ισοπαλίες!";          
 					showMessage(message);
-					System.exit(0);   //BGES APO TO PAIXNIDI KAI EPESTREPSE XP & COINS
+					window.setVisible(false);
+					player.setCoins(player.getCoins() + 500);
+					player.setXP(player.getXP() + 500);
+					player.setWin(true);
 				}
 			}
 				
@@ -255,9 +255,8 @@ public class TicTacToeFrame implements ActionListener	{
 			}
 			btnTryAgain.setEnabled(true);
 			checkWinStatus();
-			lblMode.setText("Τρίλιζα  Ζωές= "+lives +"  Νίκες= "+ player1Won +"  Ισοπαλίες= "+draws +"  Ήττες= "+loses);
-		} else
-			checkTurn();
+			lblMode.setText("Τρίλιζα  Ζωές = "+lives +"  Νίκες = "+ player1Won +"  Ισοπαλίες = "+draws +"  Ήττες = "+loses);
+		}
 	}
 	
 	public void AI()	{
@@ -277,7 +276,6 @@ public class TicTacToeFrame implements ActionListener	{
 				Image oResizedImage=oImage.getScaledInstance(btnEmpty[computerButton].getWidth(), btnEmpty[computerButton].getHeight(), 0);
 				btnEmpty[computerButton].setIcon(new ImageIcon(oResizedImage));
 				btnEmpty[computerButton].setText("O");
-				//btnEmpty[computerButton].setEnabled(false);
 			}
 			checkWin();
 		}
@@ -296,21 +294,10 @@ public class TicTacToeFrame implements ActionListener	{
 				Image oResizedImage=oImage.getScaledInstance(btnEmpty[random].getWidth(), btnEmpty[random].getHeight(), 0);
 				btnEmpty[random].setIcon(new ImageIcon(oResizedImage));
 				btnEmpty[random].setText("O");
-				//btnEmpty[random].setEnabled(false);
 			} else {
 				Random();
 			}
 		}
-	}
-	
-	public void checkTurn()	{
-		String whoTurn;
-		if(!(turn % 2 == 0))	{
-			whoTurn = Player1 + " [X]";
-		}	else	{
-			whoTurn = Player2 + " [O]";
-		}
-		lblTurn.setText("Turn: " + whoTurn);
 	}
 	
 	public void setDefaultLayout()	{
@@ -320,7 +307,7 @@ public class TicTacToeFrame implements ActionListener	{
 	}
 	
 	public void checkWinStatus()	{
-		lblStatus.setText(Player1 + ": " + player1Won );	
+		lblStatus.setText("Παίκτη1 : " + player1Won );	
 	}
 		
 	public int askMessage(String msg, String tle, int op)	{
@@ -359,14 +346,10 @@ public class TicTacToeFrame implements ActionListener	{
 					ImageIcon xIcon=new ImageIcon("tictactoe_swords.jpg");
 					Image xImage=xIcon.getImage();
 					Image xResizedImage=xImage.getScaledInstance(btnEmpty[i].getWidth(), btnEmpty[i].getHeight(), 0);
-					btnEmpty[i].setIcon(new ImageIcon(xResizedImage));
-					
-					
+					btnEmpty[i].setIcon(new ImageIcon(xResizedImage));	
 					
 					btnEmpty[i].setText("X");
-				}
-					//btnEmpty[i].setIcon(new ImageIcon("tictactoe_swords.jpg"));
-					
+				}	
 				else
 				{
 					ImageIcon oIcon=new ImageIcon("tictactoe_shield.jpg");
@@ -375,8 +358,6 @@ public class TicTacToeFrame implements ActionListener	{
 					btnEmpty[i].setIcon(new ImageIcon(oResizedImage));
 					btnEmpty[i].setText("O");
 				}
-					//btnEmpty[i].setText("O");
-				//btnEmpty[i].setEnabled(false);
 				pnlPlayingField.requestFocus();
 				turn++;
 				checkWin();

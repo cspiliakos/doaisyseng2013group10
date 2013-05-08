@@ -507,6 +507,7 @@ public class MemoryGameFrame extends JFrame {
 				soundthread2.StopMusic();
 				JOptionPane.showMessageDialog(null, "Συγχαρητήρια.", "Τέλος παιχνιδιού", JOptionPane.INFORMATION_MESSAGE);
 				player.setWin(true);
+				player.setPlayed(true);
 			}
 		}
 
@@ -568,6 +569,7 @@ public class MemoryGameFrame extends JFrame {
 				soundthread2.StopMusic();
 				JOptionPane.showMessageDialog(null, "Έχασες.", "Τέλος παιχνιδιού", JOptionPane.ERROR_MESSAGE);
 				player.setWin(false);
+				player.setPlayed(true);
 			}
 		}
 	}

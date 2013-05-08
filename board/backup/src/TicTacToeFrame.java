@@ -221,6 +221,7 @@ public class TicTacToeFrame implements ActionListener{
 						player.setCoins(player.getCoins() + 1000);
 						player.setXP(player.getXP() + 1000);
 						player.setWin(true);
+						player.setPlayed(true);
 					}
 				}
 				else	{
@@ -233,6 +234,7 @@ public class TicTacToeFrame implements ActionListener{
 						showMessage(message);
 						window.setVisible(false);    soundthread2.StopMusic();
 						player.setWin(false);
+						player.setPlayed(true);
 					}
 
 				}
@@ -247,6 +249,7 @@ public class TicTacToeFrame implements ActionListener{
 					player.setCoins(player.getCoins() + 500);
 					player.setXP(player.getXP() + 500);
 					player.setWin(true);
+					player.setPlayed(true);
 				}
 			}
 				

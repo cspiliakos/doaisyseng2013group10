@@ -43,7 +43,14 @@ public class Pics3 extends JFrame{
 	private JTextField field;
 	private String correct;
 	
+	ArrayList<AudiosPair> list = new ArrayList<AudiosPair>(new Audios().getPics3List()); 
+	Sound_Thread soundthread1 = new Sound_Thread(); //Thread 1 gia mikrous hxous, pou diakoptei o enas ton allon
+	Sound_Thread soundthread2 = new Sound_Thread(); //Thread 2 gia soundtrack
+	
 	public Pics3(User u){
+		
+		soundthread2.PlayMusic(list.get(1).getSongName(), list.get(1).getRepeat());
+		
 		setJMenuBar(new JMenuFrame().getMenu());
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		frameWidth = screenSize.getWidth();
@@ -149,6 +156,8 @@ public class Pics3 extends JFrame{
 		commit = new JButton();
 		commit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				soundthread1.PlayMusic(list.get(0).getSongName(), list.get(0).getRepeat());
+				
 				if (field.getText().toUpperCase().equals(correct))
 				{
 					score++;
@@ -267,6 +276,7 @@ public class Pics3 extends JFrame{
 			
 			if (seconds == 0 && minutes == 0)
 			{
+				soundthread2.StopMusic();
 				timer.stop();
 				Toolkit.getDefaultToolkit().beep();
 				player.setCoins(player.getCoins() + 1000);

@@ -175,7 +175,10 @@ public class Board extends JFrame{
 					//switchChars();
 					switchTurn();
 				}
-				
+				else{
+					currUser.setPlayed(false);
+				dicelbl.setEnabled(false);
+				}				
 			}
 		});
 		dicelbl.setCursor(new Cursor(Cursor.HAND_CURSOR));

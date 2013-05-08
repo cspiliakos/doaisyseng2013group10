@@ -41,7 +41,13 @@ public class TelecubeFrame extends JFrame {
 	private Random r;
 	private User player;
 	
+	ArrayList<AudiosPair> list = new ArrayList<AudiosPair>(new Audios().getTelecubeList()); 
+	Sound_Thread soundthread1 = new Sound_Thread(); //Thread 1 gia mikrous hxous, pou diakoptei o enas ton allon
+	Sound_Thread soundthread2 = new Sound_Thread(); //Thread 2 gia soundtrack
+	
 	public TelecubeFrame(User u) {
+		soundthread2.PlayMusic(list.get(1).getSongName(), list.get(1).getRepeat());
+		
 		player = u;
 		setJMenuBar(new JMenuFrame().getMenu());
 		r = new Random(System.currentTimeMillis());
@@ -85,12 +91,17 @@ public class TelecubeFrame extends JFrame {
 		check.setFont(new Font("Sylfaen", Font.BOLD, 20));
 		check.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
 				String answer = text.getText();
 				if(answer.equals(question))
 				{
+					soundthread1.PlayMusic(list.get(0).getSongName(), list.get(0).getRepeat());   //Sound click
 					score++;
 					scoreLabel.setText("\u03A3\u03BA\u03BF\u03C1: "+score);
 				}
+				else
+					soundthread1.PlayMusic(list.get(2).getSongName(), list.get(2).getRepeat());   //Sound wrong
+				
 				text.setText("");
 				getWord();
 				helpLabel.setText(selected);
@@ -237,6 +248,7 @@ public class TelecubeFrame extends JFrame {
 			
 			if (seconds == 0 && minutes == 0)
 			{
+				soundthread2.StopMusic();
 				timer.stop();
 				Toolkit.getDefaultToolkit().beep();
 				player.setCoins(player.getCoins() + 1000);

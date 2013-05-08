@@ -29,7 +29,8 @@ public class Audios {
 	private ArrayList<AudiosPair> PicsHerosList; //PicsHeros Sounds
 
 	private ArrayList<AudiosPair> QuizList; //Quiz Sounds
-	
+
+	private ArrayList<AudiosPair> TelecubeList; //Quiz Sounds
 	public Audios(){
 		audiosList = new ArrayList<AudiosPair>(); //CREATING ARRAYLIST
 		ArcadeList= new ArrayList<AudiosPair>(); //ARRAYLIST FOR ARCADE
@@ -42,6 +43,8 @@ public class Audios {
 		HangmamList= new ArrayList<AudiosPair>(); //ARRAYLIST FOR Hangman
 		PicsHerosList= new ArrayList<AudiosPair>(); //ARRAYLIST FOR PicsHerosFrame
 		QuizList= new ArrayList<AudiosPair>(); //ARRAYLIST FOR QuizFrame
+		TelecubeList= new ArrayList<AudiosPair>(); //ARRAYLIST FOR TelecubeFrame
+		
 		
 		audiosList.add(new AudiosPair("Sounds\\battle_theme.wav", true));           //0
 		audiosList.add(new AudiosPair("Sounds\\click_meny_buttons.wav", false));   //1
@@ -87,7 +90,12 @@ public class Audios {
 		//Quiz Sounds
 		QuizList.add(new AudiosPair("Sounds\\quiz_click.wav", false));        //    0
 		QuizList.add(new AudiosPair("Sounds\\quiz_soundtrack.wav", true));    //    1
-		
+
+		//Telecube Sounds
+		TelecubeList.add(new AudiosPair("Sounds\\telecube_click.wav", false));        //    0
+		TelecubeList.add(new AudiosPair("Sounds\\telecube_soundtrack.wav", true));    //    1
+		TelecubeList.add(new AudiosPair("Sounds\\telecube_wrong.wav", false));        //    2
+
 		//JMENUFRAME Sounds
 		MenuList.add(new AudiosPair("Sounds\\menu_click_sword.wav", false));     //    0
 		
@@ -99,6 +107,12 @@ public class Audios {
 		TicTacToeList.add(new AudiosPair("Sounds\\tic_tac_toe_soundtrack.wav", false));  //    1
 
 
+	}
+	public ArrayList<AudiosPair> getTelecubeList() {
+		return TelecubeList;
+	}
+	public void setTelecubeList(ArrayList<AudiosPair> telecubeList) {
+		TelecubeList = telecubeList;
 	}
 	public ArrayList<AudiosPair> getQuizList() {
 		return QuizList;

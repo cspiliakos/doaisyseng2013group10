@@ -34,7 +34,8 @@ public class Board extends JFrame{
 	private JPanel playersPanel, quitPanel;
 	private User xristis1, xristis2, currUser;
 	private MyGlassPane myGlassPane;
-	private int row1, row2, size, playerX, playerY, widthSize, heightSize, sqSize, userTurn, helpWidth, helpHeight, coin, puzzle, dice, row;
+	private int row1, row2, size, playerX, playerY, widthSize, heightSize, sqSize, userTurn, helpWidth, helpHeight, 
+	coin, puzzle, dice, row, result;
 	private double frameWidth, frameHeight;
 	private BackgroundPanel back;
 	@SuppressWarnings("unused")
@@ -100,7 +101,7 @@ public class Board extends JFrame{
 		back = new BackgroundPanel(background);
 		back.setLayout(new BorderLayout(5, 5));
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		setUndecorated(true);
+		//setUndecorated(true);
 		setContentPane(back);
 		setVisible(true);
 		
@@ -145,19 +146,7 @@ public class Board extends JFrame{
 					//case 7: new TicTacToeFrame(currUser); break;
 					//}
 				//}
-				System.out.println(currUser.getWin());
-				if (currUser.getWin())
-				{
-					dicelbl.setEnabled(true);
-				}
-				else
-				{
-					dicelbl.setEnabled(false);
-					if (players.size() > 1)
-					{
-						switchTurn();
-					}
-				}
+				
 			}
 		});
 		coinlbl.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -177,6 +166,7 @@ public class Board extends JFrame{
 		dicelbl.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				soundthread1.PlayMusic(list.get(1).getSongName(), list.get(1).getRepeat() ); 
+				dicelbl.setEnabled(false);
 				dice = r.nextInt(6) + 1;
 				moveChar(getDice());
 				myGlassPane.setXYCoordinates(playerX, playerY);
@@ -185,7 +175,7 @@ public class Board extends JFrame{
 				{
 					switchChars();
 				}
-				dicelbl.setEnabled(false);
+				
 			}
 		});
 		dicelbl.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -328,6 +318,8 @@ public class Board extends JFrame{
 		piso.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		quitPanel.add(piso, BorderLayout.WEST);
 		back.add(quitPanel, BorderLayout.SOUTH);
+		
+		result = currUser.getCoins();
 	}
 	
 	public void switchTurn(){
@@ -394,6 +386,19 @@ public class Board extends JFrame{
 				}
 			}
 			updateStatLabels();
+			
+			if (currUser.getWin())
+			{
+				dicelbl.setEnabled(true);
+			}
+			else
+			{
+				dicelbl.setEnabled(false);
+				if (players.size() > 1)
+				{
+					switchTurn();
+				}
+			}
 			
 			player1lbl.setSize(sqSize,sqSize);
 			helpIcon = new ImageIcon("player1.gif");

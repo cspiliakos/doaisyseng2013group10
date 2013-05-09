@@ -93,6 +93,7 @@ public class DuelBoardFrame extends JFrame {
 		heroLabel = new JLabel();
 		helpIcon = currUser.getImage();
 		helpImage = helpIcon.getImage();
+		widthSize = helpWidth / 7;
 		resize = helpImage.getScaledInstance(widthSize, heightSize, 0);
 		heroLabel.setIcon(new ImageIcon(resize));
 		GridBagConstraints gbc_heroLabel = new GridBagConstraints();
@@ -256,7 +257,7 @@ public class DuelBoardFrame extends JFrame {
 		spearLevel.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		spearLevel.setForeground(Color.ORANGE);
 		GridBagConstraints gbc_spearLevel = new GridBagConstraints();
-		gbc_spearLevel.gridy = 7;
+		gbc_spearLevel.gridy = 8;
 		gbc_spearLevel.gridx = 3;
 		heroPanel.add(spearLevel, gbc_spearLevel);
 		
@@ -264,7 +265,7 @@ public class DuelBoardFrame extends JFrame {
 		spearPrice.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		spearPrice.setForeground(Color.ORANGE);
 		GridBagConstraints gbc_spearPrice = new GridBagConstraints();
-		gbc_spearPrice.gridy = 8;
+		gbc_spearPrice.gridy = 9;
 		gbc_spearPrice.gridx = 3;
 		heroPanel.add(spearPrice, gbc_spearPrice);
 		
@@ -274,15 +275,17 @@ public class DuelBoardFrame extends JFrame {
 		
 		opponentPanel = new JPanel();
 		back.add(opponentPanel, BorderLayout.EAST);
-		helpIcon = new  ImageIcon("Duel\\opponent.jpg");
-		helpImage = helpIcon.getImage();
-		resize = helpImage.getScaledInstance(widthSize, heightSize, 0);
+		
 		GridBagLayout gbl_opponentPanel = new GridBagLayout();
 		widthSize = helpWidth / 25;
 		gbl_opponentPanel.rowHeights = new int[] {widthSize, widthSize, widthSize, widthSize};
 		opponentPanel.setLayout(gbl_opponentPanel);
 				
 		opponentLabel = new JLabel();
+		helpIcon = new  ImageIcon("Duel\\opponent.jpg");
+		helpImage = helpIcon.getImage();
+		widthSize = helpWidth / 7;
+		resize = helpImage.getScaledInstance(widthSize, heightSize, 0);
 		opponentLabel.setIcon(new ImageIcon(resize));
 		GridBagConstraints gbc_opponentLabel = new GridBagConstraints();
 		gbc_opponentLabel.fill = GridBagConstraints.BOTH;

@@ -279,7 +279,7 @@ public class DuelBoardFrame extends JFrame {
 		
 		GridBagLayout gbl_opponentPanel = new GridBagLayout();
 		widthSize = helpWidth / 25;
-		gbl_opponentPanel.rowHeights = new int[] {widthSize, widthSize, widthSize, widthSize};
+		gbl_opponentPanel.rowHeights = new int[] {widthSize, widthSize, widthSize, widthSize, widthSize, widthSize, widthSize, widthSize, widthSize};
 		opponentPanel.setLayout(gbl_opponentPanel);
 				
 		opponentLabel = new JLabel();
@@ -302,7 +302,7 @@ public class DuelBoardFrame extends JFrame {
 		gbc_opponentLifeLabel.fill = GridBagConstraints.BOTH;
 		gbc_opponentLifeLabel.insets = new Insets(0, 0, 0, 5);
 		gbc_opponentLifeLabel.gridx = 0;
-		gbc_opponentLifeLabel.gridy = 1;
+		gbc_opponentLifeLabel.gridy = 3;
 		opponentPanel.add(opponentLifeLabel, gbc_opponentLifeLabel);
 				
 		opponentDamageLabel = new JLabel("Επίθεση: ");
@@ -312,7 +312,7 @@ public class DuelBoardFrame extends JFrame {
 		gbc_opponentDamageLabel.fill = GridBagConstraints.BOTH;
 		gbc_opponentDamageLabel.insets = new Insets(0, 0, 0, 5);
 		gbc_opponentDamageLabel.gridx = 0;
-		gbc_opponentDamageLabel.gridy = 2;
+		gbc_opponentDamageLabel.gridy = 4;
 		opponentPanel.add(opponentDamageLabel, gbc_opponentDamageLabel);
 		
 		opponentDefenceLabel = new JLabel("’μυνα: ");
@@ -321,7 +321,7 @@ public class DuelBoardFrame extends JFrame {
 		GridBagConstraints gbc_opponentDefenceLabel = new GridBagConstraints();
 		gbc_opponentDefenceLabel.fill = GridBagConstraints.BOTH;
 		gbc_opponentDefenceLabel.gridx = 0;
-		gbc_opponentDefenceLabel.gridy = 3;
+		gbc_opponentDefenceLabel.gridy = 5;
 		opponentPanel.add(opponentDefenceLabel, gbc_opponentDefenceLabel);
 		
 		updateWeaponStats();

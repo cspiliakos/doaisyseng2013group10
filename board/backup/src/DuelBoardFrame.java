@@ -86,7 +86,8 @@ public class DuelBoardFrame extends JFrame {
 		heroPanel = new JPanel();
 		back.add(heroPanel, BorderLayout.WEST);
 		GridBagLayout gbl_heroPanel = new GridBagLayout();
-		gbl_heroPanel.rowHeights = new int[] {54, 0, 54, 54, 0, 54, 54, 54, 0};
+		widthSize = helpWidth / 25;
+		gbl_heroPanel.rowHeights = new int[] {widthSize, 0, widthSize, widthSize, 0, widthSize, widthSize, widthSize, 0};
 		heroPanel.setLayout(gbl_heroPanel);
 		
 		heroLabel = new JLabel();

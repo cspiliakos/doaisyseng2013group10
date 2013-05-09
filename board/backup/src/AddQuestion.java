@@ -25,6 +25,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
 public class AddQuestion extends JFrame {
+	//frame to add questions for the puzzle Quiz
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Question> questions;
 	private JPanel backPanel, mainPanel;
@@ -43,6 +44,7 @@ public class AddQuestion extends JFrame {
 		deserializing();
 		
 		setJMenuBar(new JMenuFrame().getMenu());
+		//menu
 		try {
 			background = ImageIO.read(new File("UIcons\\arcade_background.jpg"));
 		} catch (IOException e) {
@@ -53,6 +55,7 @@ public class AddQuestion extends JFrame {
 		setUndecorated(true);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setVisible(true);
+		//managing the frame
 		
 		backPanel = new JPanel();
 		back.add(backPanel, BorderLayout.SOUTH);
@@ -61,6 +64,7 @@ public class AddQuestion extends JFrame {
 		piso = new JButton("\u03A0\u03AF\u03C3\u03C9");
 		piso.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//setting the action to return to the previous frame
 				new AdminFrame();
 			}
 		});
@@ -79,6 +83,7 @@ public class AddQuestion extends JFrame {
 		GridBagLayout gbl_mainPanel = new GridBagLayout();
 		mainPanel.setLayout(gbl_mainPanel);
 		
+		//adding the area used to import the question details
 		makeQuestion = new JLabel();
 		makeQuestion.setText("\u0395\u03C1\u03CE\u03C4\u03B7\u03C3\u03B7");
 		makeQuestion.setFont(new Font("Sylfaen", Font.PLAIN, 20));
@@ -172,6 +177,7 @@ public class AddQuestion extends JFrame {
 		check = new JButton();
 		check.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//check if it is ok to add the question
 				if (field1.getText().equals("") || field2.getText().equals("") || field3.getText().equals("") || field4.getText().equals(""))
 				{
 					JOptionPane.showMessageDialog(null, "Δεν έχετε συμπληρώσει όλα τα πεδία που χρειάζονται.", "Σφάλμα", JOptionPane.ERROR_MESSAGE);
@@ -210,6 +216,7 @@ public class AddQuestion extends JFrame {
 				field2.setText(null);
 				field3.setText(null);
 				field4.setText(null);
+				//turns the frame to the previous situation to add a new question
 			}
 		});
 		check.setText("\u039A\u03B1\u03C4\u03B1\u03C7\u03CE\u03C1\u03B7\u03C3\u03B7");
@@ -221,7 +228,10 @@ public class AddQuestion extends JFrame {
 	}
 	
 	public boolean exist(String check) {
+		//checks if the question that you are trying to add already exists to the saved list
 		boolean flag = true;
+		//flag=true --> do not exists
+		//flag=false --> exists
 		
 		for (int i = 0; i < questions.size(); i++) 
 		{
@@ -236,6 +246,7 @@ public class AddQuestion extends JFrame {
 	}
 	
 	public void serializing() {
+		//save the changes in the question list to the file
 		try {
 			FileOutputStream fileOut = new FileOutputStream("QuestionsDatabase.ser");
 			ObjectOutputStream out = new ObjectOutputStream(fileOut);
@@ -250,6 +261,7 @@ public class AddQuestion extends JFrame {
 	
 	@SuppressWarnings("unchecked")
 	public void deserializing() {
+		//getting the current question list from the file
 		try {
 			FileInputStream fileIn = new FileInputStream("QuestionsDatabase.ser");
 			ObjectInputStream in = new ObjectInputStream(fileIn);

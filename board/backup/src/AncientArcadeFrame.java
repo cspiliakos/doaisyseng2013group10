@@ -26,6 +26,7 @@ import javax.swing.ImageIcon;
 import javax.swing.border.LineBorder;
 
 public class AncientArcadeFrame extends JFrame {
+	//frame for the puzzle Ancient Arcade
 	private static final long serialVersionUID = 1L;
 	private Image background, help, resize;
 	private ImageIcon hero;
@@ -37,9 +38,10 @@ public class AncientArcadeFrame extends JFrame {
 	private JPanel timePanel, checkPanel, image1, image2, centre;
 	private int helpWidth, helpHeight, widthSize, heightSize, minutes, seconds;
 	private double frameWidth, frameHeight;
-	private JLabel timeLabel, hero1, hero2, hero3, hero4, hero5, hero6, 
-	symbol1, symbol2, symbol3, symbol4, symbol5, symbol6, heroTip, symbolTip, helpTip;
-	private Uicons iconlist;
+	private JLabel timeLabel, hero1, hero2, hero3, hero4, hero5, hero6, //labels for the heroes
+	symbol1, symbol2, symbol3, symbol4, symbol5, symbol6,//labels for the symbols//
+	heroTip, symbolTip, helpTip;
+	private Uicons iconlist; //getting the icons needed
 	private ArrayList<ImageIcon> currlist;
 	private ArrayList<AudiosPair> list = new ArrayList<AudiosPair>(new Audios().getArcadeList());
 	private Sound_Thread soundthread1 = new Sound_Thread(); //Thread 1 gia mikrous hxous, pou diakoptei o enas ton allon
@@ -54,6 +56,7 @@ public class AncientArcadeFrame extends JFrame {
 		soundthread2.PlayMusic(list.get(6).getSongName(), list.get(6).getRepeat());
 		
 		setJMenuBar(new JMenuFrame().getMenu());
+		//menu
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		frameWidth = screenSize.getWidth();
 		frameHeight = screenSize.getHeight();
@@ -84,18 +87,20 @@ public class AncientArcadeFrame extends JFrame {
 			e.printStackTrace();
 		}
 		
-		////////////////
+		
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setUndecorated(true);
 		setVisible(true);
 		back = new BackgroundPanel(background);
 		setContentPane(back);
 		back.setLayout(new BorderLayout(5, 5));
+		//managing the frame
 		
 		/////////////////
 		centre = new JPanel();
 		GridBagLayout gbl_centre = new GridBagLayout();
 		centre.setLayout(gbl_centre);
+		
 		heroTip = new JLabel("");
 		heroTip.setForeground(Color.BLACK);
 		heroTip.setFont(new Font("Bookman Old Style", Font.BOLD, 40));
@@ -104,6 +109,8 @@ public class AncientArcadeFrame extends JFrame {
 		gbc_heroTip.gridx = 0;
 		gbc_heroTip.gridy = 0;
 		centre.add(heroTip, gbc_heroTip);
+		//label to show the picked hero's name
+		
 		helpTip = new JLabel("-");
 		helpTip.setFont(new Font("Bookman Old Style", Font.BOLD, 40));
 		helpTip.setForeground(Color.BLACK);
@@ -112,6 +119,8 @@ public class AncientArcadeFrame extends JFrame {
 		gbc_helpTip.gridx = 0;
 		gbc_helpTip.gridy = 1;
 		centre.add(helpTip, gbc_helpTip);
+		//label for the center score
+		
 		symbolTip = new JLabel("");
 		symbolTip.setForeground(Color.BLACK);
 		symbolTip.setFont(new Font("Bookman Old Style", Font.BOLD, 40));
@@ -120,19 +129,25 @@ public class AncientArcadeFrame extends JFrame {
 		gbc_symbolTip.gridy = 2;
 		centre.add(symbolTip, gbc_symbolTip);
 		back.add(centre, BorderLayout.CENTER);
+		//label to show the symbol name
 		
-		/////////////////
+		
 		timeLabel = new JLabel(minutes+" : 0"+seconds);
 		timeLabel.setFont(new Font("Sylfaen", Font.BOLD, 20));
 		timeLabel.setForeground(new Color(139, 69, 19));
 		timePanel = new JPanel();
 		timePanel.add(timeLabel);
+		//label to show remaining time
+		
 		pause = new JButton("\u03A0\u03B1\u03CD\u03C3\u03B7");
 		pause.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		pause.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				//button to stop time during the game
 				if (isRunning)
 				{
+					//if the time is running when the user pushed the button stop it and remove all the listeners
+					//from the labels so the user can not cheat
 					isRunning = false;
 					timer.stop();
 					Toolkit.getDefaultToolkit().beep();
@@ -175,6 +190,8 @@ public class AncientArcadeFrame extends JFrame {
 				}
 				else
 				{
+					//if the timer is stopped when the users pushed the button start it and add the listeners to 
+					//every label so the user can continue to play
 					isRunning = true;
 					timer.start();
 					check.setEnabled(true);
@@ -219,7 +236,7 @@ public class AncientArcadeFrame extends JFrame {
 		timePanel.add(pause);
 		back.add(timePanel, BorderLayout.NORTH);
 		
-		/////////////////////////////
+		
 		checkPanel = new JPanel();
 		back.add(checkPanel, BorderLayout.SOUTH);
 		GridBagLayout gbl_checkPanel = new GridBagLayout();
@@ -228,6 +245,8 @@ public class AncientArcadeFrame extends JFrame {
 		check = new JButton();
 		check.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				//button to check the correctness of matching
+				//if it is correct the labels become disable the listeners are removed and the flag becomes true
 				if(name.equals("dias") && symbol.equals("olympos"))
 				{
 						hero1.setEnabled(false);
@@ -291,9 +310,11 @@ public class AncientArcadeFrame extends JFrame {
 				
 				if(flag1 && flag2 && flag3 && flag4 && flag5 && flag6)
 				{
+					//if all flags are true --> all pairs are found --> end of game
 					soundthread1.PlayMusic(list.get(0).getSongName(), list.get(0).getRepeat());
 					soundthread2.StopMusic();
 					
+					//setting players credits
 					player.setCoins(player.getCoins() + 1000);
 					player.setXP(player.getXP() + 1000);
 					AncientArcadeFrame.this.setVisible(false);
@@ -315,7 +336,8 @@ public class AncientArcadeFrame extends JFrame {
 		back.add(image1, BorderLayout.WEST);
 		GridBagLayout gbl_image1 = new GridBagLayout();
 		image1.setLayout(gbl_image1);
-						
+		
+		//hero labels setting images and functions
 		hero1 = new JLabel();  //zeus   --> 1
 		hero1.addMouseListener(listen);
 		hero1.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -355,7 +377,7 @@ public class AncientArcadeFrame extends JFrame {
 		gbc_hero3.gridy = 2;
 		image1.add(hero3, gbc_hero3);
 		
-		hero4 = new JLabel();
+		hero4 = new JLabel(); // theseus --> 4
 		hero4.addMouseListener(listen);
 		hero4.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		hero = new ImageIcon(currlist.get(4).getImage());
@@ -368,7 +390,7 @@ public class AncientArcadeFrame extends JFrame {
 		gbc_hero4.gridy = 3;
 		image1.add(hero4, gbc_hero4);
 				
-		hero5 = new JLabel();
+		hero5 = new JLabel(); //odysseus -->5
 		hero5.addMouseListener(listen);
 		hero5.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		hero = new ImageIcon(currlist.get(5).getImage());
@@ -381,7 +403,7 @@ public class AncientArcadeFrame extends JFrame {
 		gbc_hero5.gridy = 4;
 		image1.add(hero5, gbc_hero5);
 		
-		hero6 = new JLabel();
+		hero6 = new JLabel(); //perseus -->6
 		hero6.addMouseListener(listen);
 		hero6.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		hero = new ImageIcon(currlist.get(6).getImage());
@@ -400,7 +422,8 @@ public class AncientArcadeFrame extends JFrame {
 		GridBagLayout gbl_image2 = new GridBagLayout();
 		image2.setLayout(gbl_image2);
 		
-		symbol1 = new JLabel("");
+		//symbol labels adding images and functions
+		symbol1 = new JLabel(""); // cerberus-->1
 		symbol1.addMouseListener(listen2);
 		symbol1.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		hero = new ImageIcon(currlist.get(7).getImage());
@@ -413,7 +436,7 @@ public class AncientArcadeFrame extends JFrame {
 		gbc_symbol1.gridy = 0;
 		image2.add(symbol1, gbc_symbol1);
 		
-		symbol2 = new JLabel("");
+		symbol2 = new JLabel(""); // minotaurus -->2
 		symbol2.addMouseListener(listen2);
 		symbol2.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		hero = new ImageIcon(currlist.get(8).getImage());
@@ -426,7 +449,7 @@ public class AncientArcadeFrame extends JFrame {
 		gbc_symbol2.gridy = 1;
 		image2.add(symbol2, gbc_symbol2);
 		
-		symbol3 = new JLabel("");
+		symbol3 = new JLabel(""); // medusa -->3 
 		symbol3.addMouseListener(listen2);
 		symbol3.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		hero = new ImageIcon(currlist.get(9).getImage());
@@ -439,7 +462,7 @@ public class AncientArcadeFrame extends JFrame {
 		gbc_symbol3.gridy = 2;
 		image2.add(symbol3, gbc_symbol3);
 		
-		symbol4 = new JLabel("");
+		symbol4 = new JLabel(""); // olympus -->4
 		symbol4.addMouseListener(listen2);
 		symbol4.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		hero = new ImageIcon(currlist.get(10).getImage());
@@ -452,7 +475,7 @@ public class AncientArcadeFrame extends JFrame {
 		gbc_symbol4.gridy = 3;
 		image2.add(symbol4, gbc_symbol4);
 		
-		symbol5 = new JLabel("");
+		symbol5 = new JLabel(""); // scylla -->5
 		symbol5.addMouseListener(listen2);
 		symbol5.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		hero = new ImageIcon(currlist.get(11).getImage());
@@ -465,7 +488,7 @@ public class AncientArcadeFrame extends JFrame {
 		gbc_symbol5.gridy = 4;
 		image2.add(symbol5, gbc_symbol5);
 		
-		symbol6 = new JLabel("");
+		symbol6 = new JLabel(""); // sea -->6
 		symbol6.addMouseListener(listen2);
 		symbol6.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		hero = new ImageIcon(currlist.get(12).getImage());
@@ -488,6 +511,7 @@ public class AncientArcadeFrame extends JFrame {
 			hero5.setBorder(null);
 			hero6.setBorder(null);
 			
+			//for the selected label set the border get the matching sound and set the name in the middle of the frame
 			if(e.getSource() == hero1)
 			{
 				hero1.setBorder(new LineBorder(Color.RED, 5));
@@ -558,6 +582,8 @@ public class AncientArcadeFrame extends JFrame {
 			symbol5.setBorder(null);
 			symbol6.setBorder(null);
 			
+			////for the selected label set the border get the matching sound and set the name in the middle of the frame
+			
 			if(e.getSource() == symbol1)
 			{
 				symbol1.setBorder(new LineBorder(Color.RED, 5));
@@ -621,6 +647,7 @@ public class AncientArcadeFrame extends JFrame {
 	}
 	
 	public class TimerClass implements ActionListener{
+		//class to handle the timer
 		int minutes, seconds;
 		
 		public TimerClass(int minutes, int seconds)

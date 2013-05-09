@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class ClickMeFrame extends JFrame{
+	//frame for the puzzle click me
 	private static final long serialVersionUID = 1L;
 	private BackgroundPanel back;
 	private JPanel scorePanel, timePanel;
@@ -33,6 +34,8 @@ public class ClickMeFrame extends JFrame{
 		
 		
 		setJMenuBar(new JMenuFrame().getMenu());
+		//menu
+		
 		player = u;
 		minutes =  2;
 		seconds = 0;
@@ -42,10 +45,13 @@ public class ClickMeFrame extends JFrame{
 		soundthread2.PlayMusic(list.get(3).getSongName(), list.get(3).getRepeat());
 		help = new IconClass();
 		count = new TimerClass(minutes, seconds);
+		//timer for the timer label
 		iconTimer = new Timer(delay, help);
+		//timer for the change of the frequency the image change place
 		
 		iconTimer.start();
 		timer = new Timer(1000, count);
+		//timer for the change of timer label
 		timer.start();
 		isRunning  = true;
 		score = 0;
@@ -60,12 +66,15 @@ public class ClickMeFrame extends JFrame{
 		setUndecorated(true);
 		setVisible(true);
 		setContentPane(back);
+		//managing with the frame
 		
 		scorePanel = new JPanel();
+		
 		GridBagLayout gbl_scorePanel = new GridBagLayout();
 		scorePanel.setLayout(gbl_scorePanel);
 		
 		scoreLabel = new JLabel("\u03A3\u03BA\u03BF\u03C1: 0");
+		//label to keep up score
 		scoreLabel.setForeground(new Color(128, 0, 0));
 		scoreLabel.setFont(new Font("Sylfaen", Font.BOLD, 20));
 		GridBagConstraints gbc_scoreLabel = new GridBagConstraints();
@@ -76,6 +85,7 @@ public class ClickMeFrame extends JFrame{
 		back.add(scorePanel, BorderLayout.EAST);
 		
 		lifeLabel = new JLabel("\u0396\u03C9\u03AD\u03C2: 3");
+		//label to keep up lives
 		lifeLabel.setForeground(new Color(128, 0, 0));
 		lifeLabel.setFont(new Font("Sylfaen", Font.BOLD, 20));
 		GridBagConstraints gbc_lifeLabel = new GridBagConstraints();
@@ -84,6 +94,7 @@ public class ClickMeFrame extends JFrame{
 		scorePanel.add(lifeLabel, gbc_lifeLabel);
 		
 		timeLabel = new JLabel(minutes+" : 0"+seconds);
+		//label to show timer
 		timeLabel.setFont(new Font("Sylfaen", Font.BOLD, 20));
 		timeLabel.setForeground(new Color(139, 69, 19));
 		timePanel = new JPanel();
@@ -94,6 +105,7 @@ public class ClickMeFrame extends JFrame{
 			public void actionPerformed(ActionEvent arg0) {
 				if (isRunning)
 				{
+					//stop time if pause is pushed while the timer is running
 					isRunning = false;
 					timer.stop();
 					iconTimer.stop();
@@ -101,6 +113,7 @@ public class ClickMeFrame extends JFrame{
 				}
 				else
 				{
+					//start time if pause is pushed while the timer has stopped
 					isRunning = true;
 					timer.start();
 					iconTimer.start();
@@ -110,6 +123,7 @@ public class ClickMeFrame extends JFrame{
 		timePanel.add(pause);
 		back.add(timePanel, BorderLayout.NORTH);
 		
+		//getting the icon to start with
 		iconSize = 150;
 		iconLabel = new JLabel();
 		help.add(iconLabel);
@@ -124,26 +138,33 @@ public class ClickMeFrame extends JFrame{
 		
 		oldX = iconLabel.getX();
 		oldY = iconLabel.getY();
+		//keep the old coordinates in order to prevent double click 
 	}
 	
 	public void checkIfHit(int x, int y){
 		if((x != oldX) && (y != oldY) && (hit))
 		{
+			//check only if the coordinates of the pic has changed --> hit happened --> keep track of current coordinates
 			hit = false;
 			oldX = x;
 			oldY = y;
 		}
 		else if((x != oldX) && (y != oldY) && (!hit))
 		{
+			//if coordinates has changed --> no hit happened --> loose a life
 			lives--;
 			lifeLabel.setText("\u0396\u03C9\u03AD\u03C2: "+lives);
 			if(lives == 0 || (minutes == 0 && seconds == 0))      
 			{
+				//check if the game must end --> out of lives OR out of time
 				soundthread1.PlayMusic(list.get(0).getSongName(), list.get(0).getRepeat() ); //Sound: endofgame
 				soundthread2.StopMusic();
 				
-				player.setCoins(player.getCoins() + 1000);
-				player.setXP(player.getXP() + 100);
+				int currCoins=score*10;
+				int currXP=score*100;
+				//calculate coins and xp according to score achieved
+				player.setCoins(player.getCoins() + currCoins);
+				player.setXP(player.getXP() + currXP);
 				ClickMeFrame.this.setVisible(false);
 				soundthread2.StopMusic();
 				JOptionPane.showMessageDialog(null, "\u03A4\u03BF \u03C4\u03B5\u03BB\u03B9\u03BA\u03CC \u03C3\u03BA\u03BF\u03C1 \u03B5\u03AF\u03BD\u03B1\u03B9: "+score, "Τέλος παιχνιδιού", JOptionPane.INFORMATION_MESSAGE);
@@ -172,6 +193,7 @@ public class ClickMeFrame extends JFrame{
 		}
 		
 		public void actionPerformed(ActionEvent e) {
+			//repaints the icon in a different place
 			checkIfHit(iconLabel.getX(),iconLabel.getY());
 			Random r = new Random(System.currentTimeMillis());
 			int randomX = r.nextInt(400 - iconSize);
@@ -181,6 +203,7 @@ public class ClickMeFrame extends JFrame{
 	}
 	
 	public class TimerClass implements ActionListener{
+		//class for timer
 		int minutes, seconds;
 		
 		public TimerClass(int minutes, int seconds)
@@ -220,6 +243,7 @@ public class ClickMeFrame extends JFrame{
 	class MyListener extends MouseAdapter {		
 		public void mouseClicked(MouseEvent e) 
 		{
+			//function to deside if the click is correct or not
 			int labelX = iconLabel.getX();
 			int labelY = iconLabel.getY();
 			int clickX = e.getX();
@@ -229,30 +253,36 @@ public class ClickMeFrame extends JFrame{
 			
 			if((clickX >= labelX) && (clickX < (labelX + iconSize)) && (clickY >= labelY) && (clickY < (labelY + iconSize)))
 			{
+				//checks if the click is within the icon bounds
 				soundthread1.PlayMusic(list.get(1).getSongName(), list.get(1).getRepeat() ); //Sound: right
 				if(!hit)
 				{
+					//hit is true only if the player has hit the icon again before it changes its possition
 					score = score + 1;
 				}
 					
 				hit = true;
 				scoreLabel.setText("\u03A3\u03BA\u03BF\u03C1: "+score);
+				
 				if ((score % 5) == 0){
-				double size = iconSize / 1.05;
-				iconSize = (int)Math.round(size);
-				double timerDelay = delay / 1.20;
-				delay = (int)Math.round(timerDelay);
-				iconLabel.setSize(iconSize,iconSize);
-				ImageIcon icon = new ImageIcon("ClickMe\\medusa.png");
-				Image image=icon.getImage();
-				Image resizedImage = image.getScaledInstance(iconLabel.getWidth(), iconLabel.getHeight(), 0);
-				iconLabel.setIcon(new ImageIcon(resizedImage));
+					//for every 5 succesfull hits the size reduces 5% and the frequency the icon change place reduce 20%
+					double size = iconSize / 1.05;
+					iconSize = (int)Math.round(size);
+					double timerDelay = delay / 1.20;
+					delay = (int)Math.round(timerDelay);
+					iconLabel.setSize(iconSize,iconSize);
+					ImageIcon icon = new ImageIcon("ClickMe\\medusa.png");
+					Image image=icon.getImage();
+					Image resizedImage = image.getScaledInstance(iconLabel.getWidth(), iconLabel.getHeight(), 0);
+					iconLabel.setIcon(new ImageIcon(resizedImage));
 			}
 			help.repaint();
 			iconTimer.setDelay(delay);
+			//set the new delay to the timer
 			}
 			else
 			{
+			//if click is out of bounds --> life lost -->check if the game is over
 				soundthread1.PlayMusic(list.get(2).getSongName(), list.get(2).getRepeat() ); //Sound: wrong
 				lives = lives - 1;
 				lifeLabel.setText("\u0396\u03C9\u03AD\u03C2: "+lives);

@@ -23,6 +23,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
 public class Board extends JFrame{
+	//frame of the main board
 	
 	private static final long serialVersionUID = 1L;
 	private JButton piso, plusLife, plusAttack, plusDefence, coinlbl, dicelbl;
@@ -43,8 +44,9 @@ public class Board extends JFrame{
 	private ImageIcon image, smallImage, helpIcon;
 	private UpgradeSkillListener skillListener;
 	private ArrayList<User> players;
-	private boolean adjust, played=false;
-	//shows if the two players have been on the same square
+	private boolean adjust, //shows if the two players have been on the same square
+	played=false; // shows if the player's turn has finished
+	
 	/**Sounds
 	 * list.get(0) corona_h_grammata
 	 * list.get(1) dice_roll
@@ -55,15 +57,20 @@ public class Board extends JFrame{
 	public Board(ArrayList<User> p){
 		r = new Random(System.currentTimeMillis());
 		setJMenuBar(new JMenuFrame().getMenu());
+		//menu
 		players = new ArrayList<User>();
+		//arraylist to add the players
 		list = new ArrayList<AudiosPair>(new Audios().getBoardList());
+		
 		soundthread1 = new Sound_Thread();
 		skillListener = new UpgradeSkillListener();
+		
 		adjust = false;
 		userTurn = 2;
+		//keeps track of the turn of the players in multiplayer game
 		players = p;
-		xristis1 = players.get(0);
-		image = xristis1.getImage();
+		
+		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		frameWidth = screenSize.getWidth();
 		frameHeight = screenSize.getHeight();
@@ -71,6 +78,10 @@ public class Board extends JFrame{
 		helpHeight = (int)frameHeight;
 		widthSize = helpWidth / 7;
 		heightSize = helpHeight / 5;
+		//managing the frame dimensions
+		
+		xristis1 = players.get(0);
+		image = xristis1.getImage();
 		if (players.size() > 1)
 		{
 			xristis2 = players.get(1);
@@ -78,18 +89,24 @@ public class Board extends JFrame{
 		}
 		else
 		{
+			//getting NullPointerException if no image is set
 			smallImage = xristis1.getImage();
 		}
+		//getting the users from the arraylist
 		
 		currUser = xristis1;
+		//user to start is the user who entered first his name in the Name_Frame
 		player1lbl = new JLabel();
 		player2lbl = new JLabel();
 		
 		row1 = 1;
 		row2 = 1;
+		//setting the rows to start
 		
 		playerX = 0;
 		playerY = 0;
+		//setting the initial coordinates for the players figure
+		//common for both players
 		
 		try {
 			background = ImageIO.read(new File("Board\\background.jpg"));
@@ -102,6 +119,7 @@ public class Board extends JFrame{
 		setUndecorated(true);
 		setContentPane(back);
 		setVisible(true);
+		//managing the frame
 		
 		try{
 			audio = AudioSystem.getAudioInputStream(new File("Sounds\\battle_theme.wav").getAbsoluteFile());
@@ -112,11 +130,14 @@ public class Board extends JFrame{
 		catch(Exception e){
 			e.printStackTrace();
 		}
+		//getting the music theme
 		
 		///////////////////////////
 		playersPanel = new JPanel();
 		back.add(playersPanel, BorderLayout.EAST);
 		
+		//coin function
+		//it chooses whether the player is going to play a puzzle or a duel
 		coinlbl = new JButton();
 		coinlbl.setBorder(null);
 		coinlbl.addActionListener(new ActionListener() {
@@ -124,16 +145,21 @@ public class Board extends JFrame{
 				soundthread1.PlayMusic(list.get(0).getSongName(), list.get(0).getRepeat() ); //Sound: corona_h_grammata
 				coin = r.nextInt(2);
 				played = true;
-				clip.stop(); //maxh kai grifoi exoun allo soundtrack
+				clip.stop(); //duel and puzzles have a different soundtrack
 				if (coin == 1)
 				{
+					//if the random is 1 the player will play a duel
 					new DuelBoardFrame(currUser);
 				}
 				else
 				{
+					//if the random is 0 the player will play a puzzle
+					//which puzzle is determined by another random
 					puzzle = r.nextInt(9);
+					//if puzzles added the 9 must be increased
 					switch(puzzle)
 					{
+					//list of the available puzzles
 					case 0: new AncientArcadeFrame(currUser); break;
 					case 1: new ClickMeFrame(currUser); break;
 					case 2: new HangmanFrame(currUser); break;
@@ -160,22 +186,29 @@ public class Board extends JFrame{
 		gbc_coinlbl.gridy = 0;
 		playersPanel.add(coinlbl, gbc_coinlbl);
 		
+		//dice function
+		//starting to be disable --> if players wins it becomes enable
 		dicelbl = new JButton();
 		dicelbl.setBorder(null);
 		dicelbl.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				soundthread1.PlayMusic(list.get(1).getSongName(), list.get(1).getRepeat() ); 
 				currUser.setWin(false);
+				//turns the boolean that shows if the player has won false so not to be used again
 				dice = r.nextInt(6) + 1;
+				//+1 because random takes values from 0 and the moves must start from 1
 				moveChar(getDice());
 				myGlassPane.setXYCoordinates(playerX, playerY);
 				myGlassPane.repaint();
+				//repaint the bord with the changes
 				if((players.size()) > 1)
 				{
+					//if there are 2 players must switch turn
 					dicelbl.setEnabled(false);
 					switchTurn();
 				}
 				else{
+					//if there is one player just turn false the boolean that shows if he has played
 					currUser.setPlayed(false);
 					dicelbl.setEnabled(false);
 				}				
@@ -192,6 +225,7 @@ public class Board extends JFrame{
 		playersPanel.add(dicelbl, gbc_dicelbl);
 		dicelbl.setEnabled(false);
 		
+		//current player image --> the big one
 		heightSize = helpHeight / 4;
 		hero1Label = new JLabel();
 		helpImage = image.getImage();
@@ -202,6 +236,7 @@ public class Board extends JFrame{
 		gbc_imageLabel.gridy = 1;
 		playersPanel.add(hero1Label, gbc_imageLabel);
 		
+		//second player image --> the small one
 		widthSize = helpWidth / 8;
 		heightSize = helpHeight / 6;
 		hero2Label = new JLabel();
@@ -212,6 +247,8 @@ public class Board extends JFrame{
 		gbc_hero2lbl.gridx = 1;
 		gbc_hero2lbl.gridy = 1;
 		playersPanel.add(hero2Label, gbc_hero2lbl);
+		
+		//labels and buttons to show and increase stats
 		
 		attacklbl = new JLabel("\u0388\u03C0\u03AF\u03B8\u03B5\u03C3\u03B7: "+currUser.getDamage());
 		attacklbl.setForeground(Color.ORANGE);
@@ -267,6 +304,8 @@ public class Board extends JFrame{
 		gbc_plus_life.gridy = 4;
 		playersPanel.add(plusLife, gbc_plus_life);
 		
+		//skillpoints let the player to increase stats --> depends on the xp
+		
 		skillpointlbl = new JLabel("Πόντοι ικανότητας: "+currUser.getSkillpoints());
 		skillpointlbl.setFont(new Font("Sylfaen",Font.BOLD,20));
 		skillpointlbl.setForeground(Color.WHITE);
@@ -293,6 +332,7 @@ public class Board extends JFrame{
 		
 		if((players.size()) > 1)
 		{
+			//the second label is visible only in multiplayer mode
 			hero2Label.setVisible(true);
 		}
 		else
@@ -313,6 +353,7 @@ public class Board extends JFrame{
 		piso = new JButton("\u03A0\u03AF\u03C3\u03C9");
 		piso.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//setting action to go backwords one frame
 				clip.stop();
 				Board.this.setVisible(false);
 				new Pick_A_Hero(players);
@@ -326,7 +367,9 @@ public class Board extends JFrame{
 	public void switchTurn(){
 		if(played==true)
 		{
-			//method to switch turns in multi player		
+			//method to switch turns in multi player
+			//turn the current users win and played indicator false then switch the flag that shows which player
+			//must play an finally switch current user
 			if(userTurn == 1)
 			{
 				currUser.setWin(false);
@@ -362,12 +405,17 @@ public class Board extends JFrame{
 	public class MyGlassPane extends JComponent{
 		private static final int ROWS = 6;
 		private static final int COLUMNS = 6;
+		//dimensions of the board
 		private int xCoord = 0;
 		private int yCoord = 0;
+		//coordinates for player1
 		private int x2Coord = 0;
 		private int y2Coord = 0;
+		//coordinates for player2
 		
 		public void setXYCoordinates(int xValue, int yValue) {
+			//method to set coordinates according to players turn
+			//for single mode the default is userTurn=2
 			if (userTurn == 2)
 			{
 				xCoord = xValue;
@@ -384,12 +432,14 @@ public class Board extends JFrame{
 			super.paintComponent(g);
 			
 			sqSize = this.getHeight() / ROWS;
+			//setting the square dimension
 			size = sqSize;
 			
 			for(int i = 0; i < ROWS; i++) 
 			{
 				for(int j = 0; j < COLUMNS; j++) 
 				{
+					//draw the squares
 					int x = j * sqSize;
 					int y = i * sqSize;
 					g.setColor(Color.YELLOW);
@@ -397,21 +447,26 @@ public class Board extends JFrame{
 				}
 			}
 			updateStatLabels();
+			//needed to change the values in every repaint
 			
 			if (currUser.getWin())
 			{
+				//if the user has won the quest then make visible the dice
 				dicelbl.setEnabled(true);
 			}
 			else
 			{
+				//if the user has lost keep it disable and change turns
 				dicelbl.setEnabled(false);
 				if (players.size() > 1)
 				{
+					//needed because the repaint repeats in greater frequency than the player plays a quest
 					if(currUser.isPlayed())
 					switchTurn();
 				}
 			}
 			
+			//adding the players icons
 			player1lbl.setSize(sqSize,sqSize);
 			helpIcon = new ImageIcon("Board\\player1.gif");
 			helpImage = helpIcon.getImage();
@@ -452,18 +507,22 @@ public class Board extends JFrame{
 				player2lbl.setBounds((x2Coord + (sqSize / 2)), y2Coord, (sqSize / 2), sqSize);
 			
 				adjust = true;
+				// if the player2 is the first figure to leave the square need to be adjusted because it looses
+				// his coordinates, there is no problem if the player1 is the first figure to leave the square
 			}		
 		}
 	}
 
 	public class UpgradeSkillListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
+			//setting the functions in upgrade stats buttons
 			double health = currUser.getHealth();
 			double attack = currUser.getDamage();
 			double defence = currUser.getDefence();
 			int skillpoints = currUser.getSkillpoints();
 			if(skillpoints > 0)
 			{
+				//for every upgrade a skillpoint is out
 				if(e.getSource() == plusLife)
 				{
 					health++;
@@ -500,40 +559,46 @@ public class Board extends JFrame{
 	}
 	
 	public void switchChars(){			
-		//tha kaleitai mono an paizoun 2 paixtes
+		//method to change the user images on board --> only in multiplayer 
 		ImageIcon tempIcon = new ImageIcon();
 		Icon i = hero1Label.getIcon();
 		tempIcon = (ImageIcon)i;
-		//apothikeyw to icon ths megalhs eikonas
+		//big image icon
 		Image tempImage = tempIcon.getImage();
 		Image tempResizedImage = tempImage.getScaledInstance(hero2Label.getWidth(), hero2Label.getHeight(), 0);
-		//thn metasxhmatizw stis diastaseis tou mikrou label
+		//resize big image
 		switchTurn();
+		//switch currentUser to take again the image without loss in analysis
 		tempIcon = currUser.getImage();
 		tempImage = tempIcon.getImage();
 		hero2Label.setIcon(new ImageIcon(tempResizedImage));
 		tempResizedImage = tempImage.getScaledInstance(hero1Label.getWidth(), hero1Label.getHeight(), 0);
 		hero1Label.setIcon(new ImageIcon(tempResizedImage));
-		//allagh twn label me ta xarakthristika
+		
 	}
 	
 	public int getDice(){
+		//method to get the dice number
 		return dice;
 	}
 	
 	public void moveChar(int dice){
-		//int row;
+		//method to adjust the movement of figures on board
 		if (userTurn == 2)
 		{
+			//current player is player1 --> default in single player mode
 			playerX = player1lbl.getX();
 			playerY = player1lbl.getY();
 			row = row1;
 			adjust = false;
+			//no adjust will be needed --> works fine
 		}
 		else if(userTurn == 1)
 		{
+			//current player is player 2 --> only in multiplayer mode
 			if(adjust)
 			{
+				//if adjust is needed coordinates must be changed
 				playerX = (player2lbl.getX()) - (sqSize / 2);
 			}
 			else
@@ -546,8 +611,10 @@ public class Board extends JFrame{
 		}
 		for (int i = 0; i < dice; i++)
 		{
+			//actual move of the figure
 			if (row % 2 == 0)
 			{
+				//if the row is mod 2 --> move from left to rigth
 				playerX -= size;
 				if(playerX < 0)
 				{
@@ -559,6 +626,7 @@ public class Board extends JFrame{
 					}
 					else
 					{
+						//movement for the last square in order to stop in the last position
 						i = dice;
 						playerX = 0;
 						playerY = playerY;
@@ -570,6 +638,7 @@ public class Board extends JFrame{
 			}
 			else
 			{
+				//if the row is not mod 2 --> move from right to left
 				playerX = playerX + size;
 				if (playerX + size > (6 * size))
 				{

@@ -4,6 +4,7 @@ import javax.swing.ImageIcon;
 
 
 public class Boss extends Monsters{
+	//class only for bosses in every stage
 	
 	private User currUser;
 	private Random r1, r2;
@@ -13,21 +14,23 @@ public class Boss extends Monsters{
 	public Boss(String name, double damage, double defence, double  health,
 			ImageIcon image) {
 		super(name, damage, defence, health, image);
-		// TODO Auto-generated constructor stub
+		
 		r1=new Random(System.currentTimeMillis());
-		//apofash gia to an tha prostethei h tha afairethei to poso
+		//1 --> adding the amount
+		//2 --> diminish the amount
 		r2=new Random(System.currentTimeMillis());
-		//apofash gia to poso tha einai to poso
+		//how much the amount is
 		
 		this.setDamage(this.calculateDamage());
 		this.setDefence(this.calculateDefence());
 		this.setHealth(this.calculateHealth());
-		//ypologismos me bash ta stat tou paixth
+		//calculate the bosses stats according to the player stats so the player has possibilities to pass the stage
 		
 		
 	}
 
 	public double calculateDamage(){
+		//method to calculate Damage
 		double currDamage;
 		currDamage=currUser.getDamage();
 		plusminus=r1.nextInt(1);
@@ -42,7 +45,7 @@ public class Boss extends Monsters{
 	}
 	
 	public double calculateDefence(){
-
+		//method to calculate defence
 		double currDefence;
 		currDefence=currUser.getDefence();
 		plusminus=r1.nextInt(1);
@@ -57,7 +60,7 @@ public class Boss extends Monsters{
 	}
 	
 	public double calculateHealth(){
-
+		//method to calculate health
 		double currHealth;
 		currHealth=currUser.getHealth();
 		plusminus=r1.nextInt(1);

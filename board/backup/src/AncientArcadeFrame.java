@@ -678,6 +678,7 @@ public class AncientArcadeFrame extends JFrame {
 			
 			if (seconds == 0 && minutes == 0)
 			{
+				//if the timer come to an end you lose the game
 				timer.stop();
 				Toolkit.getDefaultToolkit().beep();
 				AncientArcadeFrame.this.setVisible(false);

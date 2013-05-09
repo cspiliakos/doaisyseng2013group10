@@ -118,6 +118,7 @@ public class Board extends JFrame{
 		back.add(playersPanel, BorderLayout.EAST);
 		
 		coinlbl = new JButton();
+		coinlbl.setBorder(null);
 		coinlbl.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				soundthread1.PlayMusic(list.get(0).getSongName(), list.get(0).getRepeat() ); //Sound: corona_h_grammata
@@ -160,6 +161,7 @@ public class Board extends JFrame{
 		playersPanel.add(coinlbl, gbc_coinlbl);
 		
 		dicelbl = new JButton();
+		dicelbl.setBorder(null);
 		dicelbl.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				soundthread1.PlayMusic(list.get(1).getSongName(), list.get(1).getRepeat() ); 
@@ -416,7 +418,7 @@ public class Board extends JFrame{
 			}
 			
 			player1lbl.setSize(sqSize,sqSize);
-			helpIcon = new ImageIcon("player1.gif");
+			helpIcon = new ImageIcon("Board\\player1.gif");
 			helpImage = helpIcon.getImage();
 			resize = helpImage.getScaledInstance(player1lbl.getWidth(), player1lbl.getHeight(), 0);
 			player1lbl.setIcon(new ImageIcon(resize));
@@ -424,7 +426,7 @@ public class Board extends JFrame{
 			myGlassPane.add(player1lbl);
 			
 			player2lbl.setSize(sqSize,sqSize);
-			helpIcon = new ImageIcon("player3.gif");
+			helpIcon = new ImageIcon("Board\\player3.gif");
 			helpImage = helpIcon.getImage();
 			resize = helpImage.getScaledInstance(player2lbl.getWidth(), player2lbl.getHeight(), 0);
 			player2lbl.setIcon(new ImageIcon(resize));
@@ -433,7 +435,6 @@ public class Board extends JFrame{
 			{
 				myGlassPane.add(player2lbl);
 				checkSameSquare();
-				
 			}
 		}
 		
@@ -442,14 +443,14 @@ public class Board extends JFrame{
 			if (((player1lbl.getX()) == (player2lbl.getX())) && ((player1lbl.getY()) == (player2lbl.getY())))
 			{
 				player1lbl.setSize((sqSize / 2), sqSize);
-				helpIcon = new ImageIcon("player1.gif");
+				helpIcon = new ImageIcon("Board\\player1.gif");
 				helpImage = helpIcon.getImage();
 				resize = helpImage.getScaledInstance(player1lbl.getWidth(), player1lbl.getHeight(), 0);
 				player1lbl.setIcon(new ImageIcon(resize));
 				player1lbl.setBounds(xCoord, yCoord,(sqSize/2), (sqSize));
 			
 				player2lbl.setSize((sqSize / 2), sqSize);
-				helpIcon = new ImageIcon("player3.gif");
+				helpIcon = new ImageIcon("Board\\player3.gif");
 				helpImage = helpIcon.getImage();
 				resize= helpImage.getScaledInstance(player2lbl.getWidth(), player2lbl.getHeight(), 0);
 				player2lbl.setIcon(new ImageIcon(resize));

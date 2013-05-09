@@ -540,13 +540,9 @@ public class DuelBoardFrame extends JFrame {
 					}
 				}
 			}
-			
-			if (hit)
-			{
-				timer = new TimerBeep();
-			}
 			else
 			{
+				timer = new TimerBeep();
 				JOptionPane.showMessageDialog(null, "Δεν είναι η σειρά σου.", "Σφάλμα", JOptionPane.ERROR_MESSAGE);
 			}
 		}

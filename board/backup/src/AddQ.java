@@ -23,6 +23,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
 public class AddQ extends JFrame {
+	//frame to add words for the puzzles hangman and telecube
 	private static final long serialVersionUID = 1L;
 	private JPanel backPanel;
 	private ArrayList<String> words;
@@ -35,6 +36,7 @@ public class AddQ extends JFrame {
 	
 	public AddQ() {
 		setJMenuBar(new JMenuFrame().getMenu());
+		//menu
 		try {
 			background = ImageIO.read(new File("adminback.jpg"));
 		} catch (IOException e) {
@@ -45,6 +47,7 @@ public class AddQ extends JFrame {
 		setUndecorated(true);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setVisible(true);
+		//managing the frame
 		
 		words = new ArrayList<String>();
 		
@@ -55,6 +58,7 @@ public class AddQ extends JFrame {
 		JButton piso = new JButton("\u03A0\u03AF\u03C3\u03C9");
 		piso.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//setting the action to return to the previous frame
 				new AdminFrame();
 			}
 		});
@@ -75,6 +79,7 @@ public class AddQ extends JFrame {
 		check = new JButton("\u039A\u03B1\u03C4\u03B1\u03C7\u03CE\u03C1\u03B7\u03C3\u03B7");
 		check.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				//check if is ok to add the word
 				if (textField.getText().equals(""))
 				{
 					JOptionPane.showMessageDialog(null, "Πρέπει να συμπληρώσετε το πεδίο.", "Σφάλμα", JOptionPane.ERROR_MESSAGE);
@@ -108,10 +113,12 @@ public class AddQ extends JFrame {
 		textField.setColumns(10);
 		
 		deserializing();
+		
 	}
 	
 	@SuppressWarnings("unchecked")
 	public void deserializing() {
+		//getting the existing list
 		try {
 			FileInputStream fileIn = new FileInputStream("Words.ser");
 			ObjectInputStream in = new ObjectInputStream(fileIn);
@@ -128,6 +135,7 @@ public class AddQ extends JFrame {
 	}
 	
 	public void serializing() {
+		//save the list after changes
 		try {
 			FileOutputStream fileOut = new FileOutputStream("Words.ser");
 			ObjectOutputStream out = new ObjectOutputStream(fileOut);

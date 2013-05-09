@@ -17,6 +17,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class AdminFrame extends JFrame {
+	//the main frame the admin uses to make changes in the puzzles
 	private static final long serialVersionUID = 1L;
 	private Image background;
 	private BackgroundPanel back;
@@ -30,6 +31,7 @@ public class AdminFrame extends JFrame {
 	
 	public AdminFrame(){
 		setJMenuBar(new JMenuFrame().getMenu());
+		//menu
 		
 		try {
 			background = ImageIO.read(new File("adminback.jpg"));
@@ -43,6 +45,7 @@ public class AdminFrame extends JFrame {
 		back = new BackgroundPanel(background);
 		setContentPane(back);
 		back.setLayout(new BorderLayout(5, 5));
+		//managing the frame
 		
 		try{
 			audio = AudioSystem.getAudioInputStream(new File("Sounds\\battle_theme.wav").getAbsoluteFile());
@@ -53,6 +56,7 @@ public class AdminFrame extends JFrame {
 		catch(Exception e){
 			e.printStackTrace();
 		}
+		//importing sound theme 
 		
 		//
 		title = new JLabel("\u0395\u03B9\u03C3\u03AE\u03B3\u03B1\u03B3\u03B5 \u03C4\u03B1 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03B1 \u03C3\u03BF\u03C5");
@@ -67,6 +71,7 @@ public class AdminFrame extends JFrame {
 		GridBagLayout gbl_helpPanel = new GridBagLayout();
 		helpPanel.setLayout(gbl_helpPanel);
 		
+		//making the area used to enter the username and password
 		username = new JLabel();
 		username.setForeground(Color.RED);
 		username.setText("\u038C\u03BD\u03BF\u03BC\u03B1 \u03C7\u03C1\u03AE\u03C3\u03C4\u03B7");
@@ -87,6 +92,7 @@ public class AdminFrame extends JFrame {
 		userField.setColumns(10);
 		
 		help1 = new JLabel("*");
+		//shows that this field is necessary 
 		help1.setForeground(Color.RED);
 		help1.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_help1 = new GridBagConstraints();
@@ -115,6 +121,7 @@ public class AdminFrame extends JFrame {
 		passField.setColumns(10);
 		
 		help2 = new JLabel("*");
+		//shows this field is necessary
 		help2.setForeground(Color.RED);
 		help2.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_help2 = new GridBagConstraints();
@@ -127,8 +134,11 @@ public class AdminFrame extends JFrame {
 		login.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent arg0) {
+				
 				if (userField.getText().equals("admin") && passField.getText().equals("admin"))
 				{
+					//if the username and password entered before are correct the previous frame components
+					//become invisible and the function buttons take their place
 					title.setText("Διάλεξε λειτουργία");
 					
 					second = new JPanel();
@@ -143,6 +153,7 @@ public class AdminFrame extends JFrame {
 							new AddQ();
 						}
 					});
+					//button in order to add the new word
 					addWord.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 					GridBagConstraints gbc_username = new GridBagConstraints();
 					gbc_username.insets = new Insets(0, 0, 5, 5);
@@ -156,6 +167,7 @@ public class AdminFrame extends JFrame {
 							new AddQuestion();
 						}
 					});
+					//button in order to add the new question
 					addQuestion.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 					GridBagConstraints gbc_userField = new GridBagConstraints();
 					gbc_userField.insets = new Insets(0, 0, 5, 5);
@@ -165,6 +177,7 @@ public class AdminFrame extends JFrame {
 				}
 				else
 				{
+					//what happens if the username and password are wrong
 					JOptionPane.showMessageDialog(null, "Το όνομα χρήστη ή ο κωδικός που εισήγαγες είναι λάθος.", "Σφάλμα σύνδεσης", JOptionPane.ERROR_MESSAGE);
 					userField.setText("");
 					passField.setText("");
@@ -187,6 +200,7 @@ public class AdminFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				clip.stop();
 				AdminFrame.this.setVisible(false);
+				//setting the action for returning to the previous frame
 				new Start_Frame();
 			}
 		});

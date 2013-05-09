@@ -217,6 +217,7 @@ public class DuelBoardFrame extends JFrame {
 		upgradeBow.addActionListener(upgradeListener);
 		upgradeBow.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_upgradeBow = new GridBagConstraints();
+		gbc_upgradeBow.fill = GridBagConstraints.BOTH;
 		gbc_upgradeBow.gridy = 9;
 		gbc_upgradeBow.gridx = 2;
 		heroPanel.add(upgradeBow, gbc_upgradeBow);

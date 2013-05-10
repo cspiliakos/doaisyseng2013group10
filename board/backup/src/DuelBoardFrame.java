@@ -30,12 +30,13 @@ public class DuelBoardFrame extends JFrame {
 	private JButton sword, bow, spear, buyBow, buySpear, upgradeSword, upgradeBow, upgradeSpear;
 	private JPanel heroPanel, opponentPanel;
 	private int widthSize, heightSize, helpWidth, helpHeight;
-	private boolean hit;	
+	private boolean hit;
+	//shows if the player has already attacked
 	private MyGlassPane myGlassPane;
 	private ArrayList<AudiosPair> list;
 	private Sound_Thread soundthread1, soundthread2;//Thread 1 gia mikrous hxous, pou diakoptei o enas ton allon, Thread 2 gia soundtrack
 	private User player;
-	private double frameWidth, frameHeight;
+	private double frameWidth, frameHeight, temphealth; //temphealth everytime gets the current health of the player hero
 	private BackgroundPanel back;
 	private Image background, resize, helpImage;
 	private ImageIcon helpIcon;
@@ -43,9 +44,12 @@ public class DuelBoardFrame extends JFrame {
 	public DuelBoardFrame(User user){
 		soundthread1 = new Sound_Thread();
 		soundthread2 = new Sound_Thread();
+		//managing sounds
 		list = new ArrayList<AudiosPair>(new Audios().getDuelList());
 		hit = false;
 		player = user;
+		temphealth=user.getHealth();
+		
 		soundthread2.PlayMusic(list.get(2).getSongName(), list.get(2).getRepeat());   //Sound soundtrack
 
 		currOpponent = new CharsOpponents ("Lernaia Ydra", 80, 15, 30, new ImageIcon("Monsters\\battle_hydra_1.jpg"));
@@ -62,9 +66,11 @@ public class DuelBoardFrame extends JFrame {
 		setUndecorated(true);
 		setContentPane(back);
 		setVisible(true);
+		//managing the frame
 		
 		currUser = user;
 		usersWeapons = new ArrayList<Weapons>();
+		//get user and the weapon list
 		
 		myGlassPane = new MyGlassPane();
 		this.setGlassPane(myGlassPane);
@@ -78,11 +84,14 @@ public class DuelBoardFrame extends JFrame {
 		helpHeight = (int)frameHeight;
 		widthSize = helpWidth / 7;
 		heightSize = helpHeight / 3;
+		//managing frame dimension 
 		
 		UpgradeButtonListener upgradeListener = new UpgradeButtonListener();
 		buyButtonListener buyListener = new buyButtonListener();
 		attackButtonListener attackListener = new attackButtonListener();
+		//create button listeners
 		
+		//hero image and stat labels
 		heroPanel = new JPanel();
 		back.add(heroPanel, BorderLayout.WEST);
 		GridBagLayout gbl_heroPanel = new GridBagLayout();
@@ -135,6 +144,8 @@ public class DuelBoardFrame extends JFrame {
 		widthSize = helpWidth / 8;
 		heightSize = helpHeight / 8;
 		
+		//weapon buttons --> upgrade weapon buttons --> buy weapon buttons
+		//the sword only upgrades --> player starts by default having one
 		sword = new JButton();
 		sword.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		sword.addActionListener(attackListener);
@@ -222,6 +233,7 @@ public class DuelBoardFrame extends JFrame {
 		gbc_upgradeBow.gridx = 2;
 		heroPanel.add(upgradeBow, gbc_upgradeBow);
 		
+		//labels showing the level and the price for next level
 		swordLevel = new JLabel("Επίπεδο: 0");
 		swordLevel.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		swordLevel.setForeground(Color.ORANGE);
@@ -274,6 +286,7 @@ public class DuelBoardFrame extends JFrame {
 		widthSize = helpWidth / 7;
 		heightSize = helpHeight / 3;
 		
+		//opponents pic and label stats
 		opponentPanel = new JPanel();
 		back.add(opponentPanel, BorderLayout.EAST);
 		
@@ -328,6 +341,7 @@ public class DuelBoardFrame extends JFrame {
 	}
 
 	public void updateWeaponStats(){
+		//get current users weapons levels and prices
 		for (Weapons w: currUser.getWeapons()){
 			if (w.getWeaponType().equals("Σπαθί"))
 			{
@@ -348,6 +362,8 @@ public class DuelBoardFrame extends JFrame {
 	}
 
 	public boolean checkIfWeaponExists(Weapons w){
+		//check if the weapon already exists in the list
+		//a weapon can be bought only once --> can't upgrade if not been bought
 		String type = w.getWeaponType();
 		for(Weapons we: usersWeapons)
 		{
@@ -358,6 +374,7 @@ public class DuelBoardFrame extends JFrame {
 	}
 
 	public boolean checkIfDead(CharsOpponents c){
+		//check if the opponents life is below zero --> players wins the duel
 		double remainHealth;
 		remainHealth = c.getHealth();
 		if(remainHealth <= 0)
@@ -378,14 +395,17 @@ public class DuelBoardFrame extends JFrame {
 	}
 
 	public void opponentsAttack(User u, CharsOpponents c){
+		//managing automatic hit by the opponent --> only after player has already hit
 		if (hit)
 		{
 			double attack = c.getDamage();
-			u.setHealth((u.getHealth()) - attack);
+			temphealth=temphealth-attack;
+			//u.setHealth((u.getHealth()) - attack);
 			hit = false;
 			myGlassPane.repaint();
-			if (u.getHealth() <= 0)
+			if (temphealth <= 0)
 			{
+				//check if players life is below zero --> player is defeated
 				player.setWin(false);
 				player.setPlayed(true);
 				JOptionPane.showMessageDialog(null, "Έχασες τη μάχη.", "Τέλος μάχης", JOptionPane.ERROR_MESSAGE);
@@ -402,10 +422,12 @@ public class DuelBoardFrame extends JFrame {
 			super.paintComponent(g);
 
 			g.setColor(Color.YELLOW);
-			
+			//drawing the bars according to stats
 			int xhLifeRec = heroPanel.getX() + 60;
 			int yhLifeRec = heroLifeLabel.getY() + heroLifeLabel.getHeight() - heroLifeLabel.getHeight() / 5;
-			int recWidthL = (int)currUser.getHealth();
+			int recWidthL = (int)temphealth;
+			if(recWidthL<0)
+				recWidthL=0;
 			g.fillRect(xhLifeRec, yhLifeRec, recWidthL, 10);
 			
 			int xoLifeRec = opponentPanel.getX() + 60;
@@ -436,6 +458,7 @@ public class DuelBoardFrame extends JFrame {
 	}
 
 	public class UpgradeButtonListener implements ActionListener {
+		//upgrade weapons --> if weapons exists
 		public void actionPerformed(ActionEvent e) {
 			soundthread1.PlayMusic(list.get(1).getSongName(), list.get(1).getRepeat());   //Sound upgrade
 			
@@ -481,6 +504,7 @@ public class DuelBoardFrame extends JFrame {
 	}
 
 	public class buyButtonListener implements ActionListener{
+		//buy weapons -- > only if weapons do not exists
 		public void actionPerformed(ActionEvent e) {
 			soundthread1.PlayMusic(list.get(0).getSongName(), list.get(0).getRepeat());   //Sound buy
 			
@@ -501,57 +525,59 @@ public class DuelBoardFrame extends JFrame {
 		}
 	}
 
-	public class attackButtonListener implements ActionListener{
-		TimerBeep timer;
-		public void actionPerformed(ActionEvent e) {
-			if(!hit)
-			{
-				if(e.getSource() == sword)
-				{
-					JOptionPane.showMessageDialog(null, "Επίθεση με σπαθί.", "Επίθεση", JOptionPane.INFORMATION_MESSAGE);
-					currOpponent.setHealth((currOpponent.getHealth())-10);
-					myGlassPane.repaint();
-					checkIfDead(currOpponent);
-					hit = true;			
-				}
-				else if (e.getSource() == bow)
-				{
-					if(checkIfWeaponExists(new CrossBow()))
-					{				
-						JOptionPane.showMessageDialog(null, "Επίθεση με τόξο.", "Επίθεση", JOptionPane.INFORMATION_MESSAGE);
-						currOpponent.setHealth((currOpponent.getHealth())-10);
-						myGlassPane.repaint();
-						checkIfDead(currOpponent);
-						hit=true;
-					}
-					else
-					{
-						JOptionPane.showMessageDialog(null,"Διάλεξε άλλο όπλο.", "Σφάλμα", JOptionPane.ERROR_MESSAGE);
-					}
-				}
-				else if(e.getSource() == spear)
-				{
-					if(checkIfWeaponExists(new Spear()))
-					{
-						JOptionPane.showMessageDialog(null, "Επίθεση με δόρυ.", "Επίθεση", JOptionPane.INFORMATION_MESSAGE);
-						currOpponent.setHealth((currOpponent.getHealth())-10);
-						myGlassPane.repaint();
-						checkIfDead(currOpponent);
-						hit = true;			
-					}
-					else
-					{
-						JOptionPane.showMessageDialog(null,"Διάλεξε άλλο όπλο.", "Σφάλμα", JOptionPane.ERROR_MESSAGE);
-					}
-				}
-			}
-			else
-			{
-				timer = new TimerBeep();
-				JOptionPane.showMessageDialog(null, "Δεν είναι η σειρά σου.", "Σφάλμα", JOptionPane.ERROR_MESSAGE);
-			}
-		}
-	}
+	class attackButtonListener implements ActionListener{
+		    //method for the player to attack
+		
+		    TimerBeep timer;
+		    public void actionPerformed(ActionEvent e) {
+		
+		
+		    if(!hit){
+		      //the player can't hit twice unless the opponent attacks back
+		
+		    if(e.getSource()==sword){
+		      JOptionPane.showMessageDialog(null, "Attack with sword");
+		      currOpponent.setHealth((currOpponent.getHealth())-10);
+		      myGlassPane.repaint();
+		      checkIfDead(currOpponent);
+		      hit=true;      
+		      }
+		    else if (e.getSource()==bow){
+		      if(checkIfWeaponExists(new CrossBow())){        
+		        JOptionPane.showMessageDialog(null,"Attack with bow");
+		        currOpponent.setHealth((currOpponent.getHealth())-10);
+		        myGlassPane.repaint();
+		        checkIfDead(currOpponent);
+		        hit=true;
+		        }
+		      else
+		        JOptionPane.showMessageDialog(null,"Pick another weapon");
+		      }
+		    else if(e.getSource()==spear){
+		      if(checkIfWeaponExists(new Spear())){
+		        JOptionPane.showMessageDialog(null, "Attack with spear");
+		        currOpponent.setHealth((currOpponent.getHealth())-10);
+		        myGlassPane.repaint();
+		        checkIfDead(currOpponent);
+		        hit=true;      
+		      }
+		      else
+		        JOptionPane.showMessageDialog(null,"Pick another weapon");
+		    }
+		    
+		    
+		    if (hit)
+		      timer=new TimerBeep();
+		    //the hit variable is true if the player has already attacked the opponent and it becomes false if the opponent hit the player
+		    //the opponent attacks only if the player has attacked before
+		    }
+		    else
+		      JOptionPane.showMessageDialog(null, "It 's not your turn");
+		
+		    }
+		
+		  }
+		
 		
 	public class TimerBeep extends Timer{
 		Timer timer;

@@ -2,6 +2,7 @@ import java.util.Random;
 
 
 public class CrossBow extends Weapons{
+	//class that creates the bow weapon for duel
 	private Random r;
 
 	public CrossBow() {
@@ -16,9 +17,10 @@ public class CrossBow extends Weapons{
 
 	@Override
 	public boolean isCritical() {
+		//double the damage 
 		int cr=r.nextInt(critical);
-		//afou akolouthei mia kanonikh katanomh tote exei 20% pithanothta na ferei enan apo tous arithmous
-		if(cr==2)
+		//possibility 20%
+		if(cr<2)
 			return true;
 		else
 			return false;

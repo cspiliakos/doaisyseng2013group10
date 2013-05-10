@@ -123,9 +123,9 @@ public class Uicons extends ImageIcon {
 		picsHerosIcons.add(image10);
 		
 		ImageIcon image11 = new ImageIcon("UIcons\\picshero_Hercules_hydra.png");
-		image11.setDescription("Ύδρα");
+		image11.setDescription("Λερναία Ύδρα");
 		ImageIcon image12 = new ImageIcon("UIcons\\picshero_Hercules_nemealion.jpg");
-		image12.setDescription("Νεμέα");
+		image12.setDescription("Λιοντάρι της Νεμέας");
 		ImageIcon image13 = new ImageIcon("UIcons\\picshero_iaswnas_argw.jpg");
 		image13.setDescription("Αργώ");
 		ImageIcon image14 = new ImageIcon("UIcons\\picshero_odysseas_kirki.jpg");

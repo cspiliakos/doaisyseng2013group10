@@ -13,7 +13,9 @@ import javax.swing.*;
 public class HangmanFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JButton A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X;
+	//one for every letter
 	private JLabel hanglbl;
+	//for the icon of gallow
 	private JPanel buttonPanel, letterPanel;
 	private int helpWidth, helpHeight, widthSize, heightSize, charSize, miss, success;
 	private double frameWidth, frameHeight;
@@ -35,6 +37,7 @@ public class HangmanFrame extends JFrame {
 	
 	public HangmanFrame(User u){
 		setJMenuBar(new JMenuFrame().getMenu());
+		//menu
 		
 		soundthread2.PlayMusic(list.get(2).getSongName(), list.get(2).getRepeat());
 		
@@ -50,10 +53,12 @@ public class HangmanFrame extends JFrame {
 		setUndecorated(true);
 		setContentPane(back);
 		setVisible(true);
+		//managing the frame
 		
 		r = new Random(System.currentTimeMillis());
 		miss = 0;
 		success = 0;
+		//initial misses and successes
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		frameWidth = screenSize.getWidth();
@@ -63,10 +68,13 @@ public class HangmanFrame extends JFrame {
 		widthSize = helpWidth / 3;
 		heightSize = helpHeight - helpHeight / 7;
 		
+		//managing dimensions of the frame
+		
 		words = new ArrayList<String>();
 		usedWords = new ArrayList<String>();
 		deserializing();
 		getWord();
+		//getting the first word from the list
 		
 		letterPanel = new JPanel();
 		back.add(letterPanel, BorderLayout.CENTER);
@@ -81,6 +89,7 @@ public class HangmanFrame extends JFrame {
 		GridBagLayout gbl_buttonPanel = new GridBagLayout();
 		buttonPanel.setLayout(gbl_buttonPanel);
 		
+		//adding buttons to the frame
 		A = new JButton("Α");
 		A.setBackground(Color.BLUE);
 		A.setForeground(Color.ORANGE);
@@ -377,6 +386,7 @@ public class HangmanFrame extends JFrame {
 	}
 	
 	public void getWord(){
+		//method to get a random word --> different word every time
 		int randomIndex = r.nextInt(words.size());
 		newWord = words.get(randomIndex);
 
@@ -391,14 +401,18 @@ public class HangmanFrame extends JFrame {
 		}
 		usedWords.add(newWord);
 		currWord = newWord.toCharArray();
+		//turns the word into a char array
 		charSize = currWord.length;
 	}
 
 	public void createLabels() {
+		//create labels in the center with underscores
 		letterlbl = new JLabel[charSize];
 		undercore = new JLabel[charSize];
 		for(int i = 0; i < charSize; i++){
 			String j = Character.toString(currWord[i]);
+			//get the content of a char array back to string
+			//create as many labels as the size of charArray
 			letterlbl[i] = new JLabel(j);		
 			letterlbl[i].setForeground(Color.MAGENTA);
 			letterlbl[i].setFont(new Font("Arial",Font.BOLD,30));
@@ -419,6 +433,7 @@ public class HangmanFrame extends JFrame {
 	}
 
 	public void hangmanIcon() {
+		//set a different image icon for every miss
 		switch (miss) {
 		case 1:	helpIcon = new ImageIcon("Hangman\\gallow1.gif");
 			helpImage = helpIcon.getImage();
@@ -460,6 +475,7 @@ public class HangmanFrame extends JFrame {
 
 	@SuppressWarnings("unchecked")
 	public void deserializing() {
+		//getting words from a list
 		try {
 			FileInputStream fileIn = new FileInputStream("Words.ser");
 			ObjectInputStream in = new ObjectInputStream(fileIn);
@@ -479,6 +495,7 @@ public class HangmanFrame extends JFrame {
 		boolean found = false;
 
 			public void checkIfLetterExists(String letter) {
+				//checking if the letter of the button pushed exists in the char array
 				for(int i = 0; i < charSize; i++)
 				{
 					String j = Character.toString(currWord[i]);
@@ -493,6 +510,7 @@ public class HangmanFrame extends JFrame {
 				
 				if(!found)
 				{
+					//if not exists the icon changes
 					soundthread1.PlayMusic(list.get(3).getSongName(), list.get(3).getRepeat());
 					miss++;
 					hangmanIcon();
@@ -503,6 +521,7 @@ public class HangmanFrame extends JFrame {
 					soundthread2.StopMusic();
 					HangmanFrame.this.setVisible(false);
 					player.setWin(true);
+					player.setPlayed(true);
 					player.setCoins(player.getCoins() + 1000);
 					player.setXP(player.getXP() + 1000);
 					JOptionPane.showMessageDialog(null, "Βρήκες τη λέξη.", "Επιτυχία", JOptionPane.INFORMATION_MESSAGE);
@@ -511,15 +530,18 @@ public class HangmanFrame extends JFrame {
 				if(miss == 6)
 				{
 					soundthread2.StopMusic();
-					HangmanFrame.this.setVisible(false);
+					
 					player.setWin(false);
+					player.setPlayed(true);
 					JOptionPane.showMessageDialog(null, "Δε βρήκες τη λέξη", "Αποτυχία", JOptionPane.ERROR_MESSAGE);
+					HangmanFrame.this.setVisible(false);
 				}
 				found = false;
 			}
 			
 			public void actionPerformed(ActionEvent e) {
 				soundthread1.PlayMusic(list.get(1).getSongName(), list.get(1).getRepeat());
+				//select a letter --> check if exist in the word --> make the button disable
 				if(e.getSource() == A)
 				{
 					checkIfLetterExists("Α");

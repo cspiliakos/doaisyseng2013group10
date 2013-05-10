@@ -1,7 +1,9 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -28,6 +30,8 @@ public class AdminFrame extends JFrame {
 	private AudioInputStream audio;
 	private JTextField userField;
 	private JPasswordField passField;
+	private int helpHeight, heightSize;
+	private double frameHeight;
 	
 	public AdminFrame(){
 		setJMenuBar(new JMenuFrame().getMenu());
@@ -58,7 +62,7 @@ public class AdminFrame extends JFrame {
 		}
 		//importing sound theme 
 		
-		//
+		////////////////////////
 		title = new JLabel("\u0395\u03B9\u03C3\u03AE\u03B3\u03B1\u03B3\u03B5 \u03C4\u03B1 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03B1 \u03C3\u03BF\u03C5");
 		title.setFont(new Font("Sylfaen", Font.PLAIN, 40));
 		title.setForeground(Color.BLACK);
@@ -66,28 +70,36 @@ public class AdminFrame extends JFrame {
 		back.add(title, BorderLayout.NORTH);
 		
 		//////////////////
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		frameHeight = screenSize.getHeight();
+		helpHeight = (int)frameHeight;
+		heightSize = helpHeight / 4;
+		
 		helpPanel = new JPanel();
 		back.add(helpPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_helpPanel = new GridBagLayout();
+		gbl_helpPanel.rowHeights = new int[] {heightSize, 0, 0, 0};
 		helpPanel.setLayout(gbl_helpPanel);
 		
 		//making the area used to enter the username and password
 		username = new JLabel();
-		username.setForeground(Color.RED);
+		username.setForeground(Color.BLACK);
 		username.setText("\u038C\u03BD\u03BF\u03BC\u03B1 \u03C7\u03C1\u03AE\u03C3\u03C4\u03B7");
-		username.setFont(new Font("Sylfaen", Font.PLAIN, 20));
+		username.setFont(new Font("Sylfaen", Font.BOLD, 20));
 		GridBagConstraints gbc_username = new GridBagConstraints();
+		gbc_username.fill = GridBagConstraints.BOTH;
 		gbc_username.insets = new Insets(0, 0, 5, 5);
 		gbc_username.gridx = 0;
-		gbc_username.gridy = 0;
+		gbc_username.gridy = 1;
 		helpPanel.add(username, gbc_username);
 		
 		userField = new JTextField();
 		userField.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_userField = new GridBagConstraints();
+		gbc_userField.fill = GridBagConstraints.BOTH;
 		gbc_userField.insets = new Insets(0, 0, 5, 5);
 		gbc_userField.gridx = 1;
-		gbc_userField.gridy = 0;
+		gbc_userField.gridy = 1;
 		helpPanel.add(userField, gbc_userField);
 		userField.setColumns(10);
 		
@@ -96,27 +108,30 @@ public class AdminFrame extends JFrame {
 		help1.setForeground(Color.RED);
 		help1.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_help1 = new GridBagConstraints();
+		gbc_help1.fill = GridBagConstraints.BOTH;
 		gbc_help1.insets = new Insets(0, 0, 5, 0);
 		gbc_help1.gridx = 2;
-		gbc_help1.gridy = 0;
+		gbc_help1.gridy = 1;
 		helpPanel.add(help1, gbc_help1);
 		
 		password = new JLabel();
-		password.setForeground(Color.RED);
+		password.setForeground(Color.BLACK);
 		password.setText("\u039A\u03C9\u03B4\u03B9\u03BA\u03CC\u03C2 \u03C7\u03C1\u03AE\u03C3\u03C4\u03B7");
-		password.setFont(new Font("Sylfaen", Font.PLAIN, 20));
+		password.setFont(new Font("Sylfaen", Font.BOLD, 20));
 		GridBagConstraints gbc_password = new GridBagConstraints();
+		gbc_password.fill = GridBagConstraints.BOTH;
 		gbc_password.insets = new Insets(0, 0, 0, 5);
 		gbc_password.gridx = 0;
-		gbc_password.gridy = 1;
+		gbc_password.gridy = 2;
 		helpPanel.add(password, gbc_password);
 		
 		passField = new JPasswordField();
 		passField.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_passField = new GridBagConstraints();
+		gbc_passField.fill = GridBagConstraints.BOTH;
 		gbc_passField.insets = new Insets(0, 0, 0, 5);
 		gbc_passField.gridx = 1;
-		gbc_passField.gridy = 1;
+		gbc_passField.gridy = 2;
 		helpPanel.add(passField, gbc_passField);
 		passField.setColumns(10);
 		
@@ -125,9 +140,10 @@ public class AdminFrame extends JFrame {
 		help2.setForeground(Color.RED);
 		help2.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_help2 = new GridBagConstraints();
+		gbc_help2.fill = GridBagConstraints.BOTH;
 		gbc_help2.insets = new Insets(0, 0, 0, 5);
 		gbc_help2.gridx = 2;
-		gbc_help2.gridy = 1;
+		gbc_help2.gridy = 2;
 		helpPanel.add(help2, gbc_help2);
 		
 		login = new JButton();
@@ -188,7 +204,7 @@ public class AdminFrame extends JFrame {
 		login.setText("\u03A3\u03CD\u03BD\u03B4\u03B5\u03C3\u03B7");
 		GridBagConstraints gbc_login = new GridBagConstraints();
 		gbc_login.gridx = 1;
-		gbc_login.gridy = 2;
+		gbc_login.gridy = 3;
 		helpPanel.add(login, gbc_login);
 		
 		/////////////////////

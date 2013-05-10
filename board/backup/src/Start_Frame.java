@@ -124,7 +124,6 @@ public class Start_Frame extends JFrame{
 		gbc_cont.gridx = 0;
 		gbc_cont.gridy = 2;
 		helpPanel.add(cont, gbc_cont);
-		back.add(helpPanel, BorderLayout.CENTER);
-		
+		back.add(helpPanel, BorderLayout.CENTER);	
 	}
 }

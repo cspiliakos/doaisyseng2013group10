@@ -32,17 +32,23 @@ public class Start_Frame extends JFrame{
 	private JLabel title;
 	@SuppressWarnings("rawtypes")
 	private JComboBox comboBox;
-	private Clip clip;
-	private AudioInputStream audio;
+	private static Clip clip;
+	private static AudioInputStream audio;
 	
 	public static void main(String[] args) {
-		
-		
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Start_Frame frame = new Start_Frame();
+
+					audio = AudioSystem.getAudioInputStream(new File("Sounds\\battle_theme.wav").getAbsoluteFile());
+					clip = AudioSystem.getClip();
+					clip.open(audio);
+					clip.loop(Clip.LOOP_CONTINUOUSLY);
+
+					Start_Frame frame = new Start_Frame(clip);
 					frame.setVisible(true);
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -51,7 +57,7 @@ public class Start_Frame extends JFrame{
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public Start_Frame(){  
+	public Start_Frame(final Clip clip){     //final gia na mhn stamataei kai ksana arxizei synexeia 
 		setJMenuBar(new JMenuFrame().getMenu());
 		
 		try {
@@ -66,16 +72,7 @@ public class Start_Frame extends JFrame{
 		back = new BackgroundPanel(background);
 		setContentPane(back);
 		back.setLayout(new BorderLayout(5, 5));
-		
-		try{
-			audio = AudioSystem.getAudioInputStream(new File("Sounds\\battle_theme.wav").getAbsoluteFile());
-			clip = AudioSystem.getClip();
-			clip.open(audio);
-			clip.loop(Clip.LOOP_CONTINUOUSLY);
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
+	
 
 		//
 		title = new JLabel("\u0394\u03B9\u03AC\u03BB\u03B5\u03BE\u03B5 \u03C4\u03BF \u03C1\u03CC\u03BB\u03BF \u03C3\u03BF\u03C5");
@@ -91,7 +88,7 @@ public class Start_Frame extends JFrame{
 		cont = new JButton("\u03A3\u03C5\u03BD\u03AD\u03C7\u03B9\u03C3\u03B5");
 		cont.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				clip.stop();
+
 				Start_Frame.this.setVisible(false);
 				if (comboBox.getSelectedItem().toString().equals("\u0394\u03B9\u03B1\u03C7\u03B5\u03B9\u03C1\u03B9\u03C3\u03C4\u03AE\u03C2")){
 					//new TicTacToeFrame(new User("temp"));
@@ -103,11 +100,11 @@ public class Start_Frame extends JFrame{
 					//new Pics3(new User("temp"));
 					//new QuizFrame(new User("temp"));
 					//new TelecubeFrame(new User("temp"));
-					new AdminFrame();
+					new AdminFrame(clip);
 				}
 				else
 				{
-					new Name_Frame();
+					new Name_Frame(clip);
 				}
 			}
 		});

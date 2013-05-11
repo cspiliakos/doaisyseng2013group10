@@ -26,17 +26,14 @@ public class AdminFrame extends JFrame {
 	private JPanel helpPanel, second, quitPanel;
 	private JButton login, addWord, addQuestion, piso;
 	private JLabel title, username, password, help1, help2;
-	private Clip clip;
-	private AudioInputStream audio;
 	private JTextField userField;
 	private JPasswordField passField;
 	private int helpHeight, heightSize;
 	private double frameHeight;
 	
-	public AdminFrame(){
+	public AdminFrame(final Clip clip){
 		setJMenuBar(new JMenuFrame().getMenu());
 		//menu
-		
 		try {
 			background = ImageIO.read(new File("adminback.jpg"));
 		} catch (IOException e) {
@@ -51,16 +48,7 @@ public class AdminFrame extends JFrame {
 		back.setLayout(new BorderLayout(5, 5));
 		//managing the frame
 		
-		try{
-			audio = AudioSystem.getAudioInputStream(new File("Sounds\\battle_theme.wav").getAbsoluteFile());
-			clip = AudioSystem.getClip();
-			clip.open(audio);
-			clip.loop(Clip.LOOP_CONTINUOUSLY);
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
-		//importing sound theme 
+
 		
 		////////////////////////
 		title = new JLabel("\u0395\u03B9\u03C3\u03AE\u03B3\u03B1\u03B3\u03B5 \u03C4\u03B1 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03B1 \u03C3\u03BF\u03C5");
@@ -166,7 +154,7 @@ public class AdminFrame extends JFrame {
 					addWord = new JButton("Λίστα αναγραμματισμού");
 					addWord.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
-							new AddQ();
+							new AddQ(clip);
 						}
 					});
 					//button in order to add the new word
@@ -180,7 +168,7 @@ public class AdminFrame extends JFrame {
 					addQuestion = new JButton("Λίστα ερωτήσεων");
 					addQuestion.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
-							new AddQuestion();
+							new AddQuestion(clip);
 						}
 					});
 					//button in order to add the new question
@@ -214,10 +202,9 @@ public class AdminFrame extends JFrame {
 		piso = new JButton("\u03A0\u03AF\u03C3\u03C9");
 		piso.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				clip.stop();
 				AdminFrame.this.setVisible(false);
 				//setting the action for returning to the previous frame
-				new Start_Frame();
+				new Start_Frame(clip);
 			}
 		});
 		piso.setFont(new Font("Sylfaen", Font.PLAIN, 20));

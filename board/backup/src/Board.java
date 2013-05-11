@@ -51,16 +51,21 @@ public class Board extends JFrame{
 	 * list.get(0) corona_h_grammata
 	 * list.get(1) dice_roll
 	 */
-	private ArrayList<AudiosPair> list;
+	private ArrayList<AudiosPair> list = new ArrayList<AudiosPair>(new Audios().getBoardList());
 	private Sound_Thread soundthread1;
+	private Sound_Thread soundthread2 = new Sound_Thread();
 	
 	public Board(ArrayList<User> p){
+	
+		soundthread2.PlayMusic(list.get(2).getSongName(), list.get(2).getRepeat() ); //Soundtrack
+		//getting the music theme
+		
 		r = new Random(System.currentTimeMillis());
 		setJMenuBar(new JMenuFrame().getMenu());
 		//menu
 		players = new ArrayList<User>();
 		//arraylist to add the players
-		list = new ArrayList<AudiosPair>(new Audios().getBoardList());
+		
 		
 		soundthread1 = new Sound_Thread();
 		skillListener = new UpgradeSkillListener();
@@ -121,16 +126,8 @@ public class Board extends JFrame{
 		setVisible(true);
 		//managing the frame
 		
-		try{
-			audio = AudioSystem.getAudioInputStream(new File("Sounds\\battle_theme.wav").getAbsoluteFile());
-			clip = AudioSystem.getClip();
-			clip.open(audio);
-			clip.loop(Clip.LOOP_CONTINUOUSLY);
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
-		//getting the music theme
+	
+	
 		
 		///////////////////////////
 		playersPanel = new JPanel();
@@ -142,14 +139,15 @@ public class Board extends JFrame{
 		coinlbl.setBorder(null);
 		coinlbl.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				soundthread2.StopMusic();
+				
 				soundthread1.PlayMusic(list.get(0).getSongName(), list.get(0).getRepeat() ); //Sound: corona_h_grammata
 				coin = r.nextInt(2);
 				played = true;
-				clip.stop(); //duel and puzzles have a different soundtrack
 				if (coin == 1)
 				{
 					//if the random is 1 the player will play a duel
-					new DuelBoardFrame(currUser);
+					new DuelBoardFrame(currUser);soundthread2.PlayMusic(list.get(2).getSongName(), list.get(2).getRepeat() );
 				}
 				else
 				{
@@ -160,15 +158,15 @@ public class Board extends JFrame{
 					switch(puzzle)
 					{
 					//list of the available puzzles
-					case 0: new AncientArcadeFrame(currUser); break;
-					case 1: new ClickMeFrame(currUser); break;
-					case 2: new HangmanFrame(currUser); break;
-					case 3: new MemoryGameFrame(currUser); break;
-					case 4: new PicsHerosFrame(currUser); break;
-					case 5: new QuizFrame(currUser); break;
-					case 6: new TelecubeFrame(currUser); break;
-					case 7: new TicTacToeFrame(currUser); break;
-					case 8: new Pics3(currUser); break;
+					case 0: new AncientArcadeFrame(currUser);soundthread2.PlayMusic(list.get(2).getSongName(), list.get(2).getRepeat() );  break;
+					case 1: new ClickMeFrame(currUser);soundthread2.PlayMusic(list.get(2).getSongName(), list.get(2).getRepeat() ); break;
+					case 2: new HangmanFrame(currUser); soundthread2.PlayMusic(list.get(2).getSongName(), list.get(2).getRepeat() );break;
+					case 3: new MemoryGameFrame(currUser);soundthread2.PlayMusic(list.get(2).getSongName(), list.get(2).getRepeat() ); break;
+					case 4: new PicsHerosFrame(currUser);soundthread2.PlayMusic(list.get(2).getSongName(), list.get(2).getRepeat() ); break;
+					case 5: new QuizFrame(currUser); soundthread2.PlayMusic(list.get(2).getSongName(), list.get(2).getRepeat() );break;
+					case 6: new TelecubeFrame(currUser); soundthread2.PlayMusic(list.get(2).getSongName(), list.get(2).getRepeat() );break;
+					case 7: new TicTacToeFrame(currUser); soundthread2.PlayMusic(list.get(2).getSongName(), list.get(2).getRepeat() );break;
+					case 8: new Pics3(currUser); soundthread2.PlayMusic(list.get(2).getSongName(), list.get(2).getRepeat() );break;
 					}
 				}
 			}
@@ -353,10 +351,10 @@ public class Board extends JFrame{
 		piso = new JButton("\u03A0\u03AF\u03C3\u03C9");
 		piso.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				soundthread2.StopMusic();
 				//setting action to go backwords one frame
-				clip.stop();
 				Board.this.setVisible(false);
-				new Pick_A_Hero(players);
+				new Pick_A_Hero(players, clip);
 			}
 		});
 		piso.setFont(new Font("Sylfaen", Font.PLAIN, 20));
@@ -632,7 +630,7 @@ public class Board extends JFrame{
 						playerY = playerY;
 						JOptionPane.showMessageDialog(null, "Τέλος πίστας.", "Τέλος παιχνιδιού", JOptionPane.INFORMATION_MESSAGE);
 						Board.this.setVisible(false);
-						new Start_Frame();
+						new Start_Frame(clip);
 					}	
 				}
 			}

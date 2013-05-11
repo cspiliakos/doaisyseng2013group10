@@ -1,6 +1,9 @@
+import javax.sound.sampled.Clip;
+
 public class Main {
 	public static void main(String[] args) {
-		new Start_Frame();	
+		Clip clip = null;
+		new Start_Frame(clip);	
 		
 	}
 }

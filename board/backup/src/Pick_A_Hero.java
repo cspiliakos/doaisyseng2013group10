@@ -38,15 +38,14 @@ public class Pick_A_Hero extends JFrame {
 	private JLabel title, pl1, pl2, pl3, pl4, pl5, pl6, lab1, lab2, lab3, lab4, lab5, lab6, helpLabel,
 	p1, p2, p3, p4, name1lbl, health1lbl, damage1lbl, defence1lbl, name2lbl, health2lbl, damage2lbl, defence2lbl, p5, p6, p7, p8;
 	private JButton piso, play;
-	private Clip clip;
-	private AudioInputStream audio;
+
 	private Pick_A_Hero_Listener PHL;
 	private int helpWidth, helpHeight, widthSize, heightSize;
 	private double frameWidth, frameHeight;
 	private ArrayList<User> players;
 	private CharsOpponents char1, char2, char3, char4, char5, char6;
 
-	public Pick_A_Hero(ArrayList<User> p) {
+	public Pick_A_Hero(ArrayList<User> p, final Clip clip) {
 		setJMenuBar(new JMenuFrame().getMenu());
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setUndecorated(true);
@@ -76,15 +75,6 @@ public class Pick_A_Hero extends JFrame {
 		setContentPane(back);
 		back.setLayout(new BorderLayout(5, 5));
 
-		try{
-			audio = AudioSystem.getAudioInputStream(new File("Sounds\\battle_theme.wav").getAbsoluteFile());
-			clip = AudioSystem.getClip();
-			clip.open(audio);
-			clip.loop(Clip.LOOP_CONTINUOUSLY);
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
 
 		//
 		title = new JLabel("\u0394\u03B9\u03AC\u03BB\u03B5\u03BE\u03B5 \u03AE\u03C1\u03C9\u03B1");
@@ -479,9 +469,8 @@ public class Pick_A_Hero extends JFrame {
 		piso = new JButton("\u03A0\u03AF\u03C3\u03C9");
 		piso.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				clip.stop();
 				Pick_A_Hero.this.setVisible(false);
-				new Name_Frame();
+				new Name_Frame(clip);
 			}
 		});
 		piso.setFont(new Font("Sylfaen", Font.PLAIN, 20));

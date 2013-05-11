@@ -40,7 +40,7 @@ public class Name_Frame extends JFrame {
 	private ArrayList<User> players;
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public Name_Frame() {
+	public Name_Frame(final Clip clip) {
 		setJMenuBar(new JMenuFrame().getMenu());
 		
 		try {
@@ -54,17 +54,7 @@ public class Name_Frame extends JFrame {
 		back = new BackgroundPanel(background);
 		setContentPane(back);
 		back.setLayout(new BorderLayout(5, 5));
-		
-		try{
-			audio = AudioSystem.getAudioInputStream(new File("Sounds\\battle_theme.wav").getAbsoluteFile());
-			clip = AudioSystem.getClip();
-			clip.open(audio);
-			clip.loop(Clip.LOOP_CONTINUOUSLY);
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
-		
+	
 		//
 		title = new JLabel("\u03A1\u03C5\u03B8\u03BC\u03AF\u03C3\u03B5\u03B9\u03C2 \u03C0\u03B1\u03B9\u03C7\u03BD\u03B9\u03B4\u03B9\u03BF\u03CD");
 		title.setFont(new Font("Sylfaen", Font.PLAIN, 40));
@@ -179,8 +169,8 @@ public class Name_Frame extends JFrame {
 						players = new ArrayList<User>();
 						User user = new User(name1.getText());
 						players.add(user);	
-						clip.stop();
-						new Pick_A_Hero(players);
+						
+						new Pick_A_Hero(players, clip);
 						Name_Frame.this.setVisible(false);
 					}
 					else
@@ -198,8 +188,8 @@ public class Name_Frame extends JFrame {
 						User user2 = new User(name2.getText());
 						players.add(user);	
 						players.add(user2);
-						clip.stop();
-						new Pick_A_Hero(players);
+						
+						new Pick_A_Hero(players, clip);
 						Name_Frame.this.setVisible(false);
 					}
 					else
@@ -224,9 +214,9 @@ public class Name_Frame extends JFrame {
 		piso = new JButton("\u03A0\u03AF\u03C3\u03C9");
 		piso.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				clip.stop();
+				
 				Name_Frame.this.setVisible(false);
-				new Start_Frame();
+				new Start_Frame(clip);
 			}
 		});
 		piso.setFont(new Font("Sylfaen", Font.PLAIN, 20));

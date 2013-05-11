@@ -86,6 +86,7 @@ public class Audios {
 		//Board Sounds
 		BoardList.add(new AudiosPair("Sounds\\board_corona_h_grammata.wav", false));    //    0
 		BoardList.add(new AudiosPair("Sounds\\board_dice_roll.wav", false));            //    1
+		BoardList.add(new AudiosPair("Sounds\\board_soundtrack.wav", true));            //    2
 		
 		//PicsHeros Sounds
 		PicsHerosList.add(new AudiosPair("Sounds\\picsheros_click.wav", false));        //    0

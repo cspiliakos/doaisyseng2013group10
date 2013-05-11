@@ -11,6 +11,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.Clip;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -38,7 +39,7 @@ public class AddQuestion extends JFrame {
 	private ButtonGroup group;
 	private String choose;
 
-	public AddQuestion() {
+	public AddQuestion(final Clip clip) {
 		group = new ButtonGroup();
 		questions = new ArrayList<Question>();
 		deserializing();
@@ -65,7 +66,7 @@ public class AddQuestion extends JFrame {
 		piso.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//setting the action to return to the previous frame
-				new AdminFrame();
+				new AdminFrame(clip);
 			}
 		});
 		piso.setHorizontalAlignment(SwingConstants.LEFT);

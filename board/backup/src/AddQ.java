@@ -9,6 +9,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.Clip;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
@@ -34,7 +35,7 @@ public class AddQ extends JFrame {
 	private JButton check;
 	private JTextField textField;
 	
-	public AddQ() {
+	public AddQ(final Clip clip) {
 		setJMenuBar(new JMenuFrame().getMenu());
 		//menu
 		try {
@@ -59,7 +60,7 @@ public class AddQ extends JFrame {
 		piso.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//setting the action to return to the previous frame
-				new AdminFrame();
+				new AdminFrame(clip);
 			}
 		});
 		piso.setHorizontalAlignment(SwingConstants.LEFT);

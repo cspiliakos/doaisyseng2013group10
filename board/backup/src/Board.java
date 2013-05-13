@@ -12,12 +12,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -40,7 +37,6 @@ public class Board extends JFrame{
 	@SuppressWarnings("unused")
 	private Image background, hero, resize , hero2, helpImage;
 	private Clip clip;
-	private AudioInputStream audio;
 	private ImageIcon image, smallImage, helpIcon;
 	private UpgradeSkillListener skillListener;
 	private ArrayList<User> players;

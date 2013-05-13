@@ -18,7 +18,6 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.Font;
-import java.awt.Cursor;
 
 public class DuelBoardFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -35,7 +34,6 @@ public class DuelBoardFrame extends JFrame {
 	private MyGlassPane myGlassPane;
 	private ArrayList<AudiosPair> list;
 	private Sound_Thread soundthread1, soundthread2;//Thread 1 gia mikrous hxous, pou diakoptei o enas ton allon, Thread 2 gia soundtrack
-	private User player;
 	private double frameWidth, frameHeight, temphealth; //temphealth everytime gets the current health of the player hero
 	private BackgroundPanel back;
 	private Image background, resize, helpImage;

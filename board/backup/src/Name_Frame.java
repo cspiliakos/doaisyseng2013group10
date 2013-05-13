@@ -1,6 +1,4 @@
 import javax.imageio.ImageIO;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -32,8 +30,6 @@ public class Name_Frame extends JFrame {
 	private BackgroundPanel back;
 	private JLabel title, label, player1, player2, help1, help2;
 	private JButton piso, play;
-	private Clip clip;
-	private AudioInputStream audio;
 	@SuppressWarnings("rawtypes")
 	private JComboBox comboBox;
 	private JTextField name1, name2;

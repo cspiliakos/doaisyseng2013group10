@@ -6,7 +6,7 @@ public class Spear extends Weapons{
 	private Random r;
 
 	public Spear() {
-		//super(weaponType, damage, critical, price);
+		//type of weapon used in duel
 		weaponType="Spear";
 		damage=180;
 		critical=10;
@@ -17,8 +17,8 @@ public class Spear extends Weapons{
 	@Override
 	public boolean isCritical() {
 		int cr=r.nextInt(critical);
-		//afou akolouthei mia kanonikh katanomh tote exei 20% pithanothta na ferei enan apo tous arithmous
-		if(cr==2)
+		//critical doubles the damage 10% possibility
+		if(cr<1)
 			return true;
 		else
 			return false;

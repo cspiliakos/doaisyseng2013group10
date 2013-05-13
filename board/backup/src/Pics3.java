@@ -50,8 +50,11 @@ public class Pics3 extends JFrame{
 	public Pics3(User u){
 		
 		soundthread2.PlayMusic(list.get(1).getSongName(), list.get(1).getRepeat());
+		//sound theme
 		
 		setJMenuBar(new JMenuFrame().getMenu());
+		//menu
+		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		frameWidth = screenSize.getWidth();
 		frameHeight = screenSize.getHeight();
@@ -59,6 +62,8 @@ public class Pics3 extends JFrame{
 		helpHeight = (int)frameHeight;
 		widthSize = helpWidth / 4;
 		heightSize = helpHeight / 2;
+		//managing frame dimension
+		
 		r = new Random(System.currentTimeMillis());
 		iconlist = new Uicons();
 		currlist = new ArrayList<ImageIcon>(iconlist.getPics3());
@@ -72,6 +77,7 @@ public class Pics3 extends JFrame{
 		timer = new Timer(1000, count);
 		isRunning  = true;
 		timer.start();
+		//frame components
 		
 		try {
 			background = ImageIO.read(new File("UIcons\\olympus.jpg"));
@@ -86,13 +92,18 @@ public class Pics3 extends JFrame{
 		back = new BackgroundPanel(background);
 		setContentPane(back);
 		back.setLayout(new BorderLayout(5, 5));
+		//managing frame
 		
 		timeLabel = new JLabel(minutes+" : 0"+seconds);
 		timeLabel.setFont(new Font("Sylfaen", Font.BOLD, 20));
 		timeLabel.setForeground(new Color(139, 69, 19));
 		timePanel = new JPanel();
 		timePanel.add(timeLabel);
+		//indicates time
 		pause = new JButton("\u03A0\u03B1\u03CD\u03C3\u03B7");
+		//pushed while time is running --> time stop
+		//pushed while time is stopped --> time run
+		//when stopped the field used to enter the hero's name is disable
 		pause.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		pause.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -132,6 +143,7 @@ public class Pics3 extends JFrame{
 		gbc_question.gridx = 0;
 		mainPanel.add(question, gbc_question);
 		
+		//setting the labels for the photos --> 3 photos taken from Uicons
 		photo1 = new JLabel();
 		GridBagConstraints gbc_photo1 = new GridBagConstraints();
 		gbc_photo1.insets = new Insets(0, 0, 5, 5);
@@ -154,12 +166,14 @@ public class Pics3 extends JFrame{
 		mainPanel.add(photo3, gbc_photo3);
 		
 		commit = new JButton();
+		//button to commit your answer
 		commit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				soundthread1.PlayMusic(list.get(0).getSongName(), list.get(0).getRepeat());
 				
 				if (field.getText().toUpperCase().equals(correct))
 				{
+					//if correct score +1 get next 3 pics and clear the textfield
 					score++;
 					scoreLabel.setText("\u03A3\u03BA\u03BF\u03C1: "+score);
 				}
@@ -168,6 +182,7 @@ public class Pics3 extends JFrame{
 			}
 		});
 		
+		//field to enter the hero's name as answer
 		field = new JTextField();
 		field.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_field = new GridBagConstraints();
@@ -186,6 +201,7 @@ public class Pics3 extends JFrame{
 		
 		//////////////////////////
 		scorePanel = new JPanel();
+		//keeps score
 		GridBagLayout gbl_scorePanel = new GridBagLayout();
 		scorePanel.setLayout(gbl_scorePanel);
 		
@@ -199,10 +215,13 @@ public class Pics3 extends JFrame{
 		scorePanel.add(scoreLabel, gbc_scoreLabel);
 		back.add(scorePanel, BorderLayout.EAST);
 		
+		//get the initial question
 		getQuestion();
 	}
 	
 	public void getQuestion(){
+		//method to get different question over time till the available question list is empty
+		//every used question is added to another list
 		helpImages = new ArrayList<ImageIcon>();
 		
 		if (usedImages.size() == currlist.size())
@@ -218,6 +237,7 @@ public class Pics3 extends JFrame{
 			selected = currlist.get(randomIndex);
 		}
 		helpImages.add(selected);
+		//adding selected icons
 		
 		for (int i = 0; i < currlist.size(); i++)
 		{
@@ -227,6 +247,7 @@ public class Pics3 extends JFrame{
 			}
 		}
 		
+		//adding used images to the used list to know which of them have not been shown
 		usedImages.add(helpImages.get(0));
 		help = helpImages.get(0).getImage();
 		resize = help.getScaledInstance(widthSize, heightSize, 0);
@@ -243,9 +264,11 @@ public class Pics3 extends JFrame{
 		photo3.setIcon(new ImageIcon(resize));
 		
 		correct = selected.getDescription();
+		//correct hold the name of the hero is the answer to the question
 	}
 	
 	public class TimerClass implements ActionListener{
+		//managing timer
 		int minutes, seconds;
 		
 		public TimerClass(int minutes, int seconds)
@@ -276,6 +299,7 @@ public class Pics3 extends JFrame{
 			
 			if (seconds == 0 && minutes == 0)
 			{
+				//if out of time and score >8 win else lose
 				soundthread2.StopMusic();
 				timer.stop();
 				Toolkit.getDefaultToolkit().beep();

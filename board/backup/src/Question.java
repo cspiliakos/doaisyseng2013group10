@@ -1,11 +1,14 @@
 import java.io.Serializable;
 
 public class Question implements Serializable{
+	//class for objects questions for Quiz puzzle
+	//finaly the are saved to a file for future use
 	private static final long serialVersionUID = 1L;
 	private String question, answer1, answer2, answer3, answer4, correctAnswer;
 
 	public Question(String question, String answer1, String answer2, String answer3,
 			String answer4, String correct) {
+		//one question, 4 possible answers, 1 correct answer
 		this.question = question;
 		this.answer1 = answer1;
 		this.answer2 = answer2;

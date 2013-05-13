@@ -44,13 +44,17 @@ public class QuizFrame extends JFrame {
 	private String choose;
 	
 	ArrayList<AudiosPair> list = new ArrayList<AudiosPair>(new Audios().getQuizList()); 
-	Sound_Thread soundthread1 = new Sound_Thread(); //Thread 1 gia mikrous hxous, pou diakoptei o enas ton allon
-	Sound_Thread soundthread2 = new Sound_Thread(); //Thread 2 gia soundtrack
+	Sound_Thread soundthread1 = new Sound_Thread(); //Thread 1 small sounds interrupted
+	Sound_Thread soundthread2 = new Sound_Thread(); //Thread 2 theme
 	
 	public QuizFrame(User u) {
+		//frame for Quiz puzzle
+		
 		soundthread2.PlayMusic(list.get(1).getSongName(), list.get(1).getRepeat());
 		
 		setJMenuBar(new JMenuFrame().getMenu());
+		//menu
+		
 		r = new Random(System.currentTimeMillis());
 		player = u;
 		minutes =  2;
@@ -64,7 +68,11 @@ public class QuizFrame extends JFrame {
 		usedQuestions = new ArrayList<Question>();
 		group = new ButtonGroup();
 		group.clearSelection();
+		//managing frame components
+		
 		deserializing();
+		//getting questions from the list
+		
 		try {
 			background = ImageIO.read(new File("UIcons\\arcade_background.jpg"));
 		} catch (IOException e) {
@@ -78,6 +86,7 @@ public class QuizFrame extends JFrame {
 		back = new BackgroundPanel(background);
 		setContentPane(back);
 		back.setLayout(new BorderLayout(5, 5));
+		//managing frame
 		
 		//////////////////
 		timeLabel = new JLabel(minutes+" : 0"+seconds);
@@ -85,10 +94,15 @@ public class QuizFrame extends JFrame {
 		timeLabel.setForeground(new Color(139, 69, 19));
 		timePanel = new JPanel();
 		timePanel.add(timeLabel);
+		//displays time
 		pause = new JButton("\u03A0\u03B1\u03CD\u03C3\u03B7");
 		pause.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		pause.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				//pushed while time is running --> time stops
+				//pushed while time is stopped --> time starts
+				//when time is stopped choices are disable
+				//when time starts choices become enable again
 				if (isRunning)
 				{
 					isRunning = false;
@@ -119,6 +133,7 @@ public class QuizFrame extends JFrame {
 		scorePanel = new JPanel();
 		GridBagLayout gbl_scorePanel = new GridBagLayout();
 		scorePanel.setLayout(gbl_scorePanel);
+		//keep score
 		
 		scoreLabel = new JLabel("\u03A3\u03BA\u03BF\u03C1: 0");
 		scoreLabel.setForeground(new Color(128, 0, 0));
@@ -136,6 +151,8 @@ public class QuizFrame extends JFrame {
 		
 		check = new JButton();
 		check.addActionListener(new ActionListener() {
+			//button to check the answer
+			//get text from the selection and compares it with the correct answer declared for the question
 			public void actionPerformed(ActionEvent e) {
 				soundthread1.PlayMusic(list.get(0).getSongName(), list.get(0).getRepeat());
 				if (choice1.isSelected()) 
@@ -161,6 +178,7 @@ public class QuizFrame extends JFrame {
 					scoreLabel.setText("\u03A3\u03BA\u03BF\u03C1: "+score);
 				}
 				
+				//get a new question and display it on the frame
 				getQuestion();
 				question.setText(selected.getQuestion());
 				choice1.setText(selected.getAnswer1());
@@ -180,6 +198,7 @@ public class QuizFrame extends JFrame {
 		GridBagLayout gbl_mainPanel = new GridBagLayout();
 		mainPanel.setLayout(gbl_mainPanel);
 		
+		//labes for questions and radiobuttons for multiple choice (4 radio buttons --> as for the possible answers in question)
 		question = new JLabel();
 		question.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_question = new GridBagConstraints();
@@ -219,6 +238,7 @@ public class QuizFrame extends JFrame {
 		mainPanel.add(choice4, gbc_choice4);
 		group.add(choice4);
 		
+		//get initial question and set the text to the frame
 		getQuestion();
 		question.setText(selected.getQuestion());
 		choice1.setText(selected.getAnswer1());
@@ -228,6 +248,8 @@ public class QuizFrame extends JFrame {
 	}
 	
 	public void getQuestion(){
+		//method to get a random question different every time untill run out of available questions 
+		//use a second list to know if the question has been already used
 		int randomIndex = r.nextInt(questions.size());
 		selected = questions.get(randomIndex);
 	
@@ -245,6 +267,7 @@ public class QuizFrame extends JFrame {
 	
 	@SuppressWarnings("unchecked")
 	public void deserializing() {
+		//method to take the questions saved to the file
 		try {
 			FileInputStream fileIn = new FileInputStream("QuestionsDatabase.ser");
 			ObjectInputStream in = new ObjectInputStream(fileIn);
@@ -261,6 +284,7 @@ public class QuizFrame extends JFrame {
 	}
 	
 	public class TimerClass implements ActionListener{
+		//managing the timer
 		int minutes, seconds;
 		
 		public TimerClass(int minutes, int seconds)
@@ -291,6 +315,7 @@ public class QuizFrame extends JFrame {
 			
 			if (seconds == 0 && minutes == 0)
 			{
+				//if out of time and score>8 win else lose
 				soundthread2.StopMusic();
 				timer.stop();
 				Toolkit.getDefaultToolkit().beep();

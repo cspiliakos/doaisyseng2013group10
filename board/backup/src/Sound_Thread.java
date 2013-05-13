@@ -11,7 +11,7 @@ public class Sound_Thread extends Thread{
 	@SuppressWarnings("unused")
 	private HashMap<AudioInputStream, Boolean> Sounds ;
 	
-	public Sound_Thread(){ //Empty Constructor : gia mikrous hxous pou pezoun apo ena mono antikeimeno Sound_Thread(opws AncientArcadeFrame)
+	public Sound_Thread(){ //Empty Constructor : small sounds, trigger a singel object Sound_Thread
 		
 	}
 	public Sound_Thread(String sp, boolean rp){
@@ -26,7 +26,7 @@ public class Sound_Thread extends Thread{
 			clip.stop();
 	}
 
-	public void PlayMusic(String SongPath, boolean repeat){  //Stamataei tous prohgoumenous hxous(ama yparxoun) kai ksekinaei kainourgio
+	public void PlayMusic(String SongPath, boolean repeat){  //stops previous sound if any, starts new
 		StopMusic();   
 		try{
 			File f = new File(SongPath);

@@ -36,6 +36,7 @@ public class Start_Frame extends JFrame{
 	private static AudioInputStream audio;
 	
 	public static void main(String[] args) {
+		//in place of Main used to run the initial frame
 
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -45,6 +46,7 @@ public class Start_Frame extends JFrame{
 					clip = AudioSystem.getClip();
 					clip.open(audio);
 					clip.loop(Clip.LOOP_CONTINUOUSLY);
+					//managing the sound
 
 					Start_Frame frame = new Start_Frame(clip);
 					frame.setVisible(true);
@@ -57,8 +59,9 @@ public class Start_Frame extends JFrame{
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public Start_Frame(final Clip clip){     //final gia na mhn stamataei kai ksana arxizei synexeia 
+	public Start_Frame(final Clip clip){     //final to play in a loop 
 		setJMenuBar(new JMenuFrame().getMenu());
+		//menu
 		
 		try {
 			background = ImageIO.read(new File("Start\\loginbackground.jpg"));
@@ -80,6 +83,7 @@ public class Start_Frame extends JFrame{
 		title.setForeground(Color.BLACK);
 		title.setHorizontalAlignment(SwingConstants.CENTER);
 		back.add(title, BorderLayout.NORTH);
+		//managing frame
 		
 		//
 		helpPanel = new JPanel();
@@ -90,6 +94,7 @@ public class Start_Frame extends JFrame{
 			public void actionPerformed(ActionEvent arg0) {
 
 				Start_Frame.this.setVisible(false);
+				//combo box for player or admin mode
 				if (comboBox.getSelectedItem().toString().equals("\u0394\u03B9\u03B1\u03C7\u03B5\u03B9\u03C1\u03B9\u03C3\u03C4\u03AE\u03C2")){
 					//new TicTacToeFrame(new User("temp"));
 					//new ClickMeFrame(new User("temp"));
@@ -101,10 +106,12 @@ public class Start_Frame extends JFrame{
 					//new QuizFrame(new User("temp"));
 					//new TelecubeFrame(new User("temp"));
 					new AdminFrame(clip);
+					//in admin mode redirects to the admin frame
 				}
 				else
 				{
 					new Name_Frame(clip);
+					//in players mode redirects to the Name frame to choose single or multi player mode
 				}
 			}
 		});

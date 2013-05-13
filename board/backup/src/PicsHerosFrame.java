@@ -48,13 +48,15 @@ public class PicsHerosFrame extends JFrame{
 	private ArrayList<String> helpString;
 	
 	ArrayList<AudiosPair> list = new ArrayList<AudiosPair>(new Audios().getPicsHerosList()); 
-	Sound_Thread soundthread1 = new Sound_Thread(); //Thread 1 gia mikrous hxous, pou diakoptei o enas ton allon
-	Sound_Thread soundthread2 = new Sound_Thread(); //Thread 2 gia soundtrack
+	Sound_Thread soundthread1 = new Sound_Thread(); //Thread 1 small sounds that are interupted
+	Sound_Thread soundthread2 = new Sound_Thread(); //Thread 2 theme
 	
 	public PicsHerosFrame(User u){
 		soundthread2.PlayMusic(list.get(1).getSongName(), list.get(1).getRepeat());
 		
 		setJMenuBar(new JMenuFrame().getMenu());
+		//menu
+		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		frameWidth = screenSize.getWidth();
 		frameHeight = screenSize.getHeight();
@@ -62,6 +64,8 @@ public class PicsHerosFrame extends JFrame{
 		helpHeight = (int)frameHeight;
 		widthSize = helpWidth / 4;
 		heightSize = helpHeight / 2;
+		//managing frame dimension
+		
 		r = new Random(System.currentTimeMillis());
 		iconlist = new Uicons();
 		currlist = new ArrayList<ImageIcon>(iconlist.getPicsHerosIcons());
@@ -81,6 +85,8 @@ public class PicsHerosFrame extends JFrame{
 		name1 = "στον";
 		name2 = "στην";
 		name3 = "στο";
+		//managing frame components
+		
 		try {
 			background = ImageIO.read(new File("UIcons\\olympus.jpg"));
 		} catch (IOException e) {
@@ -94,16 +100,23 @@ public class PicsHerosFrame extends JFrame{
 		back = new BackgroundPanel(background);
 		setContentPane(back);
 		back.setLayout(new BorderLayout(5, 5));
+		//managing frame
 		
 		timeLabel = new JLabel(minutes+" : 0"+seconds);
 		timeLabel.setFont(new Font("Sylfaen", Font.BOLD, 20));
 		timeLabel.setForeground(new Color(139, 69, 19));
 		timePanel = new JPanel();
 		timePanel.add(timeLabel);
+		//displays time
+		
 		pause = new JButton("\u03A0\u03B1\u03CD\u03C3\u03B7");
 		pause.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		pause.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				//pushed when time is running --> time stop
+				//pushed when time is stopped --> time run
+				//when timer is stopped remove the listener from pics
+				//when timer starts re-add the listeners to the pics
 				if (isRunning)
 				{
 					isRunning = false;
@@ -134,6 +147,7 @@ public class PicsHerosFrame extends JFrame{
 		GridBagLayout gbl_mainPanel = new GridBagLayout();
 		mainPanel.setLayout(gbl_mainPanel);
 		
+		//shows the current question with the name of hero you have to recognize
 		question = new JLabel();
 		question.setForeground(Color.RED);
 		question.setFont(new Font("Bookman Old Style", Font.BOLD, 30));
@@ -143,6 +157,7 @@ public class PicsHerosFrame extends JFrame{
 		gbc_question.gridx = 0;
 		mainPanel.add(question, gbc_question);
 		
+		//3 available photos to choose the correct one answering the question showed
 		photo1 = new JLabel();
 		photo1.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		photo1.addMouseListener(listen);
@@ -172,13 +187,16 @@ public class PicsHerosFrame extends JFrame{
 		
 		commit = new JButton();
 		commit.addActionListener(new ActionListener() {
+			//button to verify your answer
 			public void actionPerformed(ActionEvent arg0) {
 			
 				if (correct.getDescription().equals(check.getDescription()))
 				{
+					//if is correct --> score +1
 					score++;
 					scoreLabel.setText("\u03A3\u03BA\u03BF\u03C1: "+score);
 				}
+				//get another question and remove all the borders from pics
 				getQuestion();
 				photo1.setBorder(null);
 				photo2.setBorder(null);
@@ -196,7 +214,7 @@ public class PicsHerosFrame extends JFrame{
 		scorePanel = new JPanel();
 		GridBagLayout gbl_scorePanel = new GridBagLayout();
 		scorePanel.setLayout(gbl_scorePanel);
-		
+		//keep up score
 		scoreLabel = new JLabel("\u03A3\u03BA\u03BF\u03C1: 0");
 		scoreLabel.setForeground(new Color(128, 0, 0));
 		scoreLabel.setFont(new Font("Sylfaen", Font.BOLD, 20));
@@ -207,10 +225,13 @@ public class PicsHerosFrame extends JFrame{
 		scorePanel.add(scoreLabel, gbc_scoreLabel);
 		back.add(scorePanel, BorderLayout.EAST);
 		
+		//get initial question
 		getQuestion();
 	}
 	
 	public void getQuestion(){
+		//get different question every time untill you run out of available questions
+		//use second list to know which question has already been shown
 		helpImages = new ArrayList<ImageIcon>();
 		helpString = new ArrayList<String>();
 		
@@ -248,7 +269,7 @@ public class PicsHerosFrame extends JFrame{
 				resize = help.getScaledInstance(widthSize, heightSize, 0);
 				photo3.setIcon(new ImageIcon(resize));
 			}	
-			
+			//setting the apropriate "στον" "στην" "στο" in the question label
 			if (randomIndex < 10)
 			{
 				helpString.add(name1);
@@ -271,6 +292,7 @@ public class PicsHerosFrame extends JFrame{
 	}
 	
 	public class TimerClass implements ActionListener{
+		//managing timer
 		int minutes, seconds;
 		
 		public TimerClass(int minutes, int seconds)
@@ -301,6 +323,7 @@ public class PicsHerosFrame extends JFrame{
 			
 			if (seconds == 0 && minutes == 0)
 			{
+				//if out of time and score>8 win else lose
 				soundthread2.StopMusic();
 				timer.stop();
 				Toolkit.getDefaultToolkit().beep();

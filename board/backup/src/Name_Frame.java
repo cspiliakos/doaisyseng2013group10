@@ -56,6 +56,7 @@ public class Name_Frame extends JFrame {
 		title.setFont(new Font("Sylfaen", Font.PLAIN, 40));
 		title.setHorizontalAlignment(SwingConstants.CENTER);
 		back.add(title, BorderLayout.NORTH);
+		//managing frame
 		
 		//
 		helpPanel = new JPanel();
@@ -74,6 +75,7 @@ public class Name_Frame extends JFrame {
 		gbc_label.gridy = 0;
 		helpPanel.add(label, gbc_label);
 		
+		//combo box for single or mutliplayer mode
 		comboBox = new JComboBox();
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -99,6 +101,7 @@ public class Name_Frame extends JFrame {
 		gbc_comboBox.gridy = 0;
 		helpPanel.add(comboBox, gbc_comboBox);
 		
+		// player 1 components
 		player1 = new JLabel("\u03A0\u03B1\u03AF\u03BA\u03C4\u03B7\u03C2 1");
 		player1.setForeground(Color.ORANGE);
 		player1.setFont(new Font("Sylfaen", Font.BOLD, 20));
@@ -126,6 +129,7 @@ public class Name_Frame extends JFrame {
 		gbc_help1.gridy = 1;
 		helpPanel.add(help1, gbc_help1);
 		
+		//player2 components
 		player2 = new JLabel("\u03A0\u03B1\u03AF\u03BA\u03C4\u03B7\u03C2 2");
 		player2.setForeground(Color.ORANGE);
 		player2.setFont(new Font("Sylfaen", Font.BOLD, 20));
@@ -156,6 +160,8 @@ public class Name_Frame extends JFrame {
 		helpPanel.add(help2, gbc_help2);
 		help2.setVisible(false);
 		
+		//check if name(s) has more than 4 chars
+		//redirect to PickAHero frame for 1 or 2 players according to the selection
 		play = new JButton("\u03A0\u03B1\u03AF\u03BE\u03B5");
 		play.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

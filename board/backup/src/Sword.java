@@ -4,7 +4,8 @@ public class Sword extends Weapons{
 	private Random r;
 
 	public Sword() {
-		//super(weaponType, damage,critical,price);
+		//type of weapon used in duel
+		//the user has only a sword when he start
 		weaponType="Sword";
 		damage=100;
 		critical=4;
@@ -15,7 +16,7 @@ public class Sword extends Weapons{
 	
 	public boolean isCritical(){		
 		int cr=r.nextInt(critical);
-		//afou akolouthei mia kanonikh katanomh tote exei 20% pithanothta na ferei enan apo tous arithmous
+		//critical double damage 20% possibility
 		if(cr<2)
 			return true;
 		else

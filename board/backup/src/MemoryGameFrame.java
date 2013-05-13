@@ -50,10 +50,13 @@ public class MemoryGameFrame extends JFrame {
 
 	public MemoryGameFrame(User u) {
 		setJMenuBar(new JMenuFrame().getMenu());
+		//menu
 		list = new ArrayList<AudiosPair>(new Audios().getMemoryGameList()); 
 		soundthread1 = new Sound_Thread();
 		soundthread2 = new Sound_Thread();
 		soundthread2.PlayMusic(list.get(4).getSongName(), list.get(4).getRepeat());
+		//managing sounds
+		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		frameWidth = screenSize.getWidth();
 		frameHeight = screenSize.getHeight();
@@ -61,9 +64,13 @@ public class MemoryGameFrame extends JFrame {
 		helpHeight = (int)frameHeight;
 		widthSize = helpWidth / 5;
 		heightSize = helpHeight / 5;
+		//managing screen dimension
+		
 		iconlist = new Uicons();
 		currlist = new ArrayList<ImageIcon>(iconlist.getMMGIcons());
 		Collections.shuffle(currlist.subList(2, currlist.size()));
+		//getting icons used and suffle them
+
 		helpIcon = new ImageIcon();
 		check = new ImageIcon();
 		player = u;
@@ -98,8 +105,12 @@ public class MemoryGameFrame extends JFrame {
 		timeLabel.setForeground(new Color(139, 69, 19));
 		timePanel = new JPanel();
 		timePanel.add(timeLabel);
+		//indicates time
+		
 		pause = new JButton("\u03A0\u03B1\u03CD\u03C3\u03B7");
 		pause.setFont(new Font("Sylfaen", Font.PLAIN, 20));
+		//pushed while running --> stop
+		//pushed while stopped --> run
 		pause.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (isRunning)
@@ -123,6 +134,7 @@ public class MemoryGameFrame extends JFrame {
 					label14.removeMouseListener(listen);
 					label15.removeMouseListener(listen);
 					label16.removeMouseListener(listen);
+					//remove all listeners so the player cannot gain time
 				}
 				else
 				{
@@ -144,6 +156,7 @@ public class MemoryGameFrame extends JFrame {
 					label14.addMouseListener(listen);
 					label15.addMouseListener(listen);
 					label16.addMouseListener(listen);
+					//re-add all listeners to continue game
 				}
 			}
 		});
@@ -156,6 +169,7 @@ public class MemoryGameFrame extends JFrame {
 		GridBagLayout gbl_mainPanel = new GridBagLayout();
 		mainPanel.setLayout(gbl_mainPanel);
 		
+		//constracting the labels for the icons --> 16 labels - 8 pairs
 		label1 = new JLabel();
 		label1.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		hero = new ImageIcon(currlist.get(2).getImage());
@@ -351,18 +365,25 @@ public class MemoryGameFrame extends JFrame {
 	}
 	
 	public void Verify_CardLabel (JLabel cd, ImageIcon check){
+		// check if the two selected icons match
 		if(!hasPicked)
 		{
+			//the helpLabel = the first label chosen
 			helpLabel = cd;
 			hasPicked = true;
 		}
 		else
 		{
+			//for the second label chosen --> check the description given in the Uicons
+			//if descriptions with helpLabel match --> correct
+			//if descriptions with helpLabel do not match --> wrong
 			if(helpIcon.getDescription().equals(check.getDescription()))
 			{
 				soundthread1.PlayMusic(list.get(1).getSongName(), list.get(1).getRepeat());
 
 				correct++;
+				//increase score
+				//remove listener and disable --> player cannot use the same image
 				cd.removeMouseListener(listen);
 				helpLabel.removeMouseListener(listen);
 				cd.setEnabled(false);
@@ -395,10 +416,12 @@ public class MemoryGameFrame extends JFrame {
 	}
 
 	public void AppearLabel(JLabel label, int i){
+		//adjust icons to a fixed size
 		hero = new ImageIcon(currlist.get(i + 1).getImage());
 		help = hero.getImage();
 		resize = help.getScaledInstance(widthSize, heightSize, 0);
 		label.setIcon(new ImageIcon(resize));
+		//get the description of icon from Uicons for first and second picked labels
 		if (!hasPicked)
 		{
 			helpIcon.setDescription(currlist.get(i + 1).getDescription());
@@ -415,6 +438,7 @@ public class MemoryGameFrame extends JFrame {
 			
 			if (helpLabel != e.getSource())
 			{
+				//setting the actions for each label according to click
 				if(e.getSource() == label1 && label1.isEnabled())
 				{
 					AppearLabel(label1, 1);
@@ -499,7 +523,9 @@ public class MemoryGameFrame extends JFrame {
 			
 			if(correct == 8)
 			{
+				//requirment for the win 8 correct matching
 				soundthread1.PlayMusic(list.get(2).getSongName(), list.get(2).getRepeat());
+				//get coins and xp--> return to BoardFrame
 				player.setCoins(player.getCoins() + 1000);
 				player.setXP(player.getXP() + 1000);
 				MemoryGameFrame.this.setVisible(false);
@@ -542,6 +568,7 @@ public class MemoryGameFrame extends JFrame {
 		}
 		
 		public void actionPerformed(ActionEvent arg0) {
+			//managing timer
 			if(seconds == 0)
 			{
 				minutes--;

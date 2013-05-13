@@ -44,7 +44,11 @@ public class Pick_A_Hero extends JFrame {
 	private CharsOpponents char1, char2, char3, char4, char5, char6;
 
 	public Pick_A_Hero(ArrayList<User> p, final Clip clip) {
+		//frame used for player to choose a hero to play
+		
 		setJMenuBar(new JMenuFrame().getMenu());
+		//menu
+		
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setUndecorated(true);
 		setVisible(true);
@@ -61,7 +65,9 @@ public class Pick_A_Hero extends JFrame {
 		helpHeight = (int)frameHeight;
 		widthSize = helpWidth / 7;
 		heightSize = helpHeight / 3;
-
+		
+		//managing with frame dimensions
+		
 		try {
 			background = ImageIO.read(new File("Start\\loginbackground.jpg"));
 		} catch (IOException e) {
@@ -79,8 +85,12 @@ public class Pick_A_Hero extends JFrame {
 		title.setFont(new Font("Sylfaen", Font.PLAIN, 40));
 		title.setHorizontalAlignment(SwingConstants.CENTER);
 		back.add(title, BorderLayout.NORTH);
-
-		//panel gia emfanisi stat tou paixth 1
+		//managing frame
+		
+		
+		//panel player 1 --> when select a pic
+		//name, damage, defense, life are the stats shown on the left
+		//p labels are for the values of stats
 		player1Panel = new JPanel();
 		back.add(player1Panel,BorderLayout.WEST);
 		GridBagLayout gbl_player1Panel = new GridBagLayout();
@@ -160,7 +170,8 @@ public class Pick_A_Hero extends JFrame {
 		gbc_p2.gridy = 3;
 		player1Panel.add(p2, gbc_p2);
 
-		//panel gia emfanisi stat tou paixth 2
+		//panel for player 2
+		//same as for player 1 above
 		player2Panel = new JPanel();
 		back.add(player2Panel,BorderLayout.EAST);
 		GridBagLayout gbl_player2Panel = new GridBagLayout();
@@ -247,7 +258,8 @@ public class Pick_A_Hero extends JFrame {
 		back.add(helpPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_helpPanel = new GridBagLayout();
 		helpPanel.setLayout(gbl_helpPanel);
-
+		
+		//lab for displaying heroes names above their pics
 		lab1 = new JLabel("\u0386\u03C1\u03B7\u03C2");
 		lab1.setForeground(Color.RED);
 		lab1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -280,6 +292,7 @@ public class Pick_A_Hero extends JFrame {
 		helpPanel.add(lab3, gbc_lab3);
 		lab3.setLabelFor(pl3);
 
+		//setting the pics of heroes --> 6 available heroes with different combination of stats
 		pl1 = new JLabel("");
 		pl1.setSize(new Dimension(5, 5));
 		pl1.setIconTextGap(0);
@@ -294,7 +307,7 @@ public class Pick_A_Hero extends JFrame {
 		gbc_pl1.gridy = 2;
 		helpPanel.add(pl1, gbc_pl1);
 		pl1.addMouseListener(PHL);
-
+		//create the character as an object
 		char1 = new CharsOpponents("Άρης", 10, 20, 30, hero);
 
 		pl2 = new JLabel("");
@@ -327,6 +340,7 @@ public class Pick_A_Hero extends JFrame {
 
 		char3 = new CharsOpponents("Άδης", 20, 30, 10, hero);
 
+		//lab for displaying the name of heroes above their pics
 		lab4 = new JLabel("\u03A0\u03BF\u03C3\u03B5\u03B9\u03B4\u03CE\u03BD\u03B1\u03C2");
 		lab4.setForeground(Color.RED);
 		lab4.setFont(new Font("Sylfaen", Font.PLAIN, 20));
@@ -356,7 +370,8 @@ public class Pick_A_Hero extends JFrame {
 		gbc_lab6.gridx = 3;
 		gbc_lab6.gridy = 3;
 		helpPanel.add(lab6, gbc_lab6);
-
+		
+		//setting the images for the rest 3 heroes
 		pl4 = new JLabel("");
 		hero = new ImageIcon("Pick_Hero\\Poseidon.jpg");
 		help = hero.getImage();
@@ -403,6 +418,9 @@ public class Pick_A_Hero extends JFrame {
 		char6 = new CharsOpponents("Δίας", 30, 10, 20, hero);
 
 		play = new JButton("\u03A0\u03B1\u03AF\u03BE\u03B5");
+		//creates the char as an variable for the user
+		//single player --> player.size()=1
+		//multiplayer --> else
 		play.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(!checkIfDone())
@@ -426,6 +444,7 @@ public class Pick_A_Hero extends JFrame {
 							players.get(0).setHealth(Double.parseDouble(p2.getText()));
 							players.get(0).setDamage(Double.parseDouble(p3.getText()));
 							players.get(0).setDefence(Double.parseDouble(p4.getText()));
+							//set the label of hero picked disable --> 2 players cannot pick the same hero
 							helpLabel.setEnabled(false);
 						}
 						else
@@ -444,6 +463,8 @@ public class Pick_A_Hero extends JFrame {
 			}
 			
 			public boolean checkIfDone(){
+				//checks if all players has chosen a hero by checking if an image has been attributed to the players
+				// variable Image
 				for(User u : players){
 					if(u.getImage() == null)
 					{
@@ -480,6 +501,7 @@ public class Pick_A_Hero extends JFrame {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
+			//neither image has border
 			play.setEnabled(true);
 			pl1.setBorder(null);
 			pl2.setBorder(null);
@@ -487,11 +509,14 @@ public class Pick_A_Hero extends JFrame {
 			pl4.setBorder(null);
 			pl5.setBorder(null);
 			pl6.setBorder(null);
-
+			
+			//the panel with the stats appear
 			player1Panel.setVisible(true);
 			
 			if (players.size() == 1)
 			{
+				//single player mode --> when choose a hero make the label's border red
+				//change the hero stats to the left panel
 				if(e.getSource() == pl1)
 				{
 					pl1.setBorder(new LineBorder(Color.RED, 5));
@@ -533,10 +558,15 @@ public class Pick_A_Hero extends JFrame {
 			{
 				if(players.get(0).getImage() != null)
 				{
+					//multiplayer mode --> the second panel appear
 					player2Panel.setVisible(true);
 					
 					if(e.getSource() == pl1 && e.getSource() != helpLabel)
 					{
+						//player 2 cannot choose the same hero with player1
+						//set the border of valid selection red
+						//show the hero's stats on the left panel for player1 and on the right panel for player2
+						//player1 must choose a hero first and hit "PLAY" so the second player to be able to choose a hero
 						pl1.setBorder(new LineBorder(Color.RED, 5));
 						image = new ImageIcon("Pick_Hero\\Ares.jpg");
 						setStatValues(char1);
@@ -621,6 +651,7 @@ public class Pick_A_Hero extends JFrame {
 		}
 
 		public void setStatValues(CharsOpponents c){
+			//method to keep up to date the stats to the panels for the heroes according to the player's selection
 			CharsOpponents currChar;
 			currChar = c;
 			if(!player2Panel.isVisible())

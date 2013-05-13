@@ -13,6 +13,7 @@ public abstract class Monsters {
 	}
 
 	public Monsters(String name, double damage, double defence, double health, ImageIcon image){
+		//Constructor for user heroes and duel opponents
 		this.name=name;
 		this.damage=damage;
 		this.defence=defence;

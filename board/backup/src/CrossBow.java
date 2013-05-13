@@ -11,7 +11,7 @@ public class CrossBow extends Weapons{
 		damage=80;
 		critical=10;
 		price=200;
-		
+		System.out.println("bow");
 		r = new Random(System.currentTimeMillis());
 	}
 

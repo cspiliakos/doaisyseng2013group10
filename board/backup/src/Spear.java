@@ -11,7 +11,7 @@ public class Spear extends Weapons{
 		damage=180;
 		critical=10;
 		price=1000;
-		
+		System.out.println("spear");
 		r = new Random(System.currentTimeMillis());
 	}
 	@Override

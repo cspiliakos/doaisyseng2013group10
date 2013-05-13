@@ -27,7 +27,7 @@ public class DuelBoardFrame extends JFrame {
 	private ArrayList<Weapons> usersWeapons;
 	private JLabel heroLabel, opponentLabel, heroLifeLabel, opponentLifeLabel, heroDamageLabel, opponentDamageLabel, heroDefenceLabel, opponentDefenceLabel,
 	swordLevel, bowLevel, spearLevel, swordPrice, bowPrice, spearPrice;
-	private JButton sword, bow, spear, buyBow, buySpear, upgradeSword, upgradeBow, upgradeSpear;
+	private JButton swordBt, bowBt, spearBt, buyBow, buySpear, upgradeSword, upgradeBow, upgradeSpear;
 	private JPanel heroPanel, opponentPanel;
 	private int widthSize, heightSize, helpWidth, helpHeight;
 	private boolean hit;
@@ -47,12 +47,12 @@ public class DuelBoardFrame extends JFrame {
 		//managing sounds
 		list = new ArrayList<AudiosPair>(new Audios().getDuelList());
 		hit = false;
-		player = user;
+		//player = user;
 		temphealth=user.getHealth();
 		
 		soundthread2.PlayMusic(list.get(2).getSongName(), list.get(2).getRepeat());   //Sound soundtrack
 
-		currOpponent = new CharsOpponents ("Lernaia Ydra", 80, 15, 30, new ImageIcon("Monsters\\battle_hydra_1.jpg"));
+		currOpponent = new CharsOpponents ("Lernaia Ydra", 10, 15, 60, new ImageIcon("Monsters\\battle_hydra_3.jpg"));
 		setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
 		
 		try {
@@ -69,7 +69,7 @@ public class DuelBoardFrame extends JFrame {
 		//managing the frame
 		
 		currUser = user;
-		usersWeapons = new ArrayList<Weapons>();
+		usersWeapons = currUser.getWeapons();
 		//get user and the weapon list
 		
 		myGlassPane = new MyGlassPane();
@@ -146,19 +146,19 @@ public class DuelBoardFrame extends JFrame {
 		
 		//weapon buttons --> upgrade weapon buttons --> buy weapon buttons
 		//the sword only upgrades --> player starts by default having one
-		sword = new JButton();
-		sword.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		sword.addActionListener(attackListener);
-		sword.setBorder(null);
+		swordBt = new JButton();
+		//swordBt.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		swordBt.addActionListener(attackListener);
+		swordBt.setBorder(null);
 		helpIcon = new ImageIcon("Duel\\sword.jpeg");
 		helpImage = helpIcon.getImage();
 		resize = helpImage.getScaledInstance(widthSize, heightSize, 0);
-		sword.setIcon(new ImageIcon(resize));
+		swordBt.setIcon(new ImageIcon(resize));
 		GridBagConstraints gbc_sword = new GridBagConstraints();
 		gbc_sword.gridy = 0;
 		gbc_sword.gridx = 1;
 		gbc_sword.gridwidth = 2;
-		heroPanel.add(sword, gbc_sword);
+		heroPanel.add(swordBt, gbc_sword);
 		
 		upgradeSword = new JButton("Αναβάθμιση");
 		upgradeSword.addActionListener(upgradeListener);
@@ -169,26 +169,26 @@ public class DuelBoardFrame extends JFrame {
 		gbc_upgradeSword.gridx = 2;
 		heroPanel.add(upgradeSword, gbc_upgradeSword);
 		
-		spear = new JButton();
-		spear.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		spear.addActionListener(attackListener);
-		spear.setBorder(null);
+		spearBt = new JButton();
+		//spearBt.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		spearBt.addActionListener(attackListener);
+		spearBt.setBorder(null);
 		helpIcon = new ImageIcon("Duel\\spear.jpg");
 		helpImage = helpIcon.getImage();
 		resize = helpImage.getScaledInstance(widthSize, heightSize, 0);
-		spear.setIcon(new ImageIcon(resize));
+		spearBt.setIcon(new ImageIcon(resize));
 		GridBagConstraints gbc_spear = new GridBagConstraints();
-		gbc_spear.gridy = 3;
+		gbc_spear.gridy = 8;
 		gbc_spear.gridwidth = 2;
 		gbc_spear.gridx = 1;
-		heroPanel.add(spear, gbc_spear);
+		heroPanel.add(spearBt, gbc_spear);
 		
 		buySpear = new JButton("Αγορά");
 		buySpear.addActionListener(buyListener);
 		buySpear.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_buySpear = new GridBagConstraints();
 		gbc_buySpear.fill = GridBagConstraints.BOTH;
-		gbc_buySpear.gridy = 4;
+		gbc_buySpear.gridy = 9;
 		gbc_buySpear.gridx = 1;
 		heroPanel.add(buySpear, gbc_buySpear);
 
@@ -197,30 +197,30 @@ public class DuelBoardFrame extends JFrame {
 		upgradeSpear.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_upgradeSpear = new GridBagConstraints();
 		gbc_upgradeSpear.fill = GridBagConstraints.BOTH;
-		gbc_upgradeSpear.gridy = 4;
+		gbc_upgradeSpear.gridy = 9;
 		gbc_upgradeSpear.gridx = 2;
 		heroPanel.add(upgradeSpear, gbc_upgradeSpear);
 		
-		bow = new JButton();
-		bow.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		bow.addActionListener(attackListener);
-		bow.setBorder(null);
+		bowBt = new JButton();
+		//bowBt.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		bowBt.addActionListener(attackListener);
+		bowBt.setBorder(null);
 		helpIcon = new ImageIcon("Duel\\Bow.jpg");
 		helpImage = helpIcon.getImage();
 		resize = helpImage.getScaledInstance(widthSize, heightSize, 0);
-		bow.setIcon(new ImageIcon(resize));
+		bowBt.setIcon(new ImageIcon(resize));
 		GridBagConstraints gbc_bow = new GridBagConstraints();
-		gbc_bow.gridy = 8;
+		gbc_bow.gridy = 3;
 		gbc_bow.gridwidth = 2;
 		gbc_bow.gridx = 1;
-		heroPanel.add(bow, gbc_bow);
+		heroPanel.add(bowBt, gbc_bow);
 		
 		buyBow = new JButton("Αγορά");
 		buyBow.addActionListener(buyListener);
 		buyBow.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_buyBow = new GridBagConstraints();
 		gbc_buyBow.fill = GridBagConstraints.BOTH;
-		gbc_buyBow.gridy = 9;
+		gbc_buyBow.gridy = 4;
 		gbc_buyBow.gridx = 1;
 		heroPanel.add(buyBow, gbc_buyBow);
 
@@ -229,12 +229,29 @@ public class DuelBoardFrame extends JFrame {
 		upgradeBow.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_upgradeBow = new GridBagConstraints();
 		gbc_upgradeBow.fill = GridBagConstraints.BOTH;
-		gbc_upgradeBow.gridy = 9;
+		gbc_upgradeBow.gridy = 4;
 		gbc_upgradeBow.gridx = 2;
 		heroPanel.add(upgradeBow, gbc_upgradeBow);
 		
 		//labels showing the level and the price for next level
-		swordLevel = new JLabel("Επίπεδο: 0");
+		int lvls=0,lvlsp=0,lvlb=0;
+		int priceS=0,priceSp=0,priceB=0;
+		
+		for(Weapons w:currUser.getWeapons()){
+			if(w.getWeaponType().equals("Sword")){
+				lvls=w.getLevel();
+				priceS=w.getPrice();
+			}
+			if(w.getWeaponType().equals("CrossBow")){
+				lvlb=w.getLevel();
+				priceB=w.getPrice();
+			}
+			if(w.getWeaponType().equals("Spear")){
+				lvlsp=w.getLevel();
+				priceSp=w.getPrice();
+			}
+		}
+		swordLevel = new JLabel("Επίπεδο: "+lvls);
 		swordLevel.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		swordLevel.setForeground(Color.ORANGE);
 		GridBagConstraints gbc_swordLevel = new GridBagConstraints();
@@ -242,7 +259,7 @@ public class DuelBoardFrame extends JFrame {
 		gbc_swordLevel.gridx = 3;
 		heroPanel.add(swordLevel, gbc_swordLevel);
 		
-		swordPrice = new JLabel("Τιμή: 0");
+		swordPrice = new JLabel("Τιμή: "+priceS);
 		swordPrice.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		swordPrice.setForeground(Color.ORANGE);
 		GridBagConstraints gbc_swordPrice = new GridBagConstraints();
@@ -250,7 +267,7 @@ public class DuelBoardFrame extends JFrame {
 		gbc_swordPrice.gridx = 3;
 		heroPanel.add(swordPrice, gbc_swordPrice);
 		
-		bowLevel = new JLabel("Επίπεδο: 0");
+		bowLevel = new JLabel("Επίπεδο: "+lvlb);
 		bowLevel.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		bowLevel.setForeground(Color.ORANGE);
 		GridBagConstraints gbc_bowLevel = new GridBagConstraints();
@@ -258,7 +275,7 @@ public class DuelBoardFrame extends JFrame {
 		gbc_bowLevel.gridx = 3;
 		heroPanel.add(bowLevel, gbc_bowLevel);
 		
-		bowPrice = new JLabel("Τιμή: 0");
+		bowPrice = new JLabel("Τιμή: "+priceB);
 		bowPrice.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		bowPrice.setForeground(Color.ORANGE);
 		GridBagConstraints gbc_bowPrice = new GridBagConstraints();
@@ -266,7 +283,7 @@ public class DuelBoardFrame extends JFrame {
 		gbc_bowPrice.gridx = 3;
 		heroPanel.add(bowPrice, gbc_bowPrice);
 		
-		spearLevel = new JLabel("Επίπεδο: 0");
+		spearLevel = new JLabel("Επίπεδο: "+lvlsp);
 		spearLevel.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		spearLevel.setForeground(Color.ORANGE);
 		GridBagConstraints gbc_spearLevel = new GridBagConstraints();
@@ -274,7 +291,7 @@ public class DuelBoardFrame extends JFrame {
 		gbc_spearLevel.gridx = 3;
 		heroPanel.add(spearLevel, gbc_spearLevel);
 		
-		spearPrice = new JLabel("Τιμή: 0");
+		spearPrice = new JLabel("Τιμή: "+priceSp);
 		spearPrice.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		spearPrice.setForeground(Color.ORANGE);
 		GridBagConstraints gbc_spearPrice = new GridBagConstraints();
@@ -296,7 +313,7 @@ public class DuelBoardFrame extends JFrame {
 		opponentPanel.setLayout(gbl_opponentPanel);
 				
 		opponentLabel = new JLabel();
-		helpIcon = new  ImageIcon("Duel\\opponent.jpg");
+		helpIcon=currOpponent.getImage();
 		helpImage = helpIcon.getImage();
 		widthSize = helpWidth / 7;
 		resize = helpImage.getScaledInstance(widthSize, heightSize, 0);
@@ -343,17 +360,19 @@ public class DuelBoardFrame extends JFrame {
 	public void updateWeaponStats(){
 		//get current users weapons levels and prices
 		for (Weapons w: currUser.getWeapons()){
-			if (w.getWeaponType().equals("Σπαθί"))
+			if (w.getWeaponType().equals("Sword"))
 			{
 				swordLevel.setText("Επίπεδο: "+w.getLevel());
 				swordPrice.setText("Τιμή: "+w.getPrice());
 			}
-			else if(w.getWeaponType().equals("Τόξο"))
+			
+			else if(w.getWeaponType().equals("CrossBow"))
 			{
 				bowLevel.setText("Επίπεδο: "+w.getLevel());
 				bowPrice.setText("Τιμή: "+w.getPrice());
 			}
-			else if(w.getWeaponType().equals("Δόρυ"))
+			
+			else if(w.getWeaponType().equals("Spear"))
 			{
 				spearLevel.setText("Επίπεδο: "+w.getLevel());
 				spearPrice.setText("Τιμή: "+w.getPrice());
@@ -367,8 +386,10 @@ public class DuelBoardFrame extends JFrame {
 		String type = w.getWeaponType();
 		for(Weapons we: usersWeapons)
 		{
-			if (type.equals(we.getWeaponType()));
+			
+			if (type.equals(we.getWeaponType()))
 				return true;
+			
 		}
 		return false;
 	}
@@ -380,10 +401,10 @@ public class DuelBoardFrame extends JFrame {
 		if(remainHealth <= 0)
 		{
 			JOptionPane.showMessageDialog(null, "Κέρδισες τη μάχη.", "Τέλος μάχης", JOptionPane.INFORMATION_MESSAGE);
-			player.setWin(true);
-			player.setPlayed(true);
-			player.setCoins(player.getCoins() + 1000);
-			player.setXP(player.getXP() + 1000);
+			currUser.setWin(true);
+			currUser.setPlayed(true);
+			currUser.setCoins(currUser.getCoins() + 1000);
+			currUser.setXP(currUser.getXP() + 1000);
 			DuelBoardFrame.this.setVisible(false);
 			soundthread2.StopMusic();
 			return true;
@@ -406,8 +427,8 @@ public class DuelBoardFrame extends JFrame {
 			if (temphealth <= 0)
 			{
 				//check if players life is below zero --> player is defeated
-				player.setWin(false);
-				player.setPlayed(true);
+				currUser.setWin(false);
+				currUser.setPlayed(true);
 				JOptionPane.showMessageDialog(null, "Έχασες τη μάχη.", "Τέλος μάχης", JOptionPane.ERROR_MESSAGE);
 				DuelBoardFrame.this.setVisible(false);
 				soundthread2.StopMusic();
@@ -457,57 +478,55 @@ public class DuelBoardFrame extends JFrame {
 		}
 	}
 
-	public class UpgradeButtonListener implements ActionListener {
-		//upgrade weapons --> if weapons exists
-		public void actionPerformed(ActionEvent e) {
-			soundthread1.PlayMusic(list.get(1).getSongName(), list.get(1).getRepeat());   //Sound upgrade
-			
-			if(e.getSource() == upgradeSword)
-			{
-				usersWeapons = currUser.getWeapons();
-				for(Weapons w: usersWeapons)
-				{
-					if(w.getWeaponType() == "Sword")
-					{
-						w.upgradeWeapon(currUser, w);
-						updateWeaponStats();
-					}
-				}
-			}
-
-			if(e.getSource() == upgradeBow)
-			{
-				usersWeapons = currUser.getWeapons();
-				for(Weapons w: usersWeapons)
-				{
-					if(w.getWeaponType() == "CrossBow")
-					{
-						w.upgradeWeapon(currUser, w);
-						updateWeaponStats();
-					}
-				}
-			}
-
-			if(e.getSource() == upgradeSpear)
-			{
-				usersWeapons = currUser.getWeapons();
-				for(Weapons w: usersWeapons)
-				{
-					if(w.getWeaponType() == "Spear")
-					{
-						w.upgradeWeapon(currUser, w);
-						updateWeaponStats();
-					}
-				}
-			}
-		}
-	}
+  class UpgradeButtonListener implements ActionListener {
+		    //method to upgrade weapons
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		      if(e.getSource()==upgradeSword){
+		        usersWeapons=currUser.getWeapons();
+		        for(Weapons w: usersWeapons){
+		          if(w.getWeaponType()=="Sword"){
+		            w.upgradeWeapon(currUser, w);
+		            System.out.println("sword "+w.level);
+		            updateWeaponStats();
+		          }
+		        }
+		      }
+		
+		      if(e.getSource()==upgradeBow){
+		        usersWeapons=currUser.getWeapons();
+		        for(Weapons w: usersWeapons){
+		          if(w.getWeaponType()=="CrossBow"){
+		            w.upgradeWeapon(currUser, w);
+		            System.out.println("bow "+w.level);
+		            updateWeaponStats();
+		          }
+		        }
+		      }
+		
+		      if(e.getSource()==upgradeSpear){
+		        usersWeapons=currUser.getWeapons();
+		        for(Weapons w: usersWeapons){
+		          if(w.getWeaponType()=="Spear"){
+		            w.upgradeWeapon(currUser, w);
+		            System.out.println("spear "+w.level);
+		            updateWeaponStats();
+		          }
+		        }
+		      }
+		
+		
+		
+		    }
+		
+		
+		} 
 
 	public class buyButtonListener implements ActionListener{
 		//buy weapons -- > only if weapons do not exists
 		public void actionPerformed(ActionEvent e) {
 			soundthread1.PlayMusic(list.get(0).getSongName(), list.get(0).getRepeat());   //Sound buy
-			
+			System.out.println("nasia");
 			if(e.getSource() == buyBow)
 			{				
 				CrossBow b = new CrossBow();
@@ -535,26 +554,27 @@ public class DuelBoardFrame extends JFrame {
 		    if(!hit){
 		      //the player can't hit twice unless the opponent attacks back
 		
-		    if(e.getSource()==sword){
+		    if(e.getSource()==swordBt){
 		      JOptionPane.showMessageDialog(null, "Attack with sword");
 		      currOpponent.setHealth((currOpponent.getHealth())-10);
 		      myGlassPane.repaint();
 		      checkIfDead(currOpponent);
 		      hit=true;      
 		      }
-		    else if (e.getSource()==bow){
-		      if(checkIfWeaponExists(new CrossBow())){        
-		        JOptionPane.showMessageDialog(null,"Attack with bow");
-		        currOpponent.setHealth((currOpponent.getHealth())-10);
-		        myGlassPane.repaint();
-		        checkIfDead(currOpponent);
-		        hit=true;
+		    if (e.getSource()==bowBt){
+		    	if(checkIfWeaponExists(new CrossBow())){        
+		    		JOptionPane.showMessageDialog(null,"Attack with bow");
+		    		currOpponent.setHealth((currOpponent.getHealth())-10);
+		    		myGlassPane.repaint();
+		    		checkIfDead(currOpponent);
+		    		hit=true;
 		        }
 		      else
 		        JOptionPane.showMessageDialog(null,"Pick another weapon");
 		      }
-		    else if(e.getSource()==spear){
-		      if(checkIfWeaponExists(new Spear())){
+		    if(e.getSource()==spearBt){
+		    	Spear s=new Spear();
+		      if(checkIfWeaponExists(s)){
 		        JOptionPane.showMessageDialog(null, "Attack with spear");
 		        currOpponent.setHealth((currOpponent.getHealth())-10);
 		        myGlassPane.repaint();
@@ -565,6 +585,9 @@ public class DuelBoardFrame extends JFrame {
 		        JOptionPane.showMessageDialog(null,"Pick another weapon");
 		    }
 		    
+		    for(Weapons w: currUser.getWeapons()){
+		    	System.out.println(w.getWeaponType());
+		    }
 		    
 		    if (hit)
 		      timer=new TimerBeep();

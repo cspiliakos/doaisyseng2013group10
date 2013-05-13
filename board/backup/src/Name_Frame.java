@@ -44,7 +44,7 @@ public class Name_Frame extends JFrame {
 		setJMenuBar(new JMenuFrame().getMenu());
 		
 		try {
-			background = ImageIO.read(new File("Start\\start.jpg"));
+			background = ImageIO.read(new File("Start\\loginbackground.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

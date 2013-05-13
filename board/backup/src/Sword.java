@@ -8,15 +8,15 @@ public class Sword extends Weapons{
 		weaponType="Sword";
 		damage=100;
 		critical=4;
-		price=0;
-		
+		price=100;
+		level=1;
 		r=new Random(System.currentTimeMillis());
 	}
 	
 	public boolean isCritical(){		
 		int cr=r.nextInt(critical);
 		//afou akolouthei mia kanonikh katanomh tote exei 20% pithanothta na ferei enan apo tous arithmous
-		if(cr==2)
+		if(cr<2)
 			return true;
 		else
 			return false;

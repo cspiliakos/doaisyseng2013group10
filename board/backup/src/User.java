@@ -12,7 +12,7 @@ public class User extends Monsters {
 		super();
 		Username = name;
 		skillpoints = 10;
-		coins = 1000;
+		coins = 10000;
 		xp = 0;
 		weapons = new ArrayList<Weapons>();
 		weapons.add(new Sword());

@@ -317,6 +317,7 @@ public class AncientArcadeFrame extends JFrame {
 					//setting players credits
 					player.setCoins(player.getCoins() + 1000);
 					player.setXP(player.getXP() + 1000);
+					player.increaseSkillPoints(player.getXP(), player.getSkillpoints());
 					AncientArcadeFrame.this.setVisible(false);
 					JOptionPane.showMessageDialog(null, "Συγχαρητήρια.", "Τέλος παιχνιδιού", JOptionPane.INFORMATION_MESSAGE);	
 					player.setWin(true);

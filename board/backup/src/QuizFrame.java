@@ -321,6 +321,7 @@ public class QuizFrame extends JFrame {
 				Toolkit.getDefaultToolkit().beep();
 				player.setCoins(player.getCoins() + 1000);
 				player.setXP(player.getXP() + 100);
+				player.increaseSkillPoints(player.getXP(), player.getSkillpoints());
 				QuizFrame.this.setVisible(false);
 				JOptionPane.showMessageDialog(null, "\u03A4\u03BF \u03C4\u03B5\u03BB\u03B9\u03BA\u03CC \u03C3\u03BA\u03BF\u03C1 \u03B5\u03AF\u03BD\u03B1\u03B9: "+score, "Τέλος παιχνιδιού", JOptionPane.INFORMATION_MESSAGE);
 				if (score > 8)

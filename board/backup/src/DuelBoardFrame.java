@@ -403,6 +403,7 @@ public class DuelBoardFrame extends JFrame {
 			currUser.setPlayed(true);
 			currUser.setCoins(currUser.getCoins() + 1000);
 			currUser.setXP(currUser.getXP() + 1000);
+			currUser.increaseSkillPoints(currUser.getXP(), currUser.getSkillpoints());
 			DuelBoardFrame.this.setVisible(false);
 			soundthread2.StopMusic();
 			return true;

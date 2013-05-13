@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class User extends Monsters {
 	private String Username;
-	private int skillpoints, coins, xp;
+	private int skillpoints,skillpointsUsed, coins, xp;
 	private ArrayList<Weapons> weapons;
 	private Weapons currWeapon;
 	private boolean win,played;
@@ -12,6 +12,7 @@ public class User extends Monsters {
 		super();
 		Username = name;
 		skillpoints = 10;
+		skillpointsUsed=0;
 		coins = 10000;
 		xp = 0;
 		weapons = new ArrayList<Weapons>();
@@ -20,8 +21,18 @@ public class User extends Monsters {
 		played=false;
 	}
 	
+	public void increaseSkillPoints(int xp,int sk){
+		skillpoints=skillpoints+((xp/1000)-skillpointsUsed);
+	}
 
 
+	public int getSkillpointsUsed() {
+		return skillpointsUsed;
+	}
+
+	public void setSkillpointsUsed(int skillpointsUsed) {
+		this.skillpointsUsed = skillpointsUsed;
+	}
 
 	public boolean isPlayed() {
 		return played;

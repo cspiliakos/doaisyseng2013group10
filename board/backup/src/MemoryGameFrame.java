@@ -528,6 +528,7 @@ public class MemoryGameFrame extends JFrame {
 				//get coins and xp--> return to BoardFrame
 				player.setCoins(player.getCoins() + 1000);
 				player.setXP(player.getXP() + 1000);
+				player.increaseSkillPoints(player.getXP(), player.getSkillpoints());
 				MemoryGameFrame.this.setVisible(false);
 				soundthread1.StopMusic();
 				soundthread2.StopMusic();

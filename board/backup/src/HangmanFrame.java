@@ -524,6 +524,7 @@ public class HangmanFrame extends JFrame {
 					player.setPlayed(true);
 					player.setCoins(player.getCoins() + 1000);
 					player.setXP(player.getXP() + 1000);
+					player.increaseSkillPoints(player.getXP(), player.getSkillpoints());
 					JOptionPane.showMessageDialog(null, "Βρήκες τη λέξη.", "Επιτυχία", JOptionPane.INFORMATION_MESSAGE);
 				}
 				

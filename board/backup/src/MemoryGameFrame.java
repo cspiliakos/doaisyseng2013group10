@@ -415,82 +415,82 @@ public class MemoryGameFrame extends JFrame {
 			
 			if (helpLabel != e.getSource())
 			{
-				if(e.getSource() == label1)
+				if(e.getSource() == label1 && label1.isEnabled())
 				{
 					AppearLabel(label1, 1);
 					Verify_CardLabel(label1, check);
 				}
-				else if(e.getSource() == label2)
+				else if(e.getSource() == label2 && label2.isEnabled())
 				{
 					AppearLabel(label2, 2);
 					Verify_CardLabel(label2, check);
 				}
-				else if(e.getSource() == label3)
+				else if(e.getSource() == label3 && label3.isEnabled())
 				{
 					AppearLabel(label3, 3);
 					Verify_CardLabel(label3, check);
 				}
-				else if(e.getSource() == label4)
+				else if(e.getSource() == label4 && label4.isEnabled())
 				{
 					AppearLabel(label4, 4);
 					Verify_CardLabel(label4, check);
 				}
-				else if(e.getSource() == label5)
+				else if(e.getSource() == label5 && label5.isEnabled())
 				{
 					AppearLabel(label5, 5);
 					Verify_CardLabel(label5, check);
 				}
-				else if(e.getSource() == label6)
+				else if(e.getSource() == label6 && label6.isEnabled())
 				{
 					AppearLabel(label6, 6);
 					Verify_CardLabel(label6, check);
 				}
-				else if(e.getSource() == label7)
+				else if(e.getSource() == label7 && label7.isEnabled())
 				{
 					AppearLabel(label7, 7);
 					Verify_CardLabel(label7, check);
 				}
-				else if(e.getSource() == label8)
+				else if(e.getSource() == label8 && label8.isEnabled())
 				{
 					AppearLabel(label8, 8);
 					Verify_CardLabel(label8, check);
 				}
-				else if(e.getSource() == label9)
+				else if(e.getSource() == label9 && label9.isEnabled())
 				{
 					AppearLabel(label9, 9);
 					Verify_CardLabel(label9, check);
 				}
-				else if(e.getSource() == label10)
+				else if(e.getSource() == label10 && label10.isEnabled())
 				{
 					AppearLabel(label10, 10);
 					Verify_CardLabel(label10, check);
 				}
-				else if(e.getSource() == label11)
+				else if(e.getSource() == label11 && label11.isEnabled())
 				{
 					AppearLabel(label11, 11);
 					Verify_CardLabel(label11, check);
 				}
-				else if(e.getSource() == label12)
+				else if(e.getSource() == label12 && label12.isEnabled())
 				{
 					AppearLabel(label12, 12);
 					Verify_CardLabel(label12, check);
 				}
-				else if(e.getSource() == label13)
+				else if(e.getSource() == label13 && label13.isEnabled())
 				{
 					AppearLabel(label13, 13);
 					Verify_CardLabel(label13, check);
 				}
-				else if(e.getSource() == label14)
+				else if(e.getSource() == label14 && label14.isEnabled())
 				{
 					AppearLabel(label14, 14);
 					Verify_CardLabel(label14, check);
 				}
-				else if(e.getSource() == label15)
+				else if(e.getSource() == label15 && label15.isEnabled())
 				{
 					AppearLabel(label15, 15);
 					Verify_CardLabel(label15, check);
 				}
-				else if(e.getSource() == label16)
+				else if(e.getSource() == label16 && label16.isEnabled())
 				{
 					AppearLabel(label16, 16);
 					Verify_CardLabel(label16, check);

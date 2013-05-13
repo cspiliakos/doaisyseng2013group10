@@ -13,7 +13,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.JLabel;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -524,7 +524,7 @@ public class DuelBoardFrame extends JFrame {
 		//buy weapons -- > only if weapons do not exists
 		public void actionPerformed(ActionEvent e) {
 			soundthread1.PlayMusic(list.get(0).getSongName(), list.get(0).getRepeat());   //Sound buy
-			System.out.println("nasia");
+			
 			if(e.getSource() == buyBow)
 			{				
 				CrossBow b = new CrossBow();
@@ -548,39 +548,47 @@ public class DuelBoardFrame extends JFrame {
 		    TimerBeep timer;
 		    public void actionPerformed(ActionEvent e) {
 		
-		
 		    if(!hit){
 		      //the player can't hit twice unless the opponent attacks back
 		
-		    if(e.getSource()==swordBt){
-		      JOptionPane.showMessageDialog(null, "Attack with sword");
+		    if(e.getSource()==swordBt)
+		    {
+		      JOptionPane.showMessageDialog(null, "Επίθεση με σπαθί.", "Επίθεση", JOptionPane.INFORMATION_MESSAGE);
 		      currOpponent.setHealth((currOpponent.getHealth())-10);
 		      myGlassPane.repaint();
 		      checkIfDead(currOpponent);
-		      hit=true;      
-		      }
-		    if (e.getSource()==bowBt){
-		    	if(checkIfWeaponExists(new CrossBow())){        
-		    		JOptionPane.showMessageDialog(null,"Attack with bow");
+		      hit = true;      
+		    }
+		    if (e.getSource()==bowBt)
+		    {
+		    	if(checkIfWeaponExists(new CrossBow()))
+		    	{        
+		    		JOptionPane.showMessageDialog(null,"Επίθεση με τόξο.", "Επίθεση", JOptionPane.INFORMATION_MESSAGE);
 		    		currOpponent.setHealth((currOpponent.getHealth())-10);
 		    		myGlassPane.repaint();
 		    		checkIfDead(currOpponent);
 		    		hit=true;
 		        }
-		      else
-		        JOptionPane.showMessageDialog(null,"Pick another weapon");
-		      }
-		    if(e.getSource()==spearBt){
+		    	else
+		    	{
+		    		JOptionPane.showMessageDialog(null,"Διάλεξε άλλο όπλο.", "Όπλο", JOptionPane.WARNING_MESSAGE);
+		    	}
+		    }
+		    if(e.getSource()==spearBt)
+		    {
 		    	Spear s=new Spear();
-		      if(checkIfWeaponExists(s)){
-		        JOptionPane.showMessageDialog(null, "Attack with spear");
-		        currOpponent.setHealth((currOpponent.getHealth())-10);
-		        myGlassPane.repaint();
-		        checkIfDead(currOpponent);
-		        hit=true;      
-		      }
-		      else
-		        JOptionPane.showMessageDialog(null,"Pick another weapon");
+		    	if(checkIfWeaponExists(s))
+		    	{
+		    		JOptionPane.showMessageDialog(null, "Επίθεση με δόρυ.", "Επίθεση", JOptionPane.INFORMATION_MESSAGE);
+		    		currOpponent.setHealth((currOpponent.getHealth())-10);
+		    		myGlassPane.repaint();
+		    		checkIfDead(currOpponent);
+		    		hit=true;      
+		    	}
+		    	else
+		    	{
+		    		JOptionPane.showMessageDialog(null,"Διάλεξε άλλο όπλο.", "Όπλο", JOptionPane.WARNING_MESSAGE);
+		    	}
 		    }
 		    
 		    for(Weapons w: currUser.getWeapons()){

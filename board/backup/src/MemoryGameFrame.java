@@ -526,8 +526,10 @@ public class MemoryGameFrame extends JFrame {
 				//requirment for the win 8 correct matching
 				soundthread1.PlayMusic(list.get(2).getSongName(), list.get(2).getRepeat());
 				//get coins and xp--> return to BoardFrame
-				player.setCoins(player.getCoins() + 1000);
-				player.setXP(player.getXP() + 1000);
+				int currCoins=(minutes*300)+(seconds);
+				int currXP=(minutes*1000)+(seconds*10);
+				player.setCoins(player.getCoins() + currCoins);
+				player.setXP(player.getXP() + currXP);
 				player.increaseSkillPoints(player.getXP(), player.getSkillpoints());
 				MemoryGameFrame.this.setVisible(false);
 				soundthread1.StopMusic();
@@ -535,6 +537,9 @@ public class MemoryGameFrame extends JFrame {
 				JOptionPane.showMessageDialog(null, "Συγχαρητήρια.", "Τέλος παιχνιδιού", JOptionPane.INFORMATION_MESSAGE);
 				player.setWin(true);
 				player.setPlayed(true);
+				timer.stop();
+				turnTimer.stop();
+				wrongTimer.stop();
 			}
 		}
 
@@ -598,6 +603,9 @@ public class MemoryGameFrame extends JFrame {
 				JOptionPane.showMessageDialog(null, "Έχασες.", "Τέλος παιχνιδιού", JOptionPane.ERROR_MESSAGE);
 				player.setWin(false);
 				player.setPlayed(true);
+				timer.stop();
+				turnTimer.stop();
+				wrongTimer.stop();
 			}
 		}
 	}

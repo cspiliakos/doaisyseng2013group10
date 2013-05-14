@@ -315,13 +315,16 @@ public class AncientArcadeFrame extends JFrame {
 					soundthread2.StopMusic();
 					
 					//setting players credits
-					player.setCoins(player.getCoins() + 1000);
-					player.setXP(player.getXP() + 1000);
+					int currCoins=(count.getMinutes()*300)+(count.getSeconds());
+					int currXP=(count.getMinutes()*1000)+(count.getSeconds()*10);
+					player.setCoins(player.getCoins() + currCoins);
+					player.setXP(player.getXP() + currXP);
 					player.increaseSkillPoints(player.getXP(), player.getSkillpoints());
 					AncientArcadeFrame.this.setVisible(false);
 					JOptionPane.showMessageDialog(null, "Συγχαρητήρια.", "Τέλος παιχνιδιού", JOptionPane.INFORMATION_MESSAGE);	
 					player.setWin(true);
 					player.setPlayed(true);
+					timer.stop();
 				}
 			}
 		});
@@ -656,7 +659,12 @@ public class AncientArcadeFrame extends JFrame {
 			this.minutes = minutes;
 			this.seconds = seconds;
 		}
-
+		public int getMinutes(){
+			return minutes;
+		}
+		public int getSeconds(){
+			return seconds;
+		}
 		public void actionPerformed(ActionEvent arg0) {
 			if(seconds == 0)
 			{

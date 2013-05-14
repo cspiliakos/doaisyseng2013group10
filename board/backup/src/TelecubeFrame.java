@@ -250,8 +250,10 @@ public class TelecubeFrame extends JFrame {
 				soundthread2.StopMusic();
 				timer.stop();
 				Toolkit.getDefaultToolkit().beep();
-				player.setCoins(player.getCoins() + 1000);
-				player.setXP(player.getXP() + 100);
+				int currCoins=score*10;
+				int currXP=score*100;
+				player.setCoins(player.getCoins() + currCoins);
+				player.setXP(player.getXP() + currXP);
 				player.increaseSkillPoints(player.getXP(), player.getSkillpoints());
 				TelecubeFrame.this.setVisible(false);
 				soundthread2.StopMusic();

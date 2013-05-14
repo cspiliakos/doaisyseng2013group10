@@ -22,7 +22,8 @@ public class User extends Monsters {
 	}
 	
 	public void increaseSkillPoints(int xp,int sk){
-		skillpoints=skillpoints+((xp/1000)-skillpointsUsed);
+		
+		this.skillpoints=(int)(((xp/1000)+10-this.skillpointsUsed));
 	}
 
 

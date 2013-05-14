@@ -149,7 +149,7 @@ public class Board extends JFrame{
 				{
 					//if the random is 0 the player will play a puzzle
 					//which puzzle is determined by another random
-					puzzle = r.nextInt(9);
+					puzzle = r.nextInt(1);
 					//if puzzles added the 9 must be increased
 					switch(puzzle)
 					{
@@ -522,6 +522,7 @@ public class Board extends JFrame{
 					health++;
 					currUser.setHealth(health);
 					skillpoints--;
+					currUser.setSkillpointsUsed(currUser.getSkillpointsUsed()+1);
 					currUser.setSkillpoints(skillpoints);
 					skillpointlbl.setText("Πόντοι ικανότητας: " +currUser.getSkillpoints());
 					life.setText("\u0396\u03C9\u03AE: "+currUser.getHealth());
@@ -531,6 +532,7 @@ public class Board extends JFrame{
 					attack++;
 					currUser.setDamage(attack);
 					skillpoints--;
+					currUser.setSkillpointsUsed(currUser.getSkillpointsUsed()+1);
 					currUser.setSkillpoints(skillpoints);
 					skillpointlbl.setText("Πόντοι ικανότητας: " +currUser.getSkillpoints());
 					attacklbl.setText("\u0388\u03C0\u03AF\u03B8\u03B5\u03C3\u03B7: "+currUser.getDamage());
@@ -540,6 +542,7 @@ public class Board extends JFrame{
 					defence++;
 					currUser.setDefence(defence);
 					skillpoints--;
+					currUser.setSkillpointsUsed(currUser.getSkillpointsUsed()+1);
 					currUser.setSkillpoints(skillpoints);
 					skillpointlbl.setText("Πόντοι ικανότητας: " +currUser.getSkillpoints());
 					defencelbl.setText("\u0386\u03BC\u03C5\u03BD\u03B1: "+currUser.getDefence());

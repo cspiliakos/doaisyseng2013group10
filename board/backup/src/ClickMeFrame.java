@@ -173,11 +173,15 @@ public class ClickMeFrame extends JFrame{
 				{
 					player.setWin(false);
 					player.setPlayed(true);
+					timer.stop();
+					iconTimer.stop();
 				}
 				else
 				{
 					player.setWin(true);
 					player.setPlayed(true);
+					timer.stop();
+					iconTimer.stop();
 				}
 				help.repaint();
 			}
@@ -290,10 +294,14 @@ public class ClickMeFrame extends JFrame{
 				if(lives == 0 || (minutes == 0 && seconds == 0))
 				{
 					soundthread1.PlayMusic(list.get(0).getSongName(), list.get(0).getRepeat() ); //Sound: endofgame
-					player.setCoins(player.getCoins() + 1000);
-					player.setXP(player.getXP() + 100);
+					int currCoins=score*10;
+					int currXp=score*100;
+					player.setCoins(player.getCoins() + currCoins);
+					player.setXP(player.getXP() + currXp);
 					player.increaseSkillPoints(player.getXP(), player.getSkillpoints());
 					player.setPlayed(true);
+					timer.stop();
+					iconTimer.stop();
 					ClickMeFrame.this.setVisible(false);
 					soundthread2.StopMusic();
 					JOptionPane.showMessageDialog(null, "\u03A4\u03BF \u03C4\u03B5\u03BB\u03B9\u03BA\u03CC \u03C3\u03BA\u03BF\u03C1 \u03B5\u03AF\u03BD\u03B1\u03B9: "+score, "Τέλος παιχνιδιού", JOptionPane.INFORMATION_MESSAGE);

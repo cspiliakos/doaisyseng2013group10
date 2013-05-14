@@ -252,6 +252,7 @@ public class TicTacToeFrame implements ActionListener{
 					player.increaseSkillPoints(player.getXP(), player.getSkillpoints());
 					player.setWin(true);
 					player.setPlayed(true);
+					
 				}
 			}
 				

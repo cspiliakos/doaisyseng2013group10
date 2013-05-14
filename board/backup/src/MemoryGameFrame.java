@@ -526,8 +526,8 @@ public class MemoryGameFrame extends JFrame {
 				//requirment for the win 8 correct matching
 				soundthread1.PlayMusic(list.get(2).getSongName(), list.get(2).getRepeat());
 				//get coins and xp--> return to BoardFrame
-				int currCoins=(minutes*300)+(seconds);
-				int currXP=(minutes*1000)+(seconds*10);
+				int currCoins=(count.getMinutes()*300)+(count.getSeconds());
+				int currXP=(count.getMinutes()*1000)+(count.getSeconds()*10);
 				player.setCoins(player.getCoins() + currCoins);
 				player.setXP(player.getXP() + currXP);
 				player.increaseSkillPoints(player.getXP(), player.getSkillpoints());
@@ -572,7 +572,12 @@ public class MemoryGameFrame extends JFrame {
 			this.minutes = minutes;
 			this.seconds = seconds;
 		}
-		
+		public int getMinutes(){
+			return minutes;
+		}
+		public int getSeconds(){
+			return seconds;
+		}
 		public void actionPerformed(ActionEvent arg0) {
 			//managing timer
 			if(seconds == 0)

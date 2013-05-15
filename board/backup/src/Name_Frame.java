@@ -1,5 +1,6 @@
 import javax.imageio.ImageIO;
 import javax.sound.sampled.Clip;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -17,10 +18,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+
+import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.Color;
+import java.awt.Toolkit;
 
 public class Name_Frame extends JFrame {
 
@@ -34,6 +39,7 @@ public class Name_Frame extends JFrame {
 	private JComboBox comboBox;
 	private JTextField name1, name2;
 	private ArrayList<User> players;
+	private Image resize;
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Name_Frame(final Clip clip) {
@@ -52,10 +58,29 @@ public class Name_Frame extends JFrame {
 		back.setLayout(new BorderLayout(5, 5));
 	
 		//
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		double frameWidth = screenSize.getWidth();
+		double frameHeight = screenSize.getHeight();
+		int helpWidth = (int)frameWidth;
+		int helpHeight = (int)frameHeight;
+		int widthSize = helpWidth / 7;
+		int heightSize = helpHeight / 3;
+		
+		
+		
+		
+		
 		title = new JLabel("\u03A1\u03C5\u03B8\u03BC\u03AF\u03C3\u03B5\u03B9\u03C2 \u03C0\u03B1\u03B9\u03C7\u03BD\u03B9\u03B4\u03B9\u03BF\u03CD");
+		
+		
 		title.setFont(new Font("Sylfaen", Font.PLAIN, 40));
 		title.setHorizontalAlignment(SwingConstants.CENTER);
+		
 		back.add(title, BorderLayout.NORTH);
+	//	title.setText("\u03A1\u03C5\u03B8\u03BC\u03AF\u03C3\u03B5\u03B9\u03C2 \u03C0\u03B1\u03B9\u03C7\u03BD\u03B9\u03B4\u03B9\u03BF\u03CD");
+		
+		
+		//title.setIcon(new ImageIcon(resize));
 		//managing frame
 		
 		//

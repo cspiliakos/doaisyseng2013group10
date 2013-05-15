@@ -149,7 +149,7 @@ public class Board extends JFrame{
 				{
 					//if the random is 0 the player will play a puzzle
 					//which puzzle is determined by another random
-					puzzle = r.nextInt(1);
+					puzzle = r.nextInt(9);
 					//if puzzles added the 9 must be increased
 					switch(puzzle)
 					{

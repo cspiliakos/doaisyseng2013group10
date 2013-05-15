@@ -191,6 +191,8 @@ public class Board extends JFrame{
 				//turns the boolean that shows if the player has won false so not to be used again
 				dice = r.nextInt(6) + 1;
 				//+1 because random takes values from 0 and the moves must start from 1
+				coinlbl.setEnabled(true);
+				//set coinlabel enable again
 				moveChar(getDice());
 				myGlassPane.setXYCoordinates(playerX, playerY);
 				myGlassPane.repaint();
@@ -447,6 +449,7 @@ public class Board extends JFrame{
 			{
 				//if the user has won the quest then make visible the dice
 				dicelbl.setEnabled(true);
+				coinlbl.setEnabled(false);
 			}
 			else
 			{

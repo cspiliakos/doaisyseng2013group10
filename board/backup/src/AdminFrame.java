@@ -151,6 +151,7 @@ public class AdminFrame extends JFrame {
 					addWord = new JButton("Λίστα αναγραμματισμού");
 					addWord.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
+							AdminFrame.this.setVisible(false);
 							new AddQ(clip);
 						}
 					});
@@ -165,6 +166,7 @@ public class AdminFrame extends JFrame {
 					addQuestion = new JButton("Λίστα ερωτήσεων");
 					addQuestion.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
+							AdminFrame.this.setVisible(false);
 							new AddQuestion(clip);
 						}
 					});

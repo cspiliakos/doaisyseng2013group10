@@ -104,8 +104,8 @@ public class Start_Frame extends JFrame{
 					//new PicsHerosFrame(new User("temp"));
 					//new Pics3(new User("temp"));
 					//new QuizFrame(new User("temp"));
-					new TelecubeFrame(new User("temp"));
-					//new AdminFrame(clip);
+					//new TelecubeFrame(new User("temp"));
+					new AdminFrame(clip);
 					//in admin mode redirects to the admin frame
 				}
 				else

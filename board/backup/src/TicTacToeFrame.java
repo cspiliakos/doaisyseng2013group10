@@ -17,7 +17,6 @@ public class TicTacToeFrame implements ActionListener{
 			pnlPlayingField = new JPanel();
 	private JLabel 	lblTitle = new JLabel("Tic-Tac-Toe"),
 			lblTurn = new JLabel(),
-			lblStatus = new JLabel("", JLabel.CENTER),
 			lblMode = new JLabel("", JLabel.LEFT);
 	private JLabel back_lbl = new JLabel();
 	private JTextArea txtMessage = new JTextArea();
@@ -156,15 +155,12 @@ public class TicTacToeFrame implements ActionListener{
 	
 	
 	public void showGame()	{
-		clearPanelSouth();
 		pnlTop.add(pnlPlayingField);
 		pnlBottom.add(lblTurn, BorderLayout.WEST);
-		pnlBottom.add(lblStatus, BorderLayout.CENTER);
 		pnlBottom.add(pnlQuitNTryAgain, BorderLayout.EAST);
 		pnlMain.add(pnlTop, BorderLayout.CENTER);
 		pnlMain.add(pnlBottom, BorderLayout.SOUTH);
 		pnlPlayingField.requestFocus();
-		checkWinStatus();
 	}
 		
 	public void newGame() {
@@ -181,13 +177,6 @@ public class TicTacToeFrame implements ActionListener{
 		showGame();
 	}
 	
-	public void quit() {
-		lblMode.setText("");
-		clearPanelSouth();
-		setDefaultLayout();
-		pnlTop.add(pnlNewGame);
-		pnlMain.add(pnlTop);
-	}
 		
 	public void checkWin()	{
 		for(int i=0; i<8; i++)	{
@@ -260,7 +249,6 @@ public class TicTacToeFrame implements ActionListener{
 				btnEmpty[i].setEnabled(false);
 			}
 			btnTryAgain.setEnabled(true);
-			checkWinStatus();
 			lblMode.setText("Τρίλιζα  Ζωές = "+lives +"  Νίκες = "+ player1Won +"  Ισοπαλίες = "+draws +"  Ήττες = "+loses);
 		}
 	}
@@ -306,39 +294,11 @@ public class TicTacToeFrame implements ActionListener{
 		}
 	}
 	
-	public void setDefaultLayout()	{
-		pnlMain.setLayout(new GridLayout(2, 1, 2, 5));
-		pnlTop.setLayout(new FlowLayout(FlowLayout.CENTER));
-		pnlBottom.setLayout(new FlowLayout(FlowLayout.CENTER));
-	}
-	
-	public void checkWinStatus()	{
-		lblStatus.setText("Παίκτη1 : " + player1Won );	
-	}
-		
-	public int askMessage(String msg, String tle, int op)	{
-		return JOptionPane.showConfirmDialog(null, msg, tle, op);
-	}
-	
-	public String getInput(String msg, String setText)	{
-		return JOptionPane.showInputDialog(null, msg, setText);
-	}
-	
 	public void showMessage(String msg)	{
 		JOptionPane.showMessageDialog(null, msg);
 	}
 	
-	public void clearPanelSouth()	{
-		pnlMain.remove(lblTitle);
-		pnlMain.remove(pnlTop);
-		pnlMain.remove(pnlBottom);
-		pnlTop.remove(pnlNewGame);
-		pnlTop.remove(txtMessage);
-		pnlTop.remove(pnlPlayingField);
-		pnlBottom.remove(lblTurn);
-		pnlBottom.remove(pnlQuitNTryAgain);
-	}
-	
+
 	public void actionPerformed(ActionEvent click)	{
 		soundthread1.PlayMusic(list.get(0).getSongName(), list.get(0).getRepeat());   //Sound click
 		
@@ -356,14 +316,7 @@ public class TicTacToeFrame implements ActionListener{
 					
 					btnEmpty[i].setText("X");
 				}	
-				else
-				{
-					ImageIcon oIcon=new ImageIcon("tictactoe_shield.jpg");
-					Image oImage=oIcon.getImage();
-					Image oResizedImage=oImage.getScaledInstance(btnEmpty[i].getWidth(), btnEmpty[i].getHeight(), 0);
-					btnEmpty[i].setIcon(new ImageIcon(oResizedImage));
-					btnEmpty[i].setText("O");
-				}
+				
 				pnlPlayingField.requestFocus();
 				turn++;
 				checkWin();

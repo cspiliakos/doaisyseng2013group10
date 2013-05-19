@@ -128,7 +128,7 @@ public class TelecubeFrame extends JFrame {
 		pause = new JButton("\u03A0\u03B1\u03CD\u03C3\u03B7");
 		pause.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		pause.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent arg1) {
 				if (isRunning)
 				{
 					isRunning = false;

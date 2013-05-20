@@ -15,6 +15,7 @@ import java.util.Random;
 import javax.sound.sampled.Clip;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -48,11 +49,22 @@ public class Board extends JFrame{
 	 * list.get(1) dice_roll
 	 */
 	private ArrayList<AudiosPair> list = new ArrayList<AudiosPair>(new Audios().getBoardList());
+	private Uicons iconlist;
+	private ArrayList<ImageIcon> currlist;
+	ArrayList<CharsOpponents> chOp;
+	//CharsOpponents opponent;
+	ArrayList<String> name;
 	private Sound_Thread soundthread1;
 	private Sound_Thread soundthread2 = new Sound_Thread();
 	
 	public Board(ArrayList<User> p){
-	
+		
+		iconlist=new Uicons();
+		currlist=iconlist.getOpponentIcons();
+		populateOpponentsList(currlist);
+		
+		
+		
 		soundthread2.PlayMusic(list.get(2).getSongName(), list.get(2).getRepeat() ); //Soundtrack
 		//getting the music theme
 		
@@ -142,8 +154,9 @@ public class Board extends JFrame{
 				played = true;
 				if (coin == 1)
 				{
+					CharsOpponents opponent=getNextOpponent();
 					//if the random is 1 the player will play a duel
-					new DuelBoardFrame(currUser);soundthread2.PlayMusic(list.get(2).getSongName(), list.get(2).getRepeat() );
+					new DuelBoardFrame(currUser,opponent);soundthread2.PlayMusic(list.get(2).getSongName(), list.get(2).getRepeat() );
 				}
 				else
 				{
@@ -386,6 +399,41 @@ public class Board extends JFrame{
 			switchChars();
 		}
 	}
+	public void populateOpponentsList(ArrayList<ImageIcon> list){
+		chOp=new ArrayList<CharsOpponents>();
+		name=new ArrayList<String>();
+		int a=10,d=20,h=30;
+		for(ImageIcon i: list){
+			chOp.add(new CharsOpponents(i.getDescription(),a,d,h,i));
+			a=a+5;
+			d=d+5;
+			h=h+5;
+			
+		}
+	}
+	public CharsOpponents getNextOpponent(){
+		//name=new ArrayList<String>();
+		int i=0;
+		//Random r=new Random(System.currentTimeMillis());
+	//	int randomIndex = r.nextInt(chOp.size());
+		
+		CharsOpponents selected = chOp.get(i);
+		
+		if (name.size() == chOp.size())
+		{
+			name = new ArrayList<String>();
+		}
+	
+		while (name.contains(selected.getImage().getDescription())){
+			//randomIndex = r.nextInt(chOp.size());
+			i++;
+			selected = chOp.get(i);
+		}
+		name.add(selected.getImage().getDescription());
+		
+	return selected;	
+	}
+	
 	
 	public void updateStatLabels(){
 		//for the values of the labels to be in accordance with the player 
@@ -614,7 +662,7 @@ public class Board extends JFrame{
 			//actual move of the figure
 			if (row % 2 == 0)
 			{
-				//if the row is mod 2 --> move from left to rigth
+				//if the row is mod 2 --> move from right to left
 				playerX -= size;
 				if(playerX < 0)
 				{
@@ -630,15 +678,23 @@ public class Board extends JFrame{
 						i = dice;
 						playerX = 0;
 						playerY = playerY;
+						CharsOpponents boss;
+						for(CharsOpponents ch:chOp){
+							if(ch.getImage().getDescription().equals("BOSS")){
+								boss=ch;
+								new DuelBoardFrame(currUser,boss);
+							}
+						}
+						
 						JOptionPane.showMessageDialog(null, "Τέλος πίστας.", "Τέλος παιχνιδιού", JOptionPane.INFORMATION_MESSAGE);
 						Board.this.setVisible(false);
-						new Start_Frame(clip);
+						//new Start_Frame(clip);
 					}	
 				}
 			}
 			else
 			{
-				//if the row is not mod 2 --> move from right to left
+				//if the row is not mod 2 --> move from left to right
 				playerX = playerX + size;
 				if (playerX + size > (6 * size))
 				{

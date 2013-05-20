@@ -3,7 +3,7 @@ import javax.swing.*;
 
 public class Uicons extends ImageIcon {
 	private static final long serialVersionUID = 1L;
-	private ArrayList<ImageIcon> picsHerosIcons, mmg_icons, ArcadeIcons, pics3Icons;
+	private ArrayList<ImageIcon> picsHerosIcons, mmg_icons, ArcadeIcons, pics3Icons, opponentIcons;
 	
 	public Uicons() {
 		pics3Icons = new ArrayList<ImageIcon>();
@@ -239,6 +239,74 @@ public class Uicons extends ImageIcon {
 		ArcadeIcons.add(arcade_symbol_4);
 		ArcadeIcons.add(arcade_symbol_5);
 		ArcadeIcons.add(arcade_symbol_6);
+		
+		//Icons for chars opponents
+		
+		ImageIcon duelcerberus = new ImageIcon("Monsters\\battle_cerberus.jpg");
+		duelcerberus.setDescription("йеябеяос");
+		ImageIcon duelchimera = new ImageIcon("Monsters\\battle_chimera.jpg");
+		duelchimera.setDescription("вилаияа");
+		ImageIcon duelcyclops = new ImageIcon("Monsters\\battle_cyclops.jpg");
+		duelcyclops.setDescription("йуйкыпас");
+		ImageIcon dueldeer = new ImageIcon("Monsters\\battle_deer.jpg");
+		dueldeer.setDescription("екажи");
+		ImageIcon duelfighters = new ImageIcon("Monsters\\battle_fighters.jpg");
+		duelfighters.setDescription("покелистес");
+		ImageIcon duelharpy = new ImageIcon("Monsters\\battle_harpy.jpg");
+		duelharpy.setDescription("аяпиа");
+		ImageIcon duelhydra = new ImageIcon("Monsters\\battle_hydra.jpg");
+		duelhydra.setDescription("кеямаиа_удяа");
+		ImageIcon duelmanticore = new ImageIcon("Monsters\\battle_manticore.jpg");
+		duelmanticore.setDescription("ламдяацояас");
+		ImageIcon duelmedusa = new ImageIcon("Monsters\\battle_medusa.jpg");
+		duelmedusa.setDescription("ледоуса");
+		ImageIcon duelminotaur = new ImageIcon("Monsters\\battle_minotaur.jpg");
+		duelminotaur.setDescription("лимотауяос");
+		ImageIcon duelsiren = new ImageIcon("Monsters\\battle_siren.jpg");
+		duelsiren.setDescription("сеиягмес");
+		
+		ImageIcon bosslion = new ImageIcon("Monsters\\firelion.gif");
+		bosslion.setDescription("BOSS");
+		
+		
+		opponentIcons=new ArrayList<ImageIcon>();
+		
+		opponentIcons.add(duelcerberus);
+		opponentIcons.add(duelchimera);
+		opponentIcons.add(duelcyclops);
+		opponentIcons.add(dueldeer);
+		opponentIcons.add(duelfighters);
+		opponentIcons.add(duelharpy);
+		opponentIcons.add(duelhydra);
+		opponentIcons.add(duelmanticore);
+		opponentIcons.add(duelmedusa);
+		opponentIcons.add(duelminotaur);
+		opponentIcons.add(duelsiren);
+		opponentIcons.add(bosslion);
+	}
+
+	public ArrayList<ImageIcon> getMmg_icons() {
+		return mmg_icons;
+	}
+
+	public void setMmg_icons(ArrayList<ImageIcon> mmg_icons) {
+		this.mmg_icons = mmg_icons;
+	}
+
+	public ArrayList<ImageIcon> getPics3Icons() {
+		return pics3Icons;
+	}
+
+	public void setPics3Icons(ArrayList<ImageIcon> pics3Icons) {
+		this.pics3Icons = pics3Icons;
+	}
+
+	public ArrayList<ImageIcon> getOpponentIcons() {
+		return opponentIcons;
+	}
+
+	public void setOpponentIcons(ArrayList<ImageIcon> opponentIcons) {
+		this.opponentIcons = opponentIcons;
 	}
 
 	public ArrayList<ImageIcon> getArcadeIcons() {

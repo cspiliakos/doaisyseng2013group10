@@ -33,13 +33,23 @@ public class DuelBoardFrame extends JFrame {
 	//shows if the player has already attacked
 	private MyGlassPane myGlassPane;
 	private ArrayList<AudiosPair> list;
+	//private Uicons iconlist;
+	//private ArrayList<ImageIcon> currlist;
 	private Sound_Thread soundthread1, soundthread2;//Thread 1 gia mikrous hxous, pou diakoptei o enas ton allon, Thread 2 gia soundtrack
 	private double frameWidth, frameHeight, temphealth; //temphealth everytime gets the current health of the player hero
 	private BackgroundPanel back;
 	private Image background, resize, helpImage;
 	private ImageIcon helpIcon;
+	private ArrayList<CharsOpponents> opponents;
 
-	public DuelBoardFrame(User user){
+	public DuelBoardFrame(User user, CharsOpponents c){
+		
+		//iconlist=new Uicons();
+		//currlist=iconlist.getOpponentIcons();
+		currOpponent=c;
+		//currOpponent = new CharsOpponents ("Lernaia Ydra", 10, 15, 60, new ImageIcon("Monsters\\battle_hydra_3.jpg"));
+		
+		
 		soundthread1 = new Sound_Thread();
 		soundthread2 = new Sound_Thread();
 		//managing sounds
@@ -50,7 +60,6 @@ public class DuelBoardFrame extends JFrame {
 		
 		soundthread2.PlayMusic(list.get(2).getSongName(), list.get(2).getRepeat());   //Sound soundtrack
 
-		currOpponent = new CharsOpponents ("Lernaia Ydra", 10, 15, 60, new ImageIcon("Monsters\\battle_hydra_3.jpg"));
 		setJMenuBar(new JMenuFrame().getMenu()); // Getting the Menu from the JMenuFrame
 		
 		try {
@@ -406,6 +415,7 @@ public class DuelBoardFrame extends JFrame {
 			currUser.increaseSkillPoints(currUser.getXP(), currUser.getSkillpoints());
 			DuelBoardFrame.this.setVisible(false);
 			soundthread2.StopMusic();
+			
 			return true;
 		}			
 		else
@@ -453,6 +463,8 @@ public class DuelBoardFrame extends JFrame {
 			int xoLifeRec = opponentPanel.getX() + 60;
 			int yoLifeRec = opponentLifeLabel.getY() + opponentLifeLabel.getHeight() - opponentLifeLabel.getHeight() / 5;
 			int recWidthOpL = (int)currOpponent.getHealth();
+			if(recWidthOpL<0)
+				recWidthOpL=0;
 			g.fillRect(xoLifeRec, yoLifeRec, recWidthOpL , 10);
 
 			int xhDamRec = heroPanel.getX() + 90;
@@ -545,7 +557,7 @@ public class DuelBoardFrame extends JFrame {
 
 	class attackButtonListener implements ActionListener{
 		    //method for the player to attack
-		
+		int weapondamage;
 		    TimerBeep timer;
 		    public void actionPerformed(ActionEvent e) {
 		
@@ -554,6 +566,14 @@ public class DuelBoardFrame extends JFrame {
 		
 		    if(e.getSource()==swordBt)
 		    {
+		    	usersWeapons=currUser.getWeapons();
+	    		for(Weapons w:usersWeapons){
+	    			if(w.getWeaponType().equals("Sword")){
+	    				weapondamage=w.getDamage();
+	    			}
+	    		}
+	    		currOpponent.setHealth((currOpponent.getHealth())-(((currUser.getDamage()+weapondamage)/5)-(currOpponent.getDefence()/2)));
+		    	
 		      JOptionPane.showMessageDialog(null, "Επίθεση με σπαθί.", "Επίθεση", JOptionPane.INFORMATION_MESSAGE);
 		      currOpponent.setHealth((currOpponent.getHealth())-10);
 		      myGlassPane.repaint();
@@ -565,7 +585,13 @@ public class DuelBoardFrame extends JFrame {
 		    	if(checkIfWeaponExists(new CrossBow()))
 		    	{        
 		    		JOptionPane.showMessageDialog(null,"Επίθεση με τόξο.", "Επίθεση", JOptionPane.INFORMATION_MESSAGE);
-		    		currOpponent.setHealth((currOpponent.getHealth())-10);
+		    		usersWeapons=currUser.getWeapons();
+		    		for(Weapons w:usersWeapons){
+		    			if(w.getWeaponType().equals("CrossBow")){
+		    				weapondamage=w.getDamage();
+		    			}
+		    		}
+		    		currOpponent.setHealth((currOpponent.getHealth())-((currUser.getDamage()+weapondamage)/6));
 		    		myGlassPane.repaint();
 		    		checkIfDead(currOpponent);
 		    		hit=true;
@@ -580,6 +606,14 @@ public class DuelBoardFrame extends JFrame {
 		    	Spear s=new Spear();
 		    	if(checkIfWeaponExists(s))
 		    	{
+		    		
+		    		usersWeapons=currUser.getWeapons();
+		    		for(Weapons w:usersWeapons){
+		    			if(w.getWeaponType().equals("Spear")){
+		    				weapondamage=w.getDamage();
+		    			}
+		    		}
+		    		currOpponent.setHealth((currOpponent.getHealth())-((currUser.getDamage()+weapondamage)/6));
 		    		JOptionPane.showMessageDialog(null, "Επίθεση με δόρυ.", "Επίθεση", JOptionPane.INFORMATION_MESSAGE);
 		    		currOpponent.setHealth((currOpponent.getHealth())-10);
 		    		myGlassPane.repaint();
@@ -596,7 +630,7 @@ public class DuelBoardFrame extends JFrame {
 		    	System.out.println(w.getWeaponType());
 		    }
 		    
-		    if (hit)
+		    if ((hit)&&(!checkIfDead(currOpponent)))
 		      timer=new TimerBeep();
 		    //the hit variable is true if the player has already attacked the opponent and it becomes false if the opponent hit the player
 		    //the opponent attacks only if the player has attacked before

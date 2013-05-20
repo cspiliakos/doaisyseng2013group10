@@ -141,9 +141,7 @@ public class BackgroundPanel extends JPanel
 	}
 
 	//	Try to make the component transparent.
-	//  For components that use renderers, like JTable, you will also need to
-	//  change the renderer to be transparent. An easy way to do this it to
-	//  set the background of the table to a Color using an alpha value of 0.
+	
 	 
 	private void makeComponentTransparent(JComponent component)
 	{
@@ -190,10 +188,6 @@ public class BackgroundPanel extends JPanel
 				drawScaled(g);
 				break;
 
-			case TILED  :
-				drawTiled(g);
-				break;
-
 			case ACTUAL :
 				drawActual(g);
 				break;
@@ -211,23 +205,7 @@ public class BackgroundPanel extends JPanel
 		g.drawImage(image, 0, 0, d.width, d.height, null);
 	}
 
-	//  Custom painting code for drawing TILED images as the background
-	 
-	private void drawTiled(Graphics g)
-	{
-		   Dimension d = getSize();
-		   int width = image.getWidth( null );
-		   int height = image.getHeight( null );
-
-		   for (int x = 0; x < d.width; x += width)
-		   {
-			   for (int y = 0; y < d.height; y += height)
-			   {
-				   g.drawImage( image, x, y, null, null );
-			   }
-		   }
-	}
-
+	
 	// Custom painting code for drawing the ACTUAL image as the background.
 	// The image is positioned in the panel based on the horizontal and
 	// vertical alignments specified.

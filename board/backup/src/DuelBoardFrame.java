@@ -408,6 +408,7 @@ public class DuelBoardFrame extends JFrame {
 		if(remainHealth <= 0)
 		{
 			JOptionPane.showMessageDialog(null, "Κέρδισες τη μάχη.", "Τέλος μάχης", JOptionPane.INFORMATION_MESSAGE);
+			c.setDefeated(true);
 			currUser.setWin(true);
 			currUser.setPlayed(true);
 			currUser.setCoins(currUser.getCoins() + 1000);

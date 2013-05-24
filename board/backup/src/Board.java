@@ -424,12 +424,21 @@ public class Board extends JFrame{
 			name = new ArrayList<String>();
 		}
 	
-		while (name.contains(selected.getImage().getDescription())){
-			//randomIndex = r.nextInt(chOp.size());
-			i++;
-			selected = chOp.get(i);
-		}
+		while ((name.contains(selected.getImage().getDescription()))&&(chOp.get(i).isDefeated())){
+			
+				i++;
+				selected = chOp.get(i);
+				if(selected.getImage().getDescription().equals("BOSS")){
+					i=0;
+					name=new ArrayList<String>();
+					populateOpponentsList(currlist);
+					selected=chOp.get(i);
+				}
+				
+			}
 		name.add(selected.getImage().getDescription());
+		
+		
 		
 	return selected;	
 	}

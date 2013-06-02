@@ -43,6 +43,12 @@ public class JMenuFrame{
         
         JMenuItem info_about_game_Action = new JMenuItem("\u03A4\u03BF \u03C0\u03B1\u03B9\u03C7\u03BD\u03AF\u03B4\u03B9");
         info_about_game_Action.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        
+        JMenuItem info_about_stats_Action = new JMenuItem("Η δική σας γνώμη");
+        info_about_stats_Action.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        
+        JMenuItem info_about_us_Action = new JMenuItem("Η ομάδα μας");
+        info_about_us_Action.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 
         fileMenu.add(exitAction);       //KLEISIMO     
         infoMenu.add(info_about_heroes_Action);//HEROES
@@ -50,6 +56,10 @@ public class JMenuFrame{
         infoMenu.add(info_about_puzzles_Action);  //GRIFOI
         infoMenu.addSeparator();               //SEPERATOR
         infoMenu.add(info_about_game_Action);     //TO PAIXNIDI
+        infoMenu.addSeparator();               //SEPERATOR
+        infoMenu.add(info_about_stats_Action);     //TA ERWTHMATOLOGIA
+        infoMenu.addSeparator();               //SEPERATOR
+        infoMenu.add(info_about_us_Action);     //TA ERWTHMATOLOGIA
           
         
         // Add a listener to the New menu item. actionPerformed() method will
@@ -121,6 +131,21 @@ public class JMenuFrame{
         				"Αν ο παίκτης κερδίσει τη μάχη ή βρει το γρίφο τότε έχει δικαίωμα να ρίξει το ζάρι και να κινήσει το πιόνι του πάνω στο ταμπλό. Έπειτα, αν παίζουν δυο\n"+
         				"παίκτες παίζει ο δεύτερος παίκτης, αλλιώς ξαναρίχνει το κέρμα ο αρχικός παίκτης."
         				, "Το παιχνίδι", JOptionPane.INFORMATION_MESSAGE);
+        	}
+        });
+        
+        info_about_stats_Action.addActionListener(new ActionListener(){
+        	public void actionPerformed(ActionEvent arg0){
+        		new StatisticFrame();
+        	}
+        });
+        
+        info_about_us_Action.addActionListener(new ActionListener(){
+        	public void actionPerformed(ActionEvent arg0){
+        		JOptionPane.showMessageDialog(null, "ΑΝΑΛΥΤΕΣ \n -----------------------\n ΑΛΒΑΝΟΥ ΣΟΦΙΑ \n ΚΑΡΑΓΚΙΑΟΥΡΗ ΣΙΑ \n ΜΑΚΑΡΟΒΣΚΑ ΜΑΡΙΑ \n ΣΕΝΤΕΡΗ ΓΑΒΡΙΕΛΑ \n \n" +
+        				"ΣΧΕΔΙΑΣΤΕΣ \n -----------------------\n ΓΙΑΝΝΙΩΤΗΣ ΑΠΟΣΤΟΛΗΣ \n ΕΛΕΥΘΕΡΙΑΔΗΣ ΘΟΔΩΡΗΣ \n ΛΟΥΚΙΔΗΣ ΓΡΗΓΟΡΗΣ \n \n" +
+        				"ΠΡΟΓΡΑΜΜΑΤΙΣΤΕΣ \n -----------------------\n ΔΗΜΟΠΟΥΛΟΣ ΘΟΔΩΡΗΣ \n ΚΟΤΣΙΚΟΡΗΣ ΠΑΝΟΣ \n ΜΟΣΧΟΥ ΝΑΣΙΑ \n ΧΑΤΖΗΠΑΡΑΣΚΕΥΑΣ ΓΙΩΡΓΟΣ \n \n" +
+        				"ΔΟΚΙΜΑΣΤΕΣ \n -----------------------\n ΒΥΡΑ ΝΙΚΟΛΕΤΑ \n ΘΥΜΙΑΝΗΣ ΝΙΚΟΣ \n ΣΠΗΛΙΑΚΟΣ ΚΩΝΣΤΑΝΤΙΝΟΣ", null, JOptionPane.INFORMATION_MESSAGE);
         	}
         });
 

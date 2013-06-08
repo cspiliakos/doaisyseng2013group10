@@ -412,10 +412,9 @@ public class Board extends JFrame{
 		}
 	}
 	public CharsOpponents getNextOpponent(){
-		//name=new ArrayList<String>();
+		
 		int i=0;
-		//Random r=new Random(System.currentTimeMillis());
-	//	int randomIndex = r.nextInt(chOp.size());
+		
 		
 		CharsOpponents selected = chOp.get(i);
 		
@@ -687,7 +686,7 @@ public class Board extends JFrame{
 						i = dice;
 						playerX = 0;
 						playerY = playerY;
-						CharsOpponents boss;
+						CharsOpponents boss=null;
 						for(CharsOpponents ch:chOp){
 							if(ch.getImage().getDescription().equals("BOSS")){
 								boss=ch;
@@ -695,10 +694,11 @@ public class Board extends JFrame{
 							}
 						}
 						
-						JOptionPane.showMessageDialog(null, "Τέλος πίστας.", "Τέλος παιχνιδιού", JOptionPane.INFORMATION_MESSAGE);
+						
 						Board.this.setVisible(false);
 						//new Start_Frame(clip);
-					}	
+					
+						}
 				}
 			}
 			else

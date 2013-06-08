@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 
 import java.awt.GridBagLayout;
@@ -40,13 +43,15 @@ public class DuelBoardFrame extends JFrame {
 	private BackgroundPanel back;
 	private Image background, resize, helpImage;
 	private ImageIcon helpIcon;
-	private ArrayList<CharsOpponents> opponents;
+	private ArrayList<Monsters> opponents;
+	
+	private static Clip clip;
+	private static AudioInputStream audio;
 
-	public DuelBoardFrame(User user, CharsOpponents c){
+	public DuelBoardFrame(User user, Monsters c){
 		
-		//iconlist=new Uicons();
-		//currlist=iconlist.getOpponentIcons();
-		currOpponent=c;
+		
+		currOpponent=(CharsOpponents)c;
 		//currOpponent = new CharsOpponents ("Lernaia Ydra", 10, 15, 60, new ImageIcon("Monsters\\battle_hydra_3.jpg"));
 		
 		
@@ -154,7 +159,6 @@ public class DuelBoardFrame extends JFrame {
 		//weapon buttons --> upgrade weapon buttons --> buy weapon buttons
 		//the sword only upgrades --> player starts by default having one
 		swordBt = new JButton();
-		//swordBt.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		swordBt.addActionListener(attackListener);
 		swordBt.setBorder(null);
 		helpIcon = new ImageIcon("Duel\\sword.jpeg");
@@ -177,7 +181,6 @@ public class DuelBoardFrame extends JFrame {
 		heroPanel.add(upgradeSword, gbc_upgradeSword);
 		
 		spearBt = new JButton();
-		//spearBt.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		spearBt.addActionListener(attackListener);
 		spearBt.setBorder(null);
 		helpIcon = new ImageIcon("Duel\\spear.jpg");
@@ -209,7 +212,6 @@ public class DuelBoardFrame extends JFrame {
 		heroPanel.add(upgradeSpear, gbc_upgradeSpear);
 		
 		bowBt = new JButton();
-		//bowBt.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		bowBt.addActionListener(attackListener);
 		bowBt.setBorder(null);
 		helpIcon = new ImageIcon("Duel\\Bow.jpg");
@@ -407,7 +409,25 @@ public class DuelBoardFrame extends JFrame {
 		remainHealth = c.getHealth();
 		if(remainHealth <= 0)
 		{
-			JOptionPane.showMessageDialog(null, "Κέρδισες τη μάχη.", "Τέλος μάχης", JOptionPane.INFORMATION_MESSAGE);
+			if(c.getImage().getDescription().equals("BOSS")){
+				//JOptionPane pane= new JOptionPane();
+				int pane=JOptionPane.showConfirmDialog(null, "Θέλεις να παίξεις από την αρχή?", "", JOptionPane.YES_NO_OPTION);
+				if(pane==JOptionPane.YES_OPTION){
+					try {
+
+					audio = AudioSystem.getAudioInputStream(new File("Sounds\\battle_theme.wav").getAbsoluteFile());
+					clip = AudioSystem.getClip();
+					clip.open(audio);
+					clip.loop(Clip.LOOP_CONTINUOUSLY);
+					new Name_Frame(clip);
+					}
+					catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			else
+				JOptionPane.showMessageDialog(null, "Κέρδισες τη μάχη.", "Τέλος μάχης", JOptionPane.INFORMATION_MESSAGE);
 			c.setDefeated(true);
 			currUser.setWin(true);
 			currUser.setPlayed(true);
@@ -430,8 +450,10 @@ public class DuelBoardFrame extends JFrame {
 		if (hit)
 		{
 			double attack = c.getDamage();
-			temphealth=temphealth-attack;
-			//u.setHealth((u.getHealth()) - attack);
+			if(attack-u.getDefence()>0)
+				temphealth=temphealth-(attack-u.getDefence());
+			else
+				temphealth=temphealth-(attack/2);
 			hit = false;
 			myGlassPane.repaint();
 			if (temphealth <= 0)
@@ -499,7 +521,6 @@ public class DuelBoardFrame extends JFrame {
 		        for(Weapons w: usersWeapons){
 		          if(w.getWeaponType()=="Sword"){
 		            w.upgradeWeapon(currUser, w);
-		            System.out.println("sword "+w.level);
 		            updateWeaponStats();
 		          }
 		        }
@@ -510,7 +531,6 @@ public class DuelBoardFrame extends JFrame {
 		        for(Weapons w: usersWeapons){
 		          if(w.getWeaponType()=="CrossBow"){
 		            w.upgradeWeapon(currUser, w);
-		            System.out.println("bow "+w.level);
 		            updateWeaponStats();
 		          }
 		        }
@@ -521,17 +541,11 @@ public class DuelBoardFrame extends JFrame {
 		        for(Weapons w: usersWeapons){
 		          if(w.getWeaponType()=="Spear"){
 		            w.upgradeWeapon(currUser, w);
-		            System.out.println("spear "+w.level);
 		            updateWeaponStats();
 		          }
 		        }
 		      }
-		
-		
-		
-		    }
-		
-		
+		 }
 		} 
 
 	public class buyButtonListener implements ActionListener{
@@ -573,8 +587,12 @@ public class DuelBoardFrame extends JFrame {
 	    				weapondamage=w.getDamage();
 	    			}
 	    		}
-	    		currOpponent.setHealth((currOpponent.getHealth())-(((currUser.getDamage()+weapondamage)/5)-(currOpponent.getDefence()/2)));
-		    	
+	    		if(((currUser.getDamage()+weapondamage/5))-(currOpponent.getDefence()/2)>0){
+	    			currOpponent.setHealth((currOpponent.getHealth())-(((currUser.getDamage()+weapondamage))-(currOpponent.getDefence()/2)));
+	    			}
+	    		else
+	    			currOpponent.setHealth((currOpponent.getHealth())-(((currUser.getDamage()+weapondamage))/2));
+	    			    	
 		      JOptionPane.showMessageDialog(null, "Επίθεση με σπαθί.", "Επίθεση", JOptionPane.INFORMATION_MESSAGE);
 		      currOpponent.setHealth((currOpponent.getHealth())-10);
 		      myGlassPane.repaint();
@@ -592,7 +610,11 @@ public class DuelBoardFrame extends JFrame {
 		    				weapondamage=w.getDamage();
 		    			}
 		    		}
-		    		currOpponent.setHealth((currOpponent.getHealth())-((currUser.getDamage()+weapondamage)/6));
+		    		if(((currUser.getDamage()+weapondamage)/4)-(currOpponent.getDefence()/2)>0){
+		    			currOpponent.setHealth((currOpponent.getHealth())-(((currUser.getDamage()+weapondamage)/5)-(currOpponent.getDefence()/2)));
+		    			}
+		    		else
+		    			currOpponent.setHealth((currOpponent.getHealth())-(((currUser.getDamage()+weapondamage)/5)/2));
 		    		myGlassPane.repaint();
 		    		checkIfDead(currOpponent);
 		    		hit=true;
@@ -614,9 +636,12 @@ public class DuelBoardFrame extends JFrame {
 		    				weapondamage=w.getDamage();
 		    			}
 		    		}
-		    		currOpponent.setHealth((currOpponent.getHealth())-((currUser.getDamage()+weapondamage)/6));
-		    		JOptionPane.showMessageDialog(null, "Επίθεση με δόρυ.", "Επίθεση", JOptionPane.INFORMATION_MESSAGE);
-		    		currOpponent.setHealth((currOpponent.getHealth())-10);
+		    		if(((currUser.getDamage()+weapondamage)/4)-(currOpponent.getDefence()/2)>0){
+		    			currOpponent.setHealth((currOpponent.getHealth())-(((currUser.getDamage()+weapondamage)/5)-(currOpponent.getDefence()/2)));
+		    			}
+		    		else
+		    			currOpponent.setHealth((currOpponent.getHealth())-(((currUser.getDamage()+weapondamage)/5)/2));JOptionPane.showMessageDialog(null, "Επίθεση με δόρυ.", "Επίθεση", JOptionPane.INFORMATION_MESSAGE);
+		    		
 		    		myGlassPane.repaint();
 		    		checkIfDead(currOpponent);
 		    		hit=true;      
@@ -626,11 +651,7 @@ public class DuelBoardFrame extends JFrame {
 		    		JOptionPane.showMessageDialog(null,"Διάλεξε άλλο όπλο.", "Όπλο", JOptionPane.WARNING_MESSAGE);
 		    	}
 		    }
-		    
-		    for(Weapons w: currUser.getWeapons()){
-		    	System.out.println(w.getWeaponType());
-		    }
-		    
+		       
 		    if ((hit)&&(!checkIfDead(currOpponent)))
 		      timer=new TimerBeep();
 		    //the hit variable is true if the player has already attacked the opponent and it becomes false if the opponent hit the player

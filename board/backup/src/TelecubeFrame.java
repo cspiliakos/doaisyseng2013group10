@@ -64,7 +64,7 @@ public class TelecubeFrame extends JFrame {
 		score = 0;
 		
 		try {
-			background = ImageIO.read(new File("UIcons\\arcade_background.jpg"));
+			background = ImageIO.read(new File("UIcons\\telecube_background.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -82,8 +82,8 @@ public class TelecubeFrame extends JFrame {
 		getWord();
 		helpLabel = new JLabel(selected);
 		helpLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		helpLabel.setForeground(Color.WHITE);
-		helpLabel.setFont(new Font("Sylfaen", Font.BOLD, 40));
+		helpLabel.setForeground(Color.RED);
+		helpLabel.setFont(new Font("Sylfaen", Font.BOLD, 50));
 		charPanel.add(helpLabel);
 		GridBagLayout gbl_checkPanel = new GridBagLayout();
 		checkPanel.setLayout(gbl_checkPanel);

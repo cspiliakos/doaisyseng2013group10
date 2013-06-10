@@ -82,7 +82,7 @@ public class TelecubeFrame extends JFrame {
 		getWord();
 		helpLabel = new JLabel(selected);
 		helpLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		helpLabel.setForeground(Color.RED);
+		helpLabel.setForeground(Color.GREEN);
 		helpLabel.setFont(new Font("Sylfaen", Font.BOLD, 50));
 		charPanel.add(helpLabel);
 		GridBagLayout gbl_checkPanel = new GridBagLayout();
@@ -107,6 +107,7 @@ public class TelecubeFrame extends JFrame {
 			}
 		});
 		scoreLabel = new JLabel("\u03A3\u03BA\u03BF\u03C1: "+score);
+		scoreLabel.setForeground(Color.RED);
 		scoreLabel.setFont(new Font("Sylfaen", Font.BOLD, 20));
 		GridBagConstraints gbc_scoreLabel = new GridBagConstraints();
 		gbc_scoreLabel.insets = new Insets(0, 0, 5, 5);
@@ -151,6 +152,7 @@ public class TelecubeFrame extends JFrame {
 		
 		insertPanel = new JPanel();
 		insertLabel = new JLabel();
+		insertLabel.setForeground(Color.RED);
 		insertLabel.setFont(new Font("Sylfaen", Font.BOLD, 20));
 		insertLabel.setText("\u03A0\u03BF\u03B9\u03B1 \u03B5\u03AF\u03BD\u03B1\u03B9 \u03B7 \u03BB\u03AD\u03BE\u03B7;");
 		text = new JTextField();

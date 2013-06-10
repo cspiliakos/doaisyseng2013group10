@@ -5,31 +5,26 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
-import javax.swing.SwingConstants;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
 public class Start_Frame extends JFrame{
-	
 	private static final long serialVersionUID = 1L;
 	private Image background;
 	private BackgroundPanel back;
 	private JPanel helpPanel;
 	private JButton cont;
-	private JLabel title;
 	@SuppressWarnings("rawtypes")
 	private JComboBox comboBox;
 	private static Clip clip;
@@ -75,14 +70,7 @@ public class Start_Frame extends JFrame{
 		back = new BackgroundPanel(background);
 		setContentPane(back);
 		back.setLayout(new BorderLayout(5, 5));
-	
-
-		//
-		title = new JLabel("\u0394\u03B9\u03AC\u03BB\u03B5\u03BE\u03B5 \u03C4\u03BF \u03C1\u03CC\u03BB\u03BF \u03C3\u03BF\u03C5");
-		title.setFont(new Font("Sylfaen", Font.PLAIN, 40));
-		title.setForeground(Color.BLACK);
-		title.setHorizontalAlignment(SwingConstants.CENTER);
-		back.add(title, BorderLayout.NORTH);
+		
 		//managing frame
 		
 		//
@@ -96,8 +84,7 @@ public class Start_Frame extends JFrame{
 				Start_Frame.this.setVisible(false);
 				//combo box for player or admin mode
 				if (comboBox.getSelectedItem().toString().equals("\u0394\u03B9\u03B1\u03C7\u03B5\u03B9\u03C1\u03B9\u03C3\u03C4\u03AE\u03C2")){
-					new TelecubeFrame(new User("temp"));
-					//new AdminFrame(clip);
+					new AdminFrame(clip);
 					//in admin mode redirects to the admin frame
 				}
 				else

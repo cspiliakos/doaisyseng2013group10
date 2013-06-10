@@ -33,7 +33,7 @@ public class Pick_A_Hero extends JFrame {
 	private Image background, resize, help;
 	private ImageIcon hero, image;
 	private BackgroundPanel back;
-	private JLabel title, pl1, pl2, pl3, pl4, pl5, pl6, lab1, lab2, lab3, lab4, lab5, lab6, helpLabel,
+	private JLabel pl1, pl2, pl3, pl4, pl5, pl6, lab1, lab2, lab3, lab4, lab5, lab6, helpLabel,
 	p1, p2, p3, p4, name1lbl, health1lbl, damage1lbl, defence1lbl, name2lbl, health2lbl, damage2lbl, defence2lbl, p5, p6, p7, p8;
 	private JButton piso, play;
 
@@ -78,13 +78,7 @@ public class Pick_A_Hero extends JFrame {
 		back.setTransparentAdd(true);
 		setContentPane(back);
 		back.setLayout(new BorderLayout(5, 5));
-
-
-		//
-		title = new JLabel("\u0394\u03B9\u03AC\u03BB\u03B5\u03BE\u03B5 \u03AE\u03C1\u03C9\u03B1");
-		title.setFont(new Font("Sylfaen", Font.PLAIN, 40));
-		title.setHorizontalAlignment(SwingConstants.CENTER);
-		back.add(title, BorderLayout.NORTH);
+		
 		//managing frame
 		
 		

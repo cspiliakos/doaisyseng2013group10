@@ -36,24 +36,16 @@ public class DuelBoardFrame extends JFrame {
 	//shows if the player has already attacked
 	private MyGlassPane myGlassPane;
 	private ArrayList<AudiosPair> list;
-	//private Uicons iconlist;
-	//private ArrayList<ImageIcon> currlist;
 	private Sound_Thread soundthread1, soundthread2;//Thread 1 gia mikrous hxous, pou diakoptei o enas ton allon, Thread 2 gia soundtrack
 	private double frameWidth, frameHeight, temphealth; //temphealth everytime gets the current health of the player hero
 	private BackgroundPanel back;
 	private Image background, resize, helpImage;
 	private ImageIcon helpIcon;
-	private ArrayList<Monsters> opponents;
-	
 	private static Clip clip;
 	private static AudioInputStream audio;
 
 	public DuelBoardFrame(User user, Monsters c){
-		
-		
 		currOpponent=(CharsOpponents)c;
-		//currOpponent = new CharsOpponents ("Lernaia Ydra", 10, 15, 60, new ImageIcon("Monsters\\battle_hydra_3.jpg"));
-		
 		
 		soundthread1 = new Sound_Thread();
 		soundthread2 = new Sound_Thread();
@@ -243,21 +235,21 @@ public class DuelBoardFrame extends JFrame {
 		heroPanel.add(upgradeBow, gbc_upgradeBow);
 		
 		//labels showing the level and the price for next level
-		int lvls=0,lvlsp=0,lvlb=0;
-		int priceS=0,priceSp=0,priceB=0;
+		int lvls = 0, lvlsp = 0, lvlb = 0;
+		int priceS = 0, priceSp = 0, priceB = 0;
 		
 		for(Weapons w:currUser.getWeapons()){
 			if(w.getWeaponType().equals("Sword")){
-				lvls=w.getLevel();
-				priceS=w.getPrice();
+				lvls = w.getLevel();
+				priceS = w.getPrice();
 			}
 			if(w.getWeaponType().equals("CrossBow")){
-				lvlb=w.getLevel();
-				priceB=w.getPrice();
+				lvlb = w.getLevel();
+				priceB = w.getPrice();
 			}
 			if(w.getWeaponType().equals("Spear")){
-				lvlsp=w.getLevel();
-				priceSp=w.getPrice();
+				lvlsp = w.getLevel();
+				priceSp = w.getPrice();
 			}
 		}
 		swordLevel = new JLabel("Επίπεδο: "+lvls);
@@ -395,10 +387,8 @@ public class DuelBoardFrame extends JFrame {
 		String type = w.getWeaponType();
 		for(Weapons we: usersWeapons)
 		{
-			
 			if (type.equals(we.getWeaponType()))
 				return true;
-			
 		}
 		return false;
 	}
@@ -410,11 +400,9 @@ public class DuelBoardFrame extends JFrame {
 		if(remainHealth <= 0)
 		{
 			if(c.getImage().getDescription().equals("BOSS")){
-				//JOptionPane pane= new JOptionPane();
-				int pane=JOptionPane.showConfirmDialog(null, "Θέλεις να παίξεις από την αρχή?", "", JOptionPane.YES_NO_OPTION);
-				if(pane==JOptionPane.YES_OPTION){
+				int pane = JOptionPane.showConfirmDialog(null, "Θέλεις να παίξεις από την αρχή?", "", JOptionPane.YES_NO_OPTION);
+				if(pane == JOptionPane.YES_OPTION){
 					try {
-
 					audio = AudioSystem.getAudioInputStream(new File("Sounds\\battle_theme.wav").getAbsoluteFile());
 					clip = AudioSystem.getClip();
 					clip.open(audio);

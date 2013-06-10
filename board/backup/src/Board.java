@@ -685,7 +685,7 @@ public class Board extends JFrame{
 						//movement for the last square in order to stop in the last position
 						i = dice;
 						playerX = 0;
-						playerY = playerY;
+						//playerY = playerY;
 						CharsOpponents boss=null;
 						for(CharsOpponents ch:chOp){
 							if(ch.getImage().getDescription().equals("BOSS")){

@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.text.ParseException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.sound.sampled.Clip;
@@ -14,14 +15,15 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JLabel;
+import javax.swing.text.MaskFormatter;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import javax.swing.JFormattedTextField;
 
 public class AddQ extends JFrame {
 	//frame to add words for the puzzles hangman and telecube
@@ -33,7 +35,8 @@ public class AddQ extends JFrame {
 	private JLabel title;
 	private JPanel panel;
 	private JButton check;
-	private JTextField textField;
+	private MaskFormatter mask;
+	private JFormattedTextField textField;
 	
 	public AddQ(final Clip clip) {
 		setJMenuBar(new JMenuFrame().getMenu());
@@ -75,6 +78,7 @@ public class AddQ extends JFrame {
 		panel = new JPanel();
 		back.add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
+		gbl_panel.columnWeights = new double[]{1.0};
 		panel.setLayout(gbl_panel);
 		
 		check = new JButton("\u039A\u03B1\u03C4\u03B1\u03C7\u03CE\u03C1\u03B7\u03C3\u03B7");
@@ -98,20 +102,30 @@ public class AddQ extends JFrame {
 				textField.setText(null);		
 			}
 		});
-		check.setFont(new Font("Sylfaen", Font.PLAIN, 20));
-		GridBagConstraints gbc_check = new GridBagConstraints();
-		gbc_check.insets = new Insets(0, 0, 0, 5);
-		gbc_check.gridx = 0;
-		gbc_check.gridy = 1;
-		panel.add(check, gbc_check);
 		
-		textField = new JTextField();
+		try {
+			mask = new MaskFormatter("UUUUUUUUUUUUUUUUUUUU");
+			mask.setValidCharacters("¡¬√ƒ≈∆«»… ÀÃÕŒœ–—”‘’÷◊ÿŸ");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		textField = new JFormattedTextField(mask);
+		textField.setColumns(20);
+		textField.setHorizontalAlignment(SwingConstants.CENTER);
 		textField.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_textField = new GridBagConstraints();
+		gbc_textField.insets = new Insets(0, 0, 5, 0);
+		gbc_textField.fill = GridBagConstraints.VERTICAL;
 		gbc_textField.gridx = 0;
 		gbc_textField.gridy = 0;
 		panel.add(textField, gbc_textField);
-		textField.setColumns(10);
+		check.setFont(new Font("Sylfaen", Font.PLAIN, 20));
+		GridBagConstraints gbc_check = new GridBagConstraints();
+		gbc_check.gridx = 0;
+		gbc_check.gridy = 1;
+		panel.add(check, gbc_check);
 		
 		deserializing();
 		

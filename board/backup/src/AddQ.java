@@ -107,7 +107,6 @@ public class AddQ extends JFrame {
 			mask = new MaskFormatter("UUUUUUUUUUUUUUUUUUUU");
 			mask.setValidCharacters("абцдефгхийклмнопястужвьы");
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

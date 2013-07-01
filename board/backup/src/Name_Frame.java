@@ -1,11 +1,11 @@
 import javax.imageio.ImageIO;
 import javax.sound.sampled.Clip;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.BorderLayout;
 import java.awt.Font;
@@ -14,9 +14,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.text.MaskFormatter;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -31,8 +33,9 @@ public class Name_Frame extends JFrame {
 	private JButton piso, play;
 	@SuppressWarnings("rawtypes")
 	private JComboBox comboBox;
-	private JTextField name1, name2;
+	private JFormattedTextField name1, name2;
 	private ArrayList<User> players;
+	private MaskFormatter mask;
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Name_Frame(final Clip clip) {
@@ -105,14 +108,20 @@ public class Name_Frame extends JFrame {
 		gbc_player1.gridy = 1;
 		helpPanel.add(player1, gbc_player1);
 		
-		name1 = new JTextField();
+		try {
+			mask = new MaskFormatter("U**********************************");
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
+		mask.setValidCharacters("ÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÓÔÕÖ×ØÙáâãäåæçèéêëìíîïðñóôõö÷øù1234567890Ü¢Ý¸Þ¹ßºü¼ý¾þ¿");
+		
+		name1 = new JFormattedTextField(mask);
 		name1.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_name1 = new GridBagConstraints();
 		gbc_name1.insets = new Insets(0, 0, 5, 0);
 		gbc_name1.gridx = 1;
 		gbc_name1.gridy = 1;
 		helpPanel.add(name1, gbc_name1);
-		name1.setColumns(10);
 		
 		help1 = new JLabel("*");
 		help1.setForeground(Color.RED);
@@ -134,14 +143,13 @@ public class Name_Frame extends JFrame {
 		helpPanel.add(player2, gbc_player2);
 		player2.setVisible(false);
 		
-		name2 = new JTextField();
+		name2 = new JFormattedTextField(mask);
 		name2.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_name2 = new GridBagConstraints();
 		gbc_name2.insets = new Insets(0, 0, 5, 0);
 		gbc_name2.gridx = 1;
 		gbc_name2.gridy = 2;
 		helpPanel.add(name2, gbc_name2);
-		name2.setColumns(10);
 		name2.setVisible(false);
 		
 		help2 = new JLabel("*");

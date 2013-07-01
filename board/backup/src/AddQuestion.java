@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.text.ParseException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.sound.sampled.Clip;
@@ -19,11 +20,12 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import javax.swing.JFormattedTextField;
+import javax.swing.text.MaskFormatter;
 
 public class AddQuestion extends JFrame {
 	//frame to add questions for the puzzle Quiz
@@ -34,10 +36,11 @@ public class AddQuestion extends JFrame {
 	private Image background;
 	private JLabel title, makeQuestion;
 	private JRadioButton answer1, answer2, answer3, answer4;
-	private JTextField makeField, field1, field2, field3, field4;
 	private JButton piso, check;
 	private ButtonGroup group;
 	private String choose;
+	private JFormattedTextField makeField, field1, field2, field3, field4;
+	private MaskFormatter mask;
 
 	public AddQuestion(final Clip clip) {
 		group = new ButtonGroup();
@@ -82,6 +85,7 @@ public class AddQuestion extends JFrame {
 		mainPanel = new JPanel();
 		back.add(mainPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_mainPanel = new GridBagLayout();
+		gbl_mainPanel.columnWeights = new double[]{0.0, 1.0};
 		mainPanel.setLayout(gbl_mainPanel);
 		
 		//adding the area used to import the question details
@@ -89,16 +93,27 @@ public class AddQuestion extends JFrame {
 		makeQuestion.setText("\u0395\u03C1\u03CE\u03C4\u03B7\u03C3\u03B7");
 		makeQuestion.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_makeQuestion = new GridBagConstraints();
-		gbc_makeQuestion.insets = new Insets(0, 0, 0, 5);
+		gbc_makeQuestion.anchor = GridBagConstraints.EAST;
+		gbc_makeQuestion.insets = new Insets(0, 0, 5, 5);
 		gbc_makeQuestion.gridx = 0;
 		gbc_makeQuestion.gridy = 0;
 		mainPanel.add(makeQuestion, gbc_makeQuestion);
 		
-		makeField = new JTextField();
-		makeField.setColumns(20);
+		try {
+			mask = new MaskFormatter("U*****************************************************************"
+					+ "**********************************************************************************"
+					+ "********************************************************************************************");
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
+		mask.setValidCharacters("ÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÓÔÕÖ×ØÙáâãäåæçèéêëìíîïðñóôõö÷øù1234567890,.()-;Ü¢Ý¸Þ¹ßºü¼ý¾þ¿;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+		
+		makeField = new JFormattedTextField(mask);
+		makeField.setHorizontalAlignment(SwingConstants.LEFT);
 		makeField.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_makeField = new GridBagConstraints();
-		gbc_makeField.insets = new Insets(0, 0, 0, 5);
+		gbc_makeField.fill = GridBagConstraints.VERTICAL;
+		gbc_makeField.insets = new Insets(0, 0, 5, 0);
 		gbc_makeField.gridx = 1;
 		gbc_makeField.gridy = 0;
 		mainPanel.add(makeField, gbc_makeField);
@@ -106,17 +121,17 @@ public class AddQuestion extends JFrame {
 		answer1 = new JRadioButton("ÁðÜíôçóç 1:");
 		answer1.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_answer1 = new GridBagConstraints();
-		gbc_answer1.insets = new Insets(0, 0, 0, 5);
+		gbc_answer1.insets = new Insets(0, 0, 5, 5);
 		gbc_answer1.gridx = 0;
 		gbc_answer1.gridy = 1;
 		mainPanel.add(answer1, gbc_answer1);
 		group.add(answer1);
 		
-		field1 = new JTextField();
-		field1.setColumns(20);
+		field1 = new JFormattedTextField(mask);
+		field1.setHorizontalAlignment(SwingConstants.LEFT);
 		field1.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_field1 = new GridBagConstraints();
-		gbc_field1.insets = new Insets(0, 0, 0, 5);
+		gbc_field1.insets = new Insets(0, 0, 5, 0);
 		gbc_field1.gridx = 1;
 		gbc_field1.gridy = 1;
 		mainPanel.add(field1, gbc_field1);
@@ -124,17 +139,17 @@ public class AddQuestion extends JFrame {
 		answer2 = new JRadioButton("ÁðÜíôçóç 2:");
 		answer2.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_answer2 = new GridBagConstraints();
-		gbc_answer2.insets = new Insets(0, 0, 0, 5);
+		gbc_answer2.insets = new Insets(0, 0, 5, 5);
 		gbc_answer2.gridx = 0;
 		gbc_answer2.gridy = 2;
 		mainPanel.add(answer2, gbc_answer2);
 		group.add(answer2);
 		
-		field2 = new JTextField();
-		field2.setColumns(20);
+		field2 = new JFormattedTextField(mask);
+		field2.setHorizontalAlignment(SwingConstants.LEFT);
 		field2.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_field2 = new GridBagConstraints();
-		gbc_field2.insets = new Insets(0, 0, 0, 5);
+		gbc_field2.insets = new Insets(0, 0, 5, 0);
 		gbc_field2.gridx = 1;
 		gbc_field2.gridy = 2;
 		mainPanel.add(field2, gbc_field2);
@@ -142,17 +157,17 @@ public class AddQuestion extends JFrame {
 		answer3 = new JRadioButton("ÁðÜíôçóç 3:");
 		answer3.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_answer3 = new GridBagConstraints();
-		gbc_answer3.insets = new Insets(0, 0, 0, 5);
+		gbc_answer3.insets = new Insets(0, 0, 5, 5);
 		gbc_answer3.gridx = 0;
 		gbc_answer3.gridy = 3;
 		mainPanel.add(answer3, gbc_answer3);
 		group.add(answer3);
 		
-		field3 = new JTextField();
-		field3.setColumns(20);
+		field3 = new JFormattedTextField(mask);
+		field3.setHorizontalAlignment(SwingConstants.LEFT);
 		field3.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_field3 = new GridBagConstraints();
-		gbc_field3.insets = new Insets(0, 0, 0, 5);
+		gbc_field3.insets = new Insets(0, 0, 5, 0);
 		gbc_field3.gridx = 1;
 		gbc_field3.gridy = 3;
 		mainPanel.add(field3, gbc_field3);
@@ -160,17 +175,17 @@ public class AddQuestion extends JFrame {
 		answer4 = new JRadioButton("ÁðÜíôçóç 4:");
 		answer4.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_answer4 = new GridBagConstraints();
-		gbc_answer4.insets = new Insets(0, 0, 0, 5);
+		gbc_answer4.insets = new Insets(0, 0, 5, 5);
 		gbc_answer4.gridx = 0;
 		gbc_answer4.gridy = 4;
 		mainPanel.add(answer4, gbc_answer4);
 		group.add(answer4);
 		
-		field4 = new JTextField();
-		field4.setColumns(20);
+		field4 = new JFormattedTextField(mask);
+		field4.setHorizontalAlignment(SwingConstants.LEFT);
 		field4.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_field4 = new GridBagConstraints();
-		gbc_field4.insets = new Insets(0, 0, 0, 5);
+		gbc_field4.insets = new Insets(0, 0, 5, 0);
 		gbc_field4.gridx = 1;
 		gbc_field4.gridy = 4;
 		mainPanel.add(field4, gbc_field4);
@@ -223,6 +238,7 @@ public class AddQuestion extends JFrame {
 		check.setText("\u039A\u03B1\u03C4\u03B1\u03C7\u03CE\u03C1\u03B7\u03C3\u03B7");
 		check.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 		GridBagConstraints gbc_check = new GridBagConstraints();
+		gbc_check.insets = new Insets(0, 0, 0, 5);
 		gbc_check.gridx = 0;
 		gbc_check.gridy = 5;
 		mainPanel.add(check, gbc_check);
